@@ -1390,6 +1390,29 @@ pre {
   }
 }
 
+/* ---------------- Native catalogue ---------------- */
+.native-item {
+  padding: var(--st-space-5) 0;
+  border-bottom: var(--st-border-width) solid var(--st-color-border-subtle);
+}
+.native-item h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--st-space-2);
+  margin: 0 0 var(--st-space-2) !important;
+}
+.native-item__badge {
+  padding: 1px var(--st-space-2);
+  border: var(--st-border-width) solid var(--st-color-border-strong);
+  border-radius: var(--st-radius-full);
+  font-size: var(--st-font-size-xs);
+  font-weight: var(--st-font-weight-medium);
+}
+.native-item__a11y {
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-sm);
+}
+
 /* ---------------- Brand ---------------- */
 .brand-showcase {
   display: grid;

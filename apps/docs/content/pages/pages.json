@@ -1,0 +1,224 @@
+[
+  {
+    "section": "docs",
+    "slug": "introduction",
+    "title": "Introduction",
+    "description": "What Stance is: the open-source Binds design system with design tokens, light, dark and high-contrast themes, and accessible React components."
+  },
+  {
+    "section": "docs",
+    "slug": "platforms",
+    "title": "Platform strategy",
+    "description": "How Stance works across web, iOS and Android: one token source and shared meaning, with native controls, navigation and accessibility on each platform."
+  },
+  {
+    "section": "docs",
+    "slug": "installation",
+    "title": "Installation",
+    "description": "Install @bindshq/stance-tokens and @bindshq/stance-react, import the styles once, load DM Sans, and use the Tailwind v3 or v4 presets."
+  },
+  {
+    "section": "docs",
+    "slug": "quick-start",
+    "title": "Quick start",
+    "description": "Set up ThemeProvider and ThemeScript, build a form with FormField and Dialog, add a theme switcher and use Stance tokens in your own CSS."
+  },
+  {
+    "section": "docs",
+    "slug": "architecture",
+    "title": "Architecture",
+    "description": "How Stance is built: two packages, layered design tokens, a plain-CSS styling model and dependency-free accessibility primitives."
+  },
+  {
+    "section": "docs",
+    "slug": "theming",
+    "title": "Theming",
+    "description": "Configure light, dark and high-contrast themes in Stance: system detection, persistence, no-flash script, scoped themes and keeping saved preferences."
+  },
+  {
+    "section": "docs",
+    "slug": "accessibility",
+    "title": "Accessibility",
+    "description": "How Stance meets WCAG 2.2 AA: verified contrast in every theme, axe tests in three modes, WAI-ARIA keyboard patterns and focus management."
+  },
+  {
+    "section": "foundations",
+    "slug": "colors",
+    "title": "Colour",
+    "description": "The two Binds brand colours, the 15-step ink scale interpolated between them, and every semantic colour role for light, dark and high contrast."
+  },
+  {
+    "section": "foundations",
+    "slug": "typography",
+    "title": "Typography",
+    "description": "The Stance type system: DM Sans on a 1.2 scale, font sizes, weights, line heights and letter spacing, with guidance for UI and long-form text."
+  },
+  {
+    "section": "foundations",
+    "slug": "spacing",
+    "title": "Spacing",
+    "description": "The Stance spacing scale on a 4px grid, shared control heights for buttons and inputs, and rhythm guidance for related elements and sections."
+  },
+  {
+    "section": "foundations",
+    "slug": "layout",
+    "title": "Layout",
+    "description": "Stance breakpoints, container widths and layout principles for mobile-first, intrinsic layouts that reflow cleanly from 320px to wide desktops."
+  },
+  {
+    "section": "foundations",
+    "slug": "radius",
+    "title": "Radius",
+    "description": "Stance corner radius tokens from 4px to fully rounded, when to use each one for controls, surfaces and pills, and how to nest rounded corners."
+  },
+  {
+    "section": "foundations",
+    "slug": "elevation",
+    "title": "Elevation",
+    "description": "Stance shadow tokens for light and dark themes, solid outlines in high contrast, and the fixed z-index scale for overlays, menus and toasts."
+  },
+  {
+    "section": "foundations",
+    "slug": "motion",
+    "title": "Motion",
+    "description": "Stance motion tokens: durations and easing curves for hover, overlays and dialogs, with reduced-motion support and rules for purposeful animation."
+  },
+  {
+    "section": "foundations",
+    "slug": "icons",
+    "title": "Icons",
+    "description": "The original Stance icon set: a 24px grid with 1.75 stroke that inherits text colour, plus a searchable gallery and accessible usage guidance."
+  },
+  {
+    "section": "foundations",
+    "slug": "design-tokens",
+    "title": "Design tokens",
+    "description": "The Stance token pipeline: one W3C-format source that generates CSS, TypeScript, Swift and Kotlin, with validation, parity and contrast checks."
+  },
+  {
+    "section": "ios",
+    "slug": "components",
+    "title": "iOS components",
+    "description": "The StanceUI component catalogue for iOS and iPadOS: SwiftUI views, styles and modifiers with usage examples and accessibility notes."
+  },
+  {
+    "section": "android",
+    "slug": "components",
+    "title": "Android components",
+    "description": "The Stance component catalogue for Android: Jetpack Compose composables built on Material 3, with examples and accessibility notes."
+  },
+  {
+    "section": "patterns",
+    "slug": "forms",
+    "title": "Forms",
+    "description": "Form patterns for Stance: structure, labels, validation timing, error messages and the right controls on web, iOS and Android."
+  },
+  {
+    "section": "patterns",
+    "slug": "authentication",
+    "title": "Authentication",
+    "description": "Sign-in and sign-up patterns: layout, autofill-friendly fields, password visibility, secure error messages and platform sign-in."
+  },
+  {
+    "section": "patterns",
+    "slug": "dashboards",
+    "title": "Dashboards",
+    "description": "Dashboard patterns: hierarchy of figures and work lists, loading, empty and error states, and adaptive layouts across platforms."
+  },
+  {
+    "section": "patterns",
+    "slug": "data-tables",
+    "title": "Data tables",
+    "description": "Choosing between Table, DataTable and DataGrid, table design rules, bulk and row actions, and how tables become lists on phones."
+  },
+  {
+    "section": "patterns",
+    "slug": "navigation",
+    "title": "Navigation",
+    "description": "Navigation patterns for product areas, sections and depth, and how navigation adapts from phones to desktops on each platform."
+  },
+  {
+    "section": "patterns",
+    "slug": "search",
+    "title": "Search and filtering",
+    "description": "Search and filter patterns: placement, live results, announcing counts, filter chips, sheets on phones and shareable filter state."
+  },
+  {
+    "section": "patterns",
+    "slug": "notifications",
+    "title": "Notifications and feedback",
+    "description": "When to use a toast, snackbar, inline alert, banner, dialog or notification list, and the rules that keep feedback accessible."
+  },
+  {
+    "section": "patterns",
+    "slug": "documents",
+    "title": "Documents and signatures",
+    "description": "Patterns for previewing documents, uploading files and capturing signatures accessibly on web, iOS and Android."
+  },
+  {
+    "section": "guidelines",
+    "slug": "principles",
+    "title": "Design principles",
+    "description": "The six principles behind Stance: brand-true colour, accessibility by default, precision, editorial restraint, owning the stack and shared foundations."
+  },
+  {
+    "section": "guidelines",
+    "slug": "composition",
+    "title": "Composition",
+    "description": "How to compose Stance components: compound parts, the asChild prop for router links, controlled and uncontrolled state, and extending styles safely."
+  },
+  {
+    "section": "guidelines",
+    "slug": "responsive",
+    "title": "Responsive design",
+    "description": "Responsive guidance for Stance: mobile-first layouts, how components adapt on small screens, touch target sizes, and reflow at 400% zoom."
+  },
+  {
+    "section": "guidelines",
+    "slug": "interaction",
+    "title": "Interaction patterns",
+    "description": "Interaction patterns in Stance: interactive states, choosing between dialogs, popovers, menus and drawers, feedback timing and destructive actions."
+  },
+  {
+    "section": "guidelines",
+    "slug": "content",
+    "title": "Content guidelines",
+    "description": "Writing for Binds products with Stance: voice and tone, sentence case, verb-first buttons, helpful errors, empty states, numbers and dates."
+  },
+  {
+    "section": "guidelines",
+    "slug": "accessibility-standards",
+    "title": "Accessibility standards",
+    "description": "A practical WCAG 2.2 AA checklist for product screens built with Stance, organised as perceivable, operable, understandable and robust."
+  },
+  {
+    "section": "resources",
+    "slug": "releases",
+    "title": "Releases",
+    "description": "Stance release history and package versions, how @bindshq/stance-tokens and @bindshq/stance-react are versioned, and the product adoption policy."
+  },
+  {
+    "section": "resources",
+    "slug": "changelog",
+    "title": "Changelog",
+    "description": "Every notable change to Stance by release, starting with 0.1.1: tokens, themes, components, accessibility primitives and the documentation site."
+  },
+  {
+    "section": "resources",
+    "slug": "contributing",
+    "title": "Contributing",
+    "description": "How to contribute to Stance: development setup, adding a component with tests and docs, the checks every pull request passes, and changesets."
+  },
+  {
+    "section": "resources",
+    "slug": "brand",
+    "title": "Brand",
+    "description": "The official Stance logo, mark and app icons in SVG and PNG, with colour rules, clear space, minimum sizes and downloads for every variant."
+  },
+  {
+    "section": "resources",
+    "slug": "license",
+    "title": "License",
+    "description": "Stance is open source under the MIT License. Read the full licence text and the note on Binds and Stance trademarks and logos."
+  }
+]

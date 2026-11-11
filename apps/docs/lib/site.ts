@@ -25,6 +25,7 @@ export const guideNav: NavSection[] = [
     title: 'Getting started',
     items: [
       { title: 'Introduction', href: '/docs/introduction' },
+      { title: 'Platform strategy', href: '/docs/platforms' },
       { title: 'Installation', href: '/docs/installation' },
       { title: 'Quick start', href: '/docs/quick-start' },
       { title: 'Architecture', href: '/docs/architecture' },
@@ -43,6 +44,20 @@ export const guideNav: NavSection[] = [
       { title: 'Elevation', href: '/foundations/elevation' },
       { title: 'Motion', href: '/foundations/motion' },
       { title: 'Icons', href: '/foundations/icons' },
+      { title: 'Design tokens', href: '/foundations/design-tokens' },
+    ],
+  },
+  {
+    title: 'Patterns',
+    items: [
+      { title: 'Forms', href: '/patterns/forms' },
+      { title: 'Authentication', href: '/patterns/authentication' },
+      { title: 'Dashboards', href: '/patterns/dashboards' },
+      { title: 'Data tables', href: '/patterns/data-tables' },
+      { title: 'Navigation', href: '/patterns/navigation' },
+      { title: 'Search and filtering', href: '/patterns/search' },
+      { title: 'Notifications and feedback', href: '/patterns/notifications' },
+      { title: 'Documents and signatures', href: '/patterns/documents' },
     ],
   },
   {

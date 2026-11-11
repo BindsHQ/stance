@@ -7,7 +7,16 @@ export interface SiteRoute {
   path: string;
   title: string;
   description: string;
-  section: 'home' | 'components' | 'docs' | 'foundations' | 'guidelines' | 'resources';
+  section:
+    | 'home'
+    | 'components'
+    | 'docs'
+    | 'foundations'
+    | 'ios'
+    | 'android'
+    | 'patterns'
+    | 'guidelines'
+    | 'resources';
   /** Breadcrumb trail (excluding home). */
   trail: { name: string; path: string }[];
   priority: number;
@@ -18,12 +27,18 @@ export const components = meta as ComponentMeta[];
 const sectionTitle: Record<string, string> = {
   docs: 'Getting started',
   foundations: 'Foundations',
+  ios: 'iOS and iPadOS',
+  android: 'Android',
+  patterns: 'Patterns',
   guidelines: 'Guidelines',
   resources: 'Resources',
 };
 const sectionLanding: Record<string, string> = {
   docs: '/docs/introduction',
   foundations: '/foundations/colors',
+  ios: '/ios/installation',
+  android: '/android/installation',
+  patterns: '/patterns/forms',
   guidelines: '/guidelines/principles',
   resources: '/resources/releases',
 };

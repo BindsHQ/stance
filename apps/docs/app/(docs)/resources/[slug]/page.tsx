@@ -8,6 +8,9 @@ import type { GuidePage } from '../../../../lib/pages-types';
 const eyebrows: Record<GuidePage['section'], string> = {
   docs: 'Getting started',
   foundations: 'Foundations',
+  ios: 'iOS and iPadOS',
+  android: 'Android',
+  patterns: 'Patterns',
   guidelines: 'Guidelines',
   resources: 'Resources',
 };

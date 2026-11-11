@@ -7,6 +7,7 @@ import type { ComponentDoc, PropDoc } from '../lib/docs-types';
 import type { ComponentModule } from '../lib/registry-types';
 import { categoryLabels, site } from '../lib/site';
 import { Code } from './code';
+import { PlatformAvailability } from './platform-availability';
 import { Playground } from './playground';
 import { Preview, ThemeTriptych } from './preview';
 
@@ -87,6 +88,12 @@ export function ComponentDocPage({ slug }: { slug: string }) {
         </h2>
         <Code code={`import { ${doc.imports.join(', ')} } from '@bindshq/stance-react';`} />
       </section>
+
+      <PlatformAvailability
+        slug={slug}
+        name={doc.name}
+        importLine={`import { ${doc.imports.join(', ')} } from '@bindshq/stance-react';`}
+      />
 
       {doc.playground && (
         <section aria-labelledby="playground">
