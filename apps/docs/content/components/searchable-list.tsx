@@ -237,7 +237,7 @@ export function Fuzzy() {
     'Sales team signature',
     'Legal disclaimer footer',
     'Holiday out-of-office',
-    'Event banner — Q4 summit',
+    'Event banner, Q4 summit',
     'Recruiting signature',
   ];
   return (

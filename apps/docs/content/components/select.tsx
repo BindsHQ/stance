@@ -16,7 +16,7 @@ export const doc: ComponentDoc = {
   summary:
     'Choose one value from a list, with typeahead, groups, disabled options and form submission.',
   description:
-    'Use Select when the user picks exactly one value from a known list of roughly 5–30 options. For long or searchable lists use Combobox; for several values use MultiSelect; for 2–4 visible choices consider RadioGroup. Select is a select-only combobox (WAI-ARIA APG): focus stays on the trigger and the active option is announced through aria-activedescendant. It integrates with FormField and submits through a hidden input.',
+    'Use Select when the user picks exactly one value from a known list of roughly 5 to 30 options. For long or searchable lists use Combobox; for several values use MultiSelect; for 2 to 4 visible choices consider RadioGroup. Select is a select-only combobox (WAI-ARIA APG): focus stays on the trigger and the active option is announced through aria-activedescendant. It integrates with FormField and submits through a hidden input.',
   imports: ['Select', 'type SelectOptions'],
   status: 'stable',
   examples: [
@@ -135,7 +135,7 @@ export const doc: ComponentDoc = {
     { keys: ['Home', 'End'], description: 'Open at, or move to, the first or last option.' },
     { keys: ['ArrowDown', 'ArrowUp'], description: 'Move the active option.' },
     { keys: ['PageDown', 'PageUp'], description: 'Move by ten options.' },
-    { keys: ['A–Z'], description: 'Typeahead by label, whether open or closed.' },
+    { keys: ['A to Z'], description: 'Typeahead by label, whether open or closed.' },
     { keys: ['Enter', 'Space'], description: 'Select the active option and close.' },
     { keys: ['Tab'], description: 'Select the active option and move on.' },
     { keys: ['Escape'], description: 'Close without changing the value.' },

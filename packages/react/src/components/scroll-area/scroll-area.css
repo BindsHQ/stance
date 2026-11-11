@@ -39,7 +39,7 @@
   outline-offset: var(--st-focus-offset);
 }
 
-/* Edge fades — masks fade content (alpha only), never the scrollbar colour. */
+/* Edge fades: masks fade content (alpha only), never the scrollbar colour. */
 .st-scroll-area[data-fade][data-scrollable][data-orientation='vertical']:not([data-at-start]):not(
     [data-at-end]
   ) {

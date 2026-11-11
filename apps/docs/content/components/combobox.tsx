@@ -18,7 +18,7 @@ export const doc: ComponentDoc = {
   summary:
     'An editable input with a filtered list of suggestions, supporting async search and custom values.',
   description:
-    'Use Combobox when the list is long enough that people need to type to find an option — assigning a template to one of hundreds of organisation users, for example. It filters as you type, can search a server (filter={false} with a controlled input), and can accept free text with allowCustomValue. For short fixed lists use Select.',
+    'Use Combobox when the list is long enough that people need to type to find an option, such as assigning a template to one of hundreds of organisation users. It filters as you type, can search a server (filter={false} with a controlled input), and can accept free text with allowCustomValue. For short fixed lists use Select.',
   imports: ['Combobox', 'type SelectOptions'],
   status: 'stable',
   examples: [
@@ -70,7 +70,7 @@ export const doc: ComponentDoc = {
       component: 'Combobox',
       name: 'onInputChange',
       type: '(text: string) => void',
-      description: 'Called as the user types — trigger async searches here.',
+      description: 'Called as the user types. Trigger async searches here.',
     },
     {
       component: 'Combobox',

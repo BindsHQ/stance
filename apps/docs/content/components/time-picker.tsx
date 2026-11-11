@@ -101,7 +101,7 @@ export const doc: ComponentDoc = {
   ],
   keyboard: [
     { keys: ['↑', '↓'], description: 'Increment / decrement the segment (wraps).' },
-    { keys: ['0–9'], description: 'Type a value; focus advances when the segment is complete.' },
+    { keys: ['0 to 9'], description: 'Type a value; focus advances when the segment is complete.' },
     { keys: ['←', '→'], description: 'Move between segments.' },
     { keys: ['Home', 'End'], description: 'Minimum / maximum value.' },
     { keys: ['Backspace'], description: 'Clear the segment.' },
@@ -129,7 +129,7 @@ export function TwelveHour() {
       <FormField label="Meeting starts">
         <TimePicker hourCycle={12} value={time} onValueChange={setTime} />
       </FormField>
-      <p style={{ margin: 0, fontSize: 13 }}>Stored value: {time ?? '—'}</p>
+      <p style={{ margin: 0, fontSize: 13 }}>Stored value: {time ?? 'None'}</p>
     </div>
   );
 }

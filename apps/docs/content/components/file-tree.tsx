@@ -86,7 +86,7 @@ export const doc: ComponentDoc = {
     { keys: ['↑', '↓'], description: 'Move between visible items.' },
     { keys: ['→', '←'], description: 'Open / close folders and move between parent and child.' },
     { keys: ['Enter'], description: 'Open the file (onAction).' },
-    { keys: ['a–z'], description: 'Jump to an item by name.' },
+    { keys: ['a to z'], description: 'Jump to an item by name.' },
   ],
   guidelines: {
     do: ['Sort folders before files.', 'Show full file names, including extensions.'],

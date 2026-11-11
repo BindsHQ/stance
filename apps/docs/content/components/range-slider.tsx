@@ -135,7 +135,7 @@ export function Controlled() {
         thumbLabels={['Newer than (days)', 'Older than (days)']}
       />
       <span style={{ fontSize: 14 }}>
-        Showing documents sent {range[0]}–{range[1]} days ago
+        Showing documents sent {range[0]} to {range[1]} days ago
       </span>
     </div>
   );

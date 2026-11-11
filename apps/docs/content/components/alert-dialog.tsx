@@ -133,7 +133,7 @@ export function Destructive() {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete “Sales — EMEA”?</AlertDialogTitle>
+          <AlertDialogTitle>Delete “Sales, EMEA”?</AlertDialogTitle>
           <AlertDialogDescription>
             32 people use this signature. They will fall back to your organisation default.
           </AlertDialogDescription>

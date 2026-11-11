@@ -1,6 +1,6 @@
 /**
  * A deliberately tiny, safe tokenizer for docs-grade highlighting.
- * Produces plain token objects that are rendered as text nodes — never HTML.
+ * Produces plain token objects that are rendered as text nodes, never HTML.
  */
 export type TokenType =
   'comment' | 'string' | 'keyword' | 'number' | 'tag' | 'attr' | 'punct' | 'fn' | 'prop' | 'plain';

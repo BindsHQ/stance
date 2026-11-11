@@ -2,31 +2,31 @@ const assets: { group: string; items: { file: string; label: string; size?: stri
   {
     group: 'Logo (SVG, recommended)',
     items: [
-      { file: 'stance-logo-indigo.svg', label: 'Full logo — indigo, for light backgrounds' },
-      { file: 'stance-logo-ivory.svg', label: 'Full logo — ivory, for dark backgrounds' },
-      { file: 'stance-logo.svg', label: 'Full logo — currentColor' },
+      { file: 'stance-logo-indigo.svg', label: 'Full logo, indigo, for light backgrounds' },
+      { file: 'stance-logo-ivory.svg', label: 'Full logo, ivory, for dark backgrounds' },
+      { file: 'stance-logo.svg', label: 'Full logo, currentColor' },
     ],
   },
   {
     group: 'Mark (SVG, recommended)',
     items: [
-      { file: 'stance-mark-indigo.svg', label: 'Mark — indigo' },
-      { file: 'stance-mark-ivory.svg', label: 'Mark — ivory' },
-      { file: 'stance-mark.svg', label: 'Mark — currentColor' },
-      { file: 'stance-app-icon.svg', label: 'App icon — ivory mark on indigo' },
+      { file: 'stance-mark-indigo.svg', label: 'Mark, indigo' },
+      { file: 'stance-mark-ivory.svg', label: 'Mark, ivory' },
+      { file: 'stance-mark.svg', label: 'Mark, currentColor' },
+      { file: 'stance-app-icon.svg', label: 'App icon, ivory mark on indigo' },
     ],
   },
   {
     group: 'PNG',
     items: [
-      { file: 'stance-logo-indigo.png', label: 'Full logo — indigo', size: '1682×376' },
-      { file: 'stance-logo-indigo@2x.png', label: 'Full logo — indigo', size: '3364×752' },
-      { file: 'stance-logo-ivory.png', label: 'Full logo — ivory', size: '1682×376' },
-      { file: 'stance-logo-ivory@2x.png', label: 'Full logo — ivory', size: '3364×752' },
-      { file: 'stance-mark-indigo.png', label: 'Mark — indigo', size: '382×376' },
-      { file: 'stance-mark-indigo@2x.png', label: 'Mark — indigo', size: '764×752' },
-      { file: 'stance-mark-ivory.png', label: 'Mark — ivory', size: '382×376' },
-      { file: 'stance-mark-ivory@2x.png', label: 'Mark — ivory', size: '764×752' },
+      { file: 'stance-logo-indigo.png', label: 'Full logo, indigo', size: '1682×376' },
+      { file: 'stance-logo-indigo@2x.png', label: 'Full logo, indigo', size: '3364×752' },
+      { file: 'stance-logo-ivory.png', label: 'Full logo, ivory', size: '1682×376' },
+      { file: 'stance-logo-ivory@2x.png', label: 'Full logo, ivory', size: '3364×752' },
+      { file: 'stance-mark-indigo.png', label: 'Mark, indigo', size: '382×376' },
+      { file: 'stance-mark-indigo@2x.png', label: 'Mark, indigo', size: '764×752' },
+      { file: 'stance-mark-ivory.png', label: 'Mark, ivory', size: '382×376' },
+      { file: 'stance-mark-ivory@2x.png', label: 'Mark, ivory', size: '764×752' },
     ],
   },
 ];
@@ -88,7 +88,7 @@ export default function Brand() {
         </li>
         <li>
           <strong>Minimum size:</strong> full logo 80px wide; mark 16px (favicon artwork is tuned
-          for 16–48px).
+          for 16 to 48px).
         </li>
         <li>
           <strong>On the web:</strong> use the <code>currentColor</code> SVGs inline so the logo

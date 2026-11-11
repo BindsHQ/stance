@@ -6,7 +6,7 @@ export interface GridProps extends React.HTMLAttributes<HTMLElement> {
   as?: IntrinsicTag;
   /**
    * Fixed number of equal columns. On narrow screens (< 640px) grids with more
-   * than two columns collapse to one, and from 640–1023px to two.
+   * than two columns collapse to one, and from 640 to 1023px to two.
    */
   columns?: 1 | 2 | 3 | 4 | 5 | 6 | 12;
   /** Fluid alternative to `columns`: as many columns as fit, each at least this wide (CSS length). */

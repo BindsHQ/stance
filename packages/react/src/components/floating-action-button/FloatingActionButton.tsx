@@ -13,7 +13,7 @@ export interface FloatingActionButtonProps extends React.ButtonHTMLAttributes<HT
   size?: 'md' | 'lg';
 }
 
-/** The single most important action on a screen, floating above content. Use sparingly — at most one per view. */
+/** The single most important action on a screen, floating above content. Use sparingly, at most one per view. */
 export const FloatingActionButton = React.forwardRef<HTMLButtonElement, FloatingActionButtonProps>(
   function FloatingActionButton(
     {

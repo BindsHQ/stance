@@ -67,7 +67,7 @@ export interface HoverCardTriggerProps extends React.AnchorHTMLAttributes<HTMLAn
   asChild?: boolean;
 }
 
-/** The element that reveals the card — normally a link. */
+/** The element that reveals the card, normally a link. */
 export const HoverCardTrigger = React.forwardRef<HTMLAnchorElement, HoverCardTriggerProps>(
   function HoverCardTrigger(
     { asChild, onPointerEnter, onPointerLeave, onFocus, onBlur, ...props },

@@ -14,7 +14,7 @@ const defaultSize: Record<HeadingLevel, HeadingSize> = {
 };
 
 export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
-  /** Semantic level (h1–h6). Default 2. */
+  /** Semantic level (h1 to h6). Default 2. */
   level?: HeadingLevel;
   /** Visual size, independent of level so hierarchy and appearance can differ. */
   size?: HeadingSize;

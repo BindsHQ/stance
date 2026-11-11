@@ -10,7 +10,7 @@
     "slug": "action-menu",
     "name": "ActionMenu",
     "category": "actions",
-    "summary": "A compact “more actions” menu built from an array — ideal for table rows and cards.",
+    "summary": "A compact “more actions” menu built from an array, ideal for table rows and cards.",
     "status": "stable"
   },
   {
@@ -248,7 +248,7 @@
     "slug": "description-list",
     "name": "DescriptionList",
     "category": "data-display",
-    "summary": "Key–value pairs such as account details or contract metadata, using native <dl>.",
+    "summary": "Key to value pairs such as account details or contract metadata, using native <dl>.",
     "status": "stable"
   },
   {

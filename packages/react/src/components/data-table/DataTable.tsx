@@ -356,7 +356,7 @@ function DataTableInner<T>(
             {footer}
             {pageSize && sorted.length > 0 && (
               <p className="st-data-table__range">
-                {fmt.format(firstRow)}–{fmt.format(lastRow)} of {fmt.format(sorted.length)}
+                {fmt.format(firstRow)} to {fmt.format(lastRow)} of {fmt.format(sorted.length)}
               </p>
             )}
           </div>

@@ -24,7 +24,7 @@ const walk = (dir) =>
 const base = readFileSync(join(src, 'styles', 'base.css'), 'utf8');
 const components = walk(join(src, 'components')).sort();
 const banner =
-  '/* @bindshq/stance-react — component styles. Requires @bindshq/stance-tokens/css. */\n';
+  '/* @bindshq/stance-react, component styles. Requires @bindshq/stance-tokens/css. */\n';
 const parts = [banner, base];
 for (const file of components) {
   const css = readFileSync(file, 'utf8');

@@ -12,7 +12,7 @@ export function GET() {
   const data = docsData as unknown as Record<string, ComponentDoc>;
   const docs = components.map((c) => componentMarkdown(data[c.slug]!));
   const body = [
-    `# Stance v${site.version} — complete component reference`,
+    `# Stance v${site.version}: complete component reference`,
     '',
     `Source: ${site.url} · Licence: MIT · Packages: @bindshq/stance-tokens, @bindshq/stance-react`,
     '',

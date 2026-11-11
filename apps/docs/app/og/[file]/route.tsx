@@ -46,7 +46,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ file: s
   const clean = (t: string) =>
     t
       .replace(/⌘/g, 'Cmd ')
-      .replace(/[^\x20-\x7E\u00A0-\u017F\u2013\u2014\u2018\u2019\u201C\u201D\u2026\u00B7]/g, '');
+      .replace(/[^\x20-\x7E\u00A0-\u017F\u2018\u2019\u201C\u201D\u2026\u00B7]/g, '');
   const [regular, semibold] = await Promise.all([
     font('dm-sans-latin-400-normal.woff'),
     font('dm-sans-latin-600-normal.woff'),

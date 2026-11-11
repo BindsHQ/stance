@@ -18,7 +18,7 @@ import {
 export type DrawerProps = DialogProps;
 export type DrawerSide = 'left' | 'right' | 'top' | 'bottom';
 
-/** A modal panel that slides in from an edge — for detail views, filters and secondary tasks. */
+/** A modal panel that slides in from an edge, for detail views, filters and secondary tasks. */
 export function Drawer(props: DrawerProps) {
   return <Dialog {...props} />;
 }

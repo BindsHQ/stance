@@ -14,20 +14,20 @@ export default function Accessibility() {
       <h2 id="what-is-verified">What is verified automatically</h2>
       <ul>
         <li>
-          <strong>Colour contrast</strong> — 36 foreground/background pairs in each of the{' '}
+          <strong>Colour contrast</strong>: 36 foreground/background pairs in each of the{' '}
           {themeCount} themes are tested. Body text needs 4.5:1 and UI boundaries 3:1 (1.4.3,
           1.4.11). High contrast must reach 7:1 for text and 4.5:1 for boundaries.
         </li>
         <li>
-          <strong>axe-core</strong> — every interactive component is rendered in light, dark and
-          high contrast and checked for violations.
+          <strong>axe-core</strong>: every interactive component is rendered in light, dark and high
+          contrast and checked for violations.
         </li>
         <li>
-          <strong>Keyboard models</strong> — tests drive components with the keyboard following
+          <strong>Keyboard models</strong>: tests drive components with the keyboard following
           WAI-ARIA Authoring Practices: menus, tabs, listboxes, trees, grids, sliders and dialogs.
         </li>
         <li>
-          <strong>Focus management</strong> — overlays are tested for focus trapping, Escape
+          <strong>Focus management</strong>: overlays are tested for focus trapping, Escape
           dismissal and focus restoration.
         </li>
       </ul>

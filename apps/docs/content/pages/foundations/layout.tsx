@@ -51,7 +51,7 @@ export default function Layout() {
           .filter(([k]) => k.startsWith('container'))
           .map(([k, v]) => (
             <li key={k}>
-              <code>--st-size-{k}</code> — {v} ({parseFloat(v) * 16}px)
+              <code>--st-size-{k}</code>: {v} ({parseFloat(v) * 16}px)
             </li>
           ))}
       </ul>

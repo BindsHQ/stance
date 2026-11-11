@@ -17,7 +17,7 @@ export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
   disabled?: boolean;
 }
 
-/** A keyword label, optionally removable — for assigned groups, departments or labels. */
+/** A keyword label, optionally removable, for assigned groups, departments or labels. */
 export const Tag = React.forwardRef<HTMLSpanElement, TagProps>(function Tag(
   { size = 'md', icon, onRemove, removeLabel, disabled, className, children, ...props },
   ref,

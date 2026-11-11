@@ -73,7 +73,7 @@ export default function AuthenticationPattern() {
             </tr>
             <tr>
               <th scope="row">Platform sign-in</th>
-              <td>—</td>
+              <td>None</td>
               <td>Passkeys and Sign in with Apple use system UI</td>
               <td>Credential Manager uses system UI</td>
             </tr>

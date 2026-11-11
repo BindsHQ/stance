@@ -178,7 +178,7 @@ export const ChartContainer = React.forwardRef<HTMLElement, ChartContainerProps>
                     const v = row[s.key];
                     return (
                       <TableCell key={s.key} numeric>
-                        {typeof v === 'number' ? formatValue(v, s) : (v ?? '—')}
+                        {typeof v === 'number' ? formatValue(v, s) : (v ?? 'None')}
                       </TableCell>
                     );
                   })}

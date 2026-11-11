@@ -37,19 +37,19 @@ export default function Architecture() {
       <h2 id="tokens">Token layers</h2>
       <ol>
         <li>
-          <strong>Brand</strong> — the two official colours, ivory and indigo.
+          <strong>Brand</strong>: the two official colours, ivory and indigo.
         </li>
         <li>
-          <strong>Primitives</strong> — the ink scale (an OKLab interpolation between ivory and
+          <strong>Primitives</strong>: the ink scale (an OKLab interpolation between ivory and
           indigo), functional status colours and the type, space, radius and motion scales.
         </li>
         <li>
-          <strong>Semantic roles</strong> — what components consume: <code>bg-canvas</code>,{' '}
+          <strong>Semantic roles</strong>: what components consume: <code>bg-canvas</code>,{' '}
           <code>fg-muted</code>, <code>border-control</code>, <code>accent-bg</code>,{' '}
           <code>danger-fg</code>… Each theme maps every role.
         </li>
         <li>
-          <strong>Component variables</strong> — private <code>--_*</code> variables inside each
+          <strong>Component variables</strong>: private <code>--_*</code> variables inside each
           component, derived from semantic roles.
         </li>
       </ol>
@@ -64,22 +64,22 @@ export default function Architecture() {
       <p>Stance implements its own interaction layer instead of depending on headless libraries:</p>
       <ul>
         <li>
-          <strong>Focus scope</strong> — trap, auto-focus and restore for dialogs and popovers.
+          <strong>Focus scope</strong>: trap, auto-focus and restore for dialogs and popovers.
         </li>
         <li>
-          <strong>Dismissable layer stack</strong> — Escape and outside-click handling that respects
+          <strong>Dismissable layer stack</strong>: Escape and outside-click handling that respects
           nested, portalled layers.
         </li>
         <li>
-          <strong>Anchored positioning</strong> — collision-aware placement with flip and shift,
+          <strong>Anchored positioning</strong>: collision-aware placement with flip and shift,
           updated on scroll and resize.
         </li>
         <li>
-          <strong>Roving focus and typeahead</strong> — the WAI-ARIA patterns for toolbars, tabs,
+          <strong>Roving focus and typeahead</strong>: the WAI-ARIA patterns for toolbars, tabs,
           menus, listboxes, trees and grids.
         </li>
         <li>
-          <strong>Portal</strong> — SSR-safe, and carries scoped themes into portalled content.
+          <strong>Portal</strong>: SSR-safe, and carries scoped themes into portalled content.
         </li>
       </ul>
       <h2 id="source-layout">Source layout</h2>

@@ -106,11 +106,9 @@ export const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePick
 
     const display =
       value.start && value.end
-        ? fmt.formatRange
-          ? fmt.formatRange(value.start, value.end)
-          : `${fmt.format(value.start)} – ${fmt.format(value.end)}`
+        ? `${fmt.format(value.start)} to ${fmt.format(value.end)}`
         : value.start
-          ? `${fmt.format(value.start)} –`
+          ? `${fmt.format(value.start)} to`
           : null;
 
     const commit = (range: DateRange) => {

@@ -75,7 +75,7 @@ export const doc: ComponentDoc = {
     {
       component: 'SplitButton',
       name: 'disabled / loading / leadingIcon',
-      type: '—',
+      type: 'None',
       description: 'As Button, applied to the primary half (disabled applies to both).',
     },
   ],

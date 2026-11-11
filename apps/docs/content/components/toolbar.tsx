@@ -82,8 +82,8 @@ export const doc: ComponentDoc = {
     },
     {
       component: 'ToolbarSpacer',
-      name: '—',
-      type: '—',
+      name: 'None',
+      type: 'None',
       description: 'Pushes following controls to the far end.',
     },
   ],

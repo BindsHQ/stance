@@ -261,7 +261,7 @@ export const doc: ComponentDoc = {
     { keys: ['ArrowUp'], description: 'On the trigger: open and focus the last item.' },
     { keys: ['ArrowDown', 'ArrowUp'], description: 'Move between items (wraps).' },
     { keys: ['Home', 'End'], description: 'First or last item.' },
-    { keys: ['A–Z'], description: 'Typeahead to the next item starting with the typed text.' },
+    { keys: ['A to Z'], description: 'Typeahead to the next item starting with the typed text.' },
     { keys: ['Enter', 'Space'], description: 'Activate the focused item.' },
     { keys: ['ArrowRight'], description: 'Open a submenu.' },
     { keys: ['ArrowLeft'], description: 'Close a submenu and return to its trigger.' },

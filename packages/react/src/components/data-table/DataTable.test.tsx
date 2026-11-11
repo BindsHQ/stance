@@ -176,7 +176,7 @@ describe('DataTable', () => {
       />,
     );
     expect(names()).toEqual(['Priya Nair', 'Amara Okafor']);
-    expect(screen.getByText('1–2 of 5')).toBeInTheDocument();
+    expect(screen.getByText('1 to 2 of 5')).toBeInTheDocument();
     const user = userEvent.setup();
     await user.click(screen.getByRole('button', { name: 'Next page' }));
     expect(onPageChange).toHaveBeenLastCalledWith(2);

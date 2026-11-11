@@ -64,7 +64,7 @@ export const doc: ComponentDoc = {
     {
       component: 'DatePicker',
       name: 'weekStartsOn',
-      type: '0–6',
+      type: '0 to 6',
       default: '1',
       description: 'First day of the week in the calendar.',
     },

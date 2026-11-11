@@ -134,7 +134,7 @@ export function Sizes() {
     <Stack gap={2}>
       {(['xl', 'lg', 'md', 'sm', 'xs', '2xs'] as const).map((s) => (
         <Text key={s} size={s}>
-          {s} — Consistent foundations
+          {s}: Consistent foundations
         </Text>
       ))}
     </Stack>
@@ -145,7 +145,7 @@ export function Truncation() {
   return (
     <Stack gap={3} style={{ maxWidth: 280 }}>
       <Text size="sm" truncate>
-        Master services agreement — Acme Holdings International Ltd (revised)
+        Master services agreement, Acme Holdings International Ltd (revised)
       </Text>
       <Text size="sm" truncate={2} tone="muted">
         This agreement governs the provision of design, engineering and support services between the

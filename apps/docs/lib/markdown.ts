@@ -45,7 +45,7 @@ export function componentMarkdown(doc: ComponentDoc): string {
     );
     for (const p of doc.props)
       out.push(
-        `| ${p.component} | \`${cell(p.name)}\`${p.required ? ' (required)' : ''} | \`${cell(p.type)}\` | ${p.default ? `\`${cell(p.default)}\`` : '—'} | ${cell(p.description)} |`,
+        `| ${p.component} | \`${cell(p.name)}\`${p.required ? ' (required)' : ''} | \`${cell(p.type)}\` | ${p.default ? `\`${cell(p.default)}\`` : 'None'} | ${cell(p.description)} |`,
       );
     out.push('');
   }

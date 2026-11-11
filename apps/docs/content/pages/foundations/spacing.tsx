@@ -48,17 +48,17 @@ export default function Spacing() {
       <h2 id="rhythm">Rhythm</h2>
       <ul>
         <li>
-          <strong>4–8px</strong> between related elements, such as an icon and its label or a label
-          and its input.
+          <strong>4 to 8px</strong> between related elements, such as an icon and its label or a
+          label and its input.
         </li>
         <li>
-          <strong>12–16px</strong> between fields in a form and items in a list.
+          <strong>12 to 16px</strong> between fields in a form and items in a list.
         </li>
         <li>
-          <strong>24–32px</strong> between groups and card padding on desktop.
+          <strong>24 to 32px</strong> between groups and card padding on desktop.
         </li>
         <li>
-          <strong>48–96px</strong> between page sections.
+          <strong>48 to 96px</strong> between page sections.
         </li>
       </ul>
     </>

@@ -130,7 +130,7 @@ export const doc: ComponentDoc = {
     { keys: ['Enter'], description: 'Selects and activates the item.' },
     { keys: ['Space'], description: 'Selects (toggles in multiple mode).' },
     { keys: ['*'], description: 'Expands all siblings of the focused item.' },
-    { keys: ['a–z'], description: 'Moves to the next item starting with the typed characters.' },
+    { keys: ['a to z'], description: 'Moves to the next item starting with the typed characters.' },
     { keys: ['Ctrl/⌘ + A'], description: 'Selects all (multiple mode).' },
   ],
   guidelines: {

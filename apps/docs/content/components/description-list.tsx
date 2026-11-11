@@ -5,7 +5,7 @@ export const doc: ComponentDoc = {
   slug: 'description-list',
   name: 'DescriptionList',
   category: 'data-display',
-  summary: 'Key–value pairs such as account details or contract metadata, using native <dl>.',
+  summary: 'Key to value pairs such as account details or contract metadata, using native <dl>.',
   description:
     'Use DescriptionList to show attributes of one thing: an organisation’s settings, a contract’s parties and dates, an integration’s configuration. Choose horizontal for detail pages, vertical for narrow panels and grid for summary headers. Every layout stacks on phones.',
   imports: ['DescriptionList', 'DescriptionListItem'],
@@ -63,7 +63,10 @@ export const doc: ComponentDoc = {
     'Long values wrap instead of overflowing.',
   ],
   guidelines: {
-    do: ['Use consistent, short terms.', 'Show "—" for empty values rather than omitting the row.'],
+    do: [
+      'Use consistent, short terms.',
+      'Show "None" for empty values rather than omitting the row.',
+    ],
     dont: ['Use for comparisons across many items; use Table.'],
   },
   playground: {

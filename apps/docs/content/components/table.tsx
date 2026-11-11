@@ -407,7 +407,7 @@ export function Density() {
             <TableRow selected>
               <TableCell>NDA-2026-102</TableCell>
               <TableCell>Contoso GmbH</TableCell>
-              <TableCell numeric>—</TableCell>
+              <TableCell numeric>None</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>SOW-2026-031</TableCell>

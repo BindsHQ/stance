@@ -169,7 +169,11 @@ export function ComponentDocPage({ slug }: { slug: string }) {
                         <code className="props-table__type">{p.type}</code>
                       </td>
                       <td>
-                        {p.default ? <code>{p.default}</code> : <span aria-label="none">—</span>}
+                        {p.default ? (
+                          <code>{p.default}</code>
+                        ) : (
+                          <span className="docs-muted">None</span>
+                        )}
                       </td>
                       <td>{p.description}</td>
                     </tr>

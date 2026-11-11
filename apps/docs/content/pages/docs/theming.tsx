@@ -9,15 +9,15 @@ export default function Theming() {
       </p>
       <ul>
         <li>
-          <strong>Light</strong> — ivory canvas, indigo text, warm derived neutrals.
+          <strong>Light</strong>: ivory canvas, indigo text, warm derived neutrals.
         </li>
         <li>
-          <strong>Dark</strong> — indigo canvas, ivory text, surfaces that lighten with elevation.
+          <strong>Dark</strong>: indigo canvas, ivory text, surfaces that lighten with elevation.
         </li>
         <li>
-          <strong>High contrast</strong> — every boundary at full indigo strength, body and
-          secondary text at 12:1 or more, 3px focus rings and 2px control borders. Chosen
-          automatically when the OS requests more contrast.
+          <strong>High contrast</strong>: every boundary at full indigo strength, body and secondary
+          text at 12:1 or more, 3px focus rings and 2px control borders. Chosen automatically when
+          the OS requests more contrast.
         </li>
       </ul>
       <h2 id="how-it-works">How it works</h2>
@@ -98,7 +98,7 @@ export default function Theming() {
               <th scope="row">
                 <code>forcedTheme</code>
               </th>
-              <td>—</td>
+              <td>None</td>
               <td>Locks a page to one theme.</td>
             </tr>
           </tbody>

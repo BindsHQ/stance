@@ -118,7 +118,7 @@ export function Controlled() {
   return (
     <div style={{ display: 'grid', gap: 12, justifyItems: 'start' }}>
       <Banner tone="warning" dismissible open={open} onOpenChange={setOpen} label="Maintenance">
-        Scheduled maintenance on Sunday, 02:00–03:00 GMT.
+        Scheduled maintenance on Sunday, 02:00 to 03:00 GMT.
       </Banner>
       {!open && (
         <Button size="sm" variant="outline" onClick={() => setOpen(true)}>

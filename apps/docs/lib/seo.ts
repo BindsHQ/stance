@@ -16,7 +16,7 @@ export function pageMetadata(
   const route = routeByPath.get(path);
   const title = overrides.title ?? route?.title ?? site.name;
   const description = overrides.description ?? route?.description ?? site.description;
-  const image = { url: ogImagePath(path), width: 1200, height: 630, alt: `${title} — Stance` };
+  const image = { url: ogImagePath(path), width: 1200, height: 630, alt: `${title} | Stance` };
   const isHome = path === '/';
   return {
     title: isHome ? { absolute: title } : title,
@@ -56,7 +56,7 @@ export function websiteLd() {
     '@id': `${site.url}/#website`,
     url: site.url,
     name: 'Stance',
-    alternateName: 'Stance — The Binds Design System',
+    alternateName: 'Stance: The Binds Design System',
     description: site.description,
     inLanguage: 'en-GB',
     publisher: { '@id': organizationLd['@id'] },

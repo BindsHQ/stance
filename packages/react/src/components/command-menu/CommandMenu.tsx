@@ -38,7 +38,7 @@ export interface CommandMenuProps extends Omit<React.HTMLAttributes<HTMLDivEleme
   onSearchChange?: (search: string) => void;
   /** Custom scorer (0 hides an item), or `false` to disable built-in filtering (e.g. server results). */
   filter?: CommandFilter | false;
-  /** Called after any item's onSelect — CommandPalette uses it to close. */
+  /** Called after any item's onSelect. CommandPalette uses it to close. */
   onItemSelect?: (value: string) => void;
 }
 

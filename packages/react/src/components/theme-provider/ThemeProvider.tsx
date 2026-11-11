@@ -109,7 +109,7 @@ export function ThemeProvider({
       try {
         localStorage.setItem(storageKey, next);
       } catch {
-        /* storage unavailable (private mode) — keep in memory */
+        /* storage unavailable (private mode): keep in memory */
       }
     },
     [storageKey],
@@ -151,7 +151,7 @@ export interface ThemeProps extends React.HTMLAttributes<HTMLDivElement> {
   asChild?: never;
 }
 
-/** Scopes a theme to a subtree — useful for previews, inverted sections and embedded widgets. */
+/** Scopes a theme to a subtree, useful for previews, inverted sections and embedded widgets. */
 export const Theme = React.forwardRef<HTMLDivElement, ThemeProps>(function Theme(
   { theme, className, ...props },
   ref,

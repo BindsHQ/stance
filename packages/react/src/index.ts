@@ -1,5 +1,5 @@
 /**
- * @bindshq/stance-react — the Stance component library.
+ * @bindshq/stance-react: the Stance component library.
  * Import styles once: `@bindshq/stance-tokens/css` then `@bindshq/stance-react/styles.css`.
  */
 

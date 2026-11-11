@@ -24,7 +24,7 @@ export interface ComboboxProps extends Omit<
   value?: string | null;
   defaultValue?: string | null;
   onValueChange?: (value: string | null) => void;
-  /** Text in the input (controlled) — use with `onInputChange` for async search. */
+  /** Text in the input (controlled): use with `onInputChange` for async search. */
   inputValue?: string;
   defaultInputValue?: string;
   onInputChange?: (text: string) => void;

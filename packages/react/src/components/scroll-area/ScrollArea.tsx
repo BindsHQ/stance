@@ -26,7 +26,7 @@ export interface ScrollAreaProps extends React.HTMLAttributes<HTMLDivElement> {
 
 /**
  * A native scroll container with themed, thin scrollbars and edge fades.
- * Uses the browser's real scrolling — no simulated scrollbars.
+ * Uses the browser's real scrolling: no simulated scrollbars.
  */
 export const ScrollArea = React.forwardRef<HTMLDivElement, ScrollAreaProps>(function ScrollArea(
   {

@@ -43,7 +43,7 @@ for (const file of pages) {
   }
   if (!desc) p('missing meta description');
   else {
-    if (desc.length < 50 || desc.length > 170) p(`description ${desc.length} chars (50–170)`);
+    if (desc.length < 50 || desc.length > 170) p(`description ${desc.length} chars (50 to 170)`);
     descs.set(desc, [...(descs.get(desc) ?? []), route]);
   }
   if (!canonical) p('missing canonical');

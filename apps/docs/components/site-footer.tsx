@@ -9,7 +9,7 @@ export function SiteFooter() {
         <div className="site-footer__brand">
           <StanceLogo height={24} title="Stance" />
           <p>
-            Stance — {site.tagline}. Open source under the MIT License. © {new Date().getFullYear()}{' '}
+            Stance. {site.tagline}. Open source under the MIT License. © {new Date().getFullYear()}{' '}
             Binds.
           </p>
         </div>

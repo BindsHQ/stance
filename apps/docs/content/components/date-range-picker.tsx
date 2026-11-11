@@ -72,7 +72,7 @@ export const doc: ComponentDoc = {
     {
       component: 'DateRangePicker',
       name: 'locale / weekStartsOn',
-      type: 'string / 0–6',
+      type: 'string / 0 to 6',
       description: 'Localisation.',
     },
     {

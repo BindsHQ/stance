@@ -248,7 +248,7 @@ export function WithForm() {
           </DialogHeader>
           <DialogBody>
             <FormField label="Template name" required>
-              <Input defaultValue="Sales — EMEA" />
+              <Input defaultValue="Sales, EMEA" />
             </FormField>
           </DialogBody>
           <DialogFooter>

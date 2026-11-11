@@ -133,7 +133,7 @@ export const doc: ComponentDoc = {
     'Clicking the FormField label focuses the first cell.',
   ],
   keyboard: [
-    { keys: ['0–9', 'A–Z'], description: 'Enters a character and moves to the next cell.' },
+    { keys: ['0 to 9', 'A to Z'], description: 'Enters a character and moves to the next cell.' },
     {
       keys: ['Backspace'],
       description: 'Clears the current cell, or steps back and clears the previous one.',

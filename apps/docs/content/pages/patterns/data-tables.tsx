@@ -8,14 +8,14 @@ export default function DataTablesPattern() {
       <h2 id="choosing">Choosing a component</h2>
       <ul>
         <li>
-          <strong>Table</strong> — static, read-only rows.
+          <strong>Table</strong>: static, read-only rows.
         </li>
         <li>
-          <strong>DataTable</strong> — sorting, selection and pagination over records you already
+          <strong>DataTable</strong>: sorting, selection and pagination over records you already
           have.
         </li>
         <li>
-          <strong>DataGrid</strong> — spreadsheet-like work: cell navigation, inline editing,
+          <strong>DataGrid</strong>: spreadsheet-like work with cell navigation, inline editing,
           resizable columns and very long lists.
         </li>
       </ul>

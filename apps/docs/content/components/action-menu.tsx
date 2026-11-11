@@ -5,7 +5,7 @@ export const doc: ComponentDoc = {
   slug: 'action-menu',
   name: 'ActionMenu',
   category: 'actions',
-  summary: 'A compact “more actions” menu built from an array — ideal for table rows and cards.',
+  summary: 'A compact “more actions” menu built from an array, ideal for table rows and cards.',
   description:
     'ActionMenu is a convenience over DropdownMenu for the common overflow pattern: an icon button that reveals row-level or card-level actions. Describe the actions as data (labels, icons, shortcuts, separators, groups and submenus) and it renders an accessible menu. Use DropdownMenu directly when you need checkable items or custom content.',
   imports: ['ActionMenu', 'type ActionMenuItem'],

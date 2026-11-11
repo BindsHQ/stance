@@ -106,7 +106,7 @@ export const doc: ComponentDoc = {
   ],
   accessibility: [
     'A modal dialog named by SheetTitle; the drag handle is decorative (aria-hidden).',
-    'Dragging is an enhancement — Escape, the close button and the backdrop all close the sheet too (WCAG 2.5.7 Dragging Movements).',
+    'Dragging is an enhancement. Escape, the close button and the backdrop all close the sheet too (WCAG 2.5.7 Dragging Movements).',
     'Focus is trapped while open and restored on close.',
   ],
   keyboard: [
@@ -186,7 +186,7 @@ export function ActionList() {
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Sales — EMEA</SheetTitle>
+          <SheetTitle>Sales, EMEA</SheetTitle>
         </SheetHeader>
         <SheetBody>
           <div style={{ display: 'grid', gap: 4 }}>

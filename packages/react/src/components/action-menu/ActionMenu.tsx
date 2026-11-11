@@ -88,7 +88,7 @@ function renderItems(items: ActionMenuItem[]): React.ReactNode {
 }
 
 /**
- * A compact "more actions" menu driven by an array — ideal for table rows and cards.
+ * A compact "more actions" menu driven by an array, ideal for table rows and cards.
  * Built on DropdownMenu, so it shares its keyboard and accessibility behaviour.
  */
 export function ActionMenu({

@@ -96,8 +96,8 @@ export const doc: ComponentDoc = {
     },
     {
       component: 'MenubarItem, MenubarCheckboxItem, MenubarRadioGroup, …',
-      name: '—',
-      type: '—',
+      name: 'None',
+      type: 'None',
       description: 'Identical to their DropdownMenu counterparts.',
     },
   ],

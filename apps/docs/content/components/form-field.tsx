@@ -110,7 +110,7 @@ export const doc: ComponentDoc = {
     do: ['Use one FormField per control.', 'Write errors that say how to fix the problem.'],
     dont: [
       'Nest FormFields.',
-      'Use FormField around a CheckboxGroup or RadioGroup — they render their own fieldset and legend.',
+      'Use FormField around a CheckboxGroup or RadioGroup. They render their own fieldset and legend.',
     ],
   },
   related: ['input', 'label', 'checkbox-group', 'radio-group'],

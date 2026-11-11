@@ -21,7 +21,7 @@ export const doc: ComponentDoc = {
       name: 'level',
       type: '1 | 2 | 3 | 4 | 5 | 6',
       default: '2',
-      description: 'Semantic level (h1–h6).',
+      description: 'Semantic level (h1 to h6).',
     },
     {
       component: 'Heading',

@@ -18,7 +18,7 @@ export const doc: ComponentDoc = {
   summary:
     'Notification items and a ready-made notification center with unread state and mark-as-read.',
   description:
-    'Notification renders one event — who did what, when — with an optional avatar or icon, actions and unread state. NotificationList groups them, and NotificationCenter adds a header with an unread count, “Mark all as read”, an empty state and a footer. Place the center in a Popover behind a bell button or in a Drawer on phones.',
+    'Notification renders one event: who did what and when, with an optional avatar or icon, actions and unread state. NotificationList groups them, and NotificationCenter adds a header with an unread count, “Mark all as read”, an empty state and a footer. Place the center in a Popover behind a bell button or in a Drawer on phones.',
   imports: ['Notification', 'NotificationList', 'NotificationCenter'],
   status: 'stable',
   examples: [
@@ -133,7 +133,7 @@ export const doc: ComponentDoc = {
   ],
   guidelines: {
     do: [
-      'Lead with the actor and action: “Ada approved Sales — EMEA”.',
+      'Lead with the actor and action: “Ada approved Sales, EMEA”.',
       'Link each notification to where the user can act.',
     ],
     dont: ['Use notifications for confirmations of the user’s own actions; use Toast.'],
@@ -155,7 +155,7 @@ interface Item {
 const initial: Item[] = [
   {
     id: 1,
-    title: 'Ada Lovelace approved “Sales — EMEA”',
+    title: 'Ada Lovelace approved “Sales, EMEA”',
     description: 'It will deploy on the next sync.',
     minutes: 4,
     unread: true,

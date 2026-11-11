@@ -14,7 +14,7 @@ export interface InlineProps extends React.HTMLAttributes<HTMLElement> {
   wrap?: boolean;
 }
 
-/** Lays children out horizontally and wraps them — tags, buttons, metadata rows. */
+/** Lays children out horizontally and wraps them: tags, buttons, metadata rows. */
 export const Inline = React.forwardRef<HTMLElement, InlineProps>(function Inline(
   { as = 'div', gap = 2, align = 'center', justify, wrap = true, className, style, ...props },
   ref,

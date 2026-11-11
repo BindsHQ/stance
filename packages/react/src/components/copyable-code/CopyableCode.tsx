@@ -13,7 +13,7 @@ export interface CopyableCodeProps extends Omit<React.HTMLAttributes<HTMLDivElem
   size?: 'sm' | 'md';
 }
 
-/** A single line of code with a copy button — install commands, API keys, IDs. */
+/** A single line of code with a copy button: install commands, API keys, IDs. */
 export const CopyableCode = React.forwardRef<HTMLDivElement, CopyableCodeProps>(
   function CopyableCode(
     { value, prompt, copyLabel = 'Copy to clipboard', size = 'md', className, ...props },

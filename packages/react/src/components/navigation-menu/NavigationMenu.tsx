@@ -11,7 +11,7 @@ import { Icon } from '../../icons/Icon.js';
 /*
  * Site / app navigation using the WAI-ARIA *disclosure* navigation pattern:
  * buttons with aria-expanded reveal panels of ordinary links. This is the
- * correct pattern for navigation — role="menu" is reserved for application menus.
+ * correct pattern for navigation: role="menu" is reserved for application menus.
  */
 
 interface NavContextValue {

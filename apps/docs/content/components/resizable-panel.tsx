@@ -14,7 +14,7 @@ export const doc: ComponentDoc = {
     {
       name: 'Basic',
       title: 'Limits',
-      description: 'The navigation panel is limited to 15–40% and can collapse.',
+      description: 'The navigation panel is limited to 15 to 40% and can collapse.',
       layout: 'fill',
       minHeight: 240,
     },

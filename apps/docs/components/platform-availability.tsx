@@ -44,8 +44,8 @@ export function PlatformAvailability({
                 <p>
                   <a href={`/${p}/components#${c.name.toLowerCase()}`}>
                     <code>{c.name}</code>
-                  </a>{' '}
-                  — {c.summary}
+                  </a>
+                  : {c.summary}
                 </p>
                 <Code code={c.example} language={platformLabels[p].language} />
               </div>

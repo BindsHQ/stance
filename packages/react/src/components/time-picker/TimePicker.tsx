@@ -8,7 +8,7 @@ import { useFormField } from '../form-field/FormField.js';
 type Segment = 'hour' | 'minute' | 'second' | 'period';
 
 interface TimeParts {
-  hour: number | null; // 0–23
+  hour: number | null; // 0 to 23
   minute: number | null;
   second: number | null;
 }

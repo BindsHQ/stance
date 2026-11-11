@@ -5,7 +5,7 @@ export default function Radius() {
     <>
       <p>
         Radii are restrained and geometric. Controls use <code>md</code> (8px), surfaces use{' '}
-        <code>lg</code>–<code>xl</code>, and pills are reserved for chips, switches and marketing
+        <code>lg</code> to <code>xl</code>, and pills are reserved for chips, switches and marketing
         calls to action.
       </p>
       <div className="radius-grid">

@@ -110,10 +110,10 @@ export function Person() {
 export function Template() {
   return (
     <HoverCard>
-      <HoverCardTrigger href="#template">Sales — EMEA</HoverCardTrigger>
+      <HoverCardTrigger href="#template">Sales, EMEA</HoverCardTrigger>
       <HoverCardContent side="right" align="start">
         <div style={{ display: 'grid', gap: 6, width: 240 }}>
-          <strong>Sales — EMEA</strong>
+          <strong>Sales, EMEA</strong>
           <span>Assigned to 32 people</span>
           <span>Last deployed 2 days ago</span>
         </div>

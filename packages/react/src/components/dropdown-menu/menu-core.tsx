@@ -3,7 +3,7 @@
  * The Stance menu engine. Shared by DropdownMenu, ContextMenu, Menubar,
  * ActionMenu and SplitButton. Implements the WAI-ARIA APG menu pattern:
  * roving focus, typeahead, submenus, checkbox/radio items, Escape/outside
- * dismissal and focus return — with no third-party dependencies.
+ * dismissal and focus return, with no third-party dependencies.
  */
 import * as React from 'react';
 import { cx } from '../../internal/cx.js';
@@ -194,7 +194,7 @@ export const MenuContent = React.forwardRef<HTMLDivElement, MenuContentInternalP
         window.setTimeout(() => {
           const active = document.activeElement as HTMLElement | null;
           // Restore to the trigger when focus was lost: on <body>, on a detached node, or on an
-          // element users cannot tab to — unless another layer (e.g. a dialog opened by the item) took it.
+          // element users cannot tab to, unless another layer (e.g. a dialog opened by the item) took it.
           const lost =
             !active ||
             active === document.body ||

@@ -58,7 +58,7 @@ export const doc: ComponentDoc = {
       component: 'estimatePasswordStrength',
       name: '(password) => PasswordStrength',
       type: 'function',
-      description: 'The default length-and-variety heuristic, score 0–4.',
+      description: 'The default length-and-variety heuristic, score 0 to 4.',
     },
   ],
   accessibility: [

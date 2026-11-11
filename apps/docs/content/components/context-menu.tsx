@@ -114,13 +114,13 @@ export const doc: ComponentDoc = {
     {
       component: 'ContextMenuItem',
       name: 'onSelect, icon, destructive, disabled, closeOnSelect',
-      type: '—',
+      type: 'None',
       description: 'Identical to DropdownMenuItem.',
     },
     {
       component: 'ContextMenuCheckboxItem / RadioItem / Sub…',
-      name: '—',
-      type: '—',
+      name: 'None',
+      type: 'None',
       description: 'Identical to their DropdownMenu counterparts.',
     },
   ],
@@ -129,7 +129,7 @@ export const doc: ComponentDoc = {
     'The menu is positioned at the pointer (or the focused element for keyboard) and receives focus on open.',
     'Focus returns to the element that had it before the menu opened.',
     'Long-press support makes the menu usable on touch screens; the browser callout is suppressed.',
-    'Provide every action elsewhere too — context menus are not discoverable.',
+    'Provide every action elsewhere too. Context menus are not discoverable.',
   ],
   keyboard: [
     {
@@ -212,7 +212,7 @@ export function Toggles() {
   return (
     <ContextMenu>
       <ContextMenuTrigger tabIndex={0} aria-label="Editor canvas" style={area}>
-        Editor canvas — right-click for view options
+        Editor canvas, right-click for view options
       </ContextMenuTrigger>
       <ContextMenuContent aria-label="View options">
         <ContextMenuCheckboxItem checked={grid} onCheckedChange={setGrid}>

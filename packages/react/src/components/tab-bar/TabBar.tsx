@@ -16,7 +16,7 @@ export interface TabBarProps extends React.HTMLAttributes<HTMLElement> {
 
 /**
  * App-level navigation between a handful of top destinations, typically pinned to the
- * bottom of the screen on mobile. Uses links with aria-current — not tabs — because
+ * bottom of the screen on mobile. Uses links with aria-current, not tabs, because
  * each item changes the page.
  */
 export const TabBar = React.forwardRef<HTMLElement, TabBarProps>(function TabBar(

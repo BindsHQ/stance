@@ -19,7 +19,7 @@ export type ConfirmationTone = 'default' | 'danger';
 export interface ConfirmOptions {
   title: React.ReactNode;
   description?: React.ReactNode;
-  /** Default "Confirm" ("Delete" reads better for destructive actions — pass it explicitly). */
+  /** Default "Confirm" ("Delete" reads better for destructive actions; pass it explicitly). */
   confirmLabel?: React.ReactNode;
   /** Default "Cancel". */
   cancelLabel?: React.ReactNode;

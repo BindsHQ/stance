@@ -47,7 +47,7 @@ const sectionLanding: Record<string, string> = {
 export const routes: SiteRoute[] = [
   {
     path: '/',
-    title: 'Stance — The Binds Design System',
+    title: 'Stance: The Binds Design System',
     description: `Stance is the open-source design system by Binds: design tokens, light, dark and high-contrast themes, and ${components.length} accessible, dependency-free React components.`,
     section: 'home',
     trail: [],
@@ -74,7 +74,7 @@ export const routes: SiteRoute[] = [
   })),
   ...components.map((c) => ({
     path: `/components/${c.slug}`,
-    title: `${c.name} — React component`,
+    title: `${c.name}: React component`,
     description: c.summary,
     section: 'components' as const,
     trail: [

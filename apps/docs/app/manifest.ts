@@ -5,7 +5,7 @@ export const dynamic = 'force-static';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Stance — The Binds Design System',
+    name: 'Stance: The Binds Design System',
     short_name: 'Stance',
     description: site.description,
     start_url: '/',

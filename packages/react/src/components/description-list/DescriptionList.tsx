@@ -21,7 +21,7 @@ export interface DescriptionListProps extends React.HTMLAttributes<HTMLDListElem
   items?: DescriptionListItemData[];
 }
 
-/** Key–value pairs such as account details or contract metadata, using native <dl>. */
+/** Key to value pairs such as account details or contract metadata, using native <dl>. */
 export const DescriptionList = React.forwardRef<HTMLDListElement, DescriptionListProps>(
   function DescriptionList(
     { layout = 'horizontal', columns = 2, dividers, items, className, children, style, ...props },
