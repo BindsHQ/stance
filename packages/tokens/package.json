@@ -39,17 +39,25 @@
     "./tailwind-v4.css": "./dist/css/tailwind-v4.css",
     "./tokens.json": "./dist/tokens.json",
     "./contrast-report.json": "./dist/contrast-report.json",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./source/*": "./source/*",
+    "./swift": "./generated/swift/StanceTokens.swift",
+    "./kotlin": "./generated/kotlin/StanceTokens.kt",
+    "./tokens.resolved.json": "./generated/json/tokens.resolved.json"
   },
   "files": [
     "dist",
+    "source",
+    "generated",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
-    "build": "rm -rf dist && tsc -p tsconfig.build.json && node scripts/emit.mjs",
+    "build": "node scripts/build-tokens.mjs && rm -rf dist && tsc -p tsconfig.build.json && node scripts/emit.mjs",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "tokens": "node scripts/build-tokens.mjs",
+    "tokens:check": "node scripts/build-tokens.mjs --check"
   },
   "devDependencies": {
     "vitest": "^5.1.0"

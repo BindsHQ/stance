@@ -29,6 +29,8 @@ const scales = {
   breakpoint: t.breakpoint,
   duration: t.duration,
   easing: t.easing,
+  'touch-target': t.touchTarget,
+  opacity: t.opacity,
 };
 const scaleDecls = Object.entries(scales)
   .flatMap(([cat, obj]) => Object.entries(obj).map(([k, v]) => `  --${P}-${cat}-${key(k)}: ${v};`))

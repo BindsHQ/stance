@@ -1,0 +1,17 @@
+{
+  "opacity": {
+    "$type": "number",
+    "disabled": {
+      "$value": 0.5
+    },
+    "scrim": {
+      "$value": 0.48
+    },
+    "hover": {
+      "$value": 0.06
+    },
+    "pressed": {
+      "$value": 0.11
+    }
+  }
+}

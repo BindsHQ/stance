@@ -13,6 +13,9 @@ export default tseslint.config(
   {
     ignores: [
       '**/dist/**',
+      'packages/tokens/src/generated.ts',
+      'packages/tokens/generated/**',
+      'platforms/**',
       '**/.next/**',
       '**/out/**',
       '**/node_modules/**',

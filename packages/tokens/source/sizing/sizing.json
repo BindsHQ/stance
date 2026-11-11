@@ -1,0 +1,97 @@
+{
+  "size": {
+    "$type": "dimension",
+    "$description": "Control heights, icon sizes and container widths.",
+    "control-xs": {
+      "$value": {
+        "value": 1.5,
+        "unit": "rem"
+      }
+    },
+    "control-sm": {
+      "$value": {
+        "value": 2,
+        "unit": "rem"
+      }
+    },
+    "control-md": {
+      "$value": {
+        "value": 2.5,
+        "unit": "rem"
+      }
+    },
+    "control-lg": {
+      "$value": {
+        "value": 3,
+        "unit": "rem"
+      }
+    },
+    "icon-sm": {
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      }
+    },
+    "icon-md": {
+      "$value": {
+        "value": 1.25,
+        "unit": "rem"
+      }
+    },
+    "icon-lg": {
+      "$value": {
+        "value": 1.5,
+        "unit": "rem"
+      }
+    },
+    "container-sm": {
+      "$value": {
+        "value": 40,
+        "unit": "rem"
+      }
+    },
+    "container-md": {
+      "$value": {
+        "value": 55,
+        "unit": "rem"
+      }
+    },
+    "container-lg": {
+      "$value": {
+        "value": 77.5,
+        "unit": "rem"
+      }
+    },
+    "container-xl": {
+      "$value": {
+        "value": 90,
+        "unit": "rem"
+      }
+    }
+  },
+  "touchTarget": {
+    "$type": "dimension",
+    "$description": "Minimum interactive target sizes per platform convention.",
+    "web": {
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$description": "WCAG 2.5.8 minimum"
+    },
+    "ios": {
+      "$value": {
+        "value": 44,
+        "unit": "px"
+      },
+      "$description": "Apple HIG minimum (pt)"
+    },
+    "android": {
+      "$value": {
+        "value": 48,
+        "unit": "px"
+      },
+      "$description": "Material minimum (dp)"
+    }
+  }
+}

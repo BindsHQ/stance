@@ -1,0 +1,157 @@
+{
+  "font": {
+    "family": {
+      "$type": "fontFamily",
+      "sans": {
+        "$value": ["DM Sans", "ui-sans-serif", "system-ui", "sans-serif"],
+        "$extensions": {
+          "com.bindshq.stance": {
+            "css": "\"DM Sans\", var(--font-dm-sans, ui-sans-serif), ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif"
+          }
+        }
+      },
+      "mono": {
+        "$value": [
+          "ui-monospace",
+          "SFMono-Regular",
+          "JetBrains Mono",
+          "Menlo",
+          "Consolas",
+          "monospace"
+        ],
+        "$extensions": {
+          "com.bindshq.stance": {
+            "css": "ui-monospace, \"SFMono-Regular\", \"JetBrains Mono\", Menlo, Consolas, monospace"
+          }
+        }
+      }
+    },
+    "size": {
+      "$type": "dimension",
+      "$description": "Type scale on a 1.2 ratio anchored at 16px.",
+      "2xs": {
+        "$value": {
+          "value": 0.6875,
+          "unit": "rem"
+        }
+      },
+      "xs": {
+        "$value": {
+          "value": 0.75,
+          "unit": "rem"
+        }
+      },
+      "sm": {
+        "$value": {
+          "value": 0.875,
+          "unit": "rem"
+        }
+      },
+      "md": {
+        "$value": {
+          "value": 1,
+          "unit": "rem"
+        }
+      },
+      "lg": {
+        "$value": {
+          "value": 1.125,
+          "unit": "rem"
+        }
+      },
+      "xl": {
+        "$value": {
+          "value": 1.375,
+          "unit": "rem"
+        }
+      },
+      "2xl": {
+        "$value": {
+          "value": 1.75,
+          "unit": "rem"
+        }
+      },
+      "3xl": {
+        "$value": {
+          "value": 2.25,
+          "unit": "rem"
+        }
+      },
+      "4xl": {
+        "$value": {
+          "value": 3,
+          "unit": "rem"
+        }
+      },
+      "5xl": {
+        "$value": {
+          "value": 4,
+          "unit": "rem"
+        }
+      }
+    },
+    "weight": {
+      "$type": "fontWeight",
+      "regular": {
+        "$value": 400
+      },
+      "medium": {
+        "$value": 500
+      },
+      "semibold": {
+        "$value": 600
+      },
+      "bold": {
+        "$value": 700
+      }
+    },
+    "lineHeight": {
+      "$type": "number",
+      "tight": {
+        "$value": 1.1
+      },
+      "snug": {
+        "$value": 1.25
+      },
+      "normal": {
+        "$value": 1.5
+      },
+      "relaxed": {
+        "$value": 1.65
+      }
+    },
+    "letterSpacing": {
+      "$type": "dimension",
+      "tighter": {
+        "$value": {
+          "value": -0.035,
+          "unit": "em"
+        }
+      },
+      "tight": {
+        "$value": {
+          "value": -0.015,
+          "unit": "em"
+        }
+      },
+      "normal": {
+        "$value": {
+          "value": 0,
+          "unit": "em"
+        }
+      },
+      "wide": {
+        "$value": {
+          "value": 0.04,
+          "unit": "em"
+        }
+      },
+      "caps": {
+        "$value": {
+          "value": 0.08,
+          "unit": "em"
+        }
+      }
+    }
+  }
+}

@@ -10,3 +10,6 @@ apps/docs/.snippets
 audit-report.json
 apps/docs/next-env.d.ts
 apps/docs/.cache
+packages/tokens/generated
+packages/tokens/src/generated.ts
+platforms
