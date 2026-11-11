@@ -1,0 +1,51 @@
+.st-link {
+  color: var(--st-color-fg-link);
+  font-family: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  border-radius: var(--st-radius-xs);
+  cursor: pointer;
+  transition:
+    text-decoration-thickness var(--st-duration-fast) var(--st-easing-standard),
+    color var(--st-duration-fast) var(--st-easing-standard);
+}
+.st-link:hover {
+  text-decoration-thickness: 2px;
+}
+.st-link:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: 2px;
+  text-decoration: none;
+}
+.st-link[data-variant='standalone'] {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--st-space-1);
+  font-weight: var(--st-font-weight-semibold);
+  text-decoration: none;
+}
+.st-link[data-variant='standalone']:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+.st-link[data-variant='subtle'] {
+  color: inherit;
+  text-decoration-color: var(--st-color-border-strong);
+}
+.st-link[data-variant='subtle']:hover {
+  text-decoration-color: currentColor;
+}
+.st-link__external {
+  display: inline-block;
+  margin-left: 0.15em;
+  vertical-align: -0.1em;
+}
+[data-theme='high-contrast'] .st-link {
+  text-decoration-thickness: 2px;
+}
+@media (forced-colors: active) {
+  .st-link {
+    color: LinkText;
+  }
+}

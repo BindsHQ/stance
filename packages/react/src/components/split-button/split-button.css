@@ -1,0 +1,27 @@
+.st-split-button {
+  display: inline-flex;
+  align-items: stretch;
+  isolation: isolate;
+}
+.st-split-button > .st-split-button__main {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.st-split-button > .st-split-button__toggle {
+  --_px: 0;
+  min-width: var(--_h);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  /* A hairline divider between the halves that adapts to every variant. */
+  box-shadow: inset 1px 0 0 color-mix(in srgb, currentColor 28%, transparent);
+}
+.st-split-button[data-variant='outline'] > .st-split-button__toggle {
+  margin-left: calc(-1 * var(--st-border-width-control));
+  box-shadow: none;
+}
+.st-split-button > .st-button:focus-visible {
+  z-index: 1;
+}
+.st-split-button__toggle[data-state='open'] {
+  background: var(--_bg-active);
+}

@@ -19,7 +19,10 @@ const DEFAULT_ITEM = '[data-roving-item]';
 
 export function getRovingItems(container: HTMLElement, selector = DEFAULT_ITEM): HTMLElement[] {
   return Array.from(container.querySelectorAll<HTMLElement>(selector)).filter(
-    (el) => !el.hasAttribute('disabled') && el.getAttribute('aria-disabled') !== 'true' && !el.closest('[hidden]'),
+    (el) =>
+      !el.hasAttribute('disabled') &&
+      el.getAttribute('aria-disabled') !== 'true' &&
+      !el.closest('[hidden]'),
   );
 }
 
@@ -27,8 +30,17 @@ export function getRovingItems(container: HTMLElement, selector = DEFAULT_ITEM):
  * Roving tabindex: one item in the group is tabbable; arrow keys move focus.
  * Implements the WAI-ARIA APG pattern for toolbars, tablists, radio groups, menus and listboxes.
  */
-export function useRovingFocus(containerRef: React.RefObject<HTMLElement | null>, options: RovingFocusOptions = {}) {
-  const { orientation = 'horizontal', loop = true, itemSelector = DEFAULT_ITEM, homeEnd = true, dir = 'ltr' } = options;
+export function useRovingFocus(
+  containerRef: React.RefObject<HTMLElement | null>,
+  options: RovingFocusOptions = {},
+) {
+  const {
+    orientation = 'horizontal',
+    loop = true,
+    itemSelector = DEFAULT_ITEM,
+    homeEnd = true,
+    dir = 'ltr',
+  } = options;
 
   // Ensure exactly one item is tabbable after every render.
   React.useEffect(() => {
@@ -39,7 +51,12 @@ export function useRovingFocus(containerRef: React.RefObject<HTMLElement | null>
     const current =
       enabled.find((el) => el === document.activeElement) ??
       enabled.find((el) => el.getAttribute('data-roving-active') === 'true') ??
-      enabled.find((el) => el.getAttribute('aria-selected') === 'true' || el.getAttribute('aria-checked') === 'true' || el.getAttribute('data-state') === 'active') ??
+      enabled.find(
+        (el) =>
+          el.getAttribute('aria-selected') === 'true' ||
+          el.getAttribute('aria-checked') === 'true' ||
+          el.getAttribute('data-state') === 'active',
+      ) ??
       enabled[0];
     for (const el of all) el.tabIndex = el === current ? 0 : -1;
   });
@@ -51,11 +68,23 @@ export function useRovingFocus(containerRef: React.RefObject<HTMLElement | null>
       const items = getRovingItems(container, itemSelector);
       const index = items.indexOf(document.activeElement as HTMLElement);
       if (index === -1) return;
-      const prevKeys = orientation === 'vertical' ? ['ArrowUp'] : orientation === 'horizontal' ? [dir === 'rtl' ? 'ArrowRight' : 'ArrowLeft'] : ['ArrowUp', dir === 'rtl' ? 'ArrowRight' : 'ArrowLeft'];
-      const nextKeys = orientation === 'vertical' ? ['ArrowDown'] : orientation === 'horizontal' ? [dir === 'rtl' ? 'ArrowLeft' : 'ArrowRight'] : ['ArrowDown', dir === 'rtl' ? 'ArrowLeft' : 'ArrowRight'];
+      const prevKeys =
+        orientation === 'vertical'
+          ? ['ArrowUp']
+          : orientation === 'horizontal'
+            ? [dir === 'rtl' ? 'ArrowRight' : 'ArrowLeft']
+            : ['ArrowUp', dir === 'rtl' ? 'ArrowRight' : 'ArrowLeft'];
+      const nextKeys =
+        orientation === 'vertical'
+          ? ['ArrowDown']
+          : orientation === 'horizontal'
+            ? [dir === 'rtl' ? 'ArrowLeft' : 'ArrowRight']
+            : ['ArrowDown', dir === 'rtl' ? 'ArrowLeft' : 'ArrowRight'];
       let next = -1;
-      if (nextKeys.includes(event.key)) next = index + 1 >= items.length ? (loop ? 0 : index) : index + 1;
-      else if (prevKeys.includes(event.key)) next = index - 1 < 0 ? (loop ? items.length - 1 : index) : index - 1;
+      if (nextKeys.includes(event.key))
+        next = index + 1 >= items.length ? (loop ? 0 : index) : index + 1;
+      else if (prevKeys.includes(event.key))
+        next = index - 1 < 0 ? (loop ? items.length - 1 : index) : index - 1;
       else if (homeEnd && event.key === 'Home') next = 0;
       else if (homeEnd && event.key === 'End') next = items.length - 1;
       if (next === -1) return;

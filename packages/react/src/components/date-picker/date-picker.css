@@ -1,0 +1,37 @@
+.st-date-picker {
+  padding-right: var(--st-space-1);
+}
+.st-date-picker__button {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--st-radius-sm);
+  background: transparent;
+  color: var(--st-color-fg-muted);
+  cursor: pointer;
+}
+.st-input[data-size='sm'] .st-date-picker__button {
+  width: 1.625rem;
+  height: 1.625rem;
+}
+.st-date-picker__button:hover:not(:disabled) {
+  background: var(--st-color-interactive-hover);
+  color: var(--st-color-fg-default);
+}
+.st-date-picker__button:disabled {
+  color: var(--st-color-fg-disabled);
+  cursor: not-allowed;
+}
+.st-date-picker__button:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: 0;
+}
+.st-date-picker__popover {
+  max-width: calc(100vw - 1rem);
+  padding: var(--st-space-3);
+}

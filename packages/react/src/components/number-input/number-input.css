@@ -1,0 +1,47 @@
+.st-number-input {
+  padding-right: 0;
+}
+.st-number-input__control {
+  font-variant-numeric: tabular-nums;
+}
+.st-number-input__stepper {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  border-left: var(--st-border-width) solid var(--st-color-border-default);
+}
+.st-number-input__step {
+  display: inline-flex;
+  flex: 1 1 50%;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--st-color-fg-muted);
+  cursor: pointer;
+}
+.st-number-input__step + .st-number-input__step {
+  border-top: var(--st-border-width) solid var(--st-color-border-default);
+}
+.st-number-input__step:first-child {
+  border-top-right-radius: calc(var(--st-radius-md) - 1px);
+}
+.st-number-input__step:last-child {
+  border-bottom-right-radius: calc(var(--st-radius-md) - 1px);
+}
+.st-number-input__step:hover:not(:disabled) {
+  background: var(--st-color-interactive-hover);
+  color: var(--st-color-fg-default);
+}
+.st-number-input__step:disabled {
+  color: var(--st-color-fg-disabled);
+  cursor: not-allowed;
+}
+@media (pointer: coarse) {
+  .st-number-input__step {
+    width: 2.5rem;
+  }
+}

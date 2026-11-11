@@ -8,7 +8,12 @@ import { Input } from './Input';
 describe('Input + FormField', () => {
   it('associates label, description and error', () => {
     render(
-      <FormField label="Work email" description="We never share it." error="Enter a valid email" required>
+      <FormField
+        label="Work email"
+        description="We never share it."
+        error="Enter a valid email"
+        required
+      >
         <Input type="email" />
       </FormField>,
     );
@@ -22,8 +27,12 @@ describe('Input + FormField', () => {
   it('accepts typing and respects disabled', async () => {
     render(
       <>
-        <FormField label="Name"><Input /></FormField>
-        <FormField label="Locked" disabled><Input /></FormField>
+        <FormField label="Name">
+          <Input />
+        </FormField>
+        <FormField label="Locked" disabled>
+          <Input />
+        </FormField>
       </>,
     );
     const user = userEvent.setup();

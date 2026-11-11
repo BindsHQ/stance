@@ -1,0 +1,107 @@
+.st-scroll-area {
+  --_fade: 1.5rem;
+  position: relative;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--st-color-border-strong) transparent;
+  border-radius: inherit;
+}
+.st-scroll-area[data-orientation='vertical'] {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.st-scroll-area[data-orientation='horizontal'] {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.st-scroll-area[data-scrollbar='auto'] {
+  scrollbar-width: auto;
+}
+.st-scroll-area::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.st-scroll-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+.st-scroll-area::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: var(--st-radius-full);
+  background: var(--st-color-border-strong);
+  background-clip: padding-box;
+}
+.st-scroll-area::-webkit-scrollbar-thumb:hover {
+  background-color: var(--st-color-fg-subtle);
+}
+.st-scroll-area:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}
+
+/* Edge fades — masks fade content (alpha only), never the scrollbar colour. */
+.st-scroll-area[data-fade][data-scrollable][data-orientation='vertical']:not([data-at-start]):not(
+    [data-at-end]
+  ) {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    var(--st-color-fg-default) var(--_fade),
+    var(--st-color-fg-default) calc(100% - var(--_fade)),
+    transparent
+  );
+}
+.st-scroll-area[data-fade][data-scrollable][data-orientation='vertical'][data-at-start]:not(
+    [data-at-end]
+  ) {
+  mask-image: linear-gradient(
+    to bottom,
+    var(--st-color-fg-default) calc(100% - var(--_fade)),
+    transparent
+  );
+}
+.st-scroll-area[data-fade][data-scrollable][data-orientation='vertical'][data-at-end]:not(
+    [data-at-start]
+  ) {
+  mask-image: linear-gradient(to bottom, transparent, var(--st-color-fg-default) var(--_fade));
+}
+.st-scroll-area[data-fade][data-scrollable][data-orientation='horizontal']:not([data-at-left]):not(
+    [data-at-right]
+  ) {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    var(--st-color-fg-default) var(--_fade),
+    var(--st-color-fg-default) calc(100% - var(--_fade)),
+    transparent
+  );
+}
+.st-scroll-area[data-fade][data-scrollable][data-orientation='horizontal'][data-at-left]:not(
+    [data-at-right]
+  ) {
+  mask-image: linear-gradient(
+    to right,
+    var(--st-color-fg-default) calc(100% - var(--_fade)),
+    transparent
+  );
+}
+.st-scroll-area[data-fade][data-scrollable][data-orientation='horizontal'][data-at-right]:not(
+    [data-at-left]
+  ) {
+  mask-image: linear-gradient(to right, transparent, var(--st-color-fg-default) var(--_fade));
+}
+/* High contrast: no fades; content must stay fully legible. */
+[data-theme='high-contrast'] .st-scroll-area[data-fade] {
+  mask-image: none;
+}
+@media (prefers-contrast: more) {
+  .st-scroll-area[data-fade] {
+    mask-image: none;
+  }
+}
+@media (forced-colors: active) {
+  .st-scroll-area {
+    scrollbar-color: auto;
+    mask-image: none;
+  }
+}

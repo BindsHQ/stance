@@ -1,0 +1,9 @@
+.st-confirmation-dialog__error {
+  margin: 0;
+  padding: var(--st-space-2) var(--st-space-3);
+  border: var(--st-border-width) solid var(--st-color-danger-border);
+  border-radius: var(--st-radius-md);
+  background: var(--st-color-danger-bg);
+  color: var(--st-color-danger-fg);
+  font-size: var(--st-font-size-sm);
+}

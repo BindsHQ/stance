@@ -58,7 +58,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function 
   };
   if (asChild) {
     return (
-      <Slot ref={ref as React.Ref<HTMLElement>} {...shared} {...(props as React.HTMLAttributes<HTMLElement>)}>
+      <Slot
+        ref={ref as React.Ref<HTMLElement>}
+        {...shared}
+        {...(props as React.HTMLAttributes<HTMLElement>)}
+      >
         {children}
       </Slot>
     );
@@ -83,10 +87,20 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function 
       {loading ? (
         <Spinner size={size === 'lg' ? 'md' : 'sm'} label={null} className="st-button__spinner" />
       ) : (
-        leadingIcon && <span className="st-button__icon" aria-hidden="true">{leadingIcon}</span>
+        leadingIcon && (
+          <span className="st-button__icon" aria-hidden="true">
+            {leadingIcon}
+          </span>
+        )
       )}
-      {loading && loadingText ? loadingText : children != null && <span className="st-button__label">{children}</span>}
-      {!loading && trailingIcon && <span className="st-button__icon" aria-hidden="true">{trailingIcon}</span>}
+      {loading && loadingText
+        ? loadingText
+        : children != null && <span className="st-button__label">{children}</span>}
+      {!loading && trailingIcon && (
+        <span className="st-button__icon" aria-hidden="true">
+          {trailingIcon}
+        </span>
+      )}
     </button>
   );
 });

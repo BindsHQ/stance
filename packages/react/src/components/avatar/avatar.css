@@ -1,0 +1,96 @@
+.st-avatar {
+  --_s: 2.25rem;
+  --_mix: 14%;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--_s);
+  height: var(--_s);
+  border-radius: var(--st-radius-full);
+  background: color-mix(in srgb, var(--st-color-fg-default) var(--_mix), var(--st-color-bg-canvas));
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-sans);
+  font-size: calc(var(--_s) * 0.38);
+  font-weight: var(--st-font-weight-semibold);
+  letter-spacing: 0.01em;
+  line-height: 1;
+  user-select: none;
+  vertical-align: middle;
+}
+.st-avatar[data-size='xs'] {
+  --_s: 1.25rem;
+  font-size: 0.5625rem;
+}
+.st-avatar[data-size='sm'] {
+  --_s: 1.75rem;
+}
+.st-avatar[data-size='lg'] {
+  --_s: 3rem;
+}
+.st-avatar[data-size='xl'] {
+  --_s: 4rem;
+}
+.st-avatar[data-shape='square'] {
+  border-radius: calc(var(--_s) * 0.25);
+}
+.st-avatar[data-tint='1'] {
+  --_mix: 10%;
+}
+.st-avatar[data-tint='2'] {
+  --_mix: 16%;
+}
+.st-avatar[data-tint='3'] {
+  --_mix: 22%;
+}
+.st-avatar[data-tint='4'] {
+  --_mix: 28%;
+}
+.st-avatar[data-tint='5'] {
+  --_mix: 34%;
+}
+.st-avatar__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  object-fit: cover;
+  opacity: 0;
+}
+.st-avatar__image[data-loaded] {
+  opacity: 1;
+}
+.st-avatar__status {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: max(0.5rem, calc(var(--_s) * 0.28));
+  height: max(0.5rem, calc(var(--_s) * 0.28));
+  border: 2px solid var(--st-color-bg-canvas);
+  border-radius: var(--st-radius-full);
+  background: var(--st-color-fg-subtle);
+}
+.st-avatar__status[data-status='online'] {
+  background: var(--st-color-success-solid);
+}
+.st-avatar__status[data-status='away'] {
+  background: var(--st-color-warning-solid);
+}
+.st-avatar__status[data-status='busy'] {
+  background: var(--st-color-danger-solid);
+}
+.st-avatar__status[data-status='offline'] {
+  background: var(--st-color-bg-canvas);
+  box-shadow: inset 0 0 0 2px var(--st-color-fg-subtle);
+}
+[data-theme='high-contrast'] .st-avatar {
+  background: var(--st-color-bg-canvas);
+  box-shadow: inset 0 0 0 1px var(--st-color-border-default);
+}
+@media (forced-colors: active) {
+  .st-avatar {
+    border: 1px solid CanvasText;
+  }
+}

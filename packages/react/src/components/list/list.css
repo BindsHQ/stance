@@ -1,0 +1,28 @@
+.st-list {
+  --_py: var(--st-space-3);
+  --_px: 0;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-sm);
+}
+.st-list[data-density='sm'] {
+  --_py: var(--st-space-2);
+}
+.st-list[data-density='lg'] {
+  --_py: var(--st-space-4);
+}
+.st-list[data-bordered] {
+  --_px: var(--st-space-4);
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-lg);
+  background: var(--st-color-bg-surface);
+  overflow: hidden;
+}
+.st-list[data-dividers] > .st-list-item + .st-list-item {
+  border-top: var(--st-border-width) solid var(--st-color-border-subtle);
+}

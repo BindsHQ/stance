@@ -1,0 +1,60 @@
+.st-error-boundary {
+  display: flex;
+  gap: var(--st-space-3);
+  padding: var(--st-space-4);
+  border: var(--st-border-width) solid var(--st-color-danger-border);
+  border-left-width: 3px;
+  border-left-color: var(--st-color-danger-fg);
+  border-radius: var(--st-radius-lg);
+  background: var(--st-color-danger-bg);
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-sm);
+  line-height: var(--st-line-height-normal);
+}
+.st-error-boundary__icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--st-color-danger-fg);
+}
+.st-error-boundary__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--st-space-1);
+  min-width: 0;
+}
+.st-error-boundary__title {
+  margin: 0;
+  font-weight: var(--st-font-weight-semibold);
+}
+.st-error-boundary__description {
+  margin: 0;
+  color: var(--st-color-fg-muted);
+}
+.st-error-boundary__details {
+  margin-top: var(--st-space-1);
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-xs);
+}
+.st-error-boundary__details summary {
+  cursor: pointer;
+}
+.st-error-boundary__details summary:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: 2px;
+}
+.st-error-boundary__details code {
+  display: block;
+  margin-top: var(--st-space-1);
+  font-family: var(--st-font-mono);
+  overflow-wrap: anywhere;
+}
+.st-error-boundary__retry {
+  margin-top: var(--st-space-2);
+}
+@media (forced-colors: active) {
+  .st-error-boundary {
+    border: 2px solid CanvasText;
+  }
+}

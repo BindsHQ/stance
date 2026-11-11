@@ -1,0 +1,7 @@
+.st-context-menu__trigger {
+  -webkit-touch-callout: none;
+}
+.st-context-menu__trigger:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}

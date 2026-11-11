@@ -1,0 +1,7 @@
+.st-collapsible__content[data-state='open'] {
+  animation: st-fade-in var(--st-duration-normal) var(--st-easing-standard);
+}
+.st-collapsible__trigger:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}

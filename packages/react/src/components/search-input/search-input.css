@@ -1,0 +1,50 @@
+.st-search-input {
+  padding-right: var(--st-space-1-5);
+}
+.st-search-input__clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--st-radius-sm);
+  background: transparent;
+  color: var(--st-color-fg-muted);
+  cursor: pointer;
+}
+.st-search-input__clear:hover {
+  background: var(--st-color-interactive-hover);
+  color: var(--st-color-fg-default);
+}
+.st-search-input__clear:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: 0;
+}
+.st-search-input__shortcut {
+  margin-right: var(--st-space-1);
+  padding: 0.125rem 0.375rem;
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-bottom-width: 2px;
+  border-radius: var(--st-radius-xs);
+  background: var(--st-color-bg-subtle);
+  color: var(--st-color-fg-muted);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-2xs);
+  font-weight: var(--st-font-weight-medium);
+  line-height: 1.4;
+}
+.st-search-input__spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--st-color-border-default);
+  border-top-color: var(--st-color-fg-default);
+  border-radius: var(--st-radius-full);
+  animation: st-spin 0.8s linear infinite;
+}
+.st-search-input .st-input__control::-webkit-search-decoration,
+.st-search-input .st-input__control::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}

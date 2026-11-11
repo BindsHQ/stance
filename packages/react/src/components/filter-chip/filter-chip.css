@@ -1,0 +1,96 @@
+.st-filter-chip {
+  display: inline-flex;
+  align-items: stretch;
+  max-width: 100%;
+  min-height: 2rem;
+  border: var(--st-border-width-control) dashed var(--st-color-border-control);
+  border-radius: var(--st-radius-full);
+  background: transparent;
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-sm);
+}
+.st-filter-chip[data-size='sm'] {
+  min-height: 1.625rem;
+  font-size: var(--st-font-size-xs);
+}
+.st-filter-chip[data-active] {
+  border-style: solid;
+  background: var(--st-color-bg-subtle);
+}
+.st-filter-chip__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--st-space-1-5);
+  min-width: 0;
+  padding: 0 var(--st-space-3);
+  border: 0;
+  border-radius: var(--st-radius-full);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.st-filter-chip[data-active] .st-filter-chip__trigger {
+  padding-right: var(--st-space-2);
+}
+.st-filter-chip__trigger:hover {
+  background: var(--st-color-interactive-hover);
+}
+.st-filter-chip__trigger:focus-visible,
+.st-filter-chip__clear:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: 1px;
+}
+.st-filter-chip__trigger:disabled {
+  color: var(--st-color-disabled-fg);
+  cursor: not-allowed;
+}
+.st-filter-chip__label {
+  font-weight: var(--st-font-weight-medium);
+  white-space: nowrap;
+}
+.st-filter-chip:not([data-active]) .st-filter-chip__label {
+  color: var(--st-color-fg-muted);
+}
+.st-filter-chip__sep {
+  width: 1px;
+  height: 0.875rem;
+  background: var(--st-color-border-strong);
+}
+.st-filter-chip__value {
+  overflow: hidden;
+  max-width: 14rem;
+  font-weight: var(--st-font-weight-semibold);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.st-filter-chip__chevron {
+  flex-shrink: 0;
+  color: var(--st-color-fg-muted);
+}
+.st-filter-chip__trigger[aria-expanded='true'] .st-filter-chip__chevron {
+  transform: rotate(180deg);
+}
+.st-filter-chip__clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  padding: 0;
+  border: 0;
+  border-left: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: 0 var(--st-radius-full) var(--st-radius-full) 0;
+  background: transparent;
+  color: var(--st-color-fg-muted);
+  cursor: pointer;
+}
+.st-filter-chip__clear:hover {
+  background: var(--st-color-interactive-hover);
+  color: var(--st-color-fg-default);
+}
+@media (forced-colors: active) {
+  .st-filter-chip {
+    border-color: ButtonText;
+  }
+}

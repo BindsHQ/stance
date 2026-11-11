@@ -1,0 +1,171 @@
+/* Shared by Checkbox and Radio. */
+.st-checkbox,
+.st-radio {
+  --_box: 1.125rem;
+  position: relative;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--st-space-2-5);
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-sm);
+  line-height: var(--st-line-height-snug);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.st-checkbox[data-size='sm'],
+.st-radio[data-size='sm'] {
+  --_box: 1rem;
+  font-size: var(--st-font-size-xs);
+  gap: var(--st-space-2);
+}
+.st-checkbox[data-disabled],
+.st-radio[data-disabled] {
+  color: var(--st-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+.st-checkbox__box,
+.st-radio__box {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  width: var(--_box);
+  height: var(--_box);
+  /* Align the box with the first line of text. */
+  margin-top: calc((1.25em - var(--_box)) / 2);
+}
+/* Expanded invisible hit area (WCAG 2.5.8 target size). */
+.st-checkbox__box::before,
+.st-radio__box::before {
+  content: '';
+  position: absolute;
+  inset: -0.375rem;
+}
+
+.st-checkbox__input,
+.st-radio__input {
+  appearance: none;
+  -webkit-appearance: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: var(--st-border-width-control) solid var(--st-color-border-control);
+  border-radius: var(--st-radius-xs);
+  background: var(--st-color-bg-surface);
+  cursor: inherit;
+  transition:
+    background-color var(--st-duration-fast) var(--st-easing-standard),
+    border-color var(--st-duration-fast) var(--st-easing-standard);
+}
+.st-radio__input {
+  border-radius: var(--st-radius-full);
+}
+.st-checkbox:hover .st-checkbox__input:not(:disabled),
+.st-radio:hover .st-radio__input:not(:disabled) {
+  border-color: var(--st-color-border-control-hover);
+}
+.st-checkbox__input:focus-visible,
+.st-radio__input:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}
+.st-checkbox__input:checked,
+.st-checkbox__input:indeterminate,
+.st-radio__input:checked {
+  background: var(--st-color-accent-bg);
+  border-color: var(--st-color-accent-bg);
+}
+.st-checkbox[data-invalid] .st-checkbox__input,
+.st-radio[data-invalid] .st-radio__input {
+  border-color: var(--st-color-danger-fg);
+}
+.st-checkbox__input:disabled,
+.st-radio__input:disabled {
+  background: var(--st-color-disabled-bg);
+  border-color: var(--st-color-disabled-border);
+}
+.st-checkbox__input:disabled:checked,
+.st-checkbox__input:disabled:indeterminate,
+.st-radio__input:disabled:checked {
+  background: var(--st-color-disabled-fg);
+  border-color: var(--st-color-disabled-fg);
+}
+
+.st-checkbox__mark {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1px;
+  color: var(--st-color-accent-fg);
+  opacity: 0;
+  pointer-events: none;
+}
+.st-checkbox__input:checked + .st-checkbox__mark,
+.st-checkbox__input:indeterminate + .st-checkbox__mark {
+  opacity: 1;
+}
+
+.st-radio__dot {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 40%;
+  height: 40%;
+  border-radius: var(--st-radius-full);
+  background: var(--st-color-accent-fg);
+  opacity: 0;
+  transform: scale(0.4);
+  pointer-events: none;
+  transition:
+    opacity var(--st-duration-fast) var(--st-easing-standard),
+    transform var(--st-duration-fast) var(--st-easing-emphasized);
+}
+.st-radio__input:checked + .st-radio__dot {
+  opacity: 1;
+  transform: none;
+}
+
+.st-checkbox__text,
+.st-radio__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-0-5);
+  min-width: 0;
+}
+.st-checkbox__label,
+.st-radio__label {
+  font-weight: var(--st-font-weight-medium);
+}
+.st-checkbox__description,
+.st-radio__description {
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-xs);
+  line-height: var(--st-line-height-normal);
+}
+.st-checkbox[data-disabled] .st-checkbox__description,
+.st-radio[data-disabled] .st-radio__description {
+  color: var(--st-color-fg-disabled);
+}
+
+@media (forced-colors: active) {
+  .st-checkbox__input,
+  .st-radio__input {
+    border-color: FieldText;
+  }
+  .st-checkbox__input:checked,
+  .st-checkbox__input:indeterminate,
+  .st-radio__input:checked {
+    background: Highlight;
+    border-color: Highlight;
+  }
+  .st-checkbox__mark {
+    color: HighlightText;
+  }
+  .st-radio__dot {
+    background: HighlightText;
+  }
+}

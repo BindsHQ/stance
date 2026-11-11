@@ -1,0 +1,82 @@
+.st-accordion {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--st-font-sans);
+  color: var(--st-color-fg-default);
+}
+.st-accordion[data-variant='default'] {
+  border-top: var(--st-border-width) solid var(--st-color-border-default);
+}
+.st-accordion[data-variant='default'] > .st-accordion__item {
+  border-bottom: var(--st-border-width) solid var(--st-color-border-default);
+}
+.st-accordion[data-variant='separated'] {
+  gap: var(--st-space-2);
+}
+.st-accordion[data-variant='separated'] > .st-accordion__item {
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-lg);
+  background: var(--st-color-bg-surface);
+  padding: 0 var(--st-space-4);
+}
+.st-accordion__heading {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+.st-accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--st-space-4);
+  width: 100%;
+  padding: var(--st-space-4) 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: var(--st-font-size-md);
+  font-weight: var(--st-font-weight-semibold);
+  letter-spacing: var(--st-letter-spacing-tight);
+  text-align: left;
+  cursor: pointer;
+  border-radius: var(--st-radius-sm);
+}
+.st-accordion__trigger:hover .st-accordion__label {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+.st-accordion__trigger:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}
+.st-accordion__trigger:disabled {
+  color: var(--st-color-fg-disabled);
+  cursor: not-allowed;
+}
+.st-accordion__trigger:disabled .st-accordion__label {
+  text-decoration: none;
+}
+.st-accordion__chevron {
+  flex-shrink: 0;
+  color: var(--st-color-fg-muted);
+  transition: transform var(--st-duration-normal) var(--st-easing-emphasized);
+}
+.st-accordion__trigger[data-state='open'] .st-accordion__chevron {
+  transform: rotate(180deg);
+}
+.st-accordion__content {
+  animation: st-fade-in var(--st-duration-normal) var(--st-easing-standard);
+}
+.st-accordion__content-inner {
+  padding: 0 0 var(--st-space-4);
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-sm);
+  line-height: var(--st-line-height-relaxed);
+}
+@media (forced-colors: active) {
+  .st-accordion__trigger:focus-visible {
+    outline-color: Highlight;
+  }
+}

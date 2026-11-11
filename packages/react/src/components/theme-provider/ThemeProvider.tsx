@@ -1,6 +1,11 @@
 'use client';
 import * as React from 'react';
-import { themeScript, type ThemeName, type ThemePreference, type ThemeScriptOptions } from '@bindshq/stance-tokens';
+import {
+  themeScript,
+  type ThemeName,
+  type ThemePreference,
+  type ThemeScriptOptions,
+} from '@bindshq/stance-tokens';
 import { cx } from '../../internal/cx.js';
 import { useIsomorphicLayoutEffect } from '../../internal/use-isomorphic-layout-effect.js';
 
@@ -24,17 +29,20 @@ export interface ThemeProviderProps extends ThemeScriptOptions {
 }
 
 const THEMES: readonly ThemePreference[] = ['light', 'dark', 'high-contrast', 'system'];
-const isPreference = (v: unknown): v is ThemePreference => typeof v === 'string' && (THEMES as readonly string[]).includes(v);
+const isPreference = (v: unknown): v is ThemePreference =>
+  typeof v === 'string' && (THEMES as readonly string[]).includes(v);
 
 function systemTheme(respectContrast: boolean): ThemeName {
   if (typeof window === 'undefined' || !window.matchMedia) return 'light';
-  if (respectContrast && window.matchMedia('(prefers-contrast: more)').matches) return 'high-contrast';
+  if (respectContrast && window.matchMedia('(prefers-contrast: more)').matches)
+    return 'high-contrast';
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
 function readStored(key: string, legacy: string[]): ThemePreference | null {
   try {
-    const value = localStorage.getItem(key) ?? legacy.map((k) => localStorage.getItem(k)).find(Boolean) ?? null;
+    const value =
+      localStorage.getItem(key) ?? legacy.map((k) => localStorage.getItem(k)).find(Boolean) ?? null;
     return isPreference(value) ? value : null;
   } catch {
     return null;
@@ -68,7 +76,10 @@ export function ThemeProvider({
   // Follow OS preference changes.
   React.useEffect(() => {
     if (!window.matchMedia) return;
-    const queries = [window.matchMedia('(prefers-color-scheme: dark)'), window.matchMedia('(prefers-contrast: more)')];
+    const queries = [
+      window.matchMedia('(prefers-color-scheme: dark)'),
+      window.matchMedia('(prefers-contrast: more)'),
+    ];
     const onChange = () => setSystem(systemTheme(respectContrastPreference));
     queries.forEach((q) => q.addEventListener?.('change', onChange));
     return () => queries.forEach((q) => q.removeEventListener?.('change', onChange));
@@ -125,7 +136,13 @@ export interface ThemeScriptProps extends ThemeScriptOptions {
 
 /** Inline script for <head> that applies the stored theme before first paint. */
 export function ThemeScript({ nonce, ...options }: ThemeScriptProps) {
-  return <script nonce={nonce} suppressHydrationWarning dangerouslySetInnerHTML={{ __html: themeScript(options) }} />;
+  return (
+    <script
+      nonce={nonce}
+      suppressHydrationWarning
+      dangerouslySetInnerHTML={{ __html: themeScript(options) }}
+    />
+  );
 }
 
 export interface ThemeProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -135,6 +152,9 @@ export interface ThemeProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Scopes a theme to a subtree — useful for previews, inverted sections and embedded widgets. */
-export const Theme = React.forwardRef<HTMLDivElement, ThemeProps>(function Theme({ theme, className, ...props }, ref) {
+export const Theme = React.forwardRef<HTMLDivElement, ThemeProps>(function Theme(
+  { theme, className, ...props },
+  ref,
+) {
   return <div ref={ref} data-theme={theme} className={cx('st-theme', className)} {...props} />;
 });

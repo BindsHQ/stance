@@ -1,0 +1,85 @@
+.st-list-item {
+  display: flex;
+  align-items: center;
+  gap: var(--st-space-3);
+  padding: 0 var(--_px, 0);
+  min-width: 0;
+}
+.st-list-item__main {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: var(--st-space-3);
+  min-width: 0;
+  padding: var(--_py, var(--st-space-3)) 0;
+  color: inherit;
+  text-decoration: none;
+}
+.st-list-item__main[data-interactive] {
+  margin: 0 calc(var(--st-space-2) * -1);
+  padding-left: var(--st-space-2);
+  padding-right: var(--st-space-2);
+  border: 0;
+  border-radius: var(--st-radius-md);
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.st-list-item__main[data-interactive]:hover {
+  background: var(--st-color-interactive-hover);
+}
+.st-list-item__main[data-interactive]:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: -2px;
+}
+.st-list-item[data-selected] .st-list-item__main[data-interactive] {
+  background: var(--st-color-interactive-selected);
+  color: var(--st-color-interactive-selected-fg);
+}
+.st-list-item[data-disabled] {
+  color: var(--st-color-fg-disabled);
+}
+.st-list-item[data-disabled] .st-list-item__main {
+  pointer-events: none;
+}
+.st-list-item__leading {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--st-color-fg-muted);
+}
+.st-list-item__text {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.st-list-item__title {
+  overflow: hidden;
+  font-weight: var(--st-font-weight-medium);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.st-list-item__description {
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-xs);
+}
+.st-list-item[data-disabled] .st-list-item__description {
+  color: inherit;
+}
+.st-list-item__meta {
+  flex-shrink: 0;
+  color: var(--st-color-fg-subtle);
+  font-size: var(--st-font-size-xs);
+}
+.st-list-item__actions {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: var(--st-space-1);
+}
+@media (max-width: 640px) {
+  .st-list-item__title {
+    white-space: normal;
+  }
+}

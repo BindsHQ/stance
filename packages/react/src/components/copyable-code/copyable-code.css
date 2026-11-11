@@ -1,0 +1,32 @@
+.st-copyable-code {
+  display: flex;
+  align-items: center;
+  gap: var(--st-space-2);
+  max-width: 100%;
+  padding: var(--st-space-1) var(--st-space-1) var(--st-space-1) var(--st-space-3);
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-md);
+  background: var(--st-color-bg-subtle);
+  color: var(--st-color-fg-default);
+}
+.st-copyable-code__value {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-family: var(--st-font-mono);
+  font-size: var(--st-font-size-sm);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  scrollbar-width: thin;
+}
+.st-copyable-code[data-size='sm'] .st-copyable-code__value {
+  font-size: var(--st-font-size-xs);
+}
+.st-copyable-code__prompt {
+  color: var(--st-color-fg-subtle);
+  user-select: none;
+}
+@media (forced-colors: active) {
+  .st-copyable-code {
+    border-color: CanvasText;
+  }
+}

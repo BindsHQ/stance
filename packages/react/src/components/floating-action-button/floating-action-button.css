@@ -1,0 +1,76 @@
+.st-fab {
+  --_size: 3.5rem;
+  position: fixed;
+  z-index: var(--st-z-sticky);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--st-space-2);
+  min-width: var(--_size);
+  height: var(--_size);
+  padding: 0;
+  border: 0;
+  border-radius: var(--st-radius-full);
+  background: var(--st-color-accent-bg);
+  color: var(--st-color-accent-fg);
+  box-shadow: var(--st-shadow-lg);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-sm);
+  font-weight: var(--st-font-weight-semibold);
+  cursor: pointer;
+  transition:
+    background-color var(--st-duration-fast) var(--st-easing-standard),
+    transform var(--st-duration-fast) var(--st-easing-standard),
+    box-shadow var(--st-duration-fast) var(--st-easing-standard);
+}
+.st-fab[data-size='md'] {
+  --_size: 2.75rem;
+}
+.st-fab[data-extended] {
+  padding: 0 var(--st-space-5) 0 var(--st-space-4);
+}
+.st-fab:hover {
+  background: var(--st-color-accent-bg-hover);
+  box-shadow: var(--st-shadow-xl);
+}
+.st-fab:active {
+  transform: scale(0.97);
+}
+.st-fab:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}
+.st-fab:disabled {
+  background: var(--st-color-disabled-bg);
+  color: var(--st-color-disabled-fg);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+.st-fab__icon {
+  display: inline-flex;
+}
+.st-fab__icon > svg {
+  width: 1.375rem;
+  height: 1.375rem;
+}
+.st-fab[data-position='bottom-right'] {
+  right: max(var(--st-space-6), env(safe-area-inset-right));
+  bottom: max(var(--st-space-6), env(safe-area-inset-bottom));
+}
+.st-fab[data-position='bottom-left'] {
+  left: max(var(--st-space-6), env(safe-area-inset-left));
+  bottom: max(var(--st-space-6), env(safe-area-inset-bottom));
+}
+.st-fab[data-position='bottom-center'] {
+  left: 50%;
+  bottom: max(var(--st-space-6), env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+}
+.st-fab[data-position='static'] {
+  position: relative;
+}
+@media (forced-colors: active) {
+  .st-fab {
+    border: 2px solid ButtonText;
+  }
+}

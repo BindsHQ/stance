@@ -8,7 +8,17 @@
   font-weight: var(--st-font-weight-medium);
   line-height: var(--st-line-height-snug);
 }
-.st-label[data-size='sm'] { font-size: var(--st-font-size-xs); }
-.st-label[data-disabled] { color: var(--st-color-fg-disabled); }
-.st-label__required { color: var(--st-color-danger-fg); }
-.st-label__optional { color: var(--st-color-fg-subtle); font-weight: var(--st-font-weight-regular); font-size: 0.9em; }
+.st-label[data-size='sm'] {
+  font-size: var(--st-font-size-xs);
+}
+.st-label[data-disabled] {
+  color: var(--st-color-fg-disabled);
+}
+.st-label__required {
+  color: var(--st-color-danger-fg);
+}
+.st-label__optional {
+  color: var(--st-color-fg-subtle);
+  font-weight: var(--st-font-weight-regular);
+  font-size: 0.9em;
+}

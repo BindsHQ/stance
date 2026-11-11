@@ -1,0 +1,88 @@
+.st-split-panel {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+.st-split-panel[data-orientation='vertical'] {
+  flex-direction: column;
+}
+.st-split-panel[data-dragging] {
+  user-select: none;
+}
+.st-split-panel[data-dragging][data-orientation='horizontal'] {
+  cursor: col-resize;
+}
+.st-split-panel[data-dragging][data-orientation='vertical'] {
+  cursor: row-resize;
+}
+
+.st-resize-handle {
+  position: relative;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--st-color-separator);
+  touch-action: none;
+  outline: none;
+  transition: background-color var(--st-duration-fast) var(--st-easing-standard);
+}
+.st-resize-handle[data-orientation='vertical'] {
+  width: var(--st-border-width);
+  cursor: col-resize;
+}
+.st-resize-handle[data-orientation='horizontal'] {
+  height: var(--st-border-width);
+  cursor: row-resize;
+}
+/* Enlarged hit area (WCAG 2.5.8) without changing layout. */
+.st-resize-handle::before {
+  content: '';
+  position: absolute;
+  inset: 0 -6px;
+}
+.st-resize-handle[data-orientation='horizontal']::before {
+  inset: -6px 0;
+}
+.st-resize-handle:hover,
+.st-resize-handle[data-dragging] {
+  background: var(--st-color-border-control-hover);
+}
+.st-resize-handle:focus-visible {
+  background: var(--st-color-focus-ring);
+  box-shadow: 0 0 0 var(--st-focus-width) var(--st-color-focus-ring);
+  z-index: var(--st-z-raised);
+}
+.st-resize-handle__grip {
+  position: relative;
+  z-index: var(--st-z-raised);
+  flex-shrink: 0;
+  border: var(--st-border-width) solid var(--st-color-border-strong);
+  border-radius: var(--st-radius-full);
+  background: var(--st-color-bg-surface);
+}
+.st-resize-handle[data-orientation='vertical'] .st-resize-handle__grip {
+  width: 6px;
+  height: 24px;
+}
+.st-resize-handle[data-orientation='horizontal'] .st-resize-handle__grip {
+  width: 24px;
+  height: 6px;
+}
+.st-resize-handle[data-disabled] {
+  cursor: default;
+}
+.st-resize-handle[data-disabled] .st-resize-handle__grip {
+  display: none;
+}
+@media (forced-colors: active) {
+  .st-resize-handle {
+    background: CanvasText;
+  }
+  .st-resize-handle:focus-visible {
+    background: Highlight;
+    box-shadow: 0 0 0 2px Highlight;
+  }
+}

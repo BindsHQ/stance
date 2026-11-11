@@ -1,0 +1,87 @@
+.st-breadcrumbs {
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-sm);
+  line-height: var(--st-line-height-snug);
+  color: var(--st-color-fg-muted);
+}
+.st-breadcrumbs[data-size='sm'] {
+  font-size: var(--st-font-size-xs);
+}
+.st-breadcrumbs__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--st-space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.st-breadcrumbs__item {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+}
+.st-breadcrumbs__separator {
+  display: inline-flex;
+  align-items: center;
+  color: var(--st-color-fg-subtle);
+}
+.st-breadcrumbs__link,
+.st-breadcrumbs__current,
+.st-breadcrumbs__text {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--st-space-1-5);
+  max-width: 16rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-radius: var(--st-radius-xs);
+}
+.st-breadcrumbs__link {
+  color: var(--st-color-fg-muted);
+  text-decoration: none;
+  transition: color var(--st-duration-fast) var(--st-easing-standard);
+}
+.st-breadcrumbs__link:hover {
+  color: var(--st-color-fg-default);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.st-breadcrumbs__link:focus-visible,
+.st-breadcrumbs__ellipsis:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}
+.st-breadcrumbs__current {
+  color: var(--st-color-fg-default);
+  font-weight: var(--st-font-weight-medium);
+}
+.st-breadcrumbs__icon {
+  display: inline-flex;
+}
+.st-breadcrumbs__ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--st-radius-sm);
+  background: transparent;
+  color: var(--st-color-fg-muted);
+  cursor: pointer;
+}
+.st-breadcrumbs__ellipsis:hover {
+  background: var(--st-color-interactive-hover);
+  color: var(--st-color-fg-default);
+}
+[data-theme='high-contrast'] .st-breadcrumbs__link {
+  text-decoration: underline;
+}
+@media (forced-colors: active) {
+  .st-breadcrumbs__current {
+    forced-color-adjust: auto;
+  }
+}

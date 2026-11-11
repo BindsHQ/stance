@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
@@ -103,13 +104,17 @@ describe('Dialog', () => {
   it('supports controlled usage', () => {
     const { rerender } = render(
       <Dialog open={false}>
-        <DialogContent><DialogTitle>T</DialogTitle></DialogContent>
+        <DialogContent>
+          <DialogTitle>T</DialogTitle>
+        </DialogContent>
       </Dialog>,
     );
     expect(screen.queryByRole('dialog')).toBeNull();
     rerender(
       <Dialog open>
-        <DialogContent><DialogTitle>T</DialogTitle></DialogContent>
+        <DialogContent>
+          <DialogTitle>T</DialogTitle>
+        </DialogContent>
       </Dialog>,
     );
     expect(screen.getByRole('dialog', { name: 'T' })).toBeInTheDocument();
@@ -119,5 +124,34 @@ describe('Dialog', () => {
     render(<Example />);
     await userEvent.click(screen.getByRole('button', { name: 'Open' }));
     await expectNoA11yViolations(document.body);
+  });
+});
+
+describe('Dialog focus restoration with autofocusing children', () => {
+  function AutoFocusChild() {
+    const ref = React.useRef<HTMLButtonElement>(null);
+    React.useEffect(() => ref.current?.focus(), []);
+    return (
+      <button ref={ref} type="button">
+        Auto
+      </button>
+    );
+  }
+  it('restores focus to the trigger even when a child focuses itself on mount', async () => {
+    render(
+      <Dialog>
+        <DialogTrigger>Open</DialogTrigger>
+        <DialogContent>
+          <DialogTitle>T</DialogTitle>
+          <AutoFocusChild />
+        </DialogContent>
+      </Dialog>,
+    );
+    const user = userEvent.setup();
+    const trigger = screen.getByRole('button', { name: 'Open' });
+    await user.click(trigger);
+    expect(screen.getByRole('button', { name: 'Auto' })).toHaveFocus();
+    await user.keyboard('{Escape}');
+    await waitFor(() => expect(trigger).toHaveFocus());
   });
 });

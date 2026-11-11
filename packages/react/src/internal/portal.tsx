@@ -14,7 +14,11 @@ export interface PortalProps {
 const subscribe = () => () => {};
 /** true on the client (synchronously for client renders), false on the server and during hydration. */
 function useIsClient() {
-  return React.useSyncExternalStore(subscribe, () => true, () => false);
+  return React.useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false,
+  );
 }
 
 /**
@@ -27,7 +31,8 @@ export function Portal({ children, container, disabled }: PortalProps) {
   const [theme, setTheme] = React.useState<string | undefined>(undefined);
   useIsomorphicLayoutEffect(() => {
     const scoped = probeRef.current?.parentElement?.closest('[data-theme]');
-    if (scoped && scoped !== document.documentElement) setTheme(scoped.getAttribute('data-theme') ?? undefined);
+    if (scoped && scoped !== document.documentElement)
+      setTheme(scoped.getAttribute('data-theme') ?? undefined);
   }, []);
   if (disabled) return <>{children}</>;
   const probe = <span ref={probeRef} hidden data-stance-portal-probe="" />;

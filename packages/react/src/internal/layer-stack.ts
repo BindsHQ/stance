@@ -18,7 +18,10 @@ export interface DismissOptions {
   excludeRefs?: React.RefObject<HTMLElement | null>[] | undefined;
 }
 
-export function useDismissableLayer(ref: React.RefObject<HTMLElement | null>, options: DismissOptions) {
+export function useDismissableLayer(
+  ref: React.RefObject<HTMLElement | null>,
+  options: DismissOptions,
+) {
   const optsRef = React.useRef(options);
   optsRef.current = options;
   const { enabled } = options;
@@ -59,7 +62,10 @@ export function useDismissableLayer(ref: React.RefObject<HTMLElement | null>, op
       optsRef.current.onFocusOutside(event);
     };
     // Defer pointer listener so the opening click doesn't immediately close the layer.
-    const timer = window.setTimeout(() => document.addEventListener('pointerdown', onPointerDown, true), 0);
+    const timer = window.setTimeout(
+      () => document.addEventListener('pointerdown', onPointerDown, true),
+      0,
+    );
     document.addEventListener('keydown', onKeyDown, true);
     document.addEventListener('focusin', onFocusIn);
     return () => {

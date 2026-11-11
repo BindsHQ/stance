@@ -26,7 +26,11 @@ describe('Button', () => {
 
   it('blocks clicks while loading and exposes aria-busy', async () => {
     const onClick = vi.fn();
-    render(<Button loading onClick={onClick}>Save</Button>);
+    render(
+      <Button loading onClick={onClick}>
+        Save
+      </Button>,
+    );
     const button = screen.getByRole('button');
     expect(button).toHaveAttribute('aria-busy', 'true');
     await userEvent.click(button);
@@ -35,7 +39,11 @@ describe('Button', () => {
 
   it('does not fire when disabled', async () => {
     const onClick = vi.fn();
-    render(<Button disabled onClick={onClick}>Save</Button>);
+    render(
+      <Button disabled onClick={onClick}>
+        Save
+      </Button>,
+    );
     await userEvent.click(screen.getByRole('button'));
     expect(onClick).not.toHaveBeenCalled();
   });
@@ -61,7 +69,9 @@ describe('Button', () => {
     const { container } = render(
       <div data-theme={theme}>
         {(['primary', 'secondary', 'outline', 'ghost', 'danger', 'link'] as const).map((v) => (
-          <Button key={v} variant={v}>{v}</Button>
+          <Button key={v} variant={v}>
+            {v}
+          </Button>
         ))}
         <Button loading>Loading</Button>
         <Button disabled>Disabled</Button>

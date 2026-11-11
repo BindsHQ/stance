@@ -1,0 +1,57 @@
+.st-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--st-space-1-5);
+  min-height: 2rem;
+  padding: 0 var(--st-space-3);
+  border: var(--st-border-width-control) solid var(--st-color-border-strong);
+  border-radius: var(--st-radius-full);
+  background: transparent;
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-sm);
+  font-weight: var(--st-font-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--st-duration-fast) var(--st-easing-standard),
+    border-color var(--st-duration-fast) var(--st-easing-standard),
+    color var(--st-duration-fast) var(--st-easing-standard);
+}
+.st-chip[data-size='sm'] {
+  min-height: 1.625rem;
+  padding: 0 var(--st-space-2-5);
+  font-size: var(--st-font-size-xs);
+}
+.st-chip:hover {
+  background: var(--st-color-interactive-hover);
+  border-color: var(--st-color-border-control-hover);
+}
+.st-chip[data-state='on'] {
+  background: var(--st-color-accent-bg);
+  border-color: var(--st-color-accent-bg);
+  color: var(--st-color-accent-fg);
+}
+.st-chip[data-state='on']:hover {
+  background: var(--st-color-accent-bg-hover);
+}
+.st-chip:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}
+.st-chip:disabled {
+  cursor: not-allowed;
+  color: var(--st-color-disabled-fg);
+  background: var(--st-color-disabled-bg);
+  border-color: var(--st-color-disabled-border);
+}
+.st-chip__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+@media (forced-colors: active) {
+  .st-chip[data-state='on'] {
+    outline: 2px solid Highlight;
+  }
+}

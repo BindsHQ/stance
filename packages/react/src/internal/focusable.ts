@@ -22,7 +22,8 @@ function isVisible(el: HTMLElement): boolean {
 /** Tabbable descendants in DOM order (excludes tabindex="-1"). */
 export function getTabbables(container: HTMLElement): HTMLElement[] {
   return Array.from(container.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
-    (el) => el.tabIndex >= 0 && !el.hasAttribute('inert') && !el.closest('[inert]') && isVisible(el),
+    (el) =>
+      el.tabIndex >= 0 && !el.hasAttribute('inert') && !el.closest('[inert]') && isVisible(el),
   );
 }
 

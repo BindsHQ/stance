@@ -1,0 +1,105 @@
+.st-multi-select {
+  flex-wrap: wrap;
+  gap: var(--st-space-1);
+  height: auto;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  cursor: pointer;
+}
+.st-multi-select__tags {
+  display: contents;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.st-multi-select__tag,
+.st-multi-select__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  max-width: 12rem;
+  height: 1.5rem;
+  padding: 0 2px 0 var(--st-space-2);
+  border-radius: var(--st-radius-sm);
+  background: var(--st-color-bg-muted);
+  color: var(--st-color-fg-default);
+  font-size: var(--st-font-size-xs);
+  font-weight: var(--st-font-weight-medium);
+}
+.st-multi-select__more {
+  padding: 0 var(--st-space-2);
+  color: var(--st-color-fg-muted);
+}
+.st-multi-select__tag-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.st-multi-select__tag-remove,
+.st-multi-select__clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--st-radius-xs);
+  background: transparent;
+  color: var(--st-color-fg-muted);
+  cursor: pointer;
+}
+.st-multi-select__tag-remove:hover,
+.st-multi-select__clear:hover {
+  background: var(--st-color-interactive-active);
+  color: var(--st-color-fg-default);
+}
+.st-multi-select__clear {
+  margin-left: auto;
+}
+.st-multi-select__control,
+.st-multi-select__search {
+  flex: 1 1 6rem;
+  min-width: 4rem;
+  height: calc(var(--_h) - 8px);
+  padding: 0 var(--st-space-1);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  outline: none;
+  cursor: pointer;
+}
+.st-multi-select__search {
+  cursor: text;
+}
+.st-multi-select__search::placeholder,
+.st-multi-select__control[data-placeholder] {
+  color: var(--st-color-fg-subtle);
+  opacity: 1;
+}
+.st-multi-select__control:disabled,
+.st-multi-select__search:disabled {
+  cursor: not-allowed;
+}
+.st-multi-select__count {
+  align-self: center;
+  color: var(--st-color-fg-subtle);
+  font-size: var(--st-font-size-xs);
+}
+.st-multi-select .st-select__chevron {
+  margin-left: 0;
+}
+.st-multi-select__clear + .st-select__chevron {
+  margin-left: 0;
+}
+.st-multi-select:not(:has(.st-multi-select__clear)) .st-select__chevron {
+  margin-left: auto;
+}
+@media (forced-colors: active) {
+  .st-multi-select__tag {
+    border: 1px solid CanvasText;
+  }
+}

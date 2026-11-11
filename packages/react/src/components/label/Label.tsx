@@ -27,7 +27,7 @@ export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(function Lab
       {required && (
         <span className="st-label__required">
           <span aria-hidden="true">*</span>
-          <span className="st-sr-only"> (required)</span>
+          <span className="st-sr-only">, required</span>
         </span>
       )}
       {!required && optionalText && <span className="st-label__optional">{optionalText}</span>}

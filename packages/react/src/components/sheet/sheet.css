@@ -1,0 +1,48 @@
+.st-dialog.st-sheet {
+  transition: transform var(--st-duration-normal) var(--st-easing-emphasized);
+  padding-top: 0;
+}
+.st-dialog.st-sheet[data-height='half'] {
+  height: 50dvh;
+}
+.st-dialog.st-sheet[data-height='full'] {
+  height: 100dvh;
+  max-height: 100dvh;
+  border-radius: 0;
+}
+.st-sheet__handle {
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: var(--st-space-2) 0 var(--st-space-1);
+  cursor: grab;
+  touch-action: none;
+}
+.st-sheet__handle:active {
+  cursor: grabbing;
+}
+.st-sheet__handle > span {
+  width: 2.5rem;
+  height: 0.3125rem;
+  border-radius: var(--st-radius-full);
+  background: var(--st-color-border-strong);
+}
+.st-sheet .st-dialog__header {
+  padding-top: var(--st-space-3);
+}
+.st-sheet .st-dialog__close {
+  top: var(--st-space-5);
+}
+@media (min-width: 768px) {
+  .st-dialog.st-sheet {
+    left: 0;
+    right: 0;
+    width: min(40rem, 100vw);
+    margin-inline: auto;
+  }
+}
+@media (forced-colors: active) {
+  .st-sheet__handle > span {
+    background: CanvasText;
+  }
+}

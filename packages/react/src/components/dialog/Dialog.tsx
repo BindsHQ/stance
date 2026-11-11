@@ -36,8 +36,17 @@ export interface DialogProps {
 }
 
 /** A modal window that interrupts the page to focus on a task. Root of the compound component. */
-export function Dialog({ children, open: openProp, defaultOpen = false, onOpenChange }: DialogProps) {
-  const [open, setOpen] = useControllableState({ value: openProp, defaultValue: defaultOpen, onChange: onOpenChange });
+export function Dialog({
+  children,
+  open: openProp,
+  defaultOpen = false,
+  onOpenChange,
+}: DialogProps) {
+  const [open, setOpen] = useControllableState({
+    value: openProp,
+    defaultValue: defaultOpen,
+    onChange: onOpenChange,
+  });
   const id = React.useId();
   const triggerRef = React.useRef<HTMLButtonElement>(null);
   const [hasDescription, setHasDescription] = React.useState(false);
@@ -62,25 +71,24 @@ export interface DialogTriggerProps extends React.ButtonHTMLAttributes<HTMLButto
 }
 
 /** Opens the dialog. Use `asChild` to render your own Button. */
-export const DialogTrigger = React.forwardRef<HTMLButtonElement, DialogTriggerProps>(function DialogTrigger(
-  { asChild, onClick, ...props },
-  ref,
-) {
-  const ctx = useDialogContext('DialogTrigger');
-  const Comp = asChild ? Slot : 'button';
-  return (
-    <Comp
-      ref={useComposedRefs(ref, ctx.triggerRef) as React.Ref<HTMLButtonElement & HTMLElement>}
-      {...(!asChild && { type: 'button' as const })}
-      aria-haspopup="dialog"
-      aria-expanded={ctx.open}
-      aria-controls={ctx.open ? ctx.contentId : undefined}
-      data-state={ctx.open ? 'open' : 'closed'}
-      onClick={composeHandlers(onClick, () => ctx.setOpen(!ctx.open))}
-      {...props}
-    />
-  );
-});
+export const DialogTrigger = React.forwardRef<HTMLButtonElement, DialogTriggerProps>(
+  function DialogTrigger({ asChild, onClick, ...props }, ref) {
+    const ctx = useDialogContext('DialogTrigger');
+    const Comp = asChild ? Slot : 'button';
+    return (
+      <Comp
+        ref={useComposedRefs(ref, ctx.triggerRef) as React.Ref<HTMLButtonElement & HTMLElement>}
+        {...(!asChild && { type: 'button' as const })}
+        aria-haspopup="dialog"
+        aria-expanded={ctx.open}
+        aria-controls={ctx.open ? ctx.contentId : undefined}
+        data-state={ctx.open ? 'open' : 'closed'}
+        onClick={composeHandlers(onClick, () => ctx.setOpen(!ctx.open))}
+        {...props}
+      />
+    );
+  },
+);
 
 export type DialogSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
 export type DialogPlacement = 'center' | 'left' | 'right' | 'top' | 'bottom';
@@ -109,69 +117,71 @@ export interface DialogContentProps extends React.HTMLAttributes<HTMLDivElement>
 }
 
 /** The dialog surface. Traps focus, locks scroll, closes on Escape and restores focus. */
-export const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(function DialogContent(
-  {
-    size = 'md',
-    initialFocus,
-    showClose = true,
-    closeLabel = 'Close',
-    dismissOnOutsideClick = true,
-    onEscapeKeyDown,
-    onPointerDownOutside,
-    restoreFocus = true,
-    placement = 'center',
-    role = 'dialog',
-    disablePortal,
-    className,
-    children,
-    ...props
-  },
-  forwardedRef,
-) {
-  const ctx = useDialogContext('DialogContent');
-  const ref = React.useRef<HTMLDivElement>(null);
-  const composed = useComposedRefs(forwardedRef, ref);
-  useFocusScope(ref, { enabled: ctx.open, initialFocus, restoreFocus });
-  useScrollLock(ctx.open);
-  useDismissableLayer(ref, {
-    enabled: ctx.open,
-    onEscapeKeyDown,
-    onPointerDownOutside: (event) => {
-      onPointerDownOutside?.(event);
-      if (!dismissOnOutsideClick) event.preventDefault();
+export const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(
+  function DialogContent(
+    {
+      size = 'md',
+      initialFocus,
+      showClose = true,
+      closeLabel = 'Close',
+      dismissOnOutsideClick = true,
+      onEscapeKeyDown,
+      onPointerDownOutside,
+      restoreFocus = true,
+      placement = 'center',
+      role = 'dialog',
+      disablePortal,
+      className,
+      children,
+      ...props
     },
-    onDismiss: () => ctx.setOpen(false),
-    excludeRefs: [ctx.triggerRef],
-  });
-  if (!ctx.open) return null;
-  return (
-    <Portal disabled={disablePortal}>
-      <div className="st-scrim st-dialog-scrim" data-placement={placement} aria-hidden="true" />
-      <div
-        ref={composed}
-        id={ctx.contentId}
-        role={role}
-        aria-modal="true"
-        aria-labelledby={ctx.titleId}
-        aria-describedby={ctx.hasDescription ? ctx.descriptionId : undefined}
-        tabIndex={-1}
-        data-stance-layer=""
-        data-state="open"
-        data-size={size}
-        data-placement={placement}
-        className={cx('st-dialog', className)}
-        {...props}
-      >
-        {children}
-        {showClose && (
-          <DialogClose className="st-dialog__close" aria-label={closeLabel}>
-            <Icon name="x" size={18} />
-          </DialogClose>
-        )}
-      </div>
-    </Portal>
-  );
-});
+    forwardedRef,
+  ) {
+    const ctx = useDialogContext('DialogContent');
+    const ref = React.useRef<HTMLDivElement>(null);
+    const composed = useComposedRefs(forwardedRef, ref);
+    useFocusScope(ref, { enabled: ctx.open, initialFocus, restoreFocus });
+    useScrollLock(ctx.open);
+    useDismissableLayer(ref, {
+      enabled: ctx.open,
+      onEscapeKeyDown,
+      onPointerDownOutside: (event) => {
+        onPointerDownOutside?.(event);
+        if (!dismissOnOutsideClick) event.preventDefault();
+      },
+      onDismiss: () => ctx.setOpen(false),
+      excludeRefs: [ctx.triggerRef],
+    });
+    if (!ctx.open) return null;
+    return (
+      <Portal disabled={disablePortal}>
+        <div className="st-scrim st-dialog-scrim" data-placement={placement} aria-hidden="true" />
+        <div
+          ref={composed}
+          id={ctx.contentId}
+          role={role}
+          aria-modal="true"
+          aria-labelledby={ctx.titleId}
+          aria-describedby={ctx.hasDescription ? ctx.descriptionId : undefined}
+          tabIndex={-1}
+          data-stance-layer=""
+          data-state="open"
+          data-size={size}
+          data-placement={placement}
+          className={cx('st-dialog', className)}
+          {...props}
+        >
+          {children}
+          {showClose && (
+            <DialogClose className="st-dialog__close" aria-label={closeLabel}>
+              <Icon name="x" size={18} />
+            </DialogClose>
+          )}
+        </div>
+      </Portal>
+    );
+  },
+);
 
 export const DialogHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   function DialogHeader({ className, ...props }, ref) {
@@ -185,27 +195,36 @@ export interface DialogTitleProps extends React.HTMLAttributes<HTMLHeadingElemen
 }
 
 /** The dialog's accessible name. Required for every dialog. */
-export const DialogTitle = React.forwardRef<HTMLHeadingElement, DialogTitleProps>(function DialogTitle(
-  { level = 2, className, ...props },
-  ref,
-) {
-  const ctx = useDialogContext('DialogTitle');
-  const Tag = `h${level}` as 'h2';
-  return <Tag ref={ref} id={ctx.titleId} className={cx('st-dialog__title', className)} {...props} />;
-});
-
-/** Supporting text, linked via aria-describedby. */
-export const DialogDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
-  function DialogDescription({ className, ...props }, ref) {
-    const ctx = useDialogContext('DialogDescription');
-    const { setHasDescription } = ctx;
-    React.useEffect(() => {
-      setHasDescription(true);
-      return () => setHasDescription(false);
-    }, [setHasDescription]);
-    return <p ref={ref} id={ctx.descriptionId} className={cx('st-dialog__description', className)} {...props} />;
+export const DialogTitle = React.forwardRef<HTMLHeadingElement, DialogTitleProps>(
+  function DialogTitle({ level = 2, className, ...props }, ref) {
+    const ctx = useDialogContext('DialogTitle');
+    const Tag = `h${level}` as 'h2';
+    return (
+      <Tag ref={ref} id={ctx.titleId} className={cx('st-dialog__title', className)} {...props} />
+    );
   },
 );
+
+/** Supporting text, linked via aria-describedby. */
+export const DialogDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(function DialogDescription({ className, ...props }, ref) {
+  const ctx = useDialogContext('DialogDescription');
+  const { setHasDescription } = ctx;
+  React.useEffect(() => {
+    setHasDescription(true);
+    return () => setHasDescription(false);
+  }, [setHasDescription]);
+  return (
+    <p
+      ref={ref}
+      id={ctx.descriptionId}
+      className={cx('st-dialog__description', className)}
+      {...props}
+    />
+  );
+});
 
 export const DialogBody = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   function DialogBody({ className, ...props }, ref) {
@@ -224,18 +243,17 @@ export interface DialogCloseProps extends React.ButtonHTMLAttributes<HTMLButtonE
 }
 
 /** Closes the dialog. Use `asChild` to wrap a Button. */
-export const DialogClose = React.forwardRef<HTMLButtonElement, DialogCloseProps>(function DialogClose(
-  { asChild, onClick, ...props },
-  ref,
-) {
-  const ctx = useDialogContext('DialogClose');
-  const Comp = asChild ? Slot : 'button';
-  return (
-    <Comp
-      ref={ref as React.Ref<HTMLButtonElement & HTMLElement>}
-      {...(!asChild && { type: 'button' as const })}
-      onClick={composeHandlers(onClick, () => ctx.setOpen(false))}
-      {...props}
-    />
-  );
-});
+export const DialogClose = React.forwardRef<HTMLButtonElement, DialogCloseProps>(
+  function DialogClose({ asChild, onClick, ...props }, ref) {
+    const ctx = useDialogContext('DialogClose');
+    const Comp = asChild ? Slot : 'button';
+    return (
+      <Comp
+        ref={ref as React.Ref<HTMLButtonElement & HTMLElement>}
+        {...(!asChild && { type: 'button' as const })}
+        onClick={composeHandlers(onClick, () => ctx.setOpen(false))}
+        {...props}
+      />
+    );
+  },
+);

@@ -1,0 +1,38 @@
+.st-native-select {
+  position: relative;
+  padding: 0;
+}
+.st-native-select__control {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  height: calc(var(--_h) - 2px);
+  margin: 0;
+  padding: 0 calc(var(--_px) + 1.25rem) 0 var(--_px);
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+}
+.st-native-select__control:disabled {
+  cursor: not-allowed;
+}
+.st-native-select__control option {
+  background: var(--st-color-bg-overlay);
+  color: var(--st-color-fg-default);
+}
+.st-native-select__icon {
+  position: absolute;
+  right: var(--_px);
+  color: var(--st-color-fg-muted);
+  pointer-events: none;
+}
+.st-native-select__control:invalid,
+.st-native-select__control:has(option[value='']:checked) {
+  color: var(--st-color-fg-subtle);
+}

@@ -147,7 +147,17 @@ export const FormField = React.forwardRef<HTMLDivElement, FormFieldProps>(functi
           )}
           {hasError && (
             <p id={ctx.errorId} className="st-form-field__error" role="alert">
-              <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <svg
+                viewBox="0 0 24 24"
+                width="14"
+                height="14"
+                aria-hidden="true"
+                focusable="false"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              >
                 <circle cx="12" cy="12" r="9" />
                 <path d="M12 7.5v5M12 16h.01" />
               </svg>

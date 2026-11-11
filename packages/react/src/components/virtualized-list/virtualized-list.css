@@ -1,0 +1,70 @@
+.st-virtualized-list {
+  position: relative;
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-lg);
+  background: var(--st-color-bg-surface);
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-sm);
+  scrollbar-width: thin;
+  scrollbar-color: var(--st-color-border-strong) transparent;
+}
+.st-virtualized-list:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}
+.st-virtualized-list__sizer {
+  position: relative;
+  width: 100%;
+}
+.st-virtualized-list__item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--st-space-4);
+  border-bottom: var(--st-border-width) solid var(--st-color-border-subtle);
+}
+.st-virtualized-list[data-role='listbox'] .st-virtualized-list__item {
+  cursor: pointer;
+}
+.st-virtualized-list[data-role='listbox'] .st-virtualized-list__item:hover {
+  background: var(--st-color-interactive-hover);
+}
+.st-virtualized-list__item[data-active] {
+  background: var(--st-color-interactive-hover);
+  box-shadow: inset 2px 0 0 var(--st-color-focus-ring);
+}
+.st-virtualized-list__item[data-selected] {
+  background: var(--st-color-interactive-selected);
+  color: var(--st-color-interactive-selected-fg);
+  font-weight: var(--st-font-weight-medium);
+}
+.st-virtualized-list__item[data-disabled] {
+  color: var(--st-color-fg-disabled);
+  cursor: not-allowed;
+}
+.st-virtualized-list[data-empty] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--st-space-8);
+}
+@media (forced-colors: active) {
+  .st-virtualized-list {
+    border: 1px solid CanvasText;
+  }
+  .st-virtualized-list__item[data-active] {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+  .st-virtualized-list__item[data-selected] {
+    forced-color-adjust: none;
+    background: Highlight;
+    color: HighlightText;
+  }
+}

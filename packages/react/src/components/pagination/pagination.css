@@ -1,0 +1,75 @@
+.st-pagination {
+  font-family: var(--st-font-sans);
+}
+.st-pagination__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--st-space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.st-pagination__item {
+  --_h: var(--st-size-control-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--st-space-1);
+  min-width: var(--_h);
+  height: var(--_h);
+  padding: 0 var(--st-space-2);
+  border: var(--st-border-width) solid transparent;
+  border-radius: var(--st-radius-md);
+  background: transparent;
+  color: var(--st-color-fg-default);
+  font: inherit;
+  font-size: var(--st-font-size-sm);
+  font-weight: var(--st-font-weight-medium);
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--st-duration-fast) var(--st-easing-standard);
+}
+.st-pagination[data-size='sm'] .st-pagination__item {
+  --_h: var(--st-size-control-sm);
+  font-size: var(--st-font-size-xs);
+}
+.st-pagination__item:hover:not(:disabled):not([data-current]) {
+  background: var(--st-color-interactive-hover);
+}
+.st-pagination__item[data-current] {
+  background: var(--st-color-accent-bg);
+  color: var(--st-color-accent-fg);
+  cursor: default;
+}
+.st-pagination__item[data-kind='prev'],
+.st-pagination__item[data-kind='next'] {
+  border-color: var(--st-color-border-default);
+}
+.st-pagination__item:disabled {
+  color: var(--st-color-fg-disabled);
+  cursor: not-allowed;
+}
+.st-pagination__item:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}
+.st-pagination__ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  color: var(--st-color-fg-subtle);
+}
+.st-pagination__summary {
+  padding: 0 var(--st-space-2);
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-sm);
+  font-variant-numeric: tabular-nums;
+}
+@media (forced-colors: active) {
+  .st-pagination__item[data-current] {
+    outline: 2px solid Highlight;
+  }
+}

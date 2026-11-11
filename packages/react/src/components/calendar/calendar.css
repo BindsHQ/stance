@@ -1,0 +1,165 @@
+.st-calendar {
+  --_cell: 2.5rem;
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--st-space-3);
+  max-width: 100%;
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-sm);
+}
+.st-calendar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--st-space-2);
+}
+.st-calendar__titles {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: space-around;
+  gap: var(--st-space-6);
+}
+.st-calendar__title {
+  margin: 0;
+  font-size: var(--st-font-size-sm);
+  font-weight: var(--st-font-weight-semibold);
+  letter-spacing: var(--st-letter-spacing-tight);
+  text-align: center;
+}
+.st-calendar__nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-md);
+  background: transparent;
+  color: var(--st-color-fg-default);
+  cursor: pointer;
+}
+.st-calendar__nav:hover:not(:disabled) {
+  background: var(--st-color-interactive-hover);
+}
+.st-calendar__nav:disabled {
+  color: var(--st-color-fg-disabled);
+  cursor: not-allowed;
+}
+.st-calendar__nav:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}
+
+.st-calendar__months {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--st-space-6);
+}
+.st-calendar__grid {
+  border-collapse: collapse;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+.st-calendar__weekday {
+  width: var(--_cell);
+  height: 2rem;
+  padding: 0;
+  color: var(--st-color-fg-subtle);
+  font-size: var(--st-font-size-xs);
+  font-weight: var(--st-font-weight-medium);
+  text-align: center;
+}
+.st-calendar__cell {
+  position: relative;
+  width: var(--_cell);
+  height: var(--_cell);
+  padding: 1px 0;
+  text-align: center;
+}
+.st-calendar__cell[data-in-range] {
+  background: var(--st-color-interactive-selected);
+}
+.st-calendar__cell[data-range-start] {
+  border-top-left-radius: var(--st-radius-full);
+  border-bottom-left-radius: var(--st-radius-full);
+}
+.st-calendar__cell[data-range-end] {
+  border-top-right-radius: var(--st-radius-full);
+  border-bottom-right-radius: var(--st-radius-full);
+}
+.st-calendar__day {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--_cell) - 2px);
+  height: calc(var(--_cell) - 2px);
+  padding: 0;
+  border: 0;
+  border-radius: var(--st-radius-full);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: background-color var(--st-duration-fast) var(--st-easing-standard);
+}
+.st-calendar__day:hover:not([data-disabled]):not([data-selected]) {
+  background: var(--st-color-interactive-hover);
+}
+.st-calendar__day:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: 1px;
+  z-index: 1;
+}
+.st-calendar__day[data-outside] {
+  color: var(--st-color-fg-subtle);
+}
+.st-calendar__day[data-today]::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.st-calendar__day[data-today] {
+  font-weight: var(--st-font-weight-bold);
+}
+.st-calendar__day[data-selected] {
+  background: var(--st-color-accent-bg);
+  color: var(--st-color-accent-fg);
+  font-weight: var(--st-font-weight-semibold);
+}
+.st-calendar__day[data-disabled] {
+  color: var(--st-color-fg-disabled);
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+@media (max-width: 400px) {
+  .st-calendar {
+    --_cell: 2.25rem;
+  }
+}
+@media (max-width: 340px) {
+  .st-calendar {
+    --_cell: 2.125rem;
+  }
+}
+[data-theme='high-contrast'] .st-calendar__day[data-today] {
+  outline: 1px solid var(--st-color-border-strong);
+}
+@media (forced-colors: active) {
+  .st-calendar__day[data-selected] {
+    outline: 2px solid Highlight;
+  }
+  .st-calendar__cell[data-in-range] {
+    outline: 1px dotted CanvasText;
+  }
+}

@@ -1,0 +1,84 @@
+.st-box {
+  min-width: 0;
+}
+.st-box[data-background='canvas'] {
+  background: var(--st-color-bg-canvas);
+  color: var(--st-color-fg-default);
+}
+.st-box[data-background='subtle'] {
+  background: var(--st-color-bg-subtle);
+  color: var(--st-color-fg-default);
+}
+.st-box[data-background='muted'] {
+  background: var(--st-color-bg-muted);
+  color: var(--st-color-fg-default);
+}
+.st-box[data-background='emphasis'] {
+  background: var(--st-color-bg-emphasis);
+  color: var(--st-color-fg-default);
+}
+.st-box[data-background='surface'] {
+  background: var(--st-color-bg-surface);
+  color: var(--st-color-fg-default);
+}
+.st-box[data-background='surface-raised'] {
+  background: var(--st-color-bg-surface-raised);
+  color: var(--st-color-fg-default);
+}
+.st-box[data-background='inverse'] {
+  background: var(--st-color-bg-inverse);
+  color: var(--st-color-fg-inverse);
+}
+.st-box[data-border] {
+  border: var(--st-border-width) solid var(--st-color-border-default);
+}
+.st-box[data-border='subtle'] {
+  border-color: var(--st-color-border-subtle);
+}
+.st-box[data-border='strong'] {
+  border-color: var(--st-color-border-strong);
+}
+.st-box[data-radius='none'] {
+  border-radius: var(--st-radius-none);
+}
+.st-box[data-radius='xs'] {
+  border-radius: var(--st-radius-xs);
+}
+.st-box[data-radius='sm'] {
+  border-radius: var(--st-radius-sm);
+}
+.st-box[data-radius='md'] {
+  border-radius: var(--st-radius-md);
+}
+.st-box[data-radius='lg'] {
+  border-radius: var(--st-radius-lg);
+}
+.st-box[data-radius='xl'] {
+  border-radius: var(--st-radius-xl);
+}
+.st-box[data-radius='2xl'] {
+  border-radius: var(--st-radius-2xl);
+}
+.st-box[data-radius='full'] {
+  border-radius: var(--st-radius-full);
+}
+.st-box[data-shadow='xs'] {
+  box-shadow: var(--st-shadow-xs);
+}
+.st-box[data-shadow='sm'] {
+  box-shadow: var(--st-shadow-sm);
+}
+.st-box[data-shadow='md'] {
+  box-shadow: var(--st-shadow-md);
+}
+.st-box[data-shadow='lg'] {
+  box-shadow: var(--st-shadow-lg);
+}
+.st-box[data-shadow='xl'] {
+  box-shadow: var(--st-shadow-xl);
+}
+@media (forced-colors: active) {
+  .st-box[data-border] {
+    border-color: CanvasText;
+  }
+}

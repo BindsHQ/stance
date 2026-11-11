@@ -1,0 +1,80 @@
+.st-icon-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-4);
+  font-family: var(--st-font-sans);
+}
+.st-icon-gallery__toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--st-space-3);
+  flex-wrap: wrap;
+}
+.st-icon-gallery__search {
+  flex: 1 1 16rem;
+  max-width: 24rem;
+}
+.st-icon-gallery__count {
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-sm);
+  font-variant-numeric: tabular-nums;
+}
+.st-icon-gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+  gap: var(--st-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.st-icon-gallery__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--st-space-2);
+  width: 100%;
+  min-height: 6rem;
+  padding: var(--st-space-3) var(--st-space-2);
+  border: var(--st-border-width) solid var(--st-color-border-subtle);
+  border-radius: var(--st-radius-lg);
+  background: var(--st-color-bg-surface);
+  color: var(--st-color-fg-default);
+  font: inherit;
+  cursor: pointer;
+  transition:
+    border-color var(--st-duration-fast) var(--st-easing-standard),
+    background-color var(--st-duration-fast) var(--st-easing-standard);
+}
+.st-icon-gallery__item:hover {
+  border-color: var(--st-color-border-strong);
+  background: var(--st-color-bg-subtle);
+}
+.st-icon-gallery__item:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: 1px;
+}
+.st-icon-gallery__item[data-copied] {
+  border-color: var(--st-color-success-border);
+}
+.st-icon-gallery__name {
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-2xs);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.st-icon-gallery__item[data-copied] .st-icon-gallery__name {
+  color: var(--st-color-success-fg);
+}
+.st-icon-gallery__empty {
+  margin: 0;
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-sm);
+}
+@media (forced-colors: active) {
+  .st-icon-gallery__item {
+    border-color: ButtonText;
+  }
+}

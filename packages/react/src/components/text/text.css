@@ -1,0 +1,96 @@
+.st-text {
+  margin: 0;
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-md);
+  line-height: var(--st-line-height-normal);
+}
+.st-text[data-size='2xs'] {
+  font-size: var(--st-font-size-2xs);
+}
+.st-text[data-size='xs'] {
+  font-size: var(--st-font-size-xs);
+}
+.st-text[data-size='sm'] {
+  font-size: var(--st-font-size-sm);
+}
+.st-text[data-size='md'] {
+  font-size: var(--st-font-size-md);
+}
+.st-text[data-size='lg'] {
+  font-size: var(--st-font-size-lg);
+}
+.st-text[data-size='xl'] {
+  font-size: var(--st-font-size-xl);
+  line-height: var(--st-line-height-snug);
+}
+.st-text[data-weight='regular'] {
+  font-weight: var(--st-font-weight-regular);
+}
+.st-text[data-weight='medium'] {
+  font-weight: var(--st-font-weight-medium);
+}
+.st-text[data-weight='semibold'] {
+  font-weight: var(--st-font-weight-semibold);
+}
+.st-text[data-weight='bold'] {
+  font-weight: var(--st-font-weight-bold);
+}
+.st-text[data-tone='muted'] {
+  color: var(--st-color-fg-muted);
+}
+.st-text[data-tone='subtle'] {
+  color: var(--st-color-fg-subtle);
+}
+.st-text[data-tone='danger'] {
+  color: var(--st-color-danger-fg);
+}
+.st-text[data-tone='success'] {
+  color: var(--st-color-success-fg);
+}
+.st-text[data-tone='warning'] {
+  color: var(--st-color-warning-fg);
+}
+.st-text[data-tone='inverse'] {
+  color: var(--st-color-fg-inverse);
+}
+.st-text[data-tone='inherit'] {
+  color: inherit;
+}
+.st-text[data-align='center'] {
+  text-align: center;
+}
+.st-text[data-align='end'] {
+  text-align: end;
+}
+.st-text[data-leading='tight'] {
+  line-height: var(--st-line-height-tight);
+}
+.st-text[data-leading='snug'] {
+  line-height: var(--st-line-height-snug);
+}
+.st-text[data-leading='relaxed'] {
+  line-height: var(--st-line-height-relaxed);
+}
+.st-text[data-truncate] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.st-text[data-clamp] {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--st-text-clamp);
+  line-clamp: var(--st-text-clamp);
+}
+.st-text[data-eyebrow] {
+  font-size: var(--st-font-size-xs);
+  font-weight: var(--st-font-weight-semibold);
+  letter-spacing: var(--st-letter-spacing-caps);
+  text-transform: uppercase;
+  color: var(--st-color-fg-muted);
+}
+.st-text[data-tabular] {
+  font-variant-numeric: tabular-nums;
+}

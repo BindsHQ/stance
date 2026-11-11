@@ -1,0 +1,7 @@
+.st-copy-button[data-icon-only] {
+  padding: 0;
+  width: var(--_h);
+}
+.st-copy-button[data-copied] {
+  color: var(--st-color-success-fg);
+}

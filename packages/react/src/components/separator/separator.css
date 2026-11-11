@@ -1,0 +1,18 @@
+.st-separator {
+  flex-shrink: 0;
+  background: var(--st-color-separator);
+}
+.st-separator[data-orientation='horizontal'] {
+  width: 100%;
+  height: var(--st-border-width);
+}
+.st-separator[data-orientation='vertical'] {
+  align-self: stretch;
+  width: var(--st-border-width);
+  min-height: 1em;
+}
+@media (forced-colors: active) {
+  .st-separator {
+    background: CanvasText;
+  }
+}

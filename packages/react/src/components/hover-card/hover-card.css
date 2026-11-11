@@ -1,0 +1,5 @@
+.st-hover-card {
+  width: max-content;
+  max-width: min(20rem, calc(100vw - 1rem));
+  padding: var(--st-space-4);
+}

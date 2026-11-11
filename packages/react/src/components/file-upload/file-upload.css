@@ -1,0 +1,149 @@
+.st-file-upload {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-3);
+  width: 100%;
+  font-family: var(--st-font-sans);
+}
+.st-file-upload__dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--st-space-2);
+  padding: var(--st-space-8) var(--st-space-6);
+  border: 1.5px dashed var(--st-color-border-control);
+  border-radius: var(--st-radius-lg);
+  background: var(--st-color-bg-subtle);
+  color: var(--st-color-fg-default);
+  text-align: center;
+  cursor: pointer;
+  transition:
+    border-color var(--st-duration-fast) var(--st-easing-standard),
+    background-color var(--st-duration-fast) var(--st-easing-standard);
+}
+.st-file-upload__dropzone > * {
+  pointer-events: none;
+}
+.st-file-upload__dropzone > .st-file-upload__browse {
+  pointer-events: auto;
+  margin-top: var(--st-space-2);
+}
+.st-file-upload__dropzone:hover {
+  border-color: var(--st-color-border-control-hover);
+}
+.st-file-upload__dropzone[data-dragging] {
+  border-style: solid;
+  border-color: var(--st-color-focus-ring);
+  background: var(--st-color-interactive-selected);
+}
+.st-file-upload[data-invalid] .st-file-upload__dropzone {
+  border-color: var(--st-color-danger-fg);
+}
+.st-file-upload[data-disabled] .st-file-upload__dropzone {
+  background: var(--st-color-disabled-bg);
+  border-color: var(--st-color-disabled-border);
+  color: var(--st-color-fg-disabled);
+  cursor: not-allowed;
+}
+.st-file-upload__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--st-radius-full);
+  background: var(--st-color-bg-surface);
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  color: var(--st-color-fg-muted);
+}
+.st-file-upload__title {
+  font-size: var(--st-font-size-sm);
+  font-weight: var(--st-font-weight-semibold);
+}
+.st-file-upload__hint {
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-xs);
+}
+.st-file-upload__compact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--st-space-3);
+}
+.st-file-upload__errors {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--st-color-danger-fg);
+  font-size: var(--st-font-size-xs);
+  font-weight: var(--st-font-weight-medium);
+}
+.st-file-upload__list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-md);
+  background: var(--st-color-bg-surface);
+}
+.st-file-upload__item {
+  display: flex;
+  align-items: center;
+  gap: var(--st-space-3);
+  min-height: 2.75rem;
+  padding: var(--st-space-1) var(--st-space-1) var(--st-space-1) var(--st-space-3);
+  font-size: var(--st-font-size-sm);
+}
+.st-file-upload__item + .st-file-upload__item {
+  border-top: var(--st-border-width) solid var(--st-color-separator);
+}
+.st-file-upload__file-icon {
+  flex-shrink: 0;
+  color: var(--st-color-fg-muted);
+}
+.st-file-upload__name {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.st-file-upload__size {
+  flex-shrink: 0;
+  color: var(--st-color-fg-subtle);
+  font-size: var(--st-font-size-xs);
+  font-variant-numeric: tabular-nums;
+}
+.st-file-upload__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--st-radius-sm);
+  background: transparent;
+  color: var(--st-color-fg-muted);
+  cursor: pointer;
+}
+.st-file-upload__remove:hover:not(:disabled) {
+  background: var(--st-color-interactive-hover);
+  color: var(--st-color-fg-default);
+}
+.st-file-upload__remove:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: 0;
+}
+@media (forced-colors: active) {
+  .st-file-upload__dropzone {
+    border-color: CanvasText;
+  }
+  .st-file-upload__dropzone[data-dragging] {
+    border-color: Highlight;
+  }
+}

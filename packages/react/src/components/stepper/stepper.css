@@ -1,0 +1,156 @@
+.st-stepper {
+  display: flex;
+  gap: var(--st-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--st-font-sans);
+  counter-reset: none;
+}
+.st-stepper[data-orientation='vertical'] {
+  flex-direction: column;
+  gap: 0;
+}
+
+.st-stepper__step {
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  align-items: flex-start;
+  gap: var(--st-space-2);
+  min-width: 0;
+}
+.st-stepper[data-orientation='vertical'] .st-stepper__step {
+  flex: none;
+  padding-bottom: var(--st-space-6);
+}
+.st-stepper[data-orientation='vertical'] .st-stepper__step:last-child {
+  padding-bottom: 0;
+}
+
+.st-stepper__trigger {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--st-space-3);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--st-radius-md);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+button.st-stepper__trigger {
+  cursor: pointer;
+}
+button.st-stepper__trigger:hover .st-stepper__title {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.st-stepper__trigger:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}
+
+.st-stepper__indicator {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: var(--st-border-width-control) solid var(--st-color-border-strong);
+  border-radius: var(--st-radius-full);
+  background: var(--st-color-bg-surface);
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-xs);
+  font-weight: var(--st-font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+  transition:
+    background-color var(--st-duration-normal) var(--st-easing-standard),
+    border-color var(--st-duration-normal) var(--st-easing-standard);
+}
+.st-stepper__step[data-status='current'] .st-stepper__indicator {
+  border-color: var(--st-color-accent-bg);
+  color: var(--st-color-fg-default);
+  box-shadow: 0 0 0 3px var(--st-color-interactive-active);
+}
+.st-stepper__step[data-status='complete'] .st-stepper__indicator {
+  border-color: var(--st-color-accent-bg);
+  background: var(--st-color-accent-bg);
+  color: var(--st-color-accent-fg);
+}
+.st-stepper__step[data-status='error'] .st-stepper__indicator {
+  border-color: var(--st-color-danger-fg);
+  background: var(--st-color-danger-bg);
+  color: var(--st-color-danger-fg);
+}
+
+.st-stepper__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  padding-top: 0.25rem;
+}
+.st-stepper__title {
+  color: var(--st-color-fg-default);
+  font-size: var(--st-font-size-sm);
+  font-weight: var(--st-font-weight-semibold);
+  line-height: var(--st-line-height-snug);
+}
+.st-stepper__step[data-status='upcoming'] .st-stepper__title {
+  color: var(--st-color-fg-muted);
+  font-weight: var(--st-font-weight-medium);
+}
+.st-stepper__step[data-status='error'] .st-stepper__title {
+  color: var(--st-color-danger-fg);
+}
+.st-stepper__description {
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-xs);
+  line-height: var(--st-line-height-normal);
+}
+
+.st-stepper__connector {
+  flex: 1 1 auto;
+  align-self: flex-start;
+  min-width: var(--st-space-4);
+  height: 2px;
+  margin-top: calc(0.875rem - 1px);
+  border-radius: 1px;
+  background: var(--st-color-border-default);
+}
+.st-stepper__step[data-status='complete'] .st-stepper__connector {
+  background: var(--st-color-accent-bg);
+}
+.st-stepper[data-orientation='vertical'] .st-stepper__connector {
+  position: absolute;
+  top: 2.25rem;
+  bottom: 0.5rem;
+  left: calc(0.875rem - 1px);
+  width: 2px;
+  height: auto;
+  min-width: 0;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .st-stepper[data-orientation='horizontal'] {
+    flex-direction: column;
+    gap: var(--st-space-3);
+  }
+  .st-stepper[data-orientation='horizontal'] .st-stepper__connector {
+    display: none;
+  }
+}
+@media (forced-colors: active) {
+  .st-stepper__indicator {
+    border-color: CanvasText;
+  }
+  .st-stepper__step[data-status='current'] .st-stepper__indicator {
+    outline: 2px solid Highlight;
+  }
+}

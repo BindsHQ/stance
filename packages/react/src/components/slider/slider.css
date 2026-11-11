@@ -1,0 +1,181 @@
+/* Shared by Slider and RangeSlider. */
+.st-slider {
+  --_track: 4px;
+  --_thumb: 1.125rem;
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-width: 8rem;
+  padding: calc(var(--_thumb) / 2) calc(var(--_thumb) / 2);
+  font-family: var(--st-font-sans);
+  touch-action: none;
+  user-select: none;
+}
+.st-slider[data-size='sm'] {
+  --_track: 3px;
+  --_thumb: 0.875rem;
+}
+.st-slider[data-has-labels] {
+  padding-bottom: calc(var(--_thumb) / 2 + 1.5rem);
+}
+.st-slider[data-orientation='vertical'] {
+  width: auto;
+  min-width: 0;
+  height: 12rem;
+  flex-direction: column;
+}
+
+.st-slider__control {
+  position: relative;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  min-height: var(--_thumb);
+  cursor: pointer;
+}
+.st-slider[data-orientation='vertical'] .st-slider__control {
+  flex-direction: column;
+  justify-content: center;
+  min-width: var(--_thumb);
+}
+.st-slider[data-disabled] .st-slider__control {
+  cursor: not-allowed;
+}
+
+.st-slider__track {
+  position: relative;
+  flex: 1 1 auto;
+  height: var(--_track);
+  border-radius: var(--st-radius-full);
+  background: var(--st-color-bg-emphasis);
+  overflow: hidden;
+}
+.st-slider[data-orientation='vertical'] .st-slider__track {
+  width: var(--_track);
+  height: 100%;
+}
+.st-slider__range {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: var(--st-color-accent-bg);
+  border-radius: inherit;
+}
+.st-slider[data-orientation='vertical'] .st-slider__range {
+  left: 0;
+  right: 0;
+}
+.st-slider[data-disabled] .st-slider__range {
+  background: var(--st-color-disabled-fg);
+}
+.st-slider[data-invalid] .st-slider__track {
+  box-shadow: 0 0 0 1px var(--st-color-danger-fg);
+}
+
+.st-slider__mark {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: var(--st-radius-full);
+  background: var(--st-color-fg-subtle);
+  pointer-events: none;
+}
+.st-slider[data-orientation='vertical'] .st-slider__mark {
+  left: 50%;
+  margin: 0 0 -2px -2px;
+}
+.st-slider__mark[data-in-range] {
+  background: var(--st-color-accent-fg);
+}
+.st-slider__mark-label {
+  position: absolute;
+  top: calc(var(--_thumb) / 2 + 0.375rem);
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-xs);
+  white-space: nowrap;
+}
+.st-slider[data-orientation='vertical'] .st-slider__mark-label {
+  top: 50%;
+  left: calc(var(--_thumb) / 2 + 0.5rem);
+  transform: translateY(-50%);
+}
+
+.st-slider__thumb {
+  position: absolute;
+  z-index: 1;
+  width: var(--_thumb);
+  height: var(--_thumb);
+  margin-left: calc(var(--_thumb) / -2);
+  border: 2px solid var(--st-color-accent-bg);
+  border-radius: var(--st-radius-full);
+  background: var(--st-color-bg-surface);
+  box-shadow: var(--st-shadow-sm);
+  cursor: grab;
+  transition: transform var(--st-duration-fast) var(--st-easing-standard);
+}
+/* Enlarged touch target */
+.st-slider__thumb::before {
+  content: '';
+  position: absolute;
+  inset: -0.5rem;
+  border-radius: inherit;
+}
+.st-slider[data-orientation='vertical'] .st-slider__thumb {
+  left: 50%;
+  margin: 0 0 calc(var(--_thumb) / -2) calc(var(--_thumb) / -2);
+}
+.st-slider__thumb:hover {
+  transform: scale(1.08);
+}
+.st-slider__thumb[data-active] {
+  cursor: grabbing;
+  transform: scale(1.12);
+}
+.st-slider__thumb:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}
+.st-slider[data-disabled] .st-slider__thumb {
+  border-color: var(--st-color-disabled-fg);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.st-slider__value {
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.125rem 0.375rem;
+  border-radius: var(--st-radius-sm);
+  background: var(--st-color-bg-inverse);
+  color: var(--st-color-fg-inverse);
+  font-size: var(--st-font-size-xs);
+  font-weight: var(--st-font-weight-medium);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--st-duration-fast) var(--st-easing-standard);
+}
+.st-slider__thumb[data-active] .st-slider__value,
+.st-slider__thumb:hover .st-slider__value,
+.st-slider__value[data-visible] {
+  opacity: 1;
+}
+
+@media (forced-colors: active) {
+  .st-slider__track {
+    border: 1px solid CanvasText;
+  }
+  .st-slider__range {
+    background: Highlight;
+  }
+  .st-slider__thumb {
+    border-color: ButtonText;
+    background: ButtonFace;
+  }
+}

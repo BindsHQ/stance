@@ -1,0 +1,14 @@
+.st-aspect-ratio {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.st-aspect-ratio > * {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.st-aspect-ratio > :where(img, video) {
+  object-fit: cover;
+}

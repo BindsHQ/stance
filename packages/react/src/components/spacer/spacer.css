@@ -1,0 +1,7 @@
+.st-spacer {
+  flex-shrink: 0;
+}
+.st-spacer[data-flexible] {
+  flex: 1 1 auto;
+  align-self: stretch;
+}

@@ -1,0 +1,24 @@
+.st-tooltip {
+  z-index: var(--st-z-tooltip);
+  max-width: min(18rem, calc(100vw - 1rem));
+  padding: var(--st-space-1-5) var(--st-space-2-5);
+  border-radius: var(--st-radius-md);
+  background: var(--st-color-bg-inverse);
+  color: var(--st-color-fg-inverse);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-xs);
+  font-weight: var(--st-font-weight-medium);
+  line-height: var(--st-line-height-snug);
+  box-shadow: var(--st-shadow-md);
+  overflow-wrap: break-word;
+  animation: st-fade-in var(--st-duration-fast) var(--st-easing-standard);
+}
+[data-theme='high-contrast'] .st-tooltip,
+.st-tooltip[data-theme='high-contrast'] {
+  outline: 2px solid var(--st-color-focus-ring-offset);
+}
+@media (forced-colors: active) {
+  .st-tooltip {
+    border: 1px solid CanvasText;
+  }
+}

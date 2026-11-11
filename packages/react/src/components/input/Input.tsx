@@ -5,7 +5,10 @@ import { useFormFieldControl } from '../form-field/FormField.js';
 
 export type InputSize = 'sm' | 'md' | 'lg';
 
-export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'prefix'> {
+export interface InputProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  'size' | 'prefix'
+> {
   /** Control height: sm 32, md 40, lg 48. Default `md`. */
   size?: InputSize;
   /** Marks the input invalid (also set automatically inside an erroring FormField). */
@@ -23,7 +26,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
   { size = 'md', invalid, prefix, suffix, className, wrapperClassName, type = 'text', ...rest },
   ref,
 ) {
-  const props = useFormFieldControl({ ...rest, ...(invalid !== undefined && { 'aria-invalid': invalid }) });
+  const props = useFormFieldControl({
+    ...rest,
+    ...(invalid !== undefined && { 'aria-invalid': invalid }),
+  });
   const isInvalid = props['aria-invalid'] === true || String(props['aria-invalid']) === 'true';
   return (
     <div
@@ -33,9 +39,17 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
       data-disabled={props.disabled ? '' : undefined}
       data-readonly={props.readOnly ? '' : undefined}
     >
-      {prefix != null && <span className="st-input__affix" data-position="prefix">{prefix}</span>}
+      {prefix != null && (
+        <span className="st-input__affix" data-position="prefix">
+          {prefix}
+        </span>
+      )}
       <input ref={ref} type={type} className={cx('st-input__control', className)} {...props} />
-      {suffix != null && <span className="st-input__affix" data-position="suffix">{suffix}</span>}
+      {suffix != null && (
+        <span className="st-input__affix" data-position="suffix">
+          {suffix}
+        </span>
+      )}
     </div>
   );
 });

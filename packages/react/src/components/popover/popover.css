@@ -5,5 +5,9 @@
   overflow: auto;
   padding: var(--st-space-4);
 }
-.st-popover:focus { outline: none; }
-.st-popover:focus-visible { outline: var(--st-focus-width) solid var(--st-color-focus-ring); }
+.st-popover:focus {
+  outline: none;
+}
+.st-popover:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+}

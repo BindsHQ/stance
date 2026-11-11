@@ -1,0 +1,4 @@
+.st-action-menu__trigger[data-state='open'] {
+  background: var(--st-color-interactive-active);
+  color: var(--st-color-fg-default);
+}

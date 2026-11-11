@@ -1,0 +1,179 @@
+.st-table-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: auto;
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-lg);
+  background: var(--st-color-bg-surface);
+  -webkit-overflow-scrolling: touch;
+}
+.st-table-wrapper:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}
+.st-table {
+  --_py: var(--st-space-3);
+  --_px: var(--st-space-4);
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-sm);
+  line-height: var(--st-line-height-normal);
+  text-align: left;
+}
+.st-table[data-density='compact'] {
+  --_py: var(--st-space-1-5);
+  --_px: var(--st-space-3);
+}
+.st-table[data-density='comfortable'] {
+  --_py: var(--st-space-4);
+  --_px: var(--st-space-5);
+}
+
+.st-table__caption {
+  caption-side: top;
+  padding: var(--st-space-3) var(--_px);
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-sm);
+  text-align: left;
+  border-bottom: var(--st-border-width) solid var(--st-color-border-default);
+}
+.st-table__head {
+  padding: var(--_py) var(--_px);
+  border-bottom: var(--st-border-width) solid var(--st-color-border-default);
+  background: var(--st-color-bg-subtle);
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-xs);
+  font-weight: var(--st-font-weight-semibold);
+  letter-spacing: var(--st-letter-spacing-wide);
+  text-transform: uppercase;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.st-table-wrapper[data-sticky-header] .st-table__head {
+  position: sticky;
+  top: 0;
+  z-index: var(--st-z-raised);
+}
+.st-table__cell {
+  padding: var(--_py) var(--_px);
+  border-bottom: var(--st-border-width) solid var(--st-color-border-subtle);
+  vertical-align: middle;
+}
+.st-table__body > .st-table__row:last-child > .st-table__cell {
+  border-bottom: 0;
+}
+.st-table__footer .st-table__cell {
+  border-top: var(--st-border-width) solid var(--st-color-border-default);
+  border-bottom: 0;
+  background: var(--st-color-bg-subtle);
+  font-weight: var(--st-font-weight-semibold);
+}
+[data-align='end'].st-table__head,
+[data-align='end'].st-table__cell {
+  text-align: right;
+}
+[data-align='center'].st-table__head,
+[data-align='center'].st-table__cell {
+  text-align: center;
+}
+.st-table__cell[data-numeric] {
+  font-variant-numeric: tabular-nums;
+}
+.st-table[data-bordered] .st-table__head + .st-table__head,
+.st-table[data-bordered] .st-table__cell + .st-table__cell {
+  border-left: var(--st-border-width) solid var(--st-color-border-subtle);
+}
+
+.st-table[data-striped] .st-table__body > .st-table__row:nth-child(even) > .st-table__cell {
+  background: var(--st-color-bg-subtle);
+}
+.st-table__body > .st-table__row:hover > .st-table__cell {
+  background: var(--st-color-interactive-hover);
+}
+.st-table__row[data-selected] > .st-table__cell {
+  background: var(--st-color-interactive-selected);
+  color: var(--st-color-interactive-selected-fg);
+}
+
+/* Sortable header */
+.st-table__sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--st-space-1);
+  margin: calc(var(--st-space-1) * -1) calc(var(--st-space-1-5) * -1);
+  padding: var(--st-space-1) var(--st-space-1-5);
+  border: 0;
+  border-radius: var(--st-radius-sm);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+}
+[data-align='end'] > .st-table__sort {
+  flex-direction: row-reverse;
+}
+.st-table__sort:hover {
+  color: var(--st-color-fg-default);
+  background: var(--st-color-interactive-hover);
+}
+.st-table__sort:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: 0;
+}
+.st-table__sort[data-direction='none'] .st-table__sort-icon {
+  opacity: 0.5;
+}
+.st-table__sort:not([data-direction='none']) {
+  color: var(--st-color-fg-default);
+}
+
+/* Interactive rows: stretch the primary link across the row. */
+.st-table__row[data-interactive] {
+  position: relative;
+}
+.st-table__row[data-interactive] {
+  cursor: pointer;
+}
+.st-table__row-link {
+  color: inherit;
+  font-weight: var(--st-font-weight-medium);
+  text-decoration: none;
+}
+.st-table__row[data-interactive] .st-table__row-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+.st-table__row-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.st-table__row-link:focus-visible {
+  outline: none;
+}
+.st-table__row[data-interactive]:focus-within > .st-table__cell {
+  background: var(--st-color-interactive-hover);
+}
+.st-table__row[data-interactive]:has(.st-table__row-link:focus-visible) {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: calc(var(--st-focus-width) * -1);
+}
+/* Keep other interactive controls in the row above the stretched link. */
+.st-table__row[data-interactive] :is(button, input, select, textarea, a:not(.st-table__row-link)) {
+  position: relative;
+  z-index: 1;
+}
+
+@media (forced-colors: active) {
+  .st-table__row[data-selected] > .st-table__cell {
+    outline: 1px solid Highlight;
+  }
+  .st-table__head {
+    border-bottom-color: CanvasText;
+  }
+}

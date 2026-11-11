@@ -1,0 +1,9 @@
+.st-resizable-panel {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+}
+.st-resizable-panel[data-collapsed] {
+  overflow: hidden;
+}

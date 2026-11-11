@@ -1,0 +1,102 @@
+.st-banner {
+  --_bg: var(--st-color-bg-inverse);
+  --_fg: var(--st-color-fg-inverse);
+  --_icon: currentColor;
+  --_border: transparent;
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 2.75rem;
+  padding: var(--st-space-2) var(--st-space-12);
+  border-bottom: var(--st-border-width) solid var(--_border);
+  background: var(--_bg);
+  color: var(--_fg);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-sm);
+  line-height: var(--st-line-height-snug);
+}
+.st-banner[data-tone='info'] {
+  --_bg: var(--st-color-info-bg);
+  --_fg: var(--st-color-fg-default);
+  --_icon: var(--st-color-info-fg);
+  --_border: var(--st-color-info-border);
+}
+.st-banner[data-tone='success'] {
+  --_bg: var(--st-color-success-bg);
+  --_fg: var(--st-color-fg-default);
+  --_icon: var(--st-color-success-fg);
+  --_border: var(--st-color-success-border);
+}
+.st-banner[data-tone='warning'] {
+  --_bg: var(--st-color-warning-bg);
+  --_fg: var(--st-color-fg-default);
+  --_icon: var(--st-color-warning-fg);
+  --_border: var(--st-color-warning-border);
+}
+.st-banner[data-tone='danger'] {
+  --_bg: var(--st-color-danger-bg);
+  --_fg: var(--st-color-fg-default);
+  --_icon: var(--st-color-danger-fg);
+  --_border: var(--st-color-danger-border);
+}
+.st-banner__inner {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--st-space-2) var(--st-space-3);
+  text-align: center;
+}
+.st-banner__icon {
+  display: inline-flex;
+  color: var(--_icon);
+}
+.st-banner__message {
+  font-weight: var(--st-font-weight-medium);
+}
+.st-banner__action a {
+  color: inherit;
+  font-weight: var(--st-font-weight-semibold);
+  text-underline-offset: 0.2em;
+}
+.st-banner__dismiss {
+  position: absolute;
+  top: 50%;
+  right: var(--st-space-3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--st-radius-md);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+.st-banner__dismiss:hover {
+  background: color-mix(in srgb, currentColor 12%, transparent);
+}
+.st-banner__dismiss:focus-visible {
+  outline: var(--st-focus-width) solid currentColor;
+  outline-offset: 0;
+}
+@media (max-width: 640px) {
+  .st-banner {
+    padding-left: var(--st-space-4);
+    padding-right: var(--st-space-12);
+  }
+  .st-banner__inner {
+    justify-content: flex-start;
+    text-align: left;
+  }
+}
+@media (forced-colors: active) {
+  .st-banner {
+    border-bottom: 1px solid CanvasText;
+  }
+}

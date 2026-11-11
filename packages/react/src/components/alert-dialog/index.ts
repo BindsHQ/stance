@@ -1,0 +1,15 @@
+export {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogAction,
+  AlertDialogCancel,
+  type AlertDialogProps,
+  type AlertDialogContentProps,
+  type AlertDialogActionProps,
+} from './AlertDialog.js';

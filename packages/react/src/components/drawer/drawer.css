@@ -1,0 +1,21 @@
+.st-dialog.st-drawer[data-placement='left'],
+.st-dialog.st-drawer[data-placement='right'] {
+  width: min(var(--_w), 100vw);
+}
+.st-dialog.st-drawer[data-placement='top'],
+.st-dialog.st-drawer[data-placement='bottom'] {
+  --_h: 50dvh;
+  height: auto;
+  max-height: min(var(--_h), 100dvh);
+}
+.st-dialog.st-drawer[data-placement='top'][data-size='sm'],
+.st-dialog.st-drawer[data-placement='bottom'][data-size='sm'] {
+  --_h: 33dvh;
+}
+.st-dialog.st-drawer[data-placement='top'][data-size='lg'],
+.st-dialog.st-drawer[data-placement='bottom'][data-size='lg'] {
+  --_h: 85dvh;
+}
+.st-drawer .st-dialog__body {
+  flex: 1 1 auto;
+}

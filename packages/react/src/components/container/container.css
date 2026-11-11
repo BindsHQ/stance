@@ -1,0 +1,21 @@
+.st-container {
+  width: 100%;
+  max-width: var(--st-size-container-lg);
+  margin-inline: auto;
+  padding-inline: clamp(var(--st-space-4), 4vw, var(--st-space-10));
+}
+.st-container[data-size='sm'] {
+  max-width: var(--st-size-container-sm);
+}
+.st-container[data-size='md'] {
+  max-width: var(--st-size-container-md);
+}
+.st-container[data-size='xl'] {
+  max-width: var(--st-size-container-xl);
+}
+.st-container[data-size='full'] {
+  max-width: none;
+}
+.st-container[data-flush] {
+  padding-inline: 0;
+}

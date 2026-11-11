@@ -33,34 +33,96 @@
 }
 
 @keyframes st-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 @keyframes st-fade-out {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 @keyframes st-pop-in {
-  from { opacity: 0; transform: scale(0.97) translateY(var(--st-pop-shift, 2px)); }
-  to { opacity: 1; transform: none; }
+  from {
+    opacity: 0;
+    transform: scale(0.97) translateY(var(--st-pop-shift, 2px));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 @keyframes st-dialog-in {
-  from { opacity: 0; transform: translate(-50%, calc(-50% + 8px)) scale(0.98); }
-  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 8px)) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
-@keyframes st-slide-in-right { from { transform: translateX(100%); } to { transform: none; } }
-@keyframes st-slide-in-left { from { transform: translateX(-100%); } to { transform: none; } }
-@keyframes st-slide-in-top { from { transform: translateY(-100%); } to { transform: none; } }
-@keyframes st-slide-in-bottom { from { transform: translateY(100%); } to { transform: none; } }
-@keyframes st-spin { to { transform: rotate(360deg); } }
+@keyframes st-slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes st-slide-in-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes st-slide-in-top {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes st-slide-in-bottom {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes st-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 @keyframes st-shimmer {
-  0% { background-position: -150% 0; }
-  100% { background-position: 250% 0; }
+  0% {
+    background-position: -150% 0;
+  }
+  100% {
+    background-position: 250% 0;
+  }
 }
 @keyframes st-indeterminate {
-  0% { transform: translateX(-100%) scaleX(0.4); }
-  50% { transform: translateX(30%) scaleX(0.6); }
-  100% { transform: translateX(160%) scaleX(0.4); }
+  0% {
+    transform: translateX(-100%) scaleX(0.4);
+  }
+  50% {
+    transform: translateX(30%) scaleX(0.6);
+  }
+  100% {
+    transform: translateX(160%) scaleX(0.4);
+  }
 }
 
 /* Shared floating surface used by popovers, menus, selects, tooltips. */
@@ -76,7 +138,9 @@
   line-height: var(--st-line-height-normal);
   animation: st-pop-in var(--st-duration-normal) var(--st-easing-emphasized);
 }
-.st-floating[data-side='top'] { --st-pop-shift: -2px; }
+.st-floating[data-side='top'] {
+  --st-pop-shift: -2px;
+}
 
 .st-scrim {
   position: fixed;

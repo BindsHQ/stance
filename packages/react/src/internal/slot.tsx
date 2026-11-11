@@ -36,15 +36,16 @@ function getElementRef(element: React.ReactElement): React.Ref<unknown> | undefi
  * Renders its single child, merging props, class names, styles, handlers and refs.
  * Powers the `asChild` prop across Stance.
  */
-export const Slot = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement> & { children?: React.ReactNode }>(
-  function Slot({ children, ...props }, forwardedRef) {
-    if (!React.isValidElement(children)) {
-      return React.Children.count(children) > 1 ? React.Children.only(null) : null;
-    }
-    const childRef = getElementRef(children);
-    return React.cloneElement(children, {
-      ...mergeProps(props as AnyProps, children.props as AnyProps),
-      ref: forwardedRef ? composeRefs(forwardedRef, childRef as React.Ref<HTMLElement>) : childRef,
-    } as AnyProps);
-  },
-);
+export const Slot = React.forwardRef<
+  HTMLElement,
+  React.HTMLAttributes<HTMLElement> & { children?: React.ReactNode }
+>(function Slot({ children, ...props }, forwardedRef) {
+  if (!React.isValidElement(children)) {
+    return React.Children.count(children) > 1 ? React.Children.only(null) : null;
+  }
+  const childRef = getElementRef(children);
+  return React.cloneElement(children, {
+    ...mergeProps(props as AnyProps, children.props as AnyProps),
+    ref: forwardedRef ? composeRefs(forwardedRef, childRef as React.Ref<HTMLElement>) : childRef,
+  } as AnyProps);
+});

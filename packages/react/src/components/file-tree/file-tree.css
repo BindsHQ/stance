@@ -1,0 +1,6 @@
+.st-file-tree .st-tree__label {
+  font-variant-ligatures: none;
+}
+.st-file-tree .st-tree__item[aria-expanded] > .st-tree__row > .st-tree__icon {
+  color: var(--st-color-fg-default);
+}

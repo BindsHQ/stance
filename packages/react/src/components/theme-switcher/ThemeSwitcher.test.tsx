@@ -9,19 +9,31 @@ describe('ThemeSwitcher', () => {
   beforeEach(() => localStorage.clear());
 
   it('exposes a labelled radiogroup with the current theme checked', () => {
-    render(<ThemeProvider defaultTheme="light"><ThemeSwitcher /></ThemeProvider>);
+    render(
+      <ThemeProvider defaultTheme="light">
+        <ThemeSwitcher />
+      </ThemeProvider>,
+    );
     expect(screen.getByRole('radiogroup', { name: 'Theme' })).toBeInTheDocument();
     expect(screen.getByRole('radio', { name: 'Light' })).toHaveAttribute('aria-checked', 'true');
   });
 
   it('switches theme on click', async () => {
-    render(<ThemeProvider defaultTheme="light"><ThemeSwitcher /></ThemeProvider>);
+    render(
+      <ThemeProvider defaultTheme="light">
+        <ThemeSwitcher />
+      </ThemeProvider>,
+    );
     await userEvent.click(screen.getByRole('radio', { name: 'High contrast' }));
     expect(document.documentElement).toHaveAttribute('data-theme', 'high-contrast');
   });
 
   it('moves selection with arrow keys and keeps a single tab stop', async () => {
-    render(<ThemeProvider defaultTheme="light"><ThemeSwitcher /></ThemeProvider>);
+    render(
+      <ThemeProvider defaultTheme="light">
+        <ThemeSwitcher />
+      </ThemeProvider>,
+    );
     const user = userEvent.setup();
     await user.tab();
     expect(screen.getByRole('radio', { name: 'Light' })).toHaveFocus();
@@ -32,7 +44,11 @@ describe('ThemeSwitcher', () => {
   });
 
   it('has no axe violations', async () => {
-    const { container } = render(<ThemeProvider><ThemeSwitcher showLabels /></ThemeProvider>);
+    const { container } = render(
+      <ThemeProvider>
+        <ThemeSwitcher showLabels />
+      </ThemeProvider>,
+    );
     await expectNoA11yViolations(container);
   });
 });

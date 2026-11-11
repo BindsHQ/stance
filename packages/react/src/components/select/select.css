@@ -1,0 +1,52 @@
+/* Select trigger: the shared .st-input field box rendered as a button. */
+.st-select {
+  justify-content: flex-start;
+  text-align: left;
+  cursor: pointer;
+  user-select: none;
+  line-height: var(--st-line-height-normal);
+  -webkit-tap-highlight-color: transparent;
+}
+.st-select:focus-visible {
+  border-color: var(--st-color-focus-ring);
+  box-shadow: 0 0 0 1px var(--st-color-focus-ring);
+  outline: none;
+}
+.st-select[data-invalid]:focus-visible {
+  box-shadow: 0 0 0 1px var(--st-color-danger-fg);
+}
+.st-select:disabled {
+  cursor: not-allowed;
+}
+.st-select__value {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.st-select[data-placeholder] .st-select__value {
+  color: var(--st-color-fg-subtle);
+}
+.st-select[data-disabled] .st-select__value {
+  color: var(--st-color-disabled-fg);
+}
+.st-select__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--st-color-fg-muted);
+}
+.st-select__chevron {
+  flex-shrink: 0;
+  margin-left: auto;
+  color: var(--st-color-fg-muted);
+}
+[data-theme='high-contrast'] .st-select:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}
+@media (forced-colors: active) {
+  .st-select:focus-visible {
+    outline: 2px solid Highlight;
+  }
+}

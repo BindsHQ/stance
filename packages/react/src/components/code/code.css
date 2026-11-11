@@ -1,0 +1,15 @@
+.st-code {
+  font-family: var(--st-font-mono);
+  font-size: 0.875em;
+  color: var(--st-color-fg-default);
+  overflow-wrap: anywhere;
+}
+.st-code[data-size='sm'] {
+  font-size: 0.8em;
+}
+.st-code[data-variant='muted'] {
+  padding: 0.125em 0.375em;
+  border: var(--st-border-width) solid var(--st-color-border-subtle);
+  border-radius: var(--st-radius-sm);
+  background: var(--st-color-bg-muted);
+}

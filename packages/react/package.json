@@ -5,21 +5,41 @@
   "license": "MIT",
   "author": "Binds",
   "homepage": "https://stanceui.com",
-  "repository": { "type": "git", "url": "git+https://github.com/BindsHQ/stance.git", "directory": "packages/react" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BindsHQ/stance.git",
+    "directory": "packages/react"
+  },
   "bugs": "https://github.com/BindsHQ/stance/issues",
-  "keywords": ["design-system", "react", "components", "accessibility", "binds", "stance"],
+  "keywords": [
+    "design-system",
+    "react",
+    "components",
+    "accessibility",
+    "binds",
+    "stance"
+  ],
   "type": "module",
-  "sideEffects": ["*.css"],
+  "sideEffects": [
+    "*.css"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
     "./styles.css": "./dist/styles.css",
     "./global.css": "./dist/global.css",
     "./components/*.css": "./dist/css/*.css",
     "./package.json": "./package.json"
   },
-  "files": ["dist", "README.md", "LICENSE"],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.build.json && node scripts/build-css.mjs",
     "test": "vitest run",
@@ -45,5 +65,7 @@
     "react-dom": "^19.2.0",
     "vitest": "^5.1.0"
   },
-  "publishConfig": { "access": "public" }
+  "publishConfig": {
+    "access": "public"
+  }
 }

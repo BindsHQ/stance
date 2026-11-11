@@ -1,6 +1,12 @@
 'use client';
 import * as React from 'react';
-import { computePosition, type Align, type PositionOptions, type PositionResult, type Side } from './position.js';
+import {
+  computePosition,
+  type Align,
+  type PositionOptions,
+  type PositionResult,
+  type Side,
+} from './position.js';
 import { useIsomorphicLayoutEffect } from './use-isomorphic-layout-effect.js';
 
 export interface FloatingOptions extends Partial<PositionOptions> {
@@ -53,12 +59,25 @@ export function useFloating(
       { side, align, sideOffset, alignOffset, collisionPadding, avoidCollisions },
     );
     setResult((prev) =>
-      prev && prev.x === next.x && prev.y === next.y && prev.side === next.side &&
+      prev &&
+      prev.x === next.x &&
+      prev.y === next.y &&
+      prev.side === next.side &&
       prev.availableHeight === next.availableHeight
         ? prev
         : next,
     );
-  }, [anchorRef, floatingRef, side, align, sideOffset, alignOffset, collisionPadding, avoidCollisions, matchAnchorWidth]);
+  }, [
+    anchorRef,
+    floatingRef,
+    side,
+    align,
+    sideOffset,
+    alignOffset,
+    collisionPadding,
+    avoidCollisions,
+    matchAnchorWidth,
+  ]);
 
   useIsomorphicLayoutEffect(() => {
     if (!open) {
@@ -97,7 +116,9 @@ export function useFloating(
     position: 'fixed',
     left: 0,
     top: 0,
-    transform: result ? `translate3d(${result.x}px, ${result.y}px, 0)` : 'translate3d(0, -200vh, 0)',
+    transform: result
+      ? `translate3d(${result.x}px, ${result.y}px, 0)`
+      : 'translate3d(0, -200vh, 0)',
     opacity: result ? undefined : 0,
     pointerEvents: result ? undefined : 'none',
     ['--st-available-height' as string]: result ? `${result.availableHeight}px` : undefined,

@@ -1,0 +1,22 @@
+.st-caption {
+  margin: 0;
+  color: var(--st-color-fg-muted);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-xs);
+  line-height: var(--st-line-height-normal);
+}
+.st-caption[data-tone='subtle'] {
+  color: var(--st-color-fg-subtle);
+}
+.st-caption[data-tone='default'] {
+  color: var(--st-color-fg-default);
+}
+.st-caption[data-tone='danger'] {
+  color: var(--st-color-danger-fg);
+}
+.st-caption[data-align='center'] {
+  text-align: center;
+}
+.st-caption[data-align='end'] {
+  text-align: end;
+}

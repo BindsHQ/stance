@@ -1,0 +1,155 @@
+/* Listbox popup shared by Select, MultiSelect and Combobox. */
+.st-listbox {
+  display: flex;
+  flex-direction: column;
+  max-height: min(var(--st-available-height, 20rem), 20rem);
+  max-width: calc(100vw - 1rem);
+  overflow: hidden;
+  padding: 0;
+}
+.st-listbox__list {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  margin: 0;
+  padding: var(--st-space-1);
+  list-style: none;
+  outline: none;
+  overscroll-behavior: contain;
+}
+.st-listbox__group-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.st-listbox__group + .st-listbox__group,
+.st-listbox__option + .st-listbox__group {
+  margin-top: var(--st-space-1);
+  border-top: var(--st-border-width) solid var(--st-color-separator);
+  padding-top: var(--st-space-1);
+}
+.st-listbox__group-label {
+  padding: var(--st-space-2) var(--st-space-2) var(--st-space-1);
+  color: var(--st-color-fg-subtle);
+  font-size: var(--st-font-size-2xs);
+  font-weight: var(--st-font-weight-semibold);
+  letter-spacing: var(--st-letter-spacing-caps);
+  text-transform: uppercase;
+}
+.st-listbox__option {
+  display: flex;
+  align-items: center;
+  gap: var(--st-space-2);
+  min-height: 2rem;
+  padding: var(--st-space-1-5) var(--st-space-2);
+  border-radius: var(--st-radius-sm);
+  color: var(--st-color-fg-default);
+  font-size: var(--st-font-size-sm);
+  line-height: var(--st-line-height-snug);
+  cursor: pointer;
+  user-select: none;
+}
+.st-listbox__option[data-active] {
+  background: var(--st-color-interactive-hover);
+}
+.st-listbox__option[aria-selected='true'] {
+  font-weight: var(--st-font-weight-medium);
+}
+.st-listbox__option[data-disabled] {
+  color: var(--st-color-fg-disabled);
+  cursor: not-allowed;
+}
+.st-listbox__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--st-color-fg-muted);
+}
+.st-listbox__text {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+}
+.st-listbox__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.st-listbox__description {
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-xs);
+  font-weight: var(--st-font-weight-regular);
+}
+.st-listbox__check {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+.st-listbox__checkbox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  border: var(--st-border-width-control) solid var(--st-color-border-control);
+  border-radius: var(--st-radius-xs);
+  background: var(--st-color-bg-surface);
+}
+.st-listbox__checkbox[data-checked] {
+  border-color: var(--st-color-accent-bg);
+  background: var(--st-color-accent-bg);
+  color: var(--st-color-accent-fg);
+}
+.st-listbox__status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--st-space-2);
+  padding: var(--st-space-4) var(--st-space-3);
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-sm);
+}
+.st-listbox__actions {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--st-space-2);
+  padding: var(--st-space-1-5) var(--st-space-2);
+  border-bottom: var(--st-border-width) solid var(--st-color-separator);
+}
+.st-listbox__action {
+  padding: var(--st-space-1) var(--st-space-1-5);
+  border: 0;
+  border-radius: var(--st-radius-sm);
+  background: transparent;
+  color: var(--st-color-fg-muted);
+  font: inherit;
+  font-size: var(--st-font-size-xs);
+  font-weight: var(--st-font-weight-medium);
+  cursor: pointer;
+}
+.st-listbox__action:hover {
+  background: var(--st-color-interactive-hover);
+  color: var(--st-color-fg-default);
+}
+
+[data-theme='high-contrast'] .st-listbox__option[data-active] {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: -3px;
+}
+@media (pointer: coarse) {
+  .st-listbox__option {
+    min-height: 2.75rem;
+  }
+}
+@media (forced-colors: active) {
+  .st-listbox__option[data-active] {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+  .st-listbox__option[aria-selected='true'] {
+    text-decoration: underline;
+  }
+  .st-listbox__option[data-disabled] {
+    color: GrayText;
+  }
+}

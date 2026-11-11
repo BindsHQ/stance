@@ -1,5 +1,12 @@
 // Collects component CSS into dist/styles.css plus one file per component in dist/css/.
-import { copyFileSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import {
+  copyFileSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  statSync,
+  writeFileSync,
+} from 'node:fs';
 import { basename, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -16,7 +23,8 @@ const walk = (dir) =>
 
 const base = readFileSync(join(src, 'styles', 'base.css'), 'utf8');
 const components = walk(join(src, 'components')).sort();
-const banner = '/* @bindshq/stance-react — component styles. Requires @bindshq/stance-tokens/css. */\n';
+const banner =
+  '/* @bindshq/stance-react — component styles. Requires @bindshq/stance-tokens/css. */\n';
 const parts = [banner, base];
 for (const file of components) {
   const css = readFileSync(file, 'utf8');

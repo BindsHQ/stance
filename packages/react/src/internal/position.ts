@@ -33,7 +33,13 @@ export interface PositionResult {
 
 const opposite: Record<Side, Side> = { top: 'bottom', bottom: 'top', left: 'right', right: 'left' };
 
-function place(anchor: Rect, floating: { width: number; height: number }, side: Side, align: Align, o: PositionOptions) {
+function place(
+  anchor: Rect,
+  floating: { width: number; height: number },
+  side: Side,
+  align: Align,
+  o: PositionOptions,
+) {
   const vertical = side === 'top' || side === 'bottom';
   let x = 0;
   let y = 0;
@@ -53,7 +59,12 @@ function place(anchor: Rect, floating: { width: number; height: number }, side: 
   return { x, y };
 }
 
-function space(anchor: Rect, viewport: { width: number; height: number }, side: Side, o: PositionOptions) {
+function space(
+  anchor: Rect,
+  viewport: { width: number; height: number },
+  side: Side,
+  o: PositionOptions,
+) {
   const p = o.collisionPadding + o.sideOffset;
   switch (side) {
     case 'top':
@@ -85,11 +96,26 @@ export function computePosition(
   const pad = o.collisionPadding;
   if (o.avoidCollisions) {
     // Shift along the cross axis to stay inside the viewport.
-    if (vertical(side)) x = Math.min(Math.max(x, pad), Math.max(pad, viewport.width - floating.width - pad));
+    if (vertical(side))
+      x = Math.min(Math.max(x, pad), Math.max(pad, viewport.width - floating.width - pad));
     else y = Math.min(Math.max(y, pad), Math.max(pad, viewport.height - floating.height - pad));
   }
-  const arrowOffset = vertical(side) ? anchor.x + anchor.width / 2 - x : anchor.y + anchor.height / 2 - y;
-  const availableHeight = vertical(side) ? Math.max(0, space(anchor, viewport, side, o)) : viewport.height - pad * 2;
-  const availableWidth = vertical(side) ? viewport.width - pad * 2 : Math.max(0, space(anchor, viewport, side, o));
-  return { x: Math.round(x), y: Math.round(y), side, align: o.align, availableWidth, availableHeight, arrowOffset };
+  const arrowOffset = vertical(side)
+    ? anchor.x + anchor.width / 2 - x
+    : anchor.y + anchor.height / 2 - y;
+  const availableHeight = vertical(side)
+    ? Math.max(0, space(anchor, viewport, side, o))
+    : viewport.height - pad * 2;
+  const availableWidth = vertical(side)
+    ? viewport.width - pad * 2
+    : Math.max(0, space(anchor, viewport, side, o));
+  return {
+    x: Math.round(x),
+    y: Math.round(y),
+    side,
+    align: o.align,
+    availableWidth,
+    availableHeight,
+    arrowOffset,
+  };
 }

@@ -1,0 +1,95 @@
+.st-alert {
+  --_fg: var(--st-color-info-fg);
+  --_bg: var(--st-color-info-bg);
+  --_border: var(--st-color-info-border);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--st-space-3);
+  padding: var(--st-space-3) var(--st-space-4);
+  border: var(--st-border-width) solid var(--_border);
+  border-radius: var(--st-radius-lg);
+  background: var(--_bg);
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-sm);
+  line-height: var(--st-line-height-normal);
+}
+.st-alert[data-tone='success'] {
+  --_fg: var(--st-color-success-fg);
+  --_bg: var(--st-color-success-bg);
+  --_border: var(--st-color-success-border);
+}
+.st-alert[data-tone='warning'] {
+  --_fg: var(--st-color-warning-fg);
+  --_bg: var(--st-color-warning-bg);
+  --_border: var(--st-color-warning-border);
+}
+.st-alert[data-tone='danger'] {
+  --_fg: var(--st-color-danger-fg);
+  --_bg: var(--st-color-danger-bg);
+  --_border: var(--st-color-danger-border);
+}
+.st-alert__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--_fg);
+}
+.st-alert__content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--st-space-1);
+  min-width: 0;
+}
+.st-alert__title {
+  margin: 0;
+  color: var(--_fg);
+  font-weight: var(--st-font-weight-semibold);
+}
+.st-alert[data-tone='info'] .st-alert__title {
+  color: var(--st-color-fg-default);
+}
+.st-alert__description {
+  color: var(--st-color-fg-default);
+}
+.st-alert__description > p {
+  margin: 0;
+}
+.st-alert__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--st-space-2);
+  margin-top: var(--st-space-2);
+}
+.st-alert__dismiss {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin: -0.25rem -0.5rem -0.25rem 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--st-radius-sm);
+  background: transparent;
+  color: var(--st-color-fg-muted);
+  cursor: pointer;
+}
+.st-alert__dismiss:hover {
+  background: var(--st-color-interactive-hover);
+  color: var(--st-color-fg-default);
+}
+.st-alert__dismiss:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: 0;
+}
+[data-theme='high-contrast'] .st-alert {
+  border-width: 2px;
+}
+@media (forced-colors: active) {
+  .st-alert {
+    border: 1px solid CanvasText;
+  }
+}

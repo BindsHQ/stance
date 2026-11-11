@@ -14,16 +14,28 @@ export interface FocusScopeOptions {
   onUnmountAutoFocus?: ((event: Event) => void) | undefined;
 }
 
-export function useFocusScope(ref: React.RefObject<HTMLElement | null>, options: FocusScopeOptions) {
+export function useFocusScope(
+  ref: React.RefObject<HTMLElement | null>,
+  options: FocusScopeOptions,
+) {
   const { enabled, trapped = true, restoreFocus = true } = options;
   const optsRef = React.useRef(options);
   optsRef.current = options;
+
+  // Capture the element to restore *during render*, before any child effect can move focus
+  // (e.g. a calendar that autofocuses its active day on mount).
+  const restoreTargetRef = React.useRef<HTMLElement | null>(null);
+  const wasEnabledRef = React.useRef(false);
+  if (enabled && !wasEnabledRef.current && typeof document !== 'undefined') {
+    restoreTargetRef.current = document.activeElement as HTMLElement | null;
+  }
+  wasEnabledRef.current = enabled;
 
   React.useEffect(() => {
     if (!enabled) return;
     const container = ref.current;
     if (!container) return;
-    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const previouslyFocused = restoreTargetRef.current;
 
     const mountEvent = new Event('stance.focusScope.mount', { cancelable: true });
     optsRef.current.onMountAutoFocus?.(mountEvent);
