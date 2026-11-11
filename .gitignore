@@ -14,3 +14,4 @@ coverage/
 .snippets/
 audit-report.json
 .release/
+scripts/.*.tmp.mjs

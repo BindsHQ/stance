@@ -104,6 +104,8 @@ export const loaders: Record<string, () => Promise<ComponentModule>> = {
   'tag': () => import('../content/components/tag'),
   'text': () => import('../content/components/text'),
   'textarea': () => import('../content/components/textarea'),
+  'theme-provider': () => import('../content/components/theme-provider'),
+  'theme-switcher': () => import('../content/components/theme-switcher'),
   'time-picker': () => import('../content/components/time-picker'),
   'timeline': () => import('../content/components/timeline'),
   'toast': () => import('../content/components/toast'),

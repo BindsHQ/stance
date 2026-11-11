@@ -714,6 +714,20 @@
     "status": "stable"
   },
   {
+    "slug": "theme-provider",
+    "name": "ThemeProvider",
+    "category": "theming",
+    "summary": "Owns the appearance: light, dark, high contrast or system, persisted with no flash on load.",
+    "status": "stable"
+  },
+  {
+    "slug": "theme-switcher",
+    "name": "ThemeSwitcher",
+    "category": "theming",
+    "summary": "A segmented control that lets people choose light, dark, high contrast or system.",
+    "status": "stable"
+  },
+  {
     "slug": "time-picker",
     "name": "TimePicker",
     "category": "forms",
