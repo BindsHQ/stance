@@ -1,0 +1,28 @@
+{
+  "name": "@bindshq/stance-docs",
+  "version": "0.1.1",
+  "private": true,
+  "description": "stanceui.com \u2014 documentation and landing page for Stance.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/generate-registry.mjs",
+    "dev": "npm run generate && next dev --port 3100",
+    "build": "npm run generate && next build",
+    "start": "next start --port 3100",
+    "typecheck": "npm run generate && tsc --noEmit",
+    "check:snippets": "npm run generate && node scripts/check-snippets.mjs"
+  },
+  "dependencies": {
+    "@bindshq/stance-react": "0.1.1",
+    "@bindshq/stance-tokens": "0.1.1",
+    "next": "^16.4.6",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0"
+  }
+}

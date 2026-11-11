@@ -1,0 +1,772 @@
+[
+  {
+    "slug": "accordion",
+    "name": "Accordion",
+    "category": "data-display",
+    "summary": "Stacked headings that each reveal a section, with single or multiple open items.",
+    "status": "stable"
+  },
+  {
+    "slug": "action-menu",
+    "name": "ActionMenu",
+    "category": "actions",
+    "summary": "A compact “more actions” menu built from an array — ideal for table rows and cards.",
+    "status": "stable"
+  },
+  {
+    "slug": "alert-dialog",
+    "name": "AlertDialog",
+    "category": "overlays",
+    "summary": "An interruptive dialog that asks the user to confirm or cancel an important action.",
+    "status": "stable"
+  },
+  {
+    "slug": "alert",
+    "name": "Alert",
+    "category": "feedback",
+    "summary": "An inline message about the state of a page or section, in four tones.",
+    "status": "stable"
+  },
+  {
+    "slug": "aspect-ratio",
+    "name": "AspectRatio",
+    "category": "foundations",
+    "summary": "Holds media to a fixed width-to-height ratio.",
+    "status": "stable"
+  },
+  {
+    "slug": "avatar-group",
+    "name": "AvatarGroup",
+    "category": "data-display",
+    "summary": "A stack of overlapping avatars with a \"+N\" overflow, announced as a list.",
+    "status": "stable"
+  },
+  {
+    "slug": "avatar",
+    "name": "Avatar",
+    "category": "data-display",
+    "summary": "A person or organisation shown as an image or initials, with optional presence.",
+    "status": "stable"
+  },
+  {
+    "slug": "badge",
+    "name": "Badge",
+    "category": "data-display",
+    "summary": "A short, non-interactive status or count label in six tones and three variants.",
+    "status": "stable"
+  },
+  {
+    "slug": "banner",
+    "name": "Banner",
+    "category": "feedback",
+    "summary": "A full-width, page-level announcement such as maintenance windows or plan limits.",
+    "status": "stable"
+  },
+  {
+    "slug": "box",
+    "name": "Box",
+    "category": "foundations",
+    "summary": "The lowest-level layout primitive: padding, surface, border, radius and shadow from tokens.",
+    "status": "stable"
+  },
+  {
+    "slug": "breadcrumbs",
+    "name": "Breadcrumbs",
+    "category": "navigation",
+    "summary": "Shows where the current page sits in a hierarchy and links back up it.",
+    "status": "stable"
+  },
+  {
+    "slug": "button-group",
+    "name": "ButtonGroup",
+    "category": "actions",
+    "summary": "Groups related buttons, either joined into a segmented bar or evenly spaced.",
+    "status": "stable"
+  },
+  {
+    "slug": "button",
+    "name": "Button",
+    "category": "actions",
+    "summary": "Triggers an action, with six variants, four sizes and a loading state.",
+    "status": "stable"
+  },
+  {
+    "slug": "calendar",
+    "name": "Calendar",
+    "category": "forms",
+    "summary": "A keyboard-accessible month grid for choosing a date or a date range.",
+    "status": "stable"
+  },
+  {
+    "slug": "caption",
+    "name": "Caption",
+    "category": "typography",
+    "summary": "Small supporting text for figures, timestamps and footnotes.",
+    "status": "stable"
+  },
+  {
+    "slug": "card",
+    "name": "Card",
+    "category": "data-display",
+    "summary": "A contained surface for related content, with header, media, content and footer parts.",
+    "status": "stable"
+  },
+  {
+    "slug": "chart-container",
+    "name": "ChartContainer",
+    "category": "advanced",
+    "summary": "An accessible chart frame with title, legend, responsive sizing and a data-table alternative.",
+    "status": "beta"
+  },
+  {
+    "slug": "checkbox-group",
+    "name": "CheckboxGroup",
+    "category": "forms",
+    "summary": "A labelled set of checkboxes that share one array value.",
+    "status": "stable"
+  },
+  {
+    "slug": "checkbox",
+    "name": "Checkbox",
+    "category": "forms",
+    "summary": "A native checkbox with label, description and an indeterminate state.",
+    "status": "stable"
+  },
+  {
+    "slug": "chip",
+    "name": "Chip",
+    "category": "actions",
+    "summary": "A selectable toggle chip for quick filters and choices.",
+    "status": "stable"
+  },
+  {
+    "slug": "code-block",
+    "name": "CodeBlock",
+    "category": "media",
+    "summary": "A multi-line code sample with title, line numbers, highlighting and copy.",
+    "status": "stable"
+  },
+  {
+    "slug": "code",
+    "name": "Code",
+    "category": "typography",
+    "summary": "Inline code for identifiers, values and file names in running text.",
+    "status": "stable"
+  },
+  {
+    "slug": "collapsible",
+    "name": "Collapsible",
+    "category": "advanced",
+    "summary": "A single disclosure: one trigger shows and hides one region.",
+    "status": "stable"
+  },
+  {
+    "slug": "combobox",
+    "name": "Combobox",
+    "category": "forms",
+    "summary": "An editable input with a filtered list of suggestions, supporting async search and custom values.",
+    "status": "stable"
+  },
+  {
+    "slug": "command-menu",
+    "name": "CommandMenu",
+    "category": "navigation",
+    "summary": "A searchable, keyboard-driven list of commands with groups, keywords and shortcuts.",
+    "status": "stable"
+  },
+  {
+    "slug": "command-palette",
+    "name": "CommandPalette",
+    "category": "advanced",
+    "summary": "A global ⌘K / Ctrl+K command menu in a dialog for fast navigation and actions.",
+    "status": "stable"
+  },
+  {
+    "slug": "confirmation-dialog",
+    "name": "ConfirmationDialog",
+    "category": "overlays",
+    "summary": "A ready-made confirm/cancel dialog with async loading and error handling, plus an imperative useConfirm() hook.",
+    "status": "stable"
+  },
+  {
+    "slug": "container",
+    "name": "Container",
+    "category": "foundations",
+    "summary": "Centres page content with a maximum width and responsive gutters.",
+    "status": "stable"
+  },
+  {
+    "slug": "context-menu",
+    "name": "ContextMenu",
+    "category": "overlays",
+    "summary": "A menu that opens at the pointer on right-click, long-press, Shift+F10 or the Menu key.",
+    "status": "stable"
+  },
+  {
+    "slug": "copy-button",
+    "name": "CopyButton",
+    "category": "actions",
+    "summary": "Copies text to the clipboard and confirms it visually and to screen readers.",
+    "status": "stable"
+  },
+  {
+    "slug": "copyable-code",
+    "name": "CopyableCode",
+    "category": "media",
+    "summary": "One line of code with a copy button, for commands, keys and IDs.",
+    "status": "stable"
+  },
+  {
+    "slug": "data-grid",
+    "name": "DataGrid",
+    "category": "advanced",
+    "summary": "A spreadsheet-style grid with cell navigation, in-place editing, resizable columns and virtualised rows.",
+    "status": "beta"
+  },
+  {
+    "slug": "data-table",
+    "name": "DataTable",
+    "category": "advanced",
+    "summary": "A table for records with sorting, row selection, pagination, loading and empty states.",
+    "status": "stable"
+  },
+  {
+    "slug": "date-picker",
+    "name": "DatePicker",
+    "category": "forms",
+    "summary": "A date field people can type into or fill from a calendar popover.",
+    "status": "stable"
+  },
+  {
+    "slug": "date-range-picker",
+    "name": "DateRangePicker",
+    "category": "forms",
+    "summary": "Picks a start and end date from a two-month calendar, with optional preset ranges.",
+    "status": "stable"
+  },
+  {
+    "slug": "description-list",
+    "name": "DescriptionList",
+    "category": "data-display",
+    "summary": "Key–value pairs such as account details or contract metadata, using native <dl>.",
+    "status": "stable"
+  },
+  {
+    "slug": "dialog",
+    "name": "Dialog",
+    "category": "overlays",
+    "summary": "A modal window for focused tasks that must be finished or dismissed before returning to the page.",
+    "status": "stable"
+  },
+  {
+    "slug": "divider",
+    "name": "Divider",
+    "category": "foundations",
+    "summary": "Separates sections of content, optionally with a short label such as “or”.",
+    "status": "stable"
+  },
+  {
+    "slug": "drawer",
+    "name": "Drawer",
+    "category": "overlays",
+    "summary": "A modal panel that slides in from a screen edge for details, filters and secondary tasks.",
+    "status": "stable"
+  },
+  {
+    "slug": "dropdown-menu",
+    "name": "DropdownMenu",
+    "category": "overlays",
+    "summary": "A menu of actions or options opened from a button, with groups, checkable items and submenus.",
+    "status": "stable"
+  },
+  {
+    "slug": "empty-state",
+    "name": "EmptyState",
+    "category": "feedback",
+    "summary": "Explains why an area is empty and offers the next step.",
+    "status": "stable"
+  },
+  {
+    "slug": "error-boundary",
+    "name": "ErrorBoundary",
+    "category": "advanced",
+    "summary": "Catches rendering errors in part of the screen and shows a recoverable fallback.",
+    "status": "stable"
+  },
+  {
+    "slug": "file-tree",
+    "name": "FileTree",
+    "category": "navigation",
+    "summary": "A TreeView preset for folders and files, with open and closed folder icons.",
+    "status": "stable"
+  },
+  {
+    "slug": "file-upload",
+    "name": "FileUpload",
+    "category": "forms",
+    "summary": "Choose files by browsing or drag and drop, with type, size and count validation.",
+    "status": "stable"
+  },
+  {
+    "slug": "filter-bar",
+    "name": "FilterBar",
+    "category": "advanced",
+    "summary": "A responsive row of search, filters, results count and \"Clear all\".",
+    "status": "stable"
+  },
+  {
+    "slug": "filter-chip",
+    "name": "FilterChip",
+    "category": "forms",
+    "summary": "A filter control showing its name and current value, editable in a popover.",
+    "status": "stable"
+  },
+  {
+    "slug": "floating-action-button",
+    "name": "FloatingActionButton",
+    "category": "actions",
+    "summary": "The primary action of a screen, floating above content in a corner.",
+    "status": "stable"
+  },
+  {
+    "slug": "form-field",
+    "name": "FormField",
+    "category": "forms",
+    "summary": "Wires a label, help text and error message to any Stance form control.",
+    "status": "stable"
+  },
+  {
+    "slug": "grid",
+    "name": "Grid",
+    "category": "foundations",
+    "summary": "Two-dimensional layout with fixed columns that collapse responsively, or fluid auto-fit tracks.",
+    "status": "stable"
+  },
+  {
+    "slug": "heading",
+    "name": "Heading",
+    "category": "typography",
+    "summary": "Section headings with a semantic level and an independent visual size.",
+    "status": "stable"
+  },
+  {
+    "slug": "hover-card",
+    "name": "HoverCard",
+    "category": "overlays",
+    "summary": "A rich preview that appears when hovering or focusing a link.",
+    "status": "stable"
+  },
+  {
+    "slug": "icon-button",
+    "name": "IconButton",
+    "category": "actions",
+    "summary": "A compact button that shows only an icon and always carries an accessible label.",
+    "status": "stable"
+  },
+  {
+    "slug": "icon-gallery",
+    "name": "IconGallery",
+    "category": "media",
+    "summary": "A searchable grid of every Stance icon; choose one to copy its name.",
+    "status": "stable"
+  },
+  {
+    "slug": "icon",
+    "name": "Icon",
+    "category": "media",
+    "summary": "Original Stance icons as inline SVG that inherit the current text colour.",
+    "status": "stable"
+  },
+  {
+    "slug": "image",
+    "name": "Image",
+    "category": "media",
+    "summary": "An image with lazy loading, a reserved ratio and a graceful fallback.",
+    "status": "stable"
+  },
+  {
+    "slug": "inline",
+    "name": "Inline",
+    "category": "foundations",
+    "summary": "Lays children out horizontally and wraps them, for tags, actions and metadata.",
+    "status": "stable"
+  },
+  {
+    "slug": "input",
+    "name": "Input",
+    "category": "forms",
+    "summary": "A single-line text field with sizes, affixes and validation states.",
+    "status": "stable"
+  },
+  {
+    "slug": "kbd",
+    "name": "Kbd",
+    "category": "typography",
+    "summary": "Displays a keyboard key or shortcut with spoken labels for symbols.",
+    "status": "stable"
+  },
+  {
+    "slug": "label",
+    "name": "Label",
+    "category": "forms",
+    "summary": "A form label with required and optional indicators.",
+    "status": "stable"
+  },
+  {
+    "slug": "link",
+    "name": "Link",
+    "category": "typography",
+    "summary": "Navigates to another page or resource, inline in text or on its own.",
+    "status": "stable"
+  },
+  {
+    "slug": "list-item",
+    "name": "ListItem",
+    "category": "data-display",
+    "summary": "A list row with leading media, title, description, metadata and actions.",
+    "status": "stable"
+  },
+  {
+    "slug": "list",
+    "name": "List",
+    "category": "data-display",
+    "summary": "A semantic list of related items with dividers, density and an optional bordered surface.",
+    "status": "stable"
+  },
+  {
+    "slug": "loading-overlay",
+    "name": "LoadingOverlay",
+    "category": "feedback",
+    "summary": "Covers a region or the whole screen with a spinner while work is in progress.",
+    "status": "stable"
+  },
+  {
+    "slug": "menubar",
+    "name": "Menubar",
+    "category": "navigation",
+    "summary": "A persistent bar of menus for editor-style applications, as in File, Edit and View.",
+    "status": "stable"
+  },
+  {
+    "slug": "multi-select",
+    "name": "MultiSelect",
+    "category": "forms",
+    "summary": "Choose several values; selections appear as removable tags and the list stays open while you pick.",
+    "status": "stable"
+  },
+  {
+    "slug": "native-select",
+    "name": "NativeSelect",
+    "category": "forms",
+    "summary": "A styled native <select> for simple choices and long lists.",
+    "status": "stable"
+  },
+  {
+    "slug": "navigation-menu",
+    "name": "NavigationMenu",
+    "category": "navigation",
+    "summary": "Site or product navigation with optional flyout panels of links, using the disclosure pattern.",
+    "status": "stable"
+  },
+  {
+    "slug": "notification",
+    "name": "Notification",
+    "category": "feedback",
+    "summary": "Notification items and a ready-made notification center with unread state and mark-as-read.",
+    "status": "stable"
+  },
+  {
+    "slug": "number-input",
+    "name": "NumberInput",
+    "category": "forms",
+    "summary": "Numeric entry with stepper buttons and full spinbutton keyboard support.",
+    "status": "stable"
+  },
+  {
+    "slug": "pagination",
+    "name": "Pagination",
+    "category": "navigation",
+    "summary": "Moves between pages of a long list or table.",
+    "status": "stable"
+  },
+  {
+    "slug": "password-input",
+    "name": "PasswordInput",
+    "category": "forms",
+    "summary": "Password entry with a show/hide toggle and an optional strength meter.",
+    "status": "stable"
+  },
+  {
+    "slug": "popover",
+    "name": "Popover",
+    "category": "overlays",
+    "summary": "Non-modal floating content anchored to a trigger, for small forms, filters and details.",
+    "status": "stable"
+  },
+  {
+    "slug": "progress-circle",
+    "name": "ProgressCircle",
+    "category": "feedback",
+    "summary": "A circular progress indicator, determinate or indeterminate.",
+    "status": "stable"
+  },
+  {
+    "slug": "progress",
+    "name": "Progress",
+    "category": "feedback",
+    "summary": "A linear progress bar for uploads, deployments and multi-step tasks.",
+    "status": "stable"
+  },
+  {
+    "slug": "radio-group",
+    "name": "RadioGroup",
+    "category": "forms",
+    "summary": "A labelled set of mutually exclusive options, with list and card layouts.",
+    "status": "stable"
+  },
+  {
+    "slug": "range-slider",
+    "name": "RangeSlider",
+    "category": "forms",
+    "summary": "Select a minimum and maximum with two thumbs that cannot cross.",
+    "status": "stable"
+  },
+  {
+    "slug": "resizable-panel",
+    "name": "ResizablePanel",
+    "category": "advanced",
+    "summary": "One resizable region inside a SplitPanel, with size limits and optional collapse.",
+    "status": "stable"
+  },
+  {
+    "slug": "rich-text",
+    "name": "RichText",
+    "category": "typography",
+    "summary": "Typographic rhythm for long-form content: legal pages, help articles, MDX.",
+    "status": "stable"
+  },
+  {
+    "slug": "scroll-area",
+    "name": "ScrollArea",
+    "category": "advanced",
+    "summary": "A native scroll container with thin themed scrollbars, edge fades and keyboard access.",
+    "status": "stable"
+  },
+  {
+    "slug": "search-input",
+    "name": "SearchInput",
+    "category": "forms",
+    "summary": "A search field with a clear button, Escape to clear and an optional shortcut hint.",
+    "status": "stable"
+  },
+  {
+    "slug": "searchable-list",
+    "name": "SearchableList",
+    "category": "advanced",
+    "summary": "A search field paired with a filtered list, with result counts announced as you type.",
+    "status": "stable"
+  },
+  {
+    "slug": "select",
+    "name": "Select",
+    "category": "forms",
+    "summary": "Choose one value from a list, with typeahead, groups, disabled options and form submission.",
+    "status": "stable"
+  },
+  {
+    "slug": "separator",
+    "name": "Separator",
+    "category": "foundations",
+    "summary": "A thin rule between groups in menus, toolbars and lists.",
+    "status": "stable"
+  },
+  {
+    "slug": "sheet",
+    "name": "Sheet",
+    "category": "overlays",
+    "summary": "A bottom sheet for mobile-first flows, with a drag handle to dismiss.",
+    "status": "stable"
+  },
+  {
+    "slug": "sidebar",
+    "name": "Sidebar",
+    "category": "navigation",
+    "summary": "Composable primitives for application sidebar navigation, with an icon-only collapsed mode.",
+    "status": "stable"
+  },
+  {
+    "slug": "skeleton",
+    "name": "Skeleton",
+    "category": "feedback",
+    "summary": "Placeholder shapes that hold the layout while content loads.",
+    "status": "stable"
+  },
+  {
+    "slug": "skip-link",
+    "name": "SkipLink",
+    "category": "navigation",
+    "summary": "Lets keyboard users jump past navigation to the main content.",
+    "status": "stable"
+  },
+  {
+    "slug": "slider",
+    "name": "Slider",
+    "category": "forms",
+    "summary": "Pick a single value from a range by dragging or with the keyboard.",
+    "status": "stable"
+  },
+  {
+    "slug": "spacer",
+    "name": "Spacer",
+    "category": "foundations",
+    "summary": "Adds a fixed gap from the scale, or flexes to push siblings apart.",
+    "status": "stable"
+  },
+  {
+    "slug": "spinner",
+    "name": "Spinner",
+    "category": "feedback",
+    "summary": "An indeterminate loading indicator with an accessible status label.",
+    "status": "stable"
+  },
+  {
+    "slug": "split-button",
+    "name": "SplitButton",
+    "category": "actions",
+    "summary": "A primary action joined to a menu of closely related alternatives.",
+    "status": "stable"
+  },
+  {
+    "slug": "split-panel",
+    "name": "SplitPanel",
+    "category": "advanced",
+    "summary": "A group of resizable panels separated by draggable, keyboard-accessible handles.",
+    "status": "stable"
+  },
+  {
+    "slug": "stack",
+    "name": "Stack",
+    "category": "foundations",
+    "summary": "Arranges children in a vertical or horizontal flow with consistent, token-based spacing.",
+    "status": "stable"
+  },
+  {
+    "slug": "stat-card",
+    "name": "StatCard",
+    "category": "data-display",
+    "summary": "A single key metric with its change, period and an optional chart.",
+    "status": "stable"
+  },
+  {
+    "slug": "stepper",
+    "name": "Stepper",
+    "category": "navigation",
+    "summary": "Shows progress through an ordered, multi-step task.",
+    "status": "stable"
+  },
+  {
+    "slug": "switch",
+    "name": "Switch",
+    "category": "forms",
+    "summary": "An on/off toggle for settings that take effect immediately.",
+    "status": "stable"
+  },
+  {
+    "slug": "tab-bar",
+    "name": "TabBar",
+    "category": "navigation",
+    "summary": "A mobile navigation bar for three to five top-level destinations.",
+    "status": "stable"
+  },
+  {
+    "slug": "table",
+    "name": "Table",
+    "category": "data-display",
+    "summary": "Semantic table primitives with density, striping, sticky headers, sorting and accessible row links.",
+    "status": "stable"
+  },
+  {
+    "slug": "tabs",
+    "name": "Tabs",
+    "category": "navigation",
+    "summary": "Switches between related panels of content within the same page.",
+    "status": "stable"
+  },
+  {
+    "slug": "tag",
+    "name": "Tag",
+    "category": "data-display",
+    "summary": "A keyword label that can optionally be removed.",
+    "status": "stable"
+  },
+  {
+    "slug": "text",
+    "name": "Text",
+    "category": "typography",
+    "summary": "Body copy with size, weight and semantic tone from the type scale.",
+    "status": "stable"
+  },
+  {
+    "slug": "textarea",
+    "name": "Textarea",
+    "category": "forms",
+    "summary": "Multi-line text entry with optional auto-resize and a character counter.",
+    "status": "stable"
+  },
+  {
+    "slug": "time-picker",
+    "name": "TimePicker",
+    "category": "forms",
+    "summary": "Enter a time of day with keyboard-friendly hour and minute segments.",
+    "status": "stable"
+  },
+  {
+    "slug": "timeline",
+    "name": "Timeline",
+    "category": "data-display",
+    "summary": "A chronological list of events, such as an audit trail or deployment history.",
+    "status": "stable"
+  },
+  {
+    "slug": "toast",
+    "name": "Toast",
+    "category": "feedback",
+    "summary": "Brief, non-blocking messages about the result of an action, with optional Undo.",
+    "status": "stable"
+  },
+  {
+    "slug": "toggle-button",
+    "name": "ToggleButton",
+    "category": "actions",
+    "summary": "A button that stays pressed, alone or in a group with single or multiple selection.",
+    "status": "stable"
+  },
+  {
+    "slug": "toolbar",
+    "name": "Toolbar",
+    "category": "actions",
+    "summary": "Groups related controls into one tab stop with arrow-key navigation.",
+    "status": "stable"
+  },
+  {
+    "slug": "tooltip",
+    "name": "Tooltip",
+    "category": "overlays",
+    "summary": "A short text label that appears on hover and keyboard focus.",
+    "status": "stable"
+  },
+  {
+    "slug": "tree-view",
+    "name": "TreeView",
+    "category": "navigation",
+    "summary": "Displays and navigates hierarchical data with expandable branches.",
+    "status": "stable"
+  },
+  {
+    "slug": "virtualized-list",
+    "name": "VirtualizedList",
+    "category": "advanced",
+    "summary": "Renders very long lists efficiently by mounting only the visible window of items.",
+    "status": "stable"
+  }
+]
