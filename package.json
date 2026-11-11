@@ -25,9 +25,10 @@
     "version-packages": "changeset version",
     "release": "npm run build && changeset publish",
     "check:snippets": "npm run check:snippets -w @bindshq/stance-docs",
-    "verify": "npm run format:check && npm run lint && npm run build && npm run typecheck && npm test && npm run check:exports && npm run check:snippets && npm run build:docs",
+    "verify": "npm run format:check && npm run lint && npm run build && npm run typecheck && npm test && npm run check:exports && npm run check:consumer && npm run check:snippets && npm run build:docs",
     "audit:site": "node scripts/audit-site.mjs",
-    "serve:docs": "node scripts/serve-static.mjs"
+    "serve:docs": "node scripts/serve-static.mjs",
+    "check:consumer": "tsc -p tests/consumer"
   },
   "devDependencies": {
     "@changesets/cli": "^3.0.3",
