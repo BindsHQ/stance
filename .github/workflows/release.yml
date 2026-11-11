@@ -1,8 +1,9 @@
 name: Release
 
+# Runs on demand until npm publishing from GitHub is configured
+# (npm trusted publishing for this repository, or an NPM_TOKEN secret).
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: write
