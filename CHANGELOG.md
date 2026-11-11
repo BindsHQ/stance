@@ -16,9 +16,16 @@ Initial public release of Stance, the Binds design system.
 - `themeScript()` for theme application with no flash, with support for legacy storage keys.
 - Contrast utilities, and a WCAG 2.2 AA test suite covering every theme.
 
+- A platform-independent token source in the W3C design-token format, with generated Swift and Kotlin outputs and cross-platform parity tests.
+
 ### @bindshq/stance-react
 
 - Accessible React components with zero runtime dependencies.
 - Internal accessibility primitives: focus scope, a dismissable layer stack, anchored positioning, roving focus, typeahead and a portal that preserves scoped themes.
 - `ThemeProvider`, `ThemeScript`, `Theme` and `ThemeSwitcher`.
 - An original icon set.
+
+### In development (not released)
+
+- **StanceUI for iOS and iPadOS 0.1.0.** SwiftUI components, styles and modifiers on the shared tokens, with a showcase app.
+- **Stance for Android 0.1.0.** Jetpack Compose components built on Material 3 and the shared tokens, with a showcase app.

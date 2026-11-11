@@ -29,17 +29,21 @@ Stance is the official, open-source design system of [Binds](https://binds.si). 
 ## Highlights
 
 - **Brand-true tokens.** Built from the two official Binds colours, ivory `#FCF6EB` and indigo `#140C2E`. Every neutral is an OKLab interpolation between them.
-- **Three appearance modes.** Light, dark and high contrast. Stance detects the system preference, persists the user's choice, syncs it across tabs and avoids a flash on load.
-- **Accessible by default.** The target is WCAG 2.2 AA. Contrast is verified for every theme, axe-core runs in all three modes, and keyboard models follow WAI-ARIA APG.
-- **Zero runtime dependencies.** Focus management, positioning, date maths and virtualisation are all implemented in Stance. React is the only peer.
-- **Works anywhere.** Plain CSS on custom properties, with a Tailwind v3 preset and a Tailwind v4 theme. ESM and tree-shakeable, for React 18 and 19.
+- **One source, three platforms.** Tokens are written once in the W3C design-token format and generated for CSS, TypeScript, Swift and Kotlin.
+- **Native everywhere.** React for the web, SwiftUI for iOS and iPadOS, Jetpack Compose for Android. Each uses its platform's own controls and conventions.
+- **Three appearance modes.** Light, dark and high contrast on every platform, following the system by default.
+- **Accessible by default.** The target is WCAG 2.2 AA. Contrast is verified for every theme, and each platform has its own accessibility tests.
+- **No third-party runtime dependencies** on the web or iOS. Android builds on AndroidX and Material 3.
 
-## Packages
+## Platforms
 
-| Package | Description |
-| --- | --- |
-| [`@bindshq/stance-tokens`](./packages/tokens) | Design tokens: CSS variables, typed JS, JSON, Tailwind presets, the theme script and contrast utilities |
-| [`@bindshq/stance-react`](./packages/react) | React components, icons and theming |
+| Platform | Package | Status |
+| --- | --- | --- |
+| Web | [`@bindshq/stance-tokens`](./packages/tokens), [`@bindshq/stance-react`](./packages/react) | 0.1.1 |
+| iOS and iPadOS | [`StanceUI`](./platforms/ios) (Swift Package) | 0.1.0, in development |
+| Android | [`com.bindshq:stance-compose`](./platforms/android) | 0.1.0, in development |
+
+See [docs/architecture/cross-platform.md](./docs/architecture/cross-platform.md) for the layering and the upgrade policy.
 
 ## Install
 
@@ -76,8 +80,13 @@ import { Button, FormField, Input } from '@bindshq/stance-react';
 
 ```text
 apps/docs            stanceui.com: landing page and documentation (Next.js, static export)
-packages/tokens      @bindshq/stance-tokens
+packages/tokens      token source and generators, @bindshq/stance-tokens
 packages/react       @bindshq/stance-react
+platforms/ios        StanceUI for iOS and iPadOS (SwiftUI)
+platforms/android    Stance for Android (Jetpack Compose)
+examples/ios         iOS showcase app
+examples/android     Android showcase app
+brand/               logo, mark and app icons
 scripts/             repository tooling
 ```
 
@@ -91,6 +100,7 @@ npm run build        # tokens → react
 npm test             # token contrast + component tests
 npm run typecheck
 npm run dev:docs     # http://localhost:3100
+npm run tokens       # regenerate CSS, TypeScript, Swift and Kotlin from the token source
 ```
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for conventions, and use `npx changeset` to record changes for the next release.
