@@ -1,0 +1,848 @@
+[
+  {
+    "name": "StanceThemeProvider",
+    "category": "theming",
+    "summary": "Applies the Stance theme at the app root, persists the preference and avoids a wrong-theme flash at launch.",
+    "kind": "view",
+    "wrapsNative": "Environment, AppStorage",
+    "status": "stable",
+    "example": "StanceThemeProvider { Text(\"Hello\") }",
+    "accessibility": [
+      "System mode follows the colour scheme and Increase Contrast",
+      "Preference is read before the first frame"
+    ],
+    "webEquivalent": "theme-provider"
+  },
+  {
+    "name": "stanceTheme(_:)",
+    "category": "theming",
+    "summary": "Modifier that applies a Stance appearance (system, light, dark or high contrast) to a view hierarchy.",
+    "kind": "modifier",
+    "wrapsNative": "Environment",
+    "status": "stable",
+    "example": "Text(\"Preview\").stanceTheme(.highContrast)",
+    "accessibility": [
+      "Sets tint, foreground and canvas background from tokens"
+    ],
+    "webEquivalent": "theme-provider"
+  },
+  {
+    "name": "stanceScopedTheme(_:)",
+    "category": "theming",
+    "summary": "Scopes a fixed theme to a subtree, for inverted sections and side-by-side previews.",
+    "kind": "modifier",
+    "wrapsNative": "Environment",
+    "status": "stable",
+    "example": "Text(\"Inverted\").stanceScopedTheme(.dark)",
+    "accessibility": [
+      "Scoped themes keep the same verified contrast as page themes"
+    ],
+    "webEquivalent": "theme-provider"
+  },
+  {
+    "name": "StanceAppearance",
+    "category": "theming",
+    "summary": "The appearance preference with the same stored values as the web: system, light, dark and high-contrast.",
+    "kind": "helper",
+    "wrapsNative": "UserDefaults",
+    "status": "stable",
+    "example": "Text(StanceAppearance.stored().title)",
+    "accessibility": [
+      "Increase Contrast resolves system mode to high contrast"
+    ],
+    "webEquivalent": "theme-switcher"
+  },
+  {
+    "name": "StanceCard",
+    "category": "foundations",
+    "summary": "A padded surface with optional title, description and footer for grouped, self-contained content.",
+    "kind": "view",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "StanceCard(\"Rollout\", description: \"Exchange relay\") { Text(\"48 mailboxes\") }",
+    "accessibility": [
+      "Title is exposed as a heading"
+    ],
+    "webEquivalent": "card"
+  },
+  {
+    "name": "stanceCard()",
+    "category": "foundations",
+    "summary": "Modifier that gives any view the card treatment: padding, surface colour, border and optional elevation.",
+    "kind": "modifier",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "Text(\"Content\").stanceCard(elevated: true)",
+    "accessibility": [
+      "High contrast replaces the shadow with a solid outline"
+    ],
+    "webEquivalent": "card"
+  },
+  {
+    "name": "stanceSurface()",
+    "category": "foundations",
+    "summary": "Modifier that places a view on a token surface level with a corner radius, border and optional shadow.",
+    "kind": "modifier",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "Text(\"Content\").padding().stanceSurface(.subtle)",
+    "accessibility": [
+      "Boundaries meet 3:1 contrast in every theme"
+    ],
+    "webEquivalent": "box"
+  },
+  {
+    "name": "stanceShadow()",
+    "category": "foundations",
+    "summary": "Modifier that adds a token elevation; high contrast draws depth as an outline instead of a blur.",
+    "kind": "modifier",
+    "wrapsNative": "shadow",
+    "status": "stable",
+    "example": "Text(\"Raised\").padding().stanceShadow(.md)",
+    "accessibility": [
+      "Depth never relies on subtle shading in high contrast"
+    ],
+    "webEquivalent": null
+  },
+  {
+    "name": "StanceDivider",
+    "category": "foundations",
+    "summary": "A hairline separator in the theme separator colour, horizontal or vertical, hidden from VoiceOver.",
+    "kind": "view",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "StanceDivider()",
+    "accessibility": [
+      "Decorative: hidden from assistive technology"
+    ],
+    "webEquivalent": "divider"
+  },
+  {
+    "name": "StanceSection",
+    "category": "foundations",
+    "summary": "A titled group of content with consistent spacing and an optional caption under the heading.",
+    "kind": "view",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "StanceSection(\"Details\", caption: \"Shown to your organisation\") { Text(\"Body\") }",
+    "accessibility": [
+      "Title is exposed as a heading for rotor navigation"
+    ],
+    "webEquivalent": null
+  },
+  {
+    "name": "StanceContainer",
+    "category": "foundations",
+    "summary": "Constrains content to a readable width with page gutters and centres it on iPad.",
+    "kind": "view",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "StanceContainer { Text(\"Readable\") }",
+    "accessibility": [
+      "Keeps line length readable at every size class"
+    ],
+    "webEquivalent": "container"
+  },
+  {
+    "name": "StanceGrid",
+    "category": "foundations",
+    "summary": "An adaptive grid that fits as many columns as the minimum item width allows.",
+    "kind": "view",
+    "wrapsNative": "LazyVGrid",
+    "status": "stable",
+    "example": "StanceGrid(minItemWidth: 140) { Text(\"A\"); Text(\"B\") }",
+    "accessibility": [
+      "Reflows to one column at large text sizes"
+    ],
+    "webEquivalent": "grid"
+  },
+  {
+    "name": "StanceIcon",
+    "category": "foundations",
+    "summary": "A Stance icon drawn natively from the shared icon geometry; decorative unless a label is given.",
+    "kind": "view",
+    "wrapsNative": "Shape",
+    "status": "stable",
+    "example": "StanceIcon(.signature, label: \"Signature\")",
+    "accessibility": [
+      "Hidden from VoiceOver without a label",
+      "Scales with Dynamic Type"
+    ],
+    "webEquivalent": "icon"
+  },
+  {
+    "name": "stanceText(_:)",
+    "category": "typography",
+    "summary": "Modifier that applies a semantic Stance text style which scales with Dynamic Type and Bold Text.",
+    "kind": "modifier",
+    "wrapsNative": "ScaledMetric",
+    "status": "stable",
+    "example": "Text(\"Contracts, signed in minutes\").stanceText(.heading)",
+    "accessibility": [
+      "Scales through the largest accessibility sizes",
+      "Never below 12pt at the default size"
+    ],
+    "webEquivalent": "text"
+  },
+  {
+    "name": "StanceButton",
+    "category": "actions",
+    "summary": "A button with six variants, three sizes, icons, a pill shape and a loading state that blocks repeat taps.",
+    "kind": "view",
+    "wrapsNative": "Button",
+    "status": "stable",
+    "example": "StanceButton(\"Deploy\", leadingIcon: .send, isLoading: false) {}",
+    "accessibility": [
+      "44pt minimum target at every size",
+      "Loading is announced as “In progress”"
+    ],
+    "webEquivalent": "button"
+  },
+  {
+    "name": "StanceButtonStyle",
+    "category": "actions",
+    "summary": "The Stance button style for any Button, Menu label or NavigationLink: .buttonStyle(.stance(.primary)).",
+    "kind": "style",
+    "wrapsNative": "ButtonStyle",
+    "status": "stable",
+    "example": "Button(\"Save changes\") {}.buttonStyle(.stance(.outline, fullWidth: true))",
+    "accessibility": [
+      "Press feedback respects Reduce Motion"
+    ],
+    "webEquivalent": "button"
+  },
+  {
+    "name": "StanceIconButton",
+    "category": "actions",
+    "summary": "An icon-only button that requires an accessibility label and keeps a 44pt touch target.",
+    "kind": "view",
+    "wrapsNative": "Button",
+    "status": "stable",
+    "example": "StanceIconButton(.pencil, label: \"Edit template\") {}",
+    "accessibility": [
+      "Label is required and used by VoiceOver and Voice Control",
+      "Pointer hover effect on iPad"
+    ],
+    "webEquivalent": "icon-button"
+  },
+  {
+    "name": "StanceButtonGroup",
+    "category": "actions",
+    "summary": "Lays related buttons out in a row and stacks them vertically at accessibility text sizes.",
+    "kind": "view",
+    "wrapsNative": "AnyLayout",
+    "status": "stable",
+    "example": "StanceButtonGroup { StanceButton(\"Cancel\", variant: .ghost) {}; StanceButton(\"Save\") {} }",
+    "accessibility": [
+      "Reflows instead of truncating at large text sizes"
+    ],
+    "webEquivalent": "button-group"
+  },
+  {
+    "name": "StanceMenu",
+    "category": "actions",
+    "summary": "The native Menu with a Stance button as its trigger, for short lists of actions.",
+    "kind": "view",
+    "wrapsNative": "Menu",
+    "status": "stable",
+    "example": "StanceMenu(\"More\") { Button(\"Rename\") {}; Button(\"Delete\", role: .destructive) {} }",
+    "accessibility": [
+      "System menu behaviour, VoiceOver and keyboard support"
+    ],
+    "webEquivalent": "dropdown-menu"
+  },
+  {
+    "name": "StanceFormField",
+    "category": "forms",
+    "summary": "Wires a visible label, helper text and an announced error message to a single control.",
+    "kind": "view",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "StanceFormField(\"Plan\", helper: \"Billed monthly\") { Text(\"Team\") }",
+    "accessibility": [
+      "Label becomes the control’s accessibility label",
+      "Errors are announced when they appear"
+    ],
+    "webEquivalent": "form-field"
+  },
+  {
+    "name": "StanceTextField",
+    "category": "forms",
+    "summary": "A labelled single-line text field with helper text, error state, required marker and leading icon.",
+    "kind": "view",
+    "wrapsNative": "TextField",
+    "status": "stable",
+    "example": "StanceTextField(\"Template name\", text: $text, helper: \"Visible to your organisation\", isRequired: true)",
+    "accessibility": [
+      "Visible label matches the accessibility label for Voice Control",
+      "Error replaces the helper in the hint"
+    ],
+    "webEquivalent": "input"
+  },
+  {
+    "name": "StanceSecureField",
+    "category": "forms",
+    "summary": "A password field with a show and hide control that keeps a 44pt target.",
+    "kind": "view",
+    "wrapsNative": "SecureField",
+    "status": "stable",
+    "example": "StanceSecureField(\"Relay API key\", text: $text)",
+    "accessibility": [
+      "Toggle is labelled Show password or Hide password"
+    ],
+    "webEquivalent": "password-input"
+  },
+  {
+    "name": "StanceTextEditor",
+    "category": "forms",
+    "summary": "A labelled multi-line editor with an optional live character count.",
+    "kind": "view",
+    "wrapsNative": "TextEditor",
+    "status": "stable",
+    "example": "StanceTextEditor(\"Notes\", text: $text, limit: 200)",
+    "accessibility": [
+      "Character count is part of the field hint"
+    ],
+    "webEquivalent": "textarea"
+  },
+  {
+    "name": "StanceSearchField",
+    "category": "forms",
+    "summary": "An inline search field with a clear button; use the system searchable modifier for screen-level search.",
+    "kind": "view",
+    "wrapsNative": "TextField",
+    "status": "stable",
+    "example": "StanceSearchField(\"Search users\", text: $text)",
+    "accessibility": [
+      "Clear button is labelled and reachable"
+    ],
+    "webEquivalent": "search-input"
+  },
+  {
+    "name": "StancePicker",
+    "category": "forms",
+    "summary": "A labelled native Picker shown as a menu inside Stance field chrome.",
+    "kind": "view",
+    "wrapsNative": "Picker, Menu",
+    "status": "stable",
+    "example": "StancePicker(\"Plan\", selection: $role, options: [(\"admin\", \"Admin\"), (\"member\", \"Member\")])",
+    "accessibility": [
+      "Selected value is exposed as the accessibility value"
+    ],
+    "webEquivalent": "select"
+  },
+  {
+    "name": "StanceCheckbox",
+    "category": "forms",
+    "summary": "A checkbox with a label and description; iOS has no system checkbox, so it is exposed as a toggle.",
+    "kind": "view",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "StanceCheckbox(\"Apply to new members\", description: \"Added later\", isOn: $isOn)",
+    "accessibility": [
+      "Whole row is the 44pt target",
+      "Announces Checked or Not checked"
+    ],
+    "webEquivalent": "checkbox"
+  },
+  {
+    "name": "StanceRadioGroup",
+    "category": "forms",
+    "summary": "A group of mutually exclusive options visible at once, with optional descriptions.",
+    "kind": "view",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "StanceRadioGroup(\"Role\", selection: $role, options: [.init(\"admin\", label: \"Admin\"), .init(\"member\", label: \"Member\")])",
+    "accessibility": [
+      "Selected option carries the selected trait",
+      "Group is labelled by its title"
+    ],
+    "webEquivalent": "radio-group"
+  },
+  {
+    "name": "StanceToggleStyle",
+    "category": "forms",
+    "summary": "Stance colours for the native Toggle switch, keeping system behaviour and accessibility.",
+    "kind": "style",
+    "wrapsNative": "Toggle",
+    "status": "stable",
+    "example": "Toggle(\"Auto-deploy\", isOn: $isOn).toggleStyle(.stance)",
+    "accessibility": [
+      "Native switch semantics and haptics"
+    ],
+    "webEquivalent": "switch"
+  },
+  {
+    "name": "StanceSlider",
+    "category": "forms",
+    "summary": "A labelled native Slider that reports a formatted value visually and to VoiceOver.",
+    "kind": "view",
+    "wrapsNative": "Slider",
+    "status": "stable",
+    "example": "StanceSlider(\"Logo width\", value: $value, in: 24...160, step: 4)",
+    "accessibility": [
+      "Adjustable trait with a readable value"
+    ],
+    "webEquivalent": "slider"
+  },
+  {
+    "name": "StanceDatePicker",
+    "category": "forms",
+    "summary": "A labelled native DatePicker for dates or times in Stance colours.",
+    "kind": "view",
+    "wrapsNative": "DatePicker",
+    "status": "stable",
+    "example": "StanceDatePicker(\"Deploy on\", selection: $date, displayedComponents: .date)",
+    "accessibility": [
+      "System picker with full VoiceOver and keyboard support"
+    ],
+    "webEquivalent": "date-picker"
+  },
+  {
+    "name": "StanceAdaptiveNavigation",
+    "category": "navigation",
+    "summary": "Top-level navigation that is a tab bar in compact width and a sidebar in regular width.",
+    "kind": "view",
+    "wrapsNative": "TabView, NavigationSplitView",
+    "status": "stable",
+    "example": "StanceAdaptiveNavigation(\"Stance\", selection: $role, destinations: [.init(id: \"admin\", title: \"Home\", systemImage: \"house\")]) { _ in Text(\"Home\") }",
+    "accessibility": [
+      "System bars keep their materials, including Liquid Glass on iOS 26"
+    ],
+    "webEquivalent": "sidebar"
+  },
+  {
+    "name": "stanceNavigationChrome()",
+    "category": "navigation",
+    "summary": "Modifier that themes navigation and tab bar tint while leaving system bar materials untouched.",
+    "kind": "modifier",
+    "wrapsNative": "toolbarColorScheme",
+    "status": "stable",
+    "example": "Text(\"Screen\").stanceNavigationChrome()",
+    "accessibility": [
+      "Bar content stays legible in all three themes"
+    ],
+    "webEquivalent": null
+  },
+  {
+    "name": "StanceStepper",
+    "category": "navigation",
+    "summary": "Shows progress through a multi-step task with completed, current and upcoming steps.",
+    "kind": "view",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "StanceStepper(steps: [\"Choose\", \"Customise\", \"Deploy\"], current: 1)",
+    "accessibility": [
+      "Each step reads “Step x of y” with its state"
+    ],
+    "webEquivalent": "stepper"
+  },
+  {
+    "name": "StancePageIndicator",
+    "category": "navigation",
+    "summary": "Dots that show the position in a short paged sequence.",
+    "kind": "view",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "StancePageIndicator(count: 4, current: 1)",
+    "accessibility": [
+      "Read as “Page 2 of 4”",
+      "Animation respects Reduce Motion"
+    ],
+    "webEquivalent": null
+  },
+  {
+    "name": "StanceBadge",
+    "category": "data-display",
+    "summary": "A short status label in a neutral, info, success, warning or danger tone, always with text.",
+    "kind": "view",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "StanceBadge(\"Live\", tone: .success)",
+    "accessibility": [
+      "Never colour alone",
+      "Outlined in high contrast"
+    ],
+    "webEquivalent": "badge"
+  },
+  {
+    "name": "StanceTag",
+    "category": "data-display",
+    "summary": "A keyword label with an optional remove button labelled with the tag name.",
+    "kind": "view",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "StanceTag(\"Sales\") {}",
+    "accessibility": [
+      "Remove button reads “Remove Sales”"
+    ],
+    "webEquivalent": "tag"
+  },
+  {
+    "name": "StanceAvatar",
+    "category": "data-display",
+    "summary": "A person or organisation shown as an image or initials, in three sizes.",
+    "kind": "view",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "StanceAvatar(name: \"Priya Nair\", size: .large)",
+    "accessibility": [
+      "Name is the accessibility label"
+    ],
+    "webEquivalent": "avatar"
+  },
+  {
+    "name": "StanceAvatarGroup",
+    "category": "data-display",
+    "summary": "Overlapping avatars with a +N overflow, read as one summary by VoiceOver.",
+    "kind": "view",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "StanceAvatarGroup(names: [\"Priya Nair\", \"Hana Sato\", \"Owen Price\"], max: 2)",
+    "accessibility": [
+      "Reads names followed by “and N more”"
+    ],
+    "webEquivalent": "avatar-group"
+  },
+  {
+    "name": "StanceProgressView",
+    "category": "data-display",
+    "summary": "Linear or circular progress in Stance colours, determinate or indeterminate.",
+    "kind": "view",
+    "wrapsNative": "ProgressView",
+    "status": "stable",
+    "example": "StanceProgressView(\"Mailboxes updated\", value: 0.72)",
+    "accessibility": [
+      "Label and percentage are exposed to VoiceOver"
+    ],
+    "webEquivalent": "progress"
+  },
+  {
+    "name": "StanceSkeleton",
+    "category": "data-display",
+    "summary": "A placeholder for loading content in text, circle or rectangle shapes; static under Reduce Motion.",
+    "kind": "view",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "StanceSkeleton(.text, width: 160)",
+    "accessibility": [
+      "Hidden from VoiceOver"
+    ],
+    "webEquivalent": "skeleton"
+  },
+  {
+    "name": "StanceEmptyState",
+    "category": "data-display",
+    "summary": "Explains an empty screen or list and offers the next action.",
+    "kind": "view",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "StanceEmptyState(title: \"No templates yet\", message: \"Create your first signature template.\") { StanceButton(\"New template\") {} }",
+    "accessibility": [
+      "Title is a heading"
+    ],
+    "webEquivalent": "empty-state"
+  },
+  {
+    "name": "StanceTimeline",
+    "category": "data-display",
+    "summary": "A vertical sequence of events with a title, detail, time and tone.",
+    "kind": "view",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "StanceTimeline([.init(id: \"1\", title: \"Deployed\", detail: \"48 mailboxes\", time: \"09:41\", tone: .success)])",
+    "accessibility": [
+      "Each event is one combined element"
+    ],
+    "webEquivalent": "timeline"
+  },
+  {
+    "name": "StanceStatCard",
+    "category": "data-display",
+    "summary": "A key figure with a label and a change that is described in words for VoiceOver.",
+    "kind": "view",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "StanceStatCard(\"Deployments\", value: \"1,284\", change: 0.12)",
+    "accessibility": [
+      "Reads “up 12% from last month”, not just an arrow"
+    ],
+    "webEquivalent": "stat-card"
+  },
+  {
+    "name": "StanceDescriptionList",
+    "category": "data-display",
+    "summary": "Term and detail pairs that stack vertically at accessibility text sizes.",
+    "kind": "view",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "StanceDescriptionList([(\"Owner\", \"Priya Nair\"), (\"Updated\", \"Today\")])",
+    "accessibility": [
+      "Each pair is read together"
+    ],
+    "webEquivalent": "description-list"
+  },
+  {
+    "name": "StanceListRow",
+    "category": "data-display",
+    "summary": "A list row with leading content, title, subtitle and trailing accessory for List and NavigationLink.",
+    "kind": "view",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "StanceListRow(\"Sales team\", subtitle: \"48 users\")",
+    "accessibility": [
+      "44pt minimum row height"
+    ],
+    "webEquivalent": "list-item"
+  },
+  {
+    "name": "stanceListStyle()",
+    "category": "data-display",
+    "summary": "Modifiers that put List and Form on the Stance canvas with themed rows and separators.",
+    "kind": "modifier",
+    "wrapsNative": "List",
+    "status": "stable",
+    "example": "List { Text(\"Row\").stanceListRow() }.stanceListStyle()",
+    "accessibility": [
+      "Keeps native list behaviour, swipe actions and editing"
+    ],
+    "webEquivalent": "list"
+  },
+  {
+    "name": "StanceDisclosureGroupStyle",
+    "category": "data-display",
+    "summary": "Stance styling for the native DisclosureGroup with a 44pt header.",
+    "kind": "style",
+    "wrapsNative": "DisclosureGroup",
+    "status": "stable",
+    "example": "DisclosureGroup(\"Advanced\") { Text(\"Options\") }.disclosureGroupStyle(.stance)",
+    "accessibility": [
+      "Announces Expanded or Collapsed"
+    ],
+    "webEquivalent": "collapsible"
+  },
+  {
+    "name": "StanceInlineAlert",
+    "category": "feedback",
+    "summary": "An inline status message with a tone icon, title, message and optional actions.",
+    "kind": "view",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "StanceInlineAlert(\"Relay offline\", message: \"Deployments will resume.\", tone: .warning)",
+    "accessibility": [
+      "Warning and danger tones are announced when shown"
+    ],
+    "webEquivalent": "alert"
+  },
+  {
+    "name": "StanceBanner",
+    "category": "feedback",
+    "summary": "A full-width announcement with an optional action and dismiss button.",
+    "kind": "view",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "StanceBanner(\"Maintenance on Sunday\", actionTitle: \"Details\", action: {}, onDismiss: {})",
+    "accessibility": [
+      "Dismiss button is labelled and 44pt"
+    ],
+    "webEquivalent": "banner"
+  },
+  {
+    "name": "StanceToastCenter",
+    "category": "feedback",
+    "summary": "Queues transient messages, shows one at a time and announces each to VoiceOver.",
+    "kind": "helper",
+    "wrapsNative": "AccessibilityNotification",
+    "status": "stable",
+    "example": "Text(\"Screen\").stanceToastHost()",
+    "accessibility": [
+      "Announced without moving focus",
+      "Manual dismiss always available"
+    ],
+    "webEquivalent": "toast"
+  },
+  {
+    "name": "StanceLoadingState",
+    "category": "feedback",
+    "summary": "A centred progress indicator with a message for loading screens and regions.",
+    "kind": "view",
+    "wrapsNative": "ProgressView",
+    "status": "stable",
+    "example": "StanceLoadingState(\"Loading organisation users\")",
+    "accessibility": [
+      "Indicator and message are one element"
+    ],
+    "webEquivalent": "loading-overlay"
+  },
+  {
+    "name": "StanceErrorState",
+    "category": "feedback",
+    "summary": "Explains a failure in plain language and offers a retry action.",
+    "kind": "view",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "StanceErrorState(message: \"We could not load your templates.\") {}",
+    "accessibility": [
+      "Title is a heading; retry is a labelled button"
+    ],
+    "webEquivalent": "empty-state"
+  },
+  {
+    "name": "stanceSheet()",
+    "category": "overlays",
+    "summary": "Presents the native sheet with a title bar, detents and themed content.",
+    "kind": "modifier",
+    "wrapsNative": "sheet, presentationDetents",
+    "status": "stable",
+    "example": "Text(\"Screen\").stanceSheet(\"Rename template\", isPresented: $isPresented) { Text(\"Form\") }",
+    "accessibility": [
+      "System sheet gestures, grabber and focus handling"
+    ],
+    "webEquivalent": "sheet"
+  },
+  {
+    "name": "stanceAlert()",
+    "category": "overlays",
+    "summary": "Presents the system alert from a typed confirmation, with a destructive option.",
+    "kind": "modifier",
+    "wrapsNative": "alert",
+    "status": "stable",
+    "example": "Text(\"Screen\").stanceAlert($confirmation) {}",
+    "accessibility": [
+      "System alert semantics and focus"
+    ],
+    "webEquivalent": "alert-dialog"
+  },
+  {
+    "name": "stanceConfirmationDialog()",
+    "category": "overlays",
+    "summary": "Presents the system confirmation dialog: an action sheet on iPhone and a popover on iPad.",
+    "kind": "modifier",
+    "wrapsNative": "confirmationDialog",
+    "status": "stable",
+    "example": "Text(\"Screen\").stanceConfirmationDialog($confirmation) {}",
+    "accessibility": [
+      "Cancel is always available"
+    ],
+    "webEquivalent": "confirmation-dialog"
+  },
+  {
+    "name": "StanceFilterBar",
+    "category": "advanced",
+    "summary": "A horizontally scrolling row of selectable filter chips with a clear-all action.",
+    "kind": "view",
+    "wrapsNative": "ScrollView",
+    "status": "stable",
+    "example": "StanceFilterBar(filters: [.init(id: \"live\", title: \"Live\"), .init(id: \"draft\", title: \"Draft\")], selection: $filters)",
+    "accessibility": [
+      "Selected chips carry the selected trait and a check mark"
+    ],
+    "webEquivalent": "filter-bar"
+  },
+  {
+    "name": "StanceSearchableList",
+    "category": "advanced",
+    "summary": "A list with native search that filters as you type and announces the result count.",
+    "kind": "view",
+    "wrapsNative": "List, searchable",
+    "status": "stable",
+    "example": "StanceSearchableList([\"Priya\", \"Hana\"].map(Named.init), matches: { $0.name.contains($1) }) { Text($0.name) }",
+    "accessibility": [
+      "Result count is announced",
+      "Empty state explains what to try"
+    ],
+    "webEquivalent": "searchable-list"
+  },
+  {
+    "name": "StanceCalendar",
+    "category": "advanced",
+    "summary": "A month calendar built on the native graphical DatePicker in Stance colours.",
+    "kind": "view",
+    "wrapsNative": "DatePicker",
+    "status": "stable",
+    "example": "StanceCalendar(\"Deployment date\", selection: $date)",
+    "accessibility": [
+      "Full system calendar accessibility"
+    ],
+    "webEquivalent": "calendar"
+  },
+  {
+    "name": "StanceSignatureCanvas",
+    "category": "advanced",
+    "summary": "A canvas for drawing a signature with a finger or Apple Pencil, with undo, clear and an alternative slot.",
+    "kind": "view",
+    "wrapsNative": "Canvas",
+    "status": "beta",
+    "example": "StanceSignatureCanvas(signature: $signature) { StanceTextField(\"Or type your name\", text: $text) }",
+    "accessibility": [
+      "Direct-touch trait for VoiceOver",
+      "Offer the typed alternative for people who cannot draw"
+    ],
+    "webEquivalent": null
+  },
+  {
+    "name": "StanceAttachmentPicker",
+    "category": "advanced",
+    "summary": "Buttons that open the system photo picker and file importer without requesting library permission.",
+    "kind": "view",
+    "wrapsNative": "PhotosPicker, fileImporter",
+    "status": "stable",
+    "example": "StanceAttachmentPicker { _ in }",
+    "accessibility": [
+      "System pickers are fully accessible"
+    ],
+    "webEquivalent": "file-upload"
+  },
+  {
+    "name": "StanceDocumentPreview",
+    "category": "advanced",
+    "summary": "Previews a local PDF, image or document with the system Quick Look viewer (iOS only).",
+    "kind": "view",
+    "wrapsNative": "QLPreviewController",
+    "status": "stable",
+    "example": "StanceDocumentPreview(url: URL(fileURLWithPath: \"/tmp/contract.pdf\"))",
+    "accessibility": [
+      "Quick Look provides zoom, VoiceOver and text selection"
+    ],
+    "webEquivalent": null
+  },
+  {
+    "name": "stanceTouchTarget()",
+    "category": "foundations",
+    "summary": "Modifier that guarantees the 44 by 44 point minimum interactive target without changing visual size.",
+    "kind": "modifier",
+    "wrapsNative": null,
+    "status": "stable",
+    "example": "Image(systemName: \"xmark\").stanceTouchTarget()",
+    "accessibility": [
+      "Apple HIG minimum target"
+    ],
+    "webEquivalent": null
+  },
+  {
+    "name": "StanceUIKit",
+    "category": "theming",
+    "summary": "UIKit access to Stance: dynamic UIColor roles, Dynamic Type UIFonts and a themed hosting controller.",
+    "kind": "helper",
+    "wrapsNative": "UIColor, UIFontMetrics, UIHostingController",
+    "status": "stable",
+    "example": "Text(String(describing: StanceUIKit.font(.heading).pointSize))",
+    "accessibility": [
+      "Dynamic colours follow dark mode and Increase Contrast"
+    ],
+    "webEquivalent": null
+  },
+  {
+    "name": "StanceHaptics",
+    "category": "foundations",
+    "summary": "Haptic feedback helpers for selection, success, warning and error; no-ops where unavailable.",
+    "kind": "helper",
+    "wrapsNative": "UIFeedbackGenerator",
+    "status": "stable",
+    "example": "Button(\"Save\") { StanceHaptics.success() }",
+    "accessibility": [
+      "Haptics supplement, never replace, visible feedback"
+    ],
+    "webEquivalent": null
+  }
+]
