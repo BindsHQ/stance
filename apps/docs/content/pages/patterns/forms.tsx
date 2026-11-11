@@ -54,7 +54,7 @@ export default function FormsPattern() {
             <tr>
               <th scope="row">Field wrapper</th>
               <td>FormField</td>
-              <td>StanceFormField, StanceFormSection</td>
+              <td>StanceFormField, StanceSection</td>
               <td>StanceFormField</td>
             </tr>
             <tr>
@@ -66,7 +66,7 @@ export default function FormsPattern() {
             <tr>
               <th scope="row">Choice</th>
               <td>Select, RadioGroup, Checkbox, Switch</td>
-              <td>StancePicker, StanceRadioGroup, StanceCheckbox, StanceToggle</td>
+              <td>StancePicker, StanceRadioGroup, StanceCheckbox, Toggle with StanceToggleStyle</td>
               <td>StanceSelect, StanceRadioGroup, StanceCheckbox, StanceSwitch</td>
             </tr>
             <tr>
@@ -78,8 +78,8 @@ export default function FormsPattern() {
             <tr>
               <th scope="row">Submit feedback</th>
               <td>Button loading, Toast</td>
-              <td>StanceButton loading, StanceToast</td>
-              <td>StanceButton loading, StanceSnackbar</td>
+              <td>StanceButton loading, StanceToastCenter</td>
+              <td>StanceButton loading, StanceSnackbarHost</td>
             </tr>
           </tbody>
         </table>

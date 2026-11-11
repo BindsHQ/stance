@@ -48,6 +48,24 @@ export const guideNav: NavSection[] = [
     ],
   },
   {
+    title: 'iOS and iPadOS',
+    items: [
+      { title: 'Installation', href: '/ios/installation' },
+      { title: 'Theming', href: '/ios/theming' },
+      { title: 'UIKit', href: '/ios/uikit' },
+      { title: 'Components', href: '/ios/components' },
+    ],
+  },
+  {
+    title: 'Android',
+    items: [
+      { title: 'Installation', href: '/android/installation' },
+      { title: 'Theming', href: '/android/theming' },
+      { title: 'Adaptive and Views', href: '/android/adaptive' },
+      { title: 'Components', href: '/android/components' },
+    ],
+  },
+  {
     title: 'Patterns',
     items: [
       { title: 'Forms', href: '/patterns/forms' },

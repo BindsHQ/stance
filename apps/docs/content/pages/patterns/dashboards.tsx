@@ -62,7 +62,7 @@ export default function DashboardsPattern() {
             <tr>
               <th scope="row">Lists</th>
               <td>DataTable, List</td>
-              <td>StanceList rows</td>
+              <td>StanceListRow</td>
               <td>StanceListItem, StanceDataTable</td>
             </tr>
             <tr>

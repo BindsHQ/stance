@@ -59,7 +59,7 @@ export default function DataTablesPattern() {
             <tr>
               <th scope="row">Records</th>
               <td>Table, DataTable, DataGrid</td>
-              <td>List with StanceList rows; Table on iPad</td>
+              <td>List with StanceListRow; Table on iPad</td>
               <td>StanceListItem; StanceDataTable on large screens</td>
             </tr>
             <tr>

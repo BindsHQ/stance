@@ -209,7 +209,11 @@ const tsKey = (k) =>
 const origKey = (k) => k.replace(/^(\d+)_(\d+)$/, '$1.$2');
 
 const outputs = {};
-const emit = (file, content) => (outputs[file] = content);
+/** Kotlin explicit API mode requires a visibility modifier on every declaration. */
+const kotlinExplicitApi = (src) =>
+  src.replace(/^(\s*)(data class|object|const val|val) /gm, '$1public $2 ');
+const emit = (file, content) =>
+  (outputs[file] = file.endsWith('.kt') ? kotlinExplicitApi(content) : content);
 
 // ───────────────────────── TypeScript ─────────────────────────
 {

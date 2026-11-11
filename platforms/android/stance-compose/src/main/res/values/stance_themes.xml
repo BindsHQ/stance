@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Window theme for activities that host Stance. It paints the Stance canvas colour before
+        Compose draws its first frame, so there is no flash of white or black on launch.
+        Use it as the activity theme and call enableEdgeToEdge() in onCreate.
+    -->
+    <style name="Theme.Stance" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/stance_bg_canvas</item>
+        <item name="android:colorBackground">@color/stance_bg_canvas</item>
+        <item name="android:textColorPrimary">@color/stance_fg_default</item>
+        <item name="android:colorAccent">@color/stance_accent_bg</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>

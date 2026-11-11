@@ -221,6 +221,37 @@ for (const platform of ['ios', 'android']) {
 }
 writeFileSync(join(out, 'native.json'), JSON.stringify(native, null, 2));
 
+// Guide pages may only name native components that exist in an inventory.
+const nativeNames = new Set([...native.ios, ...native.android].map((c) => c.name));
+if (nativeNames.size > 0) {
+  const pagesRoot = join(root, 'content', 'pages');
+  for (const section of readdirSync(pagesRoot, { withFileTypes: true }).filter((d) =>
+    d.isDirectory(),
+  )) {
+    for (const file of readdirSync(join(pagesRoot, section.name)).filter((f) =>
+      f.endsWith('.tsx'),
+    )) {
+      const text = readFileSync(join(pagesRoot, section.name, file), 'utf8');
+      for (const name of new Set(text.match(/\bStance[A-Z]\w+/g) ?? [])) {
+        if (
+          !nativeNames.has(name) &&
+          ![
+            'StanceUI',
+            'StanceTokens',
+            'StanceShowcase',
+            'StanceRGBA',
+            'StanceSpacing',
+            'StanceTone',
+          ].includes(name)
+        )
+          problems.push(
+            `${section.name}/${file}: "${name}" is not in the iOS or Android inventory`,
+          );
+      }
+    }
+  }
+}
+
 // Guide pages: content/pages/pages.json is the catalogue; index.ts is generated from it.
 const pagesDir = join(root, 'content', 'pages');
 const guidePages = JSON.parse(readFileSync(join(pagesDir, 'pages.json'), 'utf8'));

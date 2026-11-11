@@ -4,244 +4,244 @@
 package com.bindshq.stance.tokens
 
 /** One layer of a shadow. Colour is ARGB; dimensions are in dp. */
-data class StanceShadowLayer(val color: Long, val x: Float, val y: Float, val blur: Float, val spread: Float)
+public data class StanceShadowLayer(val color: Long, val x: Float, val y: Float, val blur: Float, val spread: Float)
 
-data class StanceShadowTokens(
-    val xs: List<StanceShadowLayer>,
-    val sm: List<StanceShadowLayer>,
-    val md: List<StanceShadowLayer>,
-    val lg: List<StanceShadowLayer>,
-    val xl: List<StanceShadowLayer>,
+public data class StanceShadowTokens(
+    public val xs: List<StanceShadowLayer>,
+    public val sm: List<StanceShadowLayer>,
+    public val md: List<StanceShadowLayer>,
+    public val lg: List<StanceShadowLayer>,
+    public val xl: List<StanceShadowLayer>,
 )
 
 /** Semantic colour roles as ARGB values. Every theme defines every role. */
-data class StanceColorTokens(
-    val bgCanvas: Long,
-    val bgSubtle: Long,
-    val bgMuted: Long,
-    val bgEmphasis: Long,
-    val bgSurface: Long,
-    val bgSurfaceRaised: Long,
-    val bgOverlay: Long,
-    val bgInverse: Long,
-    val bgScrim: Long,
-    val fgDefault: Long,
-    val fgMuted: Long,
-    val fgSubtle: Long,
-    val fgDisabled: Long,
-    val fgInverse: Long,
-    val fgLink: Long,
-    val borderSubtle: Long,
-    val borderDefault: Long,
-    val borderStrong: Long,
-    val borderControl: Long,
-    val borderControlHover: Long,
-    val separator: Long,
-    val accentBg: Long,
-    val accentBgHover: Long,
-    val accentBgActive: Long,
-    val accentFg: Long,
-    val interactiveHover: Long,
-    val interactiveActive: Long,
-    val interactiveSelected: Long,
-    val interactiveSelectedFg: Long,
-    val focusRing: Long,
-    val focusRingOffset: Long,
-    val disabledBg: Long,
-    val disabledFg: Long,
-    val disabledBorder: Long,
-    val dangerFg: Long,
-    val dangerBg: Long,
-    val dangerBorder: Long,
-    val dangerSolid: Long,
-    val dangerSolidHover: Long,
-    val dangerOnSolid: Long,
-    val successFg: Long,
-    val successBg: Long,
-    val successBorder: Long,
-    val successSolid: Long,
-    val successOnSolid: Long,
-    val warningFg: Long,
-    val warningBg: Long,
-    val warningBorder: Long,
-    val warningSolid: Long,
-    val warningOnSolid: Long,
-    val infoFg: Long,
-    val infoBg: Long,
-    val infoBorder: Long,
-    val infoSolid: Long,
-    val infoOnSolid: Long,
-    val chart1: Long,
-    val chart2: Long,
-    val chart3: Long,
-    val chart4: Long,
-    val chart5: Long,
+public data class StanceColorTokens(
+    public val bgCanvas: Long,
+    public val bgSubtle: Long,
+    public val bgMuted: Long,
+    public val bgEmphasis: Long,
+    public val bgSurface: Long,
+    public val bgSurfaceRaised: Long,
+    public val bgOverlay: Long,
+    public val bgInverse: Long,
+    public val bgScrim: Long,
+    public val fgDefault: Long,
+    public val fgMuted: Long,
+    public val fgSubtle: Long,
+    public val fgDisabled: Long,
+    public val fgInverse: Long,
+    public val fgLink: Long,
+    public val borderSubtle: Long,
+    public val borderDefault: Long,
+    public val borderStrong: Long,
+    public val borderControl: Long,
+    public val borderControlHover: Long,
+    public val separator: Long,
+    public val accentBg: Long,
+    public val accentBgHover: Long,
+    public val accentBgActive: Long,
+    public val accentFg: Long,
+    public val interactiveHover: Long,
+    public val interactiveActive: Long,
+    public val interactiveSelected: Long,
+    public val interactiveSelectedFg: Long,
+    public val focusRing: Long,
+    public val focusRingOffset: Long,
+    public val disabledBg: Long,
+    public val disabledFg: Long,
+    public val disabledBorder: Long,
+    public val dangerFg: Long,
+    public val dangerBg: Long,
+    public val dangerBorder: Long,
+    public val dangerSolid: Long,
+    public val dangerSolidHover: Long,
+    public val dangerOnSolid: Long,
+    public val successFg: Long,
+    public val successBg: Long,
+    public val successBorder: Long,
+    public val successSolid: Long,
+    public val successOnSolid: Long,
+    public val warningFg: Long,
+    public val warningBg: Long,
+    public val warningBorder: Long,
+    public val warningSolid: Long,
+    public val warningOnSolid: Long,
+    public val infoFg: Long,
+    public val infoBg: Long,
+    public val infoBorder: Long,
+    public val infoSolid: Long,
+    public val infoOnSolid: Long,
+    public val chart1: Long,
+    public val chart2: Long,
+    public val chart3: Long,
+    public val chart4: Long,
+    public val chart5: Long,
 )
 
-data class StanceThemeTokens(
-    val name: String,
-    val isDark: Boolean,
-    val colors: StanceColorTokens,
-    val shadows: StanceShadowTokens,
-    val focusWidth: Float,
-    val focusOffset: Float,
-    val borderWidth: Float,
-    val controlBorderWidth: Float,
+public data class StanceThemeTokens(
+    public val name: String,
+    public val isDark: Boolean,
+    public val colors: StanceColorTokens,
+    public val shadows: StanceShadowTokens,
+    public val focusWidth: Float,
+    public val focusOffset: Float,
+    public val borderWidth: Float,
+    public val controlBorderWidth: Float,
 )
 
 /** Stance design tokens. Colours are ARGB longs; dimensions are dp (text sizes sp), i.e. rem × 16. */
-object StanceTokens {
+public object StanceTokens {
     /** The only two official Binds brand colours. */
-    object Brand {
-        const val ivory: Long = 0xFFFCF6EB
-        const val indigo: Long = 0xFF140C2E
+    public object Brand {
+        public const val ivory: Long = 0xFFFCF6EB
+        public const val indigo: Long = 0xFF140C2E
     }
 
     /** Neutral scale from ivory (0) to indigo (1000). */
-    object Ink {
-        const val ink0: Long = 0xFFFCF6EB
-        const val ink25: Long = 0xFFF4EEE5
-        const val ink50: Long = 0xFFECE6DF
-        const val ink100: Long = 0xFFDED9D5
-        const val ink150: Long = 0xFFCFC9C9
-        const val ink200: Long = 0xFFBDB8BB
-        const val ink300: Long = 0xFF9E9AA3
-        const val ink400: Long = 0xFF817D8C
-        const val ink500: Long = 0xFF6A657A
-        const val ink600: Long = 0xFF555169
-        const val ink700: Long = 0xFF423D58
-        const val ink800: Long = 0xFF2F2A48
-        const val ink900: Long = 0xFF201A3A
-        const val ink950: Long = 0xFF191233
-        const val ink1000: Long = 0xFF140C2E
+    public object Ink {
+        public const val ink0: Long = 0xFFFCF6EB
+        public const val ink25: Long = 0xFFF4EEE5
+        public const val ink50: Long = 0xFFECE6DF
+        public const val ink100: Long = 0xFFDED9D5
+        public const val ink150: Long = 0xFFCFC9C9
+        public const val ink200: Long = 0xFFBDB8BB
+        public const val ink300: Long = 0xFF9E9AA3
+        public const val ink400: Long = 0xFF817D8C
+        public const val ink500: Long = 0xFF6A657A
+        public const val ink600: Long = 0xFF555169
+        public const val ink700: Long = 0xFF423D58
+        public const val ink800: Long = 0xFF2F2A48
+        public const val ink900: Long = 0xFF201A3A
+        public const val ink950: Long = 0xFF191233
+        public const val ink1000: Long = 0xFF140C2E
     }
 
     /** 4dp spacing grid. */
-    object Space {
-        const val space0: Float = 0f
-        const val space1: Float = 4f
-        const val space2: Float = 8f
-        const val space3: Float = 12f
-        const val space4: Float = 16f
-        const val space5: Float = 20f
-        const val space6: Float = 24f
-        const val space8: Float = 32f
-        const val space10: Float = 40f
-        const val space12: Float = 48f
-        const val space16: Float = 64f
-        const val space20: Float = 80f
-        const val space24: Float = 96f
-        const val space32: Float = 128f
-        const val spacepx: Float = 1f
-        const val space05: Float = 2f
-        const val space15: Float = 6f
-        const val space25: Float = 10f
+    public object Space {
+        public const val space0: Float = 0f
+        public const val space1: Float = 4f
+        public const val space2: Float = 8f
+        public const val space3: Float = 12f
+        public const val space4: Float = 16f
+        public const val space5: Float = 20f
+        public const val space6: Float = 24f
+        public const val space8: Float = 32f
+        public const val space10: Float = 40f
+        public const val space12: Float = 48f
+        public const val space16: Float = 64f
+        public const val space20: Float = 80f
+        public const val space24: Float = 96f
+        public const val space32: Float = 128f
+        public const val spacepx: Float = 1f
+        public const val space05: Float = 2f
+        public const val space15: Float = 6f
+        public const val space25: Float = 10f
     }
 
-    object Size {
-        const val controlXs: Float = 24f
-        const val controlSm: Float = 32f
-        const val controlMd: Float = 40f
-        const val controlLg: Float = 48f
-        const val iconSm: Float = 16f
-        const val iconMd: Float = 20f
-        const val iconLg: Float = 24f
-        const val containerSm: Float = 640f
-        const val containerMd: Float = 880f
-        const val containerLg: Float = 1240f
-        const val containerXl: Float = 1440f
+    public object Size {
+        public const val controlXs: Float = 24f
+        public const val controlSm: Float = 32f
+        public const val controlMd: Float = 40f
+        public const val controlLg: Float = 48f
+        public const val iconSm: Float = 16f
+        public const val iconMd: Float = 20f
+        public const val iconLg: Float = 24f
+        public const val containerSm: Float = 640f
+        public const val containerMd: Float = 880f
+        public const val containerLg: Float = 1240f
+        public const val containerXl: Float = 1440f
     }
 
     /** Minimum interactive target sizes. */
-    object TouchTarget {
-        const val web: Float = 24f
-        const val ios: Float = 44f
-        const val android: Float = 48f
+    public object TouchTarget {
+        public const val web: Float = 24f
+        public const val ios: Float = 44f
+        public const val android: Float = 48f
     }
 
-    object Radius {
-        const val none: Float = 0f
-        const val xs: Float = 4f
-        const val sm: Float = 6f
-        const val md: Float = 8f
-        const val lg: Float = 12f
-        const val xl: Float = 16f
-        const val _2xl: Float = 24f
-        const val full: Float = 9999f
+    public object Radius {
+        public const val none: Float = 0f
+        public const val xs: Float = 4f
+        public const val sm: Float = 6f
+        public const val md: Float = 8f
+        public const val lg: Float = 12f
+        public const val xl: Float = 16f
+        public const val _2xl: Float = 24f
+        public const val full: Float = 9999f
     }
 
     /** In sp. */
-    object FontSize {
-        const val size2xs: Float = 11f
-        const val sizexs: Float = 12f
-        const val sizesm: Float = 14f
-        const val sizemd: Float = 16f
-        const val sizelg: Float = 18f
-        const val sizexl: Float = 22f
-        const val size2xl: Float = 28f
-        const val size3xl: Float = 36f
-        const val size4xl: Float = 48f
-        const val size5xl: Float = 64f
+    public object FontSize {
+        public const val size2xs: Float = 11f
+        public const val sizexs: Float = 12f
+        public const val sizesm: Float = 14f
+        public const val sizemd: Float = 16f
+        public const val sizelg: Float = 18f
+        public const val sizexl: Float = 22f
+        public const val size2xl: Float = 28f
+        public const val size3xl: Float = 36f
+        public const val size4xl: Float = 48f
+        public const val size5xl: Float = 64f
     }
 
-    object FontWeight {
-        const val regular: Int = 400
-        const val medium: Int = 500
-        const val semibold: Int = 600
-        const val bold: Int = 700
+    public object FontWeight {
+        public const val regular: Int = 400
+        public const val medium: Int = 500
+        public const val semibold: Int = 600
+        public const val bold: Int = 700
     }
 
     /** Multipliers of the font size. */
-    object LineHeight {
-        const val tight: Float = 1.1f
-        const val snug: Float = 1.25f
-        const val normal: Float = 1.5f
-        const val relaxed: Float = 1.65f
+    public object LineHeight {
+        public const val tight: Float = 1.1f
+        public const val snug: Float = 1.25f
+        public const val normal: Float = 1.5f
+        public const val relaxed: Float = 1.65f
     }
 
     /** In em. */
-    object LetterSpacing {
-        const val tighter: Float = -0.035f
-        const val tight: Float = -0.015f
-        const val normal: Float = 0f
-        const val wide: Float = 0.04f
-        const val caps: Float = 0.08f
+    public object LetterSpacing {
+        public const val tighter: Float = -0.035f
+        public const val tight: Float = -0.015f
+        public const val normal: Float = 0f
+        public const val wide: Float = 0.04f
+        public const val caps: Float = 0.08f
     }
 
     /** Window width thresholds in dp. */
-    object Breakpoint {
-        const val sm: Float = 640f
-        const val md: Float = 768f
-        const val lg: Float = 1024f
-        const val xl: Float = 1280f
-        const val _2xl: Float = 1536f
+    public object Breakpoint {
+        public const val sm: Float = 640f
+        public const val md: Float = 768f
+        public const val lg: Float = 1024f
+        public const val xl: Float = 1280f
+        public const val _2xl: Float = 1536f
     }
 
-    object Opacity {
-        const val disabled: Float = 0.5f
-        const val scrim: Float = 0.48f
-        const val hover: Float = 0.06f
-        const val pressed: Float = 0.11f
+    public object Opacity {
+        public const val disabled: Float = 0.5f
+        public const val scrim: Float = 0.48f
+        public const val hover: Float = 0.06f
+        public const val pressed: Float = 0.11f
     }
 
     /** In milliseconds. */
-    object Duration {
-        const val instant: Int = 0
-        const val fast: Int = 120
-        const val normal: Int = 200
-        const val slow: Int = 320
+    public object Duration {
+        public const val instant: Int = 0
+        public const val fast: Int = 120
+        public const val normal: Int = 200
+        public const val slow: Int = 320
     }
 
     /** Cubic bezier control points (x1, y1, x2, y2). */
-    object Easing {
-        val standard: FloatArray = floatArrayOf(0.2f, 0f, 0f, 1f)
-        val emphasized: FloatArray = floatArrayOf(0.16f, 1f, 0.3f, 1f)
-        val exit: FloatArray = floatArrayOf(0.4f, 0f, 1f, 1f)
+    public object Easing {
+        public val standard: FloatArray = floatArrayOf(0.2f, 0f, 0f, 1f)
+        public val emphasized: FloatArray = floatArrayOf(0.16f, 1f, 0.3f, 1f)
+        public val exit: FloatArray = floatArrayOf(0.4f, 0f, 1f, 1f)
     }
 
-    const val fontFamilySans: String = "DM Sans"
+    public const val fontFamilySans: String = "DM Sans"
 
-    val light: StanceThemeTokens = StanceThemeTokens(
+    public val light: StanceThemeTokens = StanceThemeTokens(
         name = "light",
         isDark = false,
         colors = StanceColorTokens(
@@ -313,7 +313,7 @@ object StanceTokens {
         controlBorderWidth = 1f,
     )
 
-    val dark: StanceThemeTokens = StanceThemeTokens(
+    public val dark: StanceThemeTokens = StanceThemeTokens(
         name = "dark",
         isDark = true,
         colors = StanceColorTokens(
@@ -385,7 +385,7 @@ object StanceTokens {
         controlBorderWidth = 1f,
     )
 
-    val highContrast: StanceThemeTokens = StanceThemeTokens(
+    public val highContrast: StanceThemeTokens = StanceThemeTokens(
         name = "high-contrast",
         isDark = false,
         colors = StanceColorTokens(
@@ -457,5 +457,5 @@ object StanceTokens {
         controlBorderWidth = 2f,
     )
 
-    val allThemes: List<StanceThemeTokens> = listOf(light, dark, highContrast)
+    public val allThemes: List<StanceThemeTokens> = listOf(light, dark, highContrast)
 }

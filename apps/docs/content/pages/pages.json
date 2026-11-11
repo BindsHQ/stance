@@ -97,9 +97,45 @@
   },
   {
     "section": "ios",
+    "slug": "installation",
+    "title": "iOS installation",
+    "description": "Install StanceUI for iOS and iPadOS with Swift Package Manager, wrap your app in StanceThemeProvider and build a first SwiftUI screen."
+  },
+  {
+    "section": "ios",
+    "slug": "theming",
+    "title": "iOS theming",
+    "description": "Light, dark and high-contrast themes in StanceUI: system detection, Increase Contrast, persistence, scoped themes and Dynamic Type."
+  },
+  {
+    "section": "ios",
+    "slug": "uikit",
+    "title": "UIKit interoperability",
+    "description": "Use Stance colours and fonts in UIKit, host StanceUI views in view controllers, and wrap UIKit views inside StanceUI screens."
+  },
+  {
+    "section": "ios",
     "slug": "components",
     "title": "iOS components",
     "description": "The StanceUI component catalogue for iOS and iPadOS: SwiftUI views, styles and modifiers with usage examples and accessibility notes."
+  },
+  {
+    "section": "android",
+    "slug": "installation",
+    "title": "Android installation",
+    "description": "Add Stance for Android with Gradle, apply Theme.Stance, wrap your content in StanceTheme and use Material 3 components on brand."
+  },
+  {
+    "section": "android",
+    "slug": "theming",
+    "title": "Android theming",
+    "description": "Light, dark and high-contrast themes in Jetpack Compose with StanceTheme: system contrast detection, persistence, type scale and motion."
+  },
+  {
+    "section": "android",
+    "slug": "adaptive",
+    "title": "Adaptive layouts and Views",
+    "description": "Edge-to-edge scaffolds, adaptive navigation for phones, tablets and foldables, and adopting Stance step by step in View-based apps."
   },
   {
     "section": "android",

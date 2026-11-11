@@ -16,7 +16,13 @@ import foundations_elevation from './foundations/elevation';
 import foundations_motion from './foundations/motion';
 import foundations_icons from './foundations/icons';
 import foundations_design_tokens from './foundations/design-tokens';
+import ios_installation from './ios/installation';
+import ios_theming from './ios/theming';
+import ios_uikit from './ios/uikit';
 import ios_components from './ios/components';
+import android_installation from './android/installation';
+import android_theming from './android/theming';
+import android_adaptive from './android/adaptive';
 import android_components from './android/components';
 import patterns_forms from './patterns/forms';
 import patterns_authentication from './patterns/authentication';
@@ -55,7 +61,13 @@ export const pages: GuidePage[] = [
   { section: "foundations", slug: "motion", title: "Motion", description: "Stance motion tokens: durations and easing curves for hover, overlays and dialogs, with reduced-motion support and rules for purposeful animation.", Component: foundations_motion },
   { section: "foundations", slug: "icons", title: "Icons", description: "The original Stance icon set: a 24px grid with 1.75 stroke that inherits text colour, plus a searchable gallery and accessible usage guidance.", Component: foundations_icons },
   { section: "foundations", slug: "design-tokens", title: "Design tokens", description: "The Stance token pipeline: one W3C-format source that generates CSS, TypeScript, Swift and Kotlin, with validation, parity and contrast checks.", Component: foundations_design_tokens },
+  { section: "ios", slug: "installation", title: "iOS installation", description: "Install StanceUI for iOS and iPadOS with Swift Package Manager, wrap your app in StanceThemeProvider and build a first SwiftUI screen.", Component: ios_installation },
+  { section: "ios", slug: "theming", title: "iOS theming", description: "Light, dark and high-contrast themes in StanceUI: system detection, Increase Contrast, persistence, scoped themes and Dynamic Type.", Component: ios_theming },
+  { section: "ios", slug: "uikit", title: "UIKit interoperability", description: "Use Stance colours and fonts in UIKit, host StanceUI views in view controllers, and wrap UIKit views inside StanceUI screens.", Component: ios_uikit },
   { section: "ios", slug: "components", title: "iOS components", description: "The StanceUI component catalogue for iOS and iPadOS: SwiftUI views, styles and modifiers with usage examples and accessibility notes.", Component: ios_components },
+  { section: "android", slug: "installation", title: "Android installation", description: "Add Stance for Android with Gradle, apply Theme.Stance, wrap your content in StanceTheme and use Material 3 components on brand.", Component: android_installation },
+  { section: "android", slug: "theming", title: "Android theming", description: "Light, dark and high-contrast themes in Jetpack Compose with StanceTheme: system contrast detection, persistence, type scale and motion.", Component: android_theming },
+  { section: "android", slug: "adaptive", title: "Adaptive layouts and Views", description: "Edge-to-edge scaffolds, adaptive navigation for phones, tablets and foldables, and adopting Stance step by step in View-based apps.", Component: android_adaptive },
   { section: "android", slug: "components", title: "Android components", description: "The Stance component catalogue for Android: Jetpack Compose composables built on Material 3, with examples and accessibility notes.", Component: android_components },
   { section: "patterns", slug: "forms", title: "Forms", description: "Form patterns for Stance: structure, labels, validation timing, error messages and the right controls on web, iOS and Android.", Component: patterns_forms },
   { section: "patterns", slug: "authentication", title: "Authentication", description: "Sign-in and sign-up patterns: layout, autofill-friendly fields, password visibility, secure error messages and platform sign-in.", Component: patterns_authentication },

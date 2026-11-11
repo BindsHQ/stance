@@ -41,7 +41,7 @@ export default function NavigationPattern() {
             <tr>
               <th scope="row">Compact</th>
               <td>TabBar or a drawer</td>
-              <td>StanceTabView</td>
+              <td>StanceAdaptiveNavigation (tab bar)</td>
               <td>StanceNavigationBar</td>
             </tr>
             <tr>
@@ -53,7 +53,7 @@ export default function NavigationPattern() {
             <tr>
               <th scope="row">Expanded</th>
               <td>Sidebar</td>
-              <td>StanceSidebar in a split view</td>
+              <td>StanceAdaptiveNavigation (sidebar)</td>
               <td>StanceNavigationDrawer</td>
             </tr>
             <tr>

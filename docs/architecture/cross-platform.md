@@ -61,7 +61,7 @@ These hold from the first native release.
 | `@bindshq/stance-tokens` | 0.1.1 | None | None |
 | `@bindshq/stance-react` | 0.1.1 | 0.1.1 | React 18.2 |
 | `StanceUI` (iOS) | 0.1.0 (unreleased) | 0.1.1 | iOS 17, iPadOS 17 |
-| Stance for Compose (Android) | 0.1.0 (unreleased) | 0.1.1 | Android 7.0 (API 24) |
+| Stance for Compose (Android) | 0.1.0 (unreleased) | 0.1.1 | Android 7.0 (API 24), compileSdk 37 |
 
 ## Platform adaptation
 

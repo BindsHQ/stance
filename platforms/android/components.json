@@ -1,0 +1,903 @@
+[
+  {
+    "name": "StanceTheme",
+    "category": "theming",
+    "summary": "Applies the Stance theme and bridges it into Material 3, with light, dark, high contrast and system modes.",
+    "kind": "theme",
+    "wrapsNative": "MaterialTheme",
+    "status": "beta",
+    "example": "var appearance by rememberStanceAppearance()\nStanceTheme(appearance = appearance) {\n    StanceButton(\"Use dark theme\", onClick = { appearance = StanceAppearance.Dark })\n}",
+    "accessibility": [
+      "System mode follows the device dark theme and contrast settings.",
+      "Reduced motion follows the system animation setting."
+    ],
+    "webEquivalent": "theme-provider"
+  },
+  {
+    "name": "StanceSurface",
+    "category": "foundations",
+    "summary": "A themed container with token elevation that becomes a solid outline in high contrast.",
+    "kind": "composable",
+    "wrapsNative": "Surface",
+    "status": "beta",
+    "example": "StanceSurface(elevation = StanceTheme.elevation.md, bordered = true) {\n    Text(\"Raised surface\", modifier = Modifier.padding(StanceSpacing.space4))\n}",
+    "accessibility": [
+      "Clickable surfaces get button semantics and ripple."
+    ],
+    "webEquivalent": "box"
+  },
+  {
+    "name": "StanceCard",
+    "category": "data-display",
+    "summary": "Groups related content in outline, elevated or filled styles, optionally as one clickable target.",
+    "kind": "composable",
+    "wrapsNative": "Surface",
+    "status": "beta",
+    "example": "StanceCard(variant = StanceCardVariant.Outline, onClick = {}) {\n    Text(\"Sales team signature\", style = StanceTheme.typography.title)\n    Text(\"Deployed to 48 users\", style = StanceTheme.typography.bodySmall, color = StanceTheme.colors.fgMuted)\n}",
+    "accessibility": [
+      "A clickable card is one action for screen readers."
+    ],
+    "webEquivalent": "card"
+  },
+  {
+    "name": "StanceDivider",
+    "category": "foundations",
+    "summary": "A thin horizontal or vertical line that separates content.",
+    "kind": "composable",
+    "wrapsNative": "HorizontalDivider",
+    "status": "beta",
+    "example": "Column {\n    Text(\"Details\")\n    StanceDivider(modifier = Modifier.padding(vertical = StanceSpacing.space2))\n    Text(\"Rollout\")\n}",
+    "accessibility": [
+      "Decorative, so it is not announced."
+    ],
+    "webEquivalent": "separator"
+  },
+  {
+    "name": "StanceScaffold",
+    "category": "foundations",
+    "summary": "The page frame: edge to edge on the canvas colour, with insets and an optional snackbar host.",
+    "kind": "composable",
+    "wrapsNative": "Scaffold",
+    "status": "beta",
+    "example": "val snackbars = remember { SnackbarHostState() }\nStanceScaffold(\n    topBar = { StanceTopAppBar(\"Templates\") },\n    snackbarHostState = snackbars,\n) { padding ->\n    Text(\"Content\", modifier = Modifier.padding(padding))\n}",
+    "accessibility": [
+      "Content receives system bar, cutout and keyboard insets as padding."
+    ],
+    "webEquivalent": null
+  },
+  {
+    "name": "StanceAdaptiveGrid",
+    "category": "foundations",
+    "summary": "A lazy grid that fits as many columns as the window allows on phones, tablets and foldables.",
+    "kind": "composable",
+    "wrapsNative": "LazyVerticalGrid",
+    "status": "beta",
+    "example": "StanceAdaptiveGrid(modifier = Modifier.height(StanceSpacing.space24 * 2)) {\n    items(listOf(\"Sales\", \"Legal\", \"Finance\")) { team ->\n        StanceCard { Text(team) }\n    }\n}",
+    "accessibility": [
+      "Reading order follows the grid from start to end."
+    ],
+    "webEquivalent": "grid"
+  },
+  {
+    "name": "StanceIcon",
+    "category": "foundations",
+    "summary": "Draws one of the 90 Stance icons, tinted with the current content colour.",
+    "kind": "composable",
+    "wrapsNative": "Icon",
+    "status": "beta",
+    "example": "Row(horizontalArrangement = Arrangement.spacedBy(StanceSpacing.space3)) {\n    StanceIcon(StanceIcons.Signature, contentDescription = null)\n    StanceIcon(StanceIcons.AlertTriangle, contentDescription = \"Warning\")\n}",
+    "accessibility": [
+      "Pass null as the description for decorative icons."
+    ],
+    "webEquivalent": "icon"
+  },
+  {
+    "name": "stanceFocusRing",
+    "category": "foundations",
+    "summary": "A modifier that draws the Stance focus ring while an element has keyboard or D-pad focus.",
+    "kind": "helper",
+    "wrapsNative": "Modifier.border",
+    "status": "beta",
+    "example": "StanceSurface(modifier = Modifier.stanceFocusRing(), onClick = {}, bordered = true) {\n    Text(\"Focus me with a keyboard\", modifier = Modifier.padding(StanceSpacing.space4))\n}",
+    "accessibility": [
+      "The ring is 2dp, or 3dp in high contrast."
+    ],
+    "webEquivalent": null
+  },
+  {
+    "name": "StanceButton",
+    "category": "actions",
+    "summary": "Triggers an action, with six variants, three sizes, icons and a loading state.",
+    "kind": "composable",
+    "wrapsNative": "Button",
+    "status": "beta",
+    "example": "Column(verticalArrangement = Arrangement.spacedBy(StanceSpacing.space2)) {\n    StanceButton(\"Save template\", onClick = {}, leadingIcon = StanceIcons.Check)\n    StanceButton(\"Preview\", onClick = {}, variant = StanceButtonVariant.Outline)\n    StanceButton(\"Delete\", onClick = {}, variant = StanceButtonVariant.Danger)\n    StanceButton(\"Deploying\", onClick = {}, loading = true)\n}",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "Loading keeps focus and is announced as Loading."
+    ],
+    "webEquivalent": "button"
+  },
+  {
+    "name": "StanceIconButton",
+    "category": "actions",
+    "summary": "An icon-only button in ghost, outline or filled styles that requires an accessible name.",
+    "kind": "composable",
+    "wrapsNative": "IconButton",
+    "status": "beta",
+    "example": "StanceIconButton(StanceIcons.Trash, contentDescription = \"Delete template\", onClick = {})",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "The content description is required."
+    ],
+    "webEquivalent": "icon-button"
+  },
+  {
+    "name": "StanceFloatingActionButton",
+    "category": "actions",
+    "summary": "The primary action of a screen, as an icon or an extended button with a label.",
+    "kind": "composable",
+    "wrapsNative": "FloatingActionButton",
+    "status": "beta",
+    "example": "StanceFloatingActionButton(StanceIcons.Plus, contentDescription = \"New template\", onClick = {}, text = \"New template\")",
+    "accessibility": [
+      "Icon-only buttons are named by their content description."
+    ],
+    "webEquivalent": "floating-action-button"
+  },
+  {
+    "name": "StanceButtonGroup",
+    "category": "actions",
+    "summary": "Connected segments for choosing one of a few options.",
+    "kind": "composable",
+    "wrapsNative": "SingleChoiceSegmentedButtonRow",
+    "status": "beta",
+    "example": "var selected by remember { mutableIntStateOf(0) }\nStanceButtonGroup(listOf(\"Day\", \"Week\", \"Month\"), selected, onSelect = { selected = it })",
+    "accessibility": [
+      "Announced as a radio group with the selected segment."
+    ],
+    "webEquivalent": "toggle-button"
+  },
+  {
+    "name": "StanceSplitButton",
+    "category": "actions",
+    "summary": "A primary action paired with a menu of related actions.",
+    "kind": "composable",
+    "wrapsNative": "DropdownMenu",
+    "status": "beta",
+    "example": "StanceSplitButton(\n    text = \"Save\",\n    onClick = {},\n    menuItems = listOf(StanceMenuItem(\"Save as draft\", onClick = {}), StanceMenuItem(\"Save and deploy\", onClick = {})),\n    menuDescription = \"More save options\",\n)",
+    "accessibility": [
+      "The menu button has its own accessible name."
+    ],
+    "webEquivalent": "split-button"
+  },
+  {
+    "name": "StanceDropdownMenu",
+    "category": "actions",
+    "summary": "A menu of actions with icons, groups, disabled and destructive items.",
+    "kind": "composable",
+    "wrapsNative": "DropdownMenu",
+    "status": "beta",
+    "example": "var expanded by remember { mutableStateOf(false) }\nBox {\n    StanceIconButton(StanceIcons.MoreVertical, contentDescription = \"Template actions\", onClick = { expanded = true })\n    StanceDropdownMenu(\n        expanded = expanded,\n        onDismissRequest = { expanded = false },\n        items = listOf(\n            StanceMenuItem(\"Duplicate\", onClick = {}, icon = StanceIcons.Copy),\n            StanceMenuItem(\"Delete\", onClick = {}, icon = StanceIcons.Trash, destructive = true, startsGroup = true),\n        ),\n    )\n}",
+    "accessibility": [
+      "Dismisses on back, outside taps and Escape."
+    ],
+    "webEquivalent": "dropdown-menu"
+  },
+  {
+    "name": "StanceFormField",
+    "category": "forms",
+    "summary": "Lays out a label, a control, helper text and an announced error message.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceFormField(label = \"Signature\", helper = \"Draw with your finger or a stylus.\", required = true) {\n    StanceSignatureCanvas(rememberStanceSignatureState(), label = \"Signature\")\n}",
+    "accessibility": [
+      "Errors are a polite live region and include an icon.",
+      "The required marker is read as required."
+    ],
+    "webEquivalent": "form-field"
+  },
+  {
+    "name": "StanceTextField",
+    "category": "forms",
+    "summary": "A text input with a label above it, helper text, error state, prefix and suffix.",
+    "kind": "composable",
+    "wrapsNative": "OutlinedTextField",
+    "status": "beta",
+    "example": "var name by remember { mutableStateOf(\"Sales team signature\") }\nStanceTextField(name, { name = it }, label = \"Template name\", helper = \"Visible to your organisation.\", required = true)",
+    "accessibility": [
+      "The label is the accessible name.",
+      "An error marks the field invalid and is announced."
+    ],
+    "webEquivalent": "input"
+  },
+  {
+    "name": "StancePasswordField",
+    "category": "forms",
+    "summary": "A password input with a button to show or hide the value.",
+    "kind": "composable",
+    "wrapsNative": "OutlinedTextField",
+    "status": "beta",
+    "example": "var password by remember { mutableStateOf(\"\") }\nStancePasswordField(password, { password = it }, label = \"Password\")",
+    "accessibility": [
+      "The toggle is named Show password or Hide password."
+    ],
+    "webEquivalent": "password-input"
+  },
+  {
+    "name": "StanceSearchBar",
+    "category": "forms",
+    "summary": "A search field with a clear button and a search keyboard action.",
+    "kind": "composable",
+    "wrapsNative": "OutlinedTextField",
+    "status": "beta",
+    "example": "var query by remember { mutableStateOf(\"\") }\nStanceSearchBar(query, { query = it }, placeholder = \"Search templates\")",
+    "accessibility": [
+      "The clear button has an accessible name."
+    ],
+    "webEquivalent": "search-input"
+  },
+  {
+    "name": "StanceCheckbox",
+    "category": "forms",
+    "summary": "A checkbox with a label and description, including an indeterminate state.",
+    "kind": "composable",
+    "wrapsNative": "TriStateCheckbox",
+    "status": "beta",
+    "example": "var checked by remember { mutableStateOf(true) }\nStanceCheckbox(\"Send me a copy\", checked, { checked = it }, description = \"A PDF is emailed after signing.\")",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "The row is one toggle announced with its label and state."
+    ],
+    "webEquivalent": "checkbox"
+  },
+  {
+    "name": "StanceRadioGroup",
+    "category": "forms",
+    "summary": "A labelled set of mutually exclusive options with optional descriptions.",
+    "kind": "composable",
+    "wrapsNative": "RadioButton",
+    "status": "beta",
+    "example": "var role by remember { mutableStateOf(\"editor\") }\nStanceRadioGroup(\n    label = \"Role\",\n    options = listOf(StanceRadioOption(\"viewer\", \"Viewer\"), StanceRadioOption(\"editor\", \"Editor\", \"Can change templates\")),\n    selected = role,\n    onSelect = { role = it },\n)",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "Announced as a group, with each option as a radio button."
+    ],
+    "webEquivalent": "radio-group"
+  },
+  {
+    "name": "StanceSwitch",
+    "category": "forms",
+    "summary": "A switch with its label for settings that apply immediately.",
+    "kind": "composable",
+    "wrapsNative": "Switch",
+    "status": "beta",
+    "example": "var enabled by remember { mutableStateOf(true) }\nStanceSwitch(\"Apply to new members automatically\", enabled, { enabled = it })",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "Announced as a switch with On or Off."
+    ],
+    "webEquivalent": "switch"
+  },
+  {
+    "name": "StanceSlider",
+    "category": "forms",
+    "summary": "Picks a number from a range, with a visible label and value.",
+    "kind": "composable",
+    "wrapsNative": "Slider",
+    "status": "beta",
+    "example": "var value by remember { mutableFloatStateOf(40f) }\nStanceSlider(\"Rollout\", value, { value = it }, valueRange = 0f..100f, valueText = \"${value.toInt()}%\")",
+    "accessibility": [
+      "Adjustable with arrow keys and accessibility actions.",
+      "The value text is announced."
+    ],
+    "webEquivalent": "slider"
+  },
+  {
+    "name": "StanceRangeSlider",
+    "category": "forms",
+    "summary": "Picks a lower and an upper bound from a range using two thumbs.",
+    "kind": "composable",
+    "wrapsNative": "RangeSlider",
+    "status": "beta",
+    "example": "var range by remember { mutableStateOf(20f..80f) }\nStanceRangeSlider(\"Team size\", range, { range = it }, valueRange = 0f..100f, valueText = \"${range.start.toInt()} to ${range.endInclusive.toInt()}\")",
+    "accessibility": [
+      "Each thumb is separately focusable and adjustable."
+    ],
+    "webEquivalent": "range-slider"
+  },
+  {
+    "name": "StanceSelect",
+    "category": "forms",
+    "summary": "Chooses one value from a list using the platform exposed dropdown menu.",
+    "kind": "composable",
+    "wrapsNative": "ExposedDropdownMenuBox",
+    "status": "beta",
+    "example": "var role by remember { mutableStateOf<String?>(\"admin\") }\nStanceSelect(\n    label = \"Role\",\n    options = listOf(StanceSelectOption(\"admin\", \"Administrator\"), StanceSelectOption(\"member\", \"Member\")),\n    selected = role,\n    onSelect = { role = it },\n)",
+    "accessibility": [
+      "The field is named by its label and announces the selected value."
+    ],
+    "webEquivalent": "select"
+  },
+  {
+    "name": "StanceDatePicker",
+    "category": "forms",
+    "summary": "A date field that opens the Material date picker in a dialog.",
+    "kind": "composable",
+    "wrapsNative": "DatePickerDialog",
+    "status": "beta",
+    "example": "var date by remember { mutableStateOf<Long?>(null) }\nStanceDatePicker(\"Signing deadline\", date, onDateSelected = { date = it })",
+    "accessibility": [
+      "Uses the platform picker, including its keyboard input mode."
+    ],
+    "webEquivalent": "date-picker"
+  },
+  {
+    "name": "StanceDateRangePicker",
+    "category": "forms",
+    "summary": "A field for a start and end date using the Material range picker.",
+    "kind": "composable",
+    "wrapsNative": "DateRangePicker",
+    "status": "beta",
+    "example": "var start by remember { mutableStateOf<Long?>(null) }\nvar end by remember { mutableStateOf<Long?>(null) }\nStanceDateRangePicker(\"Deployment window\", start, end, onRangeSelected = { s, e -> start = s; end = e })",
+    "accessibility": [
+      "Uses the platform picker semantics."
+    ],
+    "webEquivalent": "date-range-picker"
+  },
+  {
+    "name": "StanceTimePicker",
+    "category": "forms",
+    "summary": "A time field that opens the Material time picker, in 12 or 24 hour format.",
+    "kind": "composable",
+    "wrapsNative": "TimePicker",
+    "status": "beta",
+    "example": "var time by remember { mutableStateOf<Pair<Int, Int>?>(9 to 30) }\nStanceTimePicker(\"Reminder\", time?.first, time?.second, onTimeSelected = { h, m -> time = h to m })",
+    "accessibility": [
+      "Uses the platform picker semantics."
+    ],
+    "webEquivalent": "time-picker"
+  },
+  {
+    "name": "StanceFilterChip",
+    "category": "forms",
+    "summary": "A chip that toggles a filter and shows a check when selected.",
+    "kind": "composable",
+    "wrapsNative": "FilterChip",
+    "status": "beta",
+    "example": "var selected by remember { mutableStateOf(true) }\nStanceFilterChip(\"Signed\", selected, onClick = { selected = !selected })",
+    "accessibility": [
+      "Announced with its selected state."
+    ],
+    "webEquivalent": "chip"
+  },
+  {
+    "name": "StanceInputChip",
+    "category": "forms",
+    "summary": "A removable chip for something a person entered, such as a recipient.",
+    "kind": "composable",
+    "wrapsNative": "InputChip",
+    "status": "beta",
+    "example": "StanceInputChip(\"Priya Nair\", onRemove = {}, removeDescription = \"Remove Priya Nair\")",
+    "accessibility": [
+      "The remove action has a descriptive label."
+    ],
+    "webEquivalent": "tag"
+  },
+  {
+    "name": "StanceNavigationBar",
+    "category": "navigation",
+    "summary": "Bottom navigation for three to five destinations on compact screens.",
+    "kind": "composable",
+    "wrapsNative": "NavigationBar",
+    "status": "beta",
+    "example": "var selected by remember { mutableIntStateOf(0) }\nStanceNavigationBar(destinations, selected, onSelect = { selected = it })",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "The selected destination is announced."
+    ],
+    "webEquivalent": "tab-bar"
+  },
+  {
+    "name": "StanceNavigationRail",
+    "category": "navigation",
+    "summary": "Side navigation for medium-width windows such as tablets in portrait.",
+    "kind": "composable",
+    "wrapsNative": "NavigationRail",
+    "status": "beta",
+    "example": "var selected by remember { mutableIntStateOf(0) }\nStanceNavigationRail(destinations, selected, onSelect = { selected = it }, modifier = Modifier.height(StanceSpacing.space24 * 3))",
+    "accessibility": [
+      "The selected destination is announced."
+    ],
+    "webEquivalent": "sidebar"
+  },
+  {
+    "name": "StanceNavigationDrawer",
+    "category": "navigation",
+    "summary": "A permanent navigation drawer for expanded windows.",
+    "kind": "composable",
+    "wrapsNative": "PermanentNavigationDrawer",
+    "status": "beta",
+    "example": "var selected by remember { mutableIntStateOf(0) }\nStanceNavigationDrawer(destinations, selected, onSelect = { selected = it }, modifier = Modifier.height(StanceSpacing.space24 * 3)) {\n    Text(\"Content\", modifier = Modifier.padding(StanceSpacing.space4))\n}",
+    "accessibility": [
+      "The selected item is filled and announced as selected."
+    ],
+    "webEquivalent": "sidebar"
+  },
+  {
+    "name": "StanceAdaptiveNavigation",
+    "category": "navigation",
+    "summary": "Navigation that switches between bar, rail and drawer by window width.",
+    "kind": "composable",
+    "wrapsNative": "NavigationBar, NavigationRail, PermanentNavigationDrawer",
+    "status": "beta",
+    "example": "var selected by remember { mutableIntStateOf(0) }\nStanceAdaptiveNavigation(\n    items = destinations,\n    selectedIndex = selected,\n    onSelect = { selected = it },\n    topBar = { StanceTopAppBar(destinations[selected].label) },\n) { padding ->\n    Text(\"Content\", modifier = Modifier.padding(padding))\n}",
+    "accessibility": [
+      "Order and selection are kept across layouts."
+    ],
+    "webEquivalent": null
+  },
+  {
+    "name": "StanceTopAppBar",
+    "category": "navigation",
+    "summary": "The bar at the top of a screen with a title, navigation and actions.",
+    "kind": "composable",
+    "wrapsNative": "TopAppBar",
+    "status": "beta",
+    "example": "StanceTopAppBar(\"Signature templates\", onNavigateUp = {}) {\n    StanceIconButton(StanceIcons.Search, contentDescription = \"Search\", onClick = {})\n}",
+    "accessibility": [
+      "The title is a heading.",
+      "The back button has an accessible name."
+    ],
+    "webEquivalent": null
+  },
+  {
+    "name": "StanceTabs",
+    "category": "navigation",
+    "summary": "Switches between views of the same context, fixed or scrollable.",
+    "kind": "composable",
+    "wrapsNative": "PrimaryTabRow",
+    "status": "beta",
+    "example": "var selected by remember { mutableIntStateOf(0) }\nStanceTabs(listOf(\"Details\", \"Rollout\", \"History\"), selected, onSelect = { selected = it })",
+    "accessibility": [
+      "Tabs are announced with their selected state."
+    ],
+    "webEquivalent": "tabs"
+  },
+  {
+    "name": "StancePagerIndicator",
+    "category": "navigation",
+    "summary": "Dots that show the current page of a horizontal pager.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StancePagerIndicator(pageCount = 4, currentPage = 1)",
+    "accessibility": [
+      "Announced once as Page x of y."
+    ],
+    "webEquivalent": null
+  },
+  {
+    "name": "StanceStepper",
+    "category": "navigation",
+    "summary": "Shows progress through a multi-step flow with complete, current, upcoming and error states.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceStepper(listOf(\"Template\", \"Recipients\", \"Review\", \"Deploy\"), currentStep = 1)",
+    "accessibility": [
+      "Each step is announced with its position and state."
+    ],
+    "webEquivalent": "stepper"
+  },
+  {
+    "name": "StanceListItem",
+    "category": "data-display",
+    "summary": "A list row with leading content, headline, supporting text and trailing content.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceListItem(\n    headline = \"Sales team signature\",\n    supporting = \"Deployed to 48 users\",\n    leading = { StanceAvatar(\"Sales Team\") },\n    trailing = { StanceBadge(\"Live\", tone = StanceTone.Success) },\n    onClick = {},\n)",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "A clickable row is one button."
+    ],
+    "webEquivalent": "list-item"
+  },
+  {
+    "name": "StanceBadge",
+    "category": "data-display",
+    "summary": "A short status label in soft, solid or outline styles with five tones.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "Row(horizontalArrangement = Arrangement.spacedBy(StanceSpacing.space2)) {\n    StanceBadge(\"Live\", tone = StanceTone.Success)\n    StanceBadge(\"Pending\", tone = StanceTone.Warning)\n    StanceBadge(\"Failed\", tone = StanceTone.Danger)\n}",
+    "accessibility": [
+      "Status is carried by the text, not only colour."
+    ],
+    "webEquivalent": "badge"
+  },
+  {
+    "name": "StanceTag",
+    "category": "data-display",
+    "summary": "A compact keyword or category label with an optional icon.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceTag(\"Legal\", icon = StanceIcons.Tag)",
+    "accessibility": [
+      "Read as plain text."
+    ],
+    "webEquivalent": "tag"
+  },
+  {
+    "name": "StanceAvatar",
+    "category": "data-display",
+    "summary": "Represents a person with their initials or an image, in three sizes.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceAvatar(\"Amara Okafor\")",
+    "accessibility": [
+      "Announced by the person’s name."
+    ],
+    "webEquivalent": "avatar"
+  },
+  {
+    "name": "StanceAvatarGroup",
+    "category": "data-display",
+    "summary": "A stack of overlapping avatars with a counter for the rest.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceAvatarGroup(listOf(\"Amara Okafor\", \"Lukas Brenner\", \"Priya Nair\", \"Hana Sato\", \"Owen Price\"), max = 3)",
+    "accessibility": [
+      "Announced as one summary of names."
+    ],
+    "webEquivalent": "avatar-group"
+  },
+  {
+    "name": "StanceProgressIndicator",
+    "category": "feedback",
+    "summary": "Linear progress with a label and percentage, determinate or indeterminate.",
+    "kind": "composable",
+    "wrapsNative": "LinearProgressIndicator",
+    "status": "beta",
+    "example": "StanceProgressIndicator(0.72f, label = \"Rollout\")",
+    "accessibility": [
+      "Announced with its label and percentage."
+    ],
+    "webEquivalent": "progress"
+  },
+  {
+    "name": "StanceCircularProgressIndicator",
+    "category": "feedback",
+    "summary": "Circular progress for loading states, determinate or indeterminate.",
+    "kind": "composable",
+    "wrapsNative": "CircularProgressIndicator",
+    "status": "beta",
+    "example": "StanceCircularProgressIndicator(contentDescription = \"Loading templates\")",
+    "accessibility": [
+      "Requires a description of what is loading."
+    ],
+    "webEquivalent": "progress-circle"
+  },
+  {
+    "name": "StanceSkeleton",
+    "category": "feedback",
+    "summary": "A pulsing placeholder shown in place of content while it loads.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "Column(verticalArrangement = Arrangement.spacedBy(StanceSpacing.space2)) {\n    StanceSkeleton(width = StanceSpacing.space24 * 2)\n    StanceSkeleton()\n}",
+    "accessibility": [
+      "Hidden from screen readers.",
+      "The pulse stops when animations are off."
+    ],
+    "webEquivalent": "skeleton"
+  },
+  {
+    "name": "StanceEmptyState",
+    "category": "feedback",
+    "summary": "Explains an empty screen or list and offers the next step.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceEmptyState(\"No templates yet\", description = \"Create your first signature template.\") {\n    StanceButton(\"Create template\", onClick = {})\n}",
+    "accessibility": [
+      "The title is a heading."
+    ],
+    "webEquivalent": "empty-state"
+  },
+  {
+    "name": "StanceTimeline",
+    "category": "data-display",
+    "summary": "A vertical sequence of events with times and status tones.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceTimeline(\n    listOf(\n        StanceTimelineEvent(\"Deployed\", \"Today, 10:42\", \"35 of 48 mailboxes updated\", StanceTone.Success),\n        StanceTimelineEvent(\"Template edited\", \"Yesterday, 16:05\"),\n    ),\n)",
+    "accessibility": [
+      "Each event is read as one item."
+    ],
+    "webEquivalent": "timeline"
+  },
+  {
+    "name": "StanceStatCard",
+    "category": "data-display",
+    "summary": "A key figure with its label, an icon and the change since last period.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceStatCard(\"Signatures deployed\", \"1,284\", change = \"12%\", changeDescription = \"up 12% from last month\", positive = true)",
+    "accessibility": [
+      "The change is spoken in words."
+    ],
+    "webEquivalent": "stat-card"
+  },
+  {
+    "name": "StanceDescriptionList",
+    "category": "data-display",
+    "summary": "Pairs of terms and details, such as the properties of a contract.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceDescriptionList(listOf(\"Owner\" to \"Priya Nair\", \"Status\" to \"Live\", \"Users\" to \"48\"))",
+    "accessibility": [
+      "Each pair is read together."
+    ],
+    "webEquivalent": "description-list"
+  },
+  {
+    "name": "StanceDataTable",
+    "category": "data-display",
+    "summary": "A simple table that scrolls horizontally when columns do not fit.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "data class User(val name: String, val team: String, val deployments: Int)\nStanceDataTable(\n    columns = listOf(\n        StanceTableColumn<User>(\"Name\") { it.name },\n        StanceTableColumn(\"Team\") { it.team },\n        StanceTableColumn(\"Deployments\", numeric = true) { it.deployments.toString() },\n    ),\n    rows = listOf(User(\"Priya Nair\", \"Sales\", 14), User(\"Hana Sato\", \"Finance\", 9)),\n    caption = \"Organisation users\",\n)",
+    "accessibility": [
+      "Headers are headings.",
+      "Rows are read as header and value pairs."
+    ],
+    "webEquivalent": "table"
+  },
+  {
+    "name": "StanceSnackbarHost",
+    "category": "feedback",
+    "summary": "Shows brief messages about completed actions, with tones and an action.",
+    "kind": "composable",
+    "wrapsNative": "SnackbarHost",
+    "status": "beta",
+    "example": "val snackbars = remember { SnackbarHostState() }\nval scope = rememberCoroutineScope()\nColumn {\n    StanceButton(\"Save\", onClick = { scope.launch { snackbars.showStanceSnackbar(\"Template saved\", StanceTone.Success, actionLabel = \"Undo\") } })\n    StanceSnackbarHost(snackbars)\n}",
+    "accessibility": [
+      "Messages are announced as they appear."
+    ],
+    "webEquivalent": "toast"
+  },
+  {
+    "name": "StanceDialog",
+    "category": "overlays",
+    "summary": "A dialog for a focused task with custom content and actions.",
+    "kind": "composable",
+    "wrapsNative": "BasicAlertDialog",
+    "status": "beta",
+    "example": "var open by remember { mutableStateOf(false) }\nStanceButton(\"Rename template\", onClick = { open = true }, variant = StanceButtonVariant.Outline)\nif (open) {\n    StanceDialog(\n        title = \"Rename template\",\n        onDismissRequest = { open = false },\n        actions = { StanceButton(\"Save\", onClick = { open = false }) },\n    ) {\n        StanceTextField(\"Sales team\", {}, label = \"Template name\")\n    }\n}",
+    "accessibility": [
+      "The title is a heading.",
+      "Dismisses on back and outside taps."
+    ],
+    "webEquivalent": "dialog"
+  },
+  {
+    "name": "StanceAlertDialog",
+    "category": "overlays",
+    "summary": "Asks for a decision, with a danger style and loading state for destructive actions.",
+    "kind": "composable",
+    "wrapsNative": "AlertDialog",
+    "status": "beta",
+    "example": "var open by remember { mutableStateOf(false) }\nStanceButton(\"Delete template\", onClick = { open = true }, variant = StanceButtonVariant.Danger)\nif (open) {\n    StanceAlertDialog(\n        title = \"Delete this template?\",\n        message = \"48 users will lose this signature. This cannot be undone.\",\n        confirmLabel = \"Delete template\",\n        onConfirm = { open = false },\n        onDismissRequest = { open = false },\n        destructive = true,\n    )\n}",
+    "accessibility": [
+      "Uses the platform alert dialog semantics."
+    ],
+    "webEquivalent": "alert-dialog"
+  },
+  {
+    "name": "StanceBottomSheet",
+    "category": "overlays",
+    "summary": "A modal bottom sheet for secondary tasks, with a drag handle and title.",
+    "kind": "composable",
+    "wrapsNative": "ModalBottomSheet",
+    "status": "beta",
+    "example": "var open by remember { mutableStateOf(false) }\nStanceButton(\"Share template\", onClick = { open = true }, variant = StanceButtonVariant.Outline)\nif (open) {\n    StanceBottomSheet(onDismissRequest = { open = false }, title = \"Share template\") {\n        StanceListItem(\"Copy link\", leading = { StanceIcon(StanceIcons.Link, null) }, onClick = { open = false })\n        StanceListItem(\"Send by email\", leading = { StanceIcon(StanceIcons.Mail, null) }, onClick = { open = false })\n    }\n}",
+    "accessibility": [
+      "Supports drag, back and scrim taps to dismiss."
+    ],
+    "webEquivalent": "sheet"
+  },
+  {
+    "name": "StanceTooltip",
+    "category": "overlays",
+    "summary": "A short hint shown on long press, hover or keyboard focus.",
+    "kind": "composable",
+    "wrapsNative": "TooltipBox",
+    "status": "beta",
+    "example": "StanceTooltip(\"Copy signature\") {\n    StanceIconButton(StanceIcons.Copy, contentDescription = \"Copy signature\", onClick = {})\n}",
+    "accessibility": [
+      "Supplementary only, never essential information."
+    ],
+    "webEquivalent": "tooltip"
+  },
+  {
+    "name": "StanceInlineAlert",
+    "category": "feedback",
+    "summary": "A status message placed inside the content it relates to.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceInlineAlert(\"13 mailboxes could not be updated.\", tone = StanceTone.Warning, title = \"Deployment incomplete\")",
+    "accessibility": [
+      "Warnings and errors are announced immediately."
+    ],
+    "webEquivalent": "alert"
+  },
+  {
+    "name": "StanceBanner",
+    "category": "feedback",
+    "summary": "A page-level announcement across the top of a screen.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceBanner(\"Scheduled maintenance on Saturday from 22:00.\", tone = StanceTone.Info, onDismiss = {})",
+    "accessibility": [
+      "Announced as a live region.",
+      "The dismiss button has a name."
+    ],
+    "webEquivalent": "banner"
+  },
+  {
+    "name": "StanceLoadingOverlay",
+    "category": "feedback",
+    "summary": "Covers content with a scrim and progress indicator while work is in progress.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceLoadingOverlay(visible = true, message = \"Deploying signature\") {\n    StanceCard(modifier = Modifier.fillMaxWidth().height(StanceSpacing.space24 * 2)) { Text(\"Template settings\") }\n}",
+    "accessibility": [
+      "The message is announced and taps are blocked."
+    ],
+    "webEquivalent": "loading-overlay"
+  },
+  {
+    "name": "StanceErrorState",
+    "category": "feedback",
+    "summary": "Explains that something failed and offers a retry action.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceErrorState(\"Templates could not load\", description = \"Check your connection and try again.\", onRetry = {}, modifier = Modifier.height(StanceSpacing.space24 * 3))",
+    "accessibility": [
+      "The title is a heading."
+    ],
+    "webEquivalent": "error-boundary"
+  },
+  {
+    "name": "StancePullToRefresh",
+    "category": "advanced",
+    "summary": "Wraps scrollable content with the platform pull-to-refresh gesture.",
+    "kind": "composable",
+    "wrapsNative": "PullToRefreshBox",
+    "status": "beta",
+    "example": "var refreshing by remember { mutableStateOf(false) }\nStancePullToRefresh(refreshing, onRefresh = { refreshing = false }) {\n    Column { StanceListItem(\"Sales team signature\") }\n}",
+    "accessibility": [
+      "Offer a refresh action for people who cannot use the gesture."
+    ],
+    "webEquivalent": null
+  },
+  {
+    "name": "StanceSwipeActions",
+    "category": "advanced",
+    "summary": "Reveals an action such as delete or archive when a row is swiped.",
+    "kind": "composable",
+    "wrapsNative": "SwipeToDismissBox",
+    "status": "beta",
+    "example": "StanceSwipeActions(endAction = StanceSwipeAction(\"Delete\", StanceIcons.Trash, StanceTone.Danger) {}) {\n    StanceListItem(\"Sales team signature\", supporting = \"Swipe to delete\")\n}",
+    "accessibility": [
+      "The same actions are exposed as accessibility custom actions."
+    ],
+    "webEquivalent": null
+  },
+  {
+    "name": "StanceSearchableList",
+    "category": "advanced",
+    "summary": "A search field over a filtered list with a result count and empty state.",
+    "kind": "composable",
+    "wrapsNative": "LazyColumn",
+    "status": "beta",
+    "example": "val people = listOf(\"Amara Okafor\", \"Lukas Brenner\", \"Priya Nair\")\nStanceSearchableList(\n    items = people,\n    matches = { person, query -> person.contains(query, ignoreCase = true) },\n    placeholder = \"Search users\",\n    modifier = Modifier.height(StanceSpacing.space24 * 3),\n) { person ->\n    StanceListItem(person, leading = { StanceAvatar(person) })\n}",
+    "accessibility": [
+      "The result count is announced as people type."
+    ],
+    "webEquivalent": "searchable-list"
+  },
+  {
+    "name": "StanceFilterBar",
+    "category": "advanced",
+    "summary": "A scrolling row of filter chips with a clear-all action.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "var selected by remember { mutableStateOf(setOf(\"signed\")) }\nStanceFilterBar(\n    filters = listOf(\"signed\" to \"Signed\", \"pending\" to \"Pending\", \"draft\" to \"Draft\").map { (id, label) -> StanceFilter(id, label, id in selected) },\n    onToggle = { id -> selected = if (id in selected) selected - id else selected + id },\n    onClearAll = { selected = emptySet() },\n)",
+    "accessibility": [
+      "Each chip announces its selected state."
+    ],
+    "webEquivalent": "filter-bar"
+  },
+  {
+    "name": "StanceSignatureCanvas",
+    "category": "advanced",
+    "summary": "An area for drawing a signature with undo, clear and image export.",
+    "kind": "composable",
+    "wrapsNative": "Canvas",
+    "status": "beta",
+    "example": "val signature = rememberStanceSignatureState()\nStanceSignatureCanvas(signature, label = \"Signature\")",
+    "accessibility": [
+      "Announces whether it is signed.",
+      "Offer a typed or uploaded alternative."
+    ],
+    "webEquivalent": null
+  },
+  {
+    "name": "rememberStancePhotoPicker",
+    "category": "advanced",
+    "summary": "Launches the system Photo Picker for one or more images, with no storage permission.",
+    "kind": "helper",
+    "wrapsNative": "ActivityResultContracts.PickVisualMedia",
+    "status": "beta",
+    "example": "val picker = rememberStancePhotoPicker { uris -> println(\"Picked ${uris.size} image\") }\nStanceButton(\"Choose logo\", onClick = { picker.launch() }, variant = StanceButtonVariant.Outline, leadingIcon = StanceIcons.Image)",
+    "accessibility": [
+      "Uses the accessible system picker."
+    ],
+    "webEquivalent": "file-upload"
+  },
+  {
+    "name": "rememberStanceDocumentPicker",
+    "category": "advanced",
+    "summary": "Launches the system file picker for attaching documents.",
+    "kind": "helper",
+    "wrapsNative": "ActivityResultContracts.OpenDocument",
+    "status": "beta",
+    "example": "val picker = rememberStanceDocumentPicker(arrayOf(\"application/pdf\")) { uris -> println(\"Picked ${uris.size} file\") }\nStanceButton(\"Attach PDF\", onClick = { picker.launch() }, variant = StanceButtonVariant.Outline, leadingIcon = StanceIcons.Upload)",
+    "accessibility": [
+      "Uses the accessible system picker."
+    ],
+    "webEquivalent": "file-upload"
+  },
+  {
+    "name": "StanceButtonView",
+    "category": "advanced",
+    "summary": "A Stance button usable from XML layouts and View code.",
+    "kind": "helper",
+    "wrapsNative": "AbstractComposeView",
+    "status": "beta",
+    "example": "// In a View-based screen, use StanceButtonView in XML or code.\nAndroidView(factory = { context -> StanceButtonView(context).apply { text = \"Save template\" } })",
+    "accessibility": [
+      "Keeps the same semantics as StanceButton."
+    ],
+    "webEquivalent": null
+  },
+  {
+    "name": "setStanceContent",
+    "category": "advanced",
+    "summary": "Hosts Stance content inside an existing View hierarchy.",
+    "kind": "helper",
+    "wrapsNative": "ComposeView",
+    "status": "beta",
+    "example": "val context = LocalContext.current\n// Hosts Stance content inside an existing View hierarchy.\nAndroidView(factory = { ComposeView(context).apply { setStanceContent { StanceBadge(\"Live\", tone = StanceTone.Success) } } })",
+    "accessibility": [
+      "Composed content keeps its semantics inside Views."
+    ],
+    "webEquivalent": null
+  }
+]
