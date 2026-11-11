@@ -1768,6 +1768,12 @@ a.platform-device:hover .device {
   font-size: var(--st-font-size-xs);
 }
 
+/* A device without a capture (not generated yet) is hidden rather than shown empty. */
+.device--phone:not(:has(img)),
+.device--tablet:not(:has(img)) {
+  display: none;
+}
+
 /* Native captures follow the site theme */
 .native-image {
   display: none;
