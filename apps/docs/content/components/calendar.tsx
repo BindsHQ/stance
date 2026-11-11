@@ -97,6 +97,21 @@ export const doc: ComponentDoc = {
     },
     {
       component: 'Calendar',
+      name: 'captionLayout',
+      type: "'dropdown' | 'label'",
+      default: "'dropdown' for one month",
+      description:
+        'Dropdown shows month and year menus so people can jump to a distant date. Label shows a plain title.',
+    },
+    {
+      component: 'Calendar',
+      name: 'fromYear / toYear',
+      type: 'number',
+      description:
+        'First and last year in the year menu. Default to the min and max years, or 100 years back and 10 ahead.',
+    },
+    {
+      component: 'Calendar',
       name: 'numberOfMonths',
       type: '1 | 2',
       default: '1',
@@ -130,6 +145,7 @@ export const doc: ComponentDoc = {
     },
   ],
   accessibility: [
+    'Month and year menus are native selects with accessible names, so they work with every keyboard, screen reader and touch device.',
     'Each month is a grid labelled by its month and year; weekday headers carry full names via abbr.',
     'Each day is a button with a full spoken label, e.g. “Wednesday, 11 November 2026, Today, Selected”; today has aria-current="date".',
     'Unavailable days stay discoverable but are announced as unavailable and cannot be chosen.',

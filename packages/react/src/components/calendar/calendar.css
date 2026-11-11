@@ -163,3 +163,46 @@
     outline: 1px dotted CanvasText;
   }
 }
+
+/* Month and year menus: jump straight to a distant date. */
+.st-calendar__jump {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: center;
+  gap: var(--st-space-1);
+  min-width: 0;
+}
+.st-calendar__select {
+  min-width: 0;
+  height: 2rem;
+  padding: 0 var(--st-space-1) 0 var(--st-space-2);
+  border: var(--st-border-width) solid transparent;
+  border-radius: var(--st-radius-md);
+  background: transparent;
+  color: var(--st-color-fg-default);
+  font: inherit;
+  font-size: var(--st-font-size-sm);
+  font-weight: var(--st-font-weight-semibold);
+  cursor: pointer;
+}
+.st-calendar__select:hover {
+  background: var(--st-color-interactive-hover);
+  border-color: var(--st-color-border-default);
+}
+.st-calendar__select:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: 1px;
+}
+.st-calendar__select option {
+  background: var(--st-color-bg-overlay);
+  color: var(--st-color-fg-default);
+  font-weight: var(--st-font-weight-regular);
+}
+[data-theme='high-contrast'] .st-calendar__select {
+  border-color: var(--st-color-border-control);
+}
+@media (forced-colors: active) {
+  .st-calendar__select {
+    border-color: FieldText;
+  }
+}

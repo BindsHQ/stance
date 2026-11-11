@@ -143,3 +143,88 @@ describe('Calendar', () => {
     await expectNoA11yViolations(container);
   });
 });
+
+describe('Calendar month and year menus', () => {
+  const TODAY_FIXED = new Date(2026, 10, 11);
+
+  it('offers month and year menus on a single month calendar', () => {
+    render(
+      <Calendar
+        aria-label="Date"
+        today={TODAY_FIXED}
+        defaultMonth={new Date(2026, 10, 1)}
+        locale="en-GB"
+      />,
+    );
+    expect(screen.getByRole('combobox', { name: 'Month' })).toHaveValue('10');
+    expect(screen.getByRole('combobox', { name: 'Year' })).toHaveValue('2026');
+  });
+
+  it('jumps to the chosen month and year', async () => {
+    const onMonthChange = vi.fn();
+    render(
+      <Calendar
+        aria-label="Date"
+        today={TODAY_FIXED}
+        defaultMonth={new Date(2026, 10, 1)}
+        locale="en-GB"
+        onMonthChange={onMonthChange}
+      />,
+    );
+    const user = userEvent.setup();
+    await user.selectOptions(screen.getByRole('combobox', { name: 'Year' }), '1994');
+    await user.selectOptions(screen.getByRole('combobox', { name: 'Month' }), '2');
+    expect(toISODate(onMonthChange.mock.lastCall![0])).toBe('1994-03-01');
+    expect(screen.getByRole('button', { name: /15 March 1994/ })).toBeInTheDocument();
+  });
+
+  it('limits years and months to min and max', () => {
+    render(
+      <Calendar
+        aria-label="Date"
+        today={TODAY_FIXED}
+        defaultMonth={new Date(2026, 10, 1)}
+        min={new Date(2026, 8, 10)}
+        max={new Date(2027, 1, 20)}
+        locale="en-GB"
+      />,
+    );
+    const years = [
+      ...screen.getByRole('combobox', { name: 'Year' }).querySelectorAll('option'),
+    ].map((o) => o.value);
+    expect(years).toEqual(['2026', '2027']);
+    const months = screen.getByRole('combobox', { name: 'Month' }).querySelectorAll('option');
+    expect(months[7]).toBeDisabled(); // August 2026 is before min
+    expect(months[8]).not.toBeDisabled();
+  });
+
+  it('keeps a plain title with captionLayout="label" and for two months', () => {
+    const { rerender } = render(
+      <Calendar
+        aria-label="Date"
+        today={TODAY_FIXED}
+        defaultMonth={new Date(2026, 10, 1)}
+        captionLayout="label"
+        locale="en-GB"
+      />,
+    );
+    expect(screen.queryByRole('combobox', { name: 'Year' })).toBeNull();
+    rerender(
+      <Calendar
+        aria-label="Date"
+        today={TODAY_FIXED}
+        defaultMonth={new Date(2026, 10, 1)}
+        numberOfMonths={2}
+        locale="en-GB"
+      />,
+    );
+    expect(screen.queryByRole('combobox', { name: 'Year' })).toBeNull();
+  });
+
+  it('has no axe violations with the menus', async () => {
+    const { container } = render(
+      <Calendar aria-label="Date" today={TODAY_FIXED} defaultMonth={new Date(2026, 10, 1)} />,
+    );
+    await expectNoA11yViolations(container);
+  });
+});

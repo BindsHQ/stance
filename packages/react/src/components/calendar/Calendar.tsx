@@ -35,6 +35,10 @@ export interface CalendarLabels {
   rangeStart: string;
   rangeEnd: string;
   unavailable: string;
+  /** Accessible name of the month dropdown. */
+  month: string;
+  /** Accessible name of the year dropdown. */
+  year: string;
 }
 
 const defaultLabels: CalendarLabels = {
@@ -45,6 +49,8 @@ const defaultLabels: CalendarLabels = {
   rangeStart: 'Start of range',
   rangeEnd: 'End of range',
   unavailable: 'Unavailable',
+  month: 'Month',
+  year: 'Year',
 };
 
 interface CalendarBaseProps extends Omit<
@@ -67,6 +73,15 @@ interface CalendarBaseProps extends Omit<
   locale?: string;
   /** Months shown side by side. Default 1. */
   numberOfMonths?: 1 | 2;
+  /**
+   * Header style. `dropdown` shows month and year menus so people can jump straight to a date
+   * far away (a birth date, an expiry). Default `dropdown` for one month, `label` for two.
+   */
+  captionLayout?: 'dropdown' | 'label';
+  /** First year offered in the year menu. Defaults to the `min` year, or 100 years back. */
+  fromYear?: number;
+  /** Last year offered in the year menu. Defaults to the `max` year, or 10 years ahead. */
+  toYear?: number;
   /** Show days from adjacent months in single-month view. Default true. */
   showOutsideDays?: boolean;
   /** Override "today" (useful for tests and time zones). */
@@ -111,6 +126,9 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
       weekStartsOn = 1,
       locale,
       numberOfMonths = 1,
+      captionLayout,
+      fromYear,
+      toYear,
       showOutsideDays = true,
       today: todayProp,
       autoFocus = false,
@@ -248,6 +266,34 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
       );
     };
 
+    const goTo = (year: number, monthIndex: number) => {
+      const target = clampDate(new Date(year, monthIndex, 1), min ? startOfMonth(min) : null, max);
+      const next = startOfMonth(target);
+      setMonthState(next);
+      setFocused(clampDate(isSameMonth(focused, next) ? focused : next, min, max));
+    };
+
+    const showDropdowns =
+      (captionLayout ?? (numberOfMonths === 1 ? 'dropdown' : 'label')) === 'dropdown' &&
+      numberOfMonths === 1;
+    const thisYear = today.getFullYear();
+    const firstYear = Math.min(
+      fromYear ?? min?.getFullYear() ?? thisYear - 100,
+      month.getFullYear(),
+    );
+    const lastYear = Math.max(toYear ?? max?.getFullYear() ?? thisYear + 10, month.getFullYear());
+    const years = Array.from({ length: lastYear - firstYear + 1 }, (_, i) => firstYear + i);
+    const monthNames = Array.from({ length: 12 }, (_, i) =>
+      new Intl.DateTimeFormat(locale, { month: 'long' }).format(new Date(2024, i, 1)),
+    );
+    const monthOutOfRange = (i: number) => {
+      const y = month.getFullYear();
+      return (
+        (!!min && (y < min.getFullYear() || (y === min.getFullYear() && i < min.getMonth()))) ||
+        (!!max && (y > max.getFullYear() || (y === max.getFullYear() && i > max.getMonth())))
+      );
+    };
+
     const prevDisabled = !!min && compareDays(addDays(month, -1), min) < 0;
     const nextDisabled = !!max && compareDays(addMonths(lastMonth, 1), max) > 0;
 
@@ -289,13 +335,45 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
           >
             <Icon name="chevron-left" size={16} />
           </button>
-          <div className="st-calendar__titles" id={headingId} aria-live="polite">
+          <div
+            className={cx('st-calendar__titles', showDropdowns && 'st-sr-only')}
+            id={headingId}
+            aria-live="polite"
+          >
             {months.map((m) => (
               <h2 key={toISODate(m)} className="st-calendar__title">
                 {monthTitle.format(m)}
               </h2>
             ))}
           </div>
+          {showDropdowns && (
+            <div className="st-calendar__jump">
+              <select
+                className="st-calendar__select"
+                aria-label={labels.month}
+                value={month.getMonth()}
+                onChange={(e) => goTo(month.getFullYear(), Number(e.target.value))}
+              >
+                {monthNames.map((name, i) => (
+                  <option key={name} value={i} disabled={monthOutOfRange(i)}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+              <select
+                className="st-calendar__select"
+                aria-label={labels.year}
+                value={month.getFullYear()}
+                onChange={(e) => goTo(Number(e.target.value), month.getMonth())}
+              >
+                {years.map((y) => (
+                  <option key={y} value={y}>
+                    {y}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
           <button
             type="button"
             className="st-calendar__nav"
