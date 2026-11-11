@@ -1,0 +1,74 @@
+.st-pin-input {
+  --_size: var(--st-size-control-md);
+  --_fs: var(--st-font-size-lg);
+  display: inline-flex;
+  gap: var(--st-space-2);
+  font-family: var(--st-font-sans);
+}
+.st-pin-input[data-size='sm'] {
+  --_size: var(--st-size-control-sm);
+  --_fs: var(--st-font-size-md);
+  gap: var(--st-space-1-5);
+}
+.st-pin-input[data-size='lg'] {
+  --_size: var(--st-size-control-lg);
+  --_fs: var(--st-font-size-xl);
+}
+.st-pin-input__cell {
+  width: var(--_size);
+  height: calc(var(--_size) + var(--st-space-2));
+  margin: 0;
+  padding: 0;
+  border: var(--st-border-width-control) solid var(--st-color-border-control);
+  border-radius: var(--st-radius-md);
+  background: var(--st-color-bg-surface);
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-mono);
+  font-size: var(--_fs);
+  font-weight: var(--st-font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  text-align: center;
+  caret-color: var(--st-color-fg-default);
+  appearance: none;
+  transition:
+    border-color var(--st-duration-fast) var(--st-easing-standard),
+    box-shadow var(--st-duration-fast) var(--st-easing-standard);
+}
+.st-pin-input__cell:hover {
+  border-color: var(--st-color-border-control-hover);
+}
+.st-pin-input__cell:focus {
+  outline: none;
+}
+.st-pin-input__cell:focus-visible {
+  border-color: var(--st-color-focus-ring);
+  box-shadow: 0 0 0 1px var(--st-color-focus-ring);
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}
+.st-pin-input[data-invalid] .st-pin-input__cell {
+  border-color: var(--st-color-danger-fg);
+}
+.st-pin-input__cell:disabled {
+  background: var(--st-color-disabled-bg);
+  border-color: var(--st-color-disabled-border);
+  color: var(--st-color-disabled-fg);
+  cursor: not-allowed;
+}
+.st-pin-input__cell:read-only:not(:disabled) {
+  background: var(--st-color-bg-subtle);
+}
+@media (max-width: 360px) {
+  .st-pin-input {
+    gap: var(--st-space-1);
+  }
+}
+@media (forced-colors: active) {
+  .st-pin-input__cell {
+    border-color: FieldText;
+  }
+  .st-pin-input__cell:focus-visible {
+    outline-color: Highlight;
+  }
+}

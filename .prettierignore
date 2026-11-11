@@ -14,3 +14,5 @@ packages/tokens/generated
 packages/tokens/src/generated.ts
 platforms
 apps/docs/content/pages/index.ts
+examples/ios
+examples/android

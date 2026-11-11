@@ -67,7 +67,7 @@ export default function DocumentsPattern() {
             </tr>
             <tr>
               <th scope="row">Signature</th>
-              <td>A canvas pattern with typed and upload alternatives</td>
+              <td>SignaturePad with typed and upload alternatives</td>
               <td>StanceSignatureCanvas</td>
               <td>StanceSignatureCanvas</td>
             </tr>

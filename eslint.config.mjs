@@ -16,6 +16,8 @@ export default tseslint.config(
       'packages/tokens/src/generated.ts',
       'packages/tokens/generated/**',
       'platforms/**',
+      'examples/ios/**',
+      'examples/android/**',
       '**/.next/**',
       '**/out/**',
       '**/node_modules/**',

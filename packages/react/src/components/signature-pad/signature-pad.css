@@ -1,0 +1,81 @@
+.st-signature-pad {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-2);
+  width: 100%;
+  font-family: var(--st-font-sans);
+}
+.st-signature-pad__surface {
+  position: relative;
+  width: 100%;
+  border: var(--st-border-width-control) solid var(--st-color-border-control);
+  border-radius: var(--st-radius-lg);
+  background: var(--st-color-bg-surface);
+  overflow: hidden;
+}
+.st-signature-pad__canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* The pen colour is read from this property, so ink follows the theme. */
+  color: var(--st-color-fg-default);
+  border-radius: inherit;
+  cursor: crosshair;
+  touch-action: none;
+}
+.st-signature-pad__canvas:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: calc(-1 * var(--st-focus-width) - 1px);
+}
+.st-signature-pad__baseline {
+  position: absolute;
+  left: var(--st-space-6);
+  right: var(--st-space-6);
+  bottom: 28%;
+  border-bottom: 1px dashed var(--st-color-border-strong);
+  pointer-events: none;
+}
+.st-signature-pad__hint {
+  position: absolute;
+  left: var(--st-space-6);
+  bottom: calc(28% + var(--st-space-2));
+  display: inline-flex;
+  align-items: center;
+  gap: var(--st-space-1-5);
+  color: var(--st-color-fg-subtle);
+  font-size: var(--st-font-size-sm);
+  pointer-events: none;
+  user-select: none;
+}
+.st-signature-pad__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--st-space-1);
+}
+.st-signature-pad[data-invalid] .st-signature-pad__surface {
+  border-color: var(--st-color-danger-fg);
+}
+.st-signature-pad[data-disabled] .st-signature-pad__surface {
+  background: var(--st-color-disabled-bg);
+  border-color: var(--st-color-disabled-border);
+}
+.st-signature-pad[data-disabled] .st-signature-pad__canvas,
+.st-signature-pad[data-readonly] .st-signature-pad__canvas {
+  cursor: default;
+}
+.st-signature-pad[data-disabled] .st-signature-pad__canvas {
+  color: var(--st-color-disabled-fg);
+}
+@media (forced-colors: active) {
+  .st-signature-pad__surface {
+    border-color: CanvasText;
+  }
+  .st-signature-pad__canvas {
+    color: CanvasText;
+  }
+  .st-signature-pad__canvas:focus-visible {
+    outline-color: Highlight;
+  }
+}

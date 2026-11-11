@@ -55,7 +55,7 @@ export default function AuthenticationPattern() {
           <tbody>
             <tr>
               <th scope="row">Credentials</th>
-              <td>Input, PasswordInput</td>
+              <td>Input, PasswordInput, PinInput for one-time codes</td>
               <td>StanceTextField, StanceSecureField</td>
               <td>StanceTextField, StancePasswordField</td>
             </tr>

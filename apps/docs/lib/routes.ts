@@ -48,8 +48,7 @@ export const routes: SiteRoute[] = [
   {
     path: '/',
     title: 'Stance — The Binds Design System',
-    description:
-      'Stance is the open-source design system by Binds: design tokens, light, dark and high-contrast themes, and 112 accessible, dependency-free React components.',
+    description: `Stance is the open-source design system by Binds: design tokens, light, dark and high-contrast themes, and ${components.length} accessible, dependency-free React components.`,
     section: 'home',
     trail: [],
     priority: 1,

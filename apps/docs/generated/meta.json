@@ -385,6 +385,13 @@
     "status": "stable"
   },
   {
+    "slug": "inline-edit",
+    "name": "InlineEdit",
+    "category": "forms",
+    "summary": "Text that can be edited in place: activate it to type, press Enter to save or Escape to cancel.",
+    "status": "stable"
+  },
+  {
     "slug": "inline",
     "name": "Inline",
     "category": "foundations",
@@ -497,6 +504,13 @@
     "status": "stable"
   },
   {
+    "slug": "pin-input",
+    "name": "PinInput",
+    "category": "forms",
+    "summary": "A one-time code or PIN field split into cells, with paste, SMS autofill and full keyboard support.",
+    "status": "stable"
+  },
+  {
     "slug": "popover",
     "name": "Popover",
     "category": "overlays",
@@ -595,6 +609,13 @@
     "status": "stable"
   },
   {
+    "slug": "signature-pad",
+    "name": "SignaturePad",
+    "category": "forms",
+    "summary": "Captures a hand-drawn signature with pointer, touch or stylus, with undo, clear and form submission.",
+    "status": "stable"
+  },
+  {
     "slug": "skeleton",
     "name": "Skeleton",
     "category": "feedback",
@@ -613,6 +634,13 @@
     "name": "Slider",
     "category": "forms",
     "summary": "Pick a single value from a range by dragging or with the keyboard.",
+    "status": "stable"
+  },
+  {
+    "slug": "sortable-list",
+    "name": "SortableList",
+    "category": "advanced",
+    "summary": "A list people can reorder by dragging, with the keyboard, or with move buttons, announcing every change.",
     "status": "stable"
   },
   {
