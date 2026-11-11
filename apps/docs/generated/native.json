@@ -34,7 +34,7 @@
         "dark": "previews/stance-theme.dark.png",
         "high-contrast": "previews/stance-theme.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 300
       }
     },
     {
@@ -55,7 +55,7 @@
         "dark": "previews/stance-scoped-theme.dark.png",
         "high-contrast": "previews/stance-scoped-theme.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 210
       }
     },
     {
@@ -91,7 +91,7 @@
         "dark": "previews/stance-card.dark.png",
         "high-contrast": "previews/stance-card.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 229
       }
     },
     {
@@ -112,7 +112,7 @@
         "dark": "previews/stance-card-modifier.dark.png",
         "high-contrast": "previews/stance-card-modifier.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 163
       }
     },
     {
@@ -133,7 +133,7 @@
         "dark": "previews/stance-surface.dark.png",
         "high-contrast": "previews/stance-surface.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 292
       }
     },
     {
@@ -154,7 +154,7 @@
         "dark": "previews/stance-shadow.dark.png",
         "high-contrast": "previews/stance-shadow.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 152
       }
     },
     {
@@ -175,7 +175,7 @@
         "dark": "previews/stance-divider.dark.png",
         "high-contrast": "previews/stance-divider.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 174
       }
     },
     {
@@ -196,7 +196,7 @@
         "dark": "previews/stance-section.dark.png",
         "high-contrast": "previews/stance-section.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 223
       }
     },
     {
@@ -217,7 +217,7 @@
         "dark": "previews/stance-container.dark.png",
         "high-contrast": "previews/stance-container.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 138
       }
     },
     {
@@ -238,7 +238,7 @@
         "dark": "previews/stance-grid.dark.png",
         "high-contrast": "previews/stance-grid.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 299
       }
     },
     {
@@ -260,7 +260,7 @@
         "dark": "previews/stance-icon.dark.png",
         "high-contrast": "previews/stance-icon.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 288
       }
     },
     {
@@ -282,7 +282,7 @@
         "dark": "previews/stance-text.dark.png",
         "high-contrast": "previews/stance-text.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 321
       }
     },
     {
@@ -304,7 +304,7 @@
         "dark": "previews/stance-button.dark.png",
         "high-contrast": "previews/stance-button.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 316
       }
     },
     {
@@ -325,7 +325,7 @@
         "dark": "previews/stance-button-style.dark.png",
         "high-contrast": "previews/stance-button-style.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 212
       }
     },
     {
@@ -346,8 +346,8 @@
         "light": "previews/stance-icon-button.light.png",
         "dark": "previews/stance-icon-button.dark.png",
         "high-contrast": "previews/stance-icon-button.high-contrast.png",
-        "width": 404,
-        "height": 582
+        "width": 393,
+        "height": 124
       }
     },
     {
@@ -368,7 +368,7 @@
         "dark": "previews/stance-button-group.dark.png",
         "high-contrast": "previews/stance-button-group.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 288
       }
     },
     {
@@ -411,7 +411,7 @@
         "dark": "previews/stance-form-field.dark.png",
         "high-contrast": "previews/stance-form-field.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 273
       }
     },
     {
@@ -433,7 +433,7 @@
         "dark": "previews/stance-text-field.dark.png",
         "high-contrast": "previews/stance-text-field.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 407
       }
     },
     {
@@ -454,7 +454,7 @@
         "dark": "previews/stance-secure-field.dark.png",
         "high-contrast": "previews/stance-secure-field.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 241
       }
     },
     {
@@ -475,7 +475,7 @@
         "dark": "previews/stance-text-editor.dark.png",
         "high-contrast": "previews/stance-text-editor.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 210
       }
     },
     {
@@ -496,7 +496,7 @@
         "dark": "previews/stance-search-field.dark.png",
         "high-contrast": "previews/stance-search-field.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 148
       }
     },
     {
@@ -517,7 +517,7 @@
         "dark": "previews/stance-picker.dark.png",
         "high-contrast": "previews/stance-picker.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 219
       }
     },
     {
@@ -539,7 +539,7 @@
         "dark": "previews/stance-checkbox.dark.png",
         "high-contrast": "previews/stance-checkbox.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 233
       }
     },
     {
@@ -561,7 +561,7 @@
         "dark": "previews/stance-radio-group.dark.png",
         "high-contrast": "previews/stance-radio-group.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 241
       }
     },
     {
@@ -582,7 +582,7 @@
         "dark": "previews/stance-toggle-style.dark.png",
         "high-contrast": "previews/stance-toggle-style.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 230
       }
     },
     {
@@ -603,7 +603,7 @@
         "dark": "previews/stance-slider.dark.png",
         "high-contrast": "previews/stance-slider.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 226
       }
     },
     {
@@ -624,7 +624,7 @@
         "dark": "previews/stance-date-picker.dark.png",
         "high-contrast": "previews/stance-date-picker.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 198
       }
     },
     {
@@ -687,7 +687,7 @@
         "dark": "previews/stance-stepper.dark.png",
         "high-contrast": "previews/stance-stepper.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 256
       }
     },
     {
@@ -709,7 +709,7 @@
         "dark": "previews/stance-page-indicator.dark.png",
         "high-contrast": "previews/stance-page-indicator.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 136
       }
     },
     {
@@ -731,7 +731,7 @@
         "dark": "previews/stance-badge.dark.png",
         "high-contrast": "previews/stance-badge.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 185
       }
     },
     {
@@ -752,7 +752,7 @@
         "dark": "previews/stance-tag.dark.png",
         "high-contrast": "previews/stance-tag.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 156
       }
     },
     {
@@ -773,7 +773,7 @@
         "dark": "previews/stance-avatar.dark.png",
         "high-contrast": "previews/stance-avatar.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 196
       }
     },
     {
@@ -794,7 +794,7 @@
         "dark": "previews/stance-avatar-group.dark.png",
         "high-contrast": "previews/stance-avatar-group.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 240
       }
     },
     {
@@ -815,7 +815,7 @@
         "dark": "previews/stance-progress-view.dark.png",
         "high-contrast": "previews/stance-progress-view.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 202
       }
     },
     {
@@ -836,7 +836,7 @@
         "dark": "previews/stance-skeleton.dark.png",
         "high-contrast": "previews/stance-skeleton.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 286
       }
     },
     {
@@ -857,7 +857,7 @@
         "dark": "previews/stance-empty-state.dark.png",
         "high-contrast": "previews/stance-empty-state.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 300
       }
     },
     {
@@ -878,7 +878,7 @@
         "dark": "previews/stance-timeline.dark.png",
         "high-contrast": "previews/stance-timeline.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 335
       }
     },
     {
@@ -899,7 +899,7 @@
         "dark": "previews/stance-stat-card.dark.png",
         "high-contrast": "previews/stance-stat-card.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 285
       }
     },
     {
@@ -920,7 +920,7 @@
         "dark": "previews/stance-description-list.dark.png",
         "high-contrast": "previews/stance-description-list.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 247
       }
     },
     {
@@ -941,7 +941,7 @@
         "dark": "previews/stance-list-row.dark.png",
         "high-contrast": "previews/stance-list-row.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 206
       }
     },
     {
@@ -961,8 +961,8 @@
         "light": "previews/stance-list-style.light.png",
         "dark": "previews/stance-list-style.dark.png",
         "high-contrast": "previews/stance-list-style.high-contrast.png",
-        "width": 345,
-        "height": 300
+        "width": 393,
+        "height": 348
       }
     },
     {
@@ -983,7 +983,7 @@
         "dark": "previews/stance-disclosure-group-style.dark.png",
         "high-contrast": "previews/stance-disclosure-group-style.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 217
       }
     },
     {
@@ -1004,7 +1004,7 @@
         "dark": "previews/stance-inline-alert.dark.png",
         "high-contrast": "previews/stance-inline-alert.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 398
       }
     },
     {
@@ -1025,7 +1025,7 @@
         "dark": "previews/stance-banner.dark.png",
         "high-contrast": "previews/stance-banner.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 220
       }
     },
     {
@@ -1047,7 +1047,7 @@
         "dark": "previews/stance-toast-center.dark.png",
         "high-contrast": "previews/stance-toast-center.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 238
       }
     },
     {
@@ -1068,7 +1068,7 @@
         "dark": "previews/stance-loading-state.dark.png",
         "high-contrast": "previews/stance-loading-state.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 228
       }
     },
     {
@@ -1089,7 +1089,7 @@
         "dark": "previews/stance-error-state.dark.png",
         "high-contrast": "previews/stance-error-state.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 300
       }
     },
     {
@@ -1173,7 +1173,7 @@
         "dark": "previews/stance-filter-bar.dark.png",
         "high-contrast": "previews/stance-filter-bar.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 172
       }
     },
     {
@@ -1216,7 +1216,7 @@
         "dark": "previews/stance-calendar.dark.png",
         "high-contrast": "previews/stance-calendar.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 400
       }
     },
     {
@@ -1238,7 +1238,7 @@
         "dark": "previews/stance-signature-canvas.dark.png",
         "high-contrast": "previews/stance-signature-canvas.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 412
       }
     },
     {
@@ -1259,7 +1259,7 @@
         "dark": "previews/stance-attachment-picker.dark.png",
         "high-contrast": "previews/stance-attachment-picker.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 209
       }
     },
     {
@@ -1301,7 +1301,7 @@
         "dark": "previews/stance-touch-target.dark.png",
         "high-contrast": "previews/stance-touch-target.high-contrast.png",
         "width": 393,
-        "height": 582
+        "height": 124
       }
     },
     {

@@ -9,19 +9,10 @@ export function PlatformShowcase() {
   return (
     <ul className="platform-showcase">
       <li>
-        <Link
-          href="/ios"
-          className="platform-device"
-          aria-label="iOS and iPadOS: get started with StanceUI"
-        >
+        <Link href="/ios" className="platform-device">
           <span className="device device--phone device--ios">
             <span className="device__island" aria-hidden="true" />
-            <NativeImage
-              platform="ios"
-              name="showcase-sample"
-              alt="The StanceUI showcase app running on iPhone"
-              className="device__screen"
-            />
+            <NativeImage platform="ios" name="showcase-sample" alt="" className="device__screen" />
           </span>
           <span className="platform-device__meta">
             <span className="platform-device__tech">SwiftUI</span>
@@ -51,17 +42,13 @@ export function PlatformShowcase() {
         </div>
       </li>
       <li>
-        <Link
-          href="/android"
-          className="platform-device"
-          aria-label="Android: get started with Stance for Compose"
-        >
+        <Link href="/android" className="platform-device">
           <span className="device device--phone device--android">
             <span className="device__camera" aria-hidden="true" />
             <NativeImage
               platform="android"
               name="showcase-sample"
-              alt="The Stance showcase app running on Android"
+              alt=""
               className="device__screen"
             />
           </span>

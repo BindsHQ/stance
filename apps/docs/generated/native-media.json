@@ -53,182 +53,182 @@
     "stance-attachment-picker.dark": {
       "src": "/native/ios/stance-attachment-picker.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 418
     },
     "stance-attachment-picker.high-contrast": {
       "src": "/native/ios/stance-attachment-picker.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 418
     },
     "stance-attachment-picker.light": {
       "src": "/native/ios/stance-attachment-picker.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 418
     },
     "stance-avatar-group.dark": {
       "src": "/native/ios/stance-avatar-group.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 480
     },
     "stance-avatar-group.high-contrast": {
       "src": "/native/ios/stance-avatar-group.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 480
     },
     "stance-avatar-group.light": {
       "src": "/native/ios/stance-avatar-group.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 480
     },
     "stance-avatar.dark": {
       "src": "/native/ios/stance-avatar.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 392
     },
     "stance-avatar.high-contrast": {
       "src": "/native/ios/stance-avatar.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 392
     },
     "stance-avatar.light": {
       "src": "/native/ios/stance-avatar.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 392
     },
     "stance-badge.dark": {
       "src": "/native/ios/stance-badge.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 369
     },
     "stance-badge.high-contrast": {
       "src": "/native/ios/stance-badge.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 369
     },
     "stance-badge.light": {
       "src": "/native/ios/stance-badge.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 369
     },
     "stance-banner.dark": {
       "src": "/native/ios/stance-banner.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 440
     },
     "stance-banner.high-contrast": {
       "src": "/native/ios/stance-banner.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 440
     },
     "stance-banner.light": {
       "src": "/native/ios/stance-banner.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 440
     },
     "stance-button-group.dark": {
       "src": "/native/ios/stance-button-group.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 576
     },
     "stance-button-group.high-contrast": {
       "src": "/native/ios/stance-button-group.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 576
     },
     "stance-button-group.light": {
       "src": "/native/ios/stance-button-group.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 576
     },
     "stance-button-style.dark": {
       "src": "/native/ios/stance-button-style.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 424
     },
     "stance-button-style.high-contrast": {
       "src": "/native/ios/stance-button-style.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 424
     },
     "stance-button-style.light": {
       "src": "/native/ios/stance-button-style.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 424
     },
     "stance-button.dark": {
       "src": "/native/ios/stance-button.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 632
     },
     "stance-button.high-contrast": {
       "src": "/native/ios/stance-button.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 632
     },
     "stance-button.light": {
       "src": "/native/ios/stance-button.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 632
     },
     "stance-calendar.dark": {
       "src": "/native/ios/stance-calendar.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 799
     },
     "stance-calendar.high-contrast": {
       "src": "/native/ios/stance-calendar.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 799
     },
     "stance-calendar.light": {
       "src": "/native/ios/stance-calendar.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 799
     },
     "stance-card-modifier.dark": {
       "src": "/native/ios/stance-card-modifier.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 325
     },
     "stance-card-modifier.high-contrast": {
       "src": "/native/ios/stance-card-modifier.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 325
     },
     "stance-card-modifier.light": {
       "src": "/native/ios/stance-card-modifier.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 325
     },
     "stance-card.dark": {
       "src": "/native/ios/stance-card.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 457
     },
     "stance-card.high-contrast": {
       "src": "/native/ios/stance-card.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 457
     },
     "stance-card.light": {
       "src": "/native/ios/stance-card.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 457
     },
     "stance-checkbox.dark": {
       "src": "/native/ios/stance-checkbox.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 465
     },
     "stance-checkbox.high-contrast": {
       "src": "/native/ios/stance-checkbox.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 465
     },
     "stance-checkbox.light": {
       "src": "/native/ios/stance-checkbox.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 465
     },
     "stance-confirmation-dialog.dark": {
       "src": "/native/ios/stance-confirmation-dialog.dark.webp",
@@ -248,77 +248,77 @@
     "stance-container.dark": {
       "src": "/native/ios/stance-container.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 275
     },
     "stance-container.high-contrast": {
       "src": "/native/ios/stance-container.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 275
     },
     "stance-container.light": {
       "src": "/native/ios/stance-container.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 275
     },
     "stance-date-picker.dark": {
       "src": "/native/ios/stance-date-picker.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 395
     },
     "stance-date-picker.high-contrast": {
       "src": "/native/ios/stance-date-picker.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 395
     },
     "stance-date-picker.light": {
       "src": "/native/ios/stance-date-picker.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 395
     },
     "stance-description-list.dark": {
       "src": "/native/ios/stance-description-list.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 494
     },
     "stance-description-list.high-contrast": {
       "src": "/native/ios/stance-description-list.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 494
     },
     "stance-description-list.light": {
       "src": "/native/ios/stance-description-list.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 494
     },
     "stance-disclosure-group-style.dark": {
       "src": "/native/ios/stance-disclosure-group-style.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 434
     },
     "stance-disclosure-group-style.high-contrast": {
       "src": "/native/ios/stance-disclosure-group-style.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 434
     },
     "stance-disclosure-group-style.light": {
       "src": "/native/ios/stance-disclosure-group-style.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 434
     },
     "stance-divider.dark": {
       "src": "/native/ios/stance-divider.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 347
     },
     "stance-divider.high-contrast": {
       "src": "/native/ios/stance-divider.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 347
     },
     "stance-divider.light": {
       "src": "/native/ios/stance-divider.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 347
     },
     "stance-document-preview.dark": {
       "src": "/native/ios/stance-document-preview.dark.webp",
@@ -338,167 +338,167 @@
     "stance-empty-state.dark": {
       "src": "/native/ios/stance-empty-state.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 599
     },
     "stance-empty-state.high-contrast": {
       "src": "/native/ios/stance-empty-state.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 599
     },
     "stance-empty-state.light": {
       "src": "/native/ios/stance-empty-state.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 599
     },
     "stance-error-state.dark": {
       "src": "/native/ios/stance-error-state.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 599
     },
     "stance-error-state.high-contrast": {
       "src": "/native/ios/stance-error-state.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 599
     },
     "stance-error-state.light": {
       "src": "/native/ios/stance-error-state.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 599
     },
     "stance-filter-bar.dark": {
       "src": "/native/ios/stance-filter-bar.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 344
     },
     "stance-filter-bar.high-contrast": {
       "src": "/native/ios/stance-filter-bar.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 344
     },
     "stance-filter-bar.light": {
       "src": "/native/ios/stance-filter-bar.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 344
     },
     "stance-form-field.dark": {
       "src": "/native/ios/stance-form-field.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 545
     },
     "stance-form-field.high-contrast": {
       "src": "/native/ios/stance-form-field.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 545
     },
     "stance-form-field.light": {
       "src": "/native/ios/stance-form-field.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 545
     },
     "stance-grid.dark": {
       "src": "/native/ios/stance-grid.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 598
     },
     "stance-grid.high-contrast": {
       "src": "/native/ios/stance-grid.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 598
     },
     "stance-grid.light": {
       "src": "/native/ios/stance-grid.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 598
     },
     "stance-icon-button.dark": {
       "src": "/native/ios/stance-icon-button.dark.webp",
-      "width": 808,
-      "height": 1164
+      "width": 785,
+      "height": 248
     },
     "stance-icon-button.high-contrast": {
       "src": "/native/ios/stance-icon-button.high-contrast.webp",
-      "width": 808,
-      "height": 1164
+      "width": 785,
+      "height": 248
     },
     "stance-icon-button.light": {
       "src": "/native/ios/stance-icon-button.light.webp",
-      "width": 808,
-      "height": 1164
+      "width": 785,
+      "height": 248
     },
     "stance-icon.dark": {
       "src": "/native/ios/stance-icon.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 576
     },
     "stance-icon.high-contrast": {
       "src": "/native/ios/stance-icon.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 576
     },
     "stance-icon.light": {
       "src": "/native/ios/stance-icon.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 576
     },
     "stance-inline-alert.dark": {
       "src": "/native/ios/stance-inline-alert.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 795
     },
     "stance-inline-alert.high-contrast": {
       "src": "/native/ios/stance-inline-alert.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 795
     },
     "stance-inline-alert.light": {
       "src": "/native/ios/stance-inline-alert.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 795
     },
     "stance-list-row.dark": {
       "src": "/native/ios/stance-list-row.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 412
     },
     "stance-list-row.high-contrast": {
       "src": "/native/ios/stance-list-row.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 412
     },
     "stance-list-row.light": {
       "src": "/native/ios/stance-list-row.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 412
     },
     "stance-list-style.dark": {
       "src": "/native/ios/stance-list-style.dark.webp",
-      "width": 689,
-      "height": 600
+      "width": 785,
+      "height": 696
     },
     "stance-list-style.high-contrast": {
       "src": "/native/ios/stance-list-style.high-contrast.webp",
-      "width": 689,
-      "height": 600
+      "width": 785,
+      "height": 696
     },
     "stance-list-style.light": {
       "src": "/native/ios/stance-list-style.light.webp",
-      "width": 689,
-      "height": 600
+      "width": 785,
+      "height": 696
     },
     "stance-loading-state.dark": {
       "src": "/native/ios/stance-loading-state.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 456
     },
     "stance-loading-state.high-contrast": {
       "src": "/native/ios/stance-loading-state.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 456
     },
     "stance-loading-state.light": {
       "src": "/native/ios/stance-loading-state.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 456
     },
     "stance-menu.dark": {
       "src": "/native/ios/stance-menu.dark.webp",
@@ -533,92 +533,92 @@
     "stance-page-indicator.dark": {
       "src": "/native/ios/stance-page-indicator.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 272
     },
     "stance-page-indicator.high-contrast": {
       "src": "/native/ios/stance-page-indicator.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 272
     },
     "stance-page-indicator.light": {
       "src": "/native/ios/stance-page-indicator.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 272
     },
     "stance-picker.dark": {
       "src": "/native/ios/stance-picker.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 437
     },
     "stance-picker.high-contrast": {
       "src": "/native/ios/stance-picker.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 437
     },
     "stance-picker.light": {
       "src": "/native/ios/stance-picker.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 437
     },
     "stance-progress-view.dark": {
       "src": "/native/ios/stance-progress-view.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 404
     },
     "stance-progress-view.high-contrast": {
       "src": "/native/ios/stance-progress-view.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 404
     },
     "stance-progress-view.light": {
       "src": "/native/ios/stance-progress-view.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 404
     },
     "stance-radio-group.dark": {
       "src": "/native/ios/stance-radio-group.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 482
     },
     "stance-radio-group.high-contrast": {
       "src": "/native/ios/stance-radio-group.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 482
     },
     "stance-radio-group.light": {
       "src": "/native/ios/stance-radio-group.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 482
     },
     "stance-scoped-theme.dark": {
       "src": "/native/ios/stance-scoped-theme.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 420
     },
     "stance-scoped-theme.high-contrast": {
       "src": "/native/ios/stance-scoped-theme.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 420
     },
     "stance-scoped-theme.light": {
       "src": "/native/ios/stance-scoped-theme.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 420
     },
     "stance-search-field.dark": {
       "src": "/native/ios/stance-search-field.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 296
     },
     "stance-search-field.high-contrast": {
       "src": "/native/ios/stance-search-field.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 296
     },
     "stance-search-field.light": {
       "src": "/native/ios/stance-search-field.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 296
     },
     "stance-searchable-list.dark": {
       "src": "/native/ios/stance-searchable-list.dark.webp",
@@ -638,47 +638,47 @@
     "stance-section.dark": {
       "src": "/native/ios/stance-section.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 445
     },
     "stance-section.high-contrast": {
       "src": "/native/ios/stance-section.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 445
     },
     "stance-section.light": {
       "src": "/native/ios/stance-section.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 445
     },
     "stance-secure-field.dark": {
       "src": "/native/ios/stance-secure-field.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 481
     },
     "stance-secure-field.high-contrast": {
       "src": "/native/ios/stance-secure-field.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 481
     },
     "stance-secure-field.light": {
       "src": "/native/ios/stance-secure-field.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 481
     },
     "stance-shadow.dark": {
       "src": "/native/ios/stance-shadow.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 304
     },
     "stance-shadow.high-contrast": {
       "src": "/native/ios/stance-shadow.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 304
     },
     "stance-shadow.light": {
       "src": "/native/ios/stance-shadow.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 304
     },
     "stance-sheet.dark": {
       "src": "/native/ios/stance-sheet.dark.webp",
@@ -698,227 +698,227 @@
     "stance-signature-canvas.dark": {
       "src": "/native/ios/stance-signature-canvas.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 824
     },
     "stance-signature-canvas.high-contrast": {
       "src": "/native/ios/stance-signature-canvas.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 824
     },
     "stance-signature-canvas.light": {
       "src": "/native/ios/stance-signature-canvas.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 824
     },
     "stance-skeleton.dark": {
       "src": "/native/ios/stance-skeleton.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 572
     },
     "stance-skeleton.high-contrast": {
       "src": "/native/ios/stance-skeleton.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 572
     },
     "stance-skeleton.light": {
       "src": "/native/ios/stance-skeleton.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 572
     },
     "stance-slider.dark": {
       "src": "/native/ios/stance-slider.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 452
     },
     "stance-slider.high-contrast": {
       "src": "/native/ios/stance-slider.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 452
     },
     "stance-slider.light": {
       "src": "/native/ios/stance-slider.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 452
     },
     "stance-stat-card.dark": {
       "src": "/native/ios/stance-stat-card.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 569
     },
     "stance-stat-card.high-contrast": {
       "src": "/native/ios/stance-stat-card.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 569
     },
     "stance-stat-card.light": {
       "src": "/native/ios/stance-stat-card.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 569
     },
     "stance-stepper.dark": {
       "src": "/native/ios/stance-stepper.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 512
     },
     "stance-stepper.high-contrast": {
       "src": "/native/ios/stance-stepper.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 512
     },
     "stance-stepper.light": {
       "src": "/native/ios/stance-stepper.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 512
     },
     "stance-surface.dark": {
       "src": "/native/ios/stance-surface.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 584
     },
     "stance-surface.high-contrast": {
       "src": "/native/ios/stance-surface.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 584
     },
     "stance-surface.light": {
       "src": "/native/ios/stance-surface.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 584
     },
     "stance-tag.dark": {
       "src": "/native/ios/stance-tag.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 312
     },
     "stance-tag.high-contrast": {
       "src": "/native/ios/stance-tag.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 312
     },
     "stance-tag.light": {
       "src": "/native/ios/stance-tag.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 312
     },
     "stance-text-editor.dark": {
       "src": "/native/ios/stance-text-editor.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 419
     },
     "stance-text-editor.high-contrast": {
       "src": "/native/ios/stance-text-editor.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 419
     },
     "stance-text-editor.light": {
       "src": "/native/ios/stance-text-editor.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 419
     },
     "stance-text-field.dark": {
       "src": "/native/ios/stance-text-field.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 813
     },
     "stance-text-field.high-contrast": {
       "src": "/native/ios/stance-text-field.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 813
     },
     "stance-text-field.light": {
       "src": "/native/ios/stance-text-field.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 813
     },
     "stance-text.dark": {
       "src": "/native/ios/stance-text.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 642
     },
     "stance-text.high-contrast": {
       "src": "/native/ios/stance-text.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 642
     },
     "stance-text.light": {
       "src": "/native/ios/stance-text.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 642
     },
     "stance-theme.dark": {
       "src": "/native/ios/stance-theme.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 600
     },
     "stance-theme.high-contrast": {
       "src": "/native/ios/stance-theme.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 600
     },
     "stance-theme.light": {
       "src": "/native/ios/stance-theme.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 600
     },
     "stance-timeline.dark": {
       "src": "/native/ios/stance-timeline.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 669
     },
     "stance-timeline.high-contrast": {
       "src": "/native/ios/stance-timeline.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 669
     },
     "stance-timeline.light": {
       "src": "/native/ios/stance-timeline.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 669
     },
     "stance-toast-center.dark": {
       "src": "/native/ios/stance-toast-center.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 476
     },
     "stance-toast-center.high-contrast": {
       "src": "/native/ios/stance-toast-center.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 476
     },
     "stance-toast-center.light": {
       "src": "/native/ios/stance-toast-center.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 476
     },
     "stance-toggle-style.dark": {
       "src": "/native/ios/stance-toggle-style.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 460
     },
     "stance-toggle-style.high-contrast": {
       "src": "/native/ios/stance-toggle-style.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 460
     },
     "stance-toggle-style.light": {
       "src": "/native/ios/stance-toggle-style.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 460
     },
     "stance-touch-target.dark": {
       "src": "/native/ios/stance-touch-target.dark.webp",
       "width": 785,
-      "height": 1164
+      "height": 248
     },
     "stance-touch-target.high-contrast": {
       "src": "/native/ios/stance-touch-target.high-contrast.webp",
       "width": 785,
-      "height": 1164
+      "height": 248
     },
     "stance-touch-target.light": {
       "src": "/native/ios/stance-touch-target.light.webp",
       "width": 785,
-      "height": 1164
+      "height": 248
     }
   },
   "android": {
