@@ -33,7 +33,8 @@
     "build:brand": "node scripts/build-brand.mjs",
     "tokens": "npm run tokens -w @bindshq/stance-tokens",
     "tokens:check": "npm run tokens:check -w @bindshq/stance-tokens",
-    "native:generate": "node scripts/generate-native.mjs"
+    "native:generate": "node scripts/generate-native.mjs",
+    "check:react18": "node scripts/check-react18.mjs"
   },
   "devDependencies": {
     "@changesets/cli": "^3.0.3",

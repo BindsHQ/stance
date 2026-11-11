@@ -6,7 +6,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "generate": "node scripts/generate-registry.mjs",
+    "generate": "node scripts/generate-registry.mjs && node scripts/generate-native-media.mjs",
     "dev": "npm run generate && next dev --port 3100",
     "build": "npm run generate && next build",
     "start": "next start --port 3100",
@@ -23,6 +23,7 @@
   "devDependencies": {
     "@types/node": "^24.0.0",
     "@types/react": "^19.2.0",
-    "@types/react-dom": "^19.2.0"
+    "@types/react-dom": "^19.2.0",
+    "sharp": "^0.35.5"
   }
 }

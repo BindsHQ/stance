@@ -21,3 +21,4 @@ apps/docs/.cache/
 .swiftpm/
 *.xcodeproj
 DerivedData/
+apps/docs/public/native/

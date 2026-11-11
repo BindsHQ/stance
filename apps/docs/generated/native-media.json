@@ -1,0 +1,26 @@
+{
+  "ios": {
+    "showcase-sample.dark": {
+      "src": "/native/ios/showcase-sample.dark.webp",
+      "width": 720,
+      "height": 1565
+    },
+    "showcase-sample.light": {
+      "src": "/native/ios/showcase-sample.light.webp",
+      "width": 720,
+      "height": 1565
+    }
+  },
+  "android": {
+    "showcase-sample.dark": {
+      "src": "/native/android/showcase-sample.dark.webp",
+      "width": 720,
+      "height": 1561
+    },
+    "showcase-sample.light": {
+      "src": "/native/android/showcase-sample.light.webp",
+      "width": 720,
+      "height": 1561
+    }
+  }
+}

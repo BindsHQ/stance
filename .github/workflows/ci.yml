@@ -45,12 +45,9 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm install --no-save react@18.3.1 react-dom@18.3.1 @types/react@18 @types/react-dom@18 -w @bindshq/stance-react
-      - run: npm run build -w @bindshq/stance-tokens
-      - run: npm run build -w @bindshq/stance-react
-      - run: npm test -w @bindshq/stance-react
-      - name: Built declarations type-check against @types/react 18
-        run: npm run check:consumer
+      - run: npm run build
+      - name: Packed packages render and type-check in a clean React 18 project
+        run: npm run check:react18
 
   browser-audit:
     name: Real-browser accessibility audit (axe, 3 themes)

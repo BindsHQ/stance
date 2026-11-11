@@ -1,6 +1,7 @@
 'use client';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@bindshq/stance-react';
-import { nativeEquivalents, platformLabels, type NativePlatform } from '../lib/native';
+import { nativeEquivalents, platformLabels, previewName, type NativePlatform } from '../lib/native';
+import { NativeImage, hasNativeImage } from './native-image';
 import { Code } from './code';
 
 /** Shows how a web component maps to its native iOS and Android counterparts. */
@@ -47,6 +48,16 @@ export function PlatformAvailability({
                   </a>
                   : {c.summary}
                 </p>
+                {previewName(c) && hasNativeImage(p, previewName(c)!) && (
+                  <figure className="native-preview" data-platform={p}>
+                    <NativeImage
+                      platform={p}
+                      name={previewName(c)!}
+                      alt={`${c.name} rendered on ${platformLabels[p].name}`}
+                    />
+                    <figcaption>Rendered by the {platformLabels[p].ui} library</figcaption>
+                  </figure>
+                )}
                 <Code code={c.example} language={platformLabels[p].language} />
               </div>
             ))}

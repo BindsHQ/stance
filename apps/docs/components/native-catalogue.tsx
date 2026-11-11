@@ -1,4 +1,5 @@
-import { native, platformLabels, type NativePlatform } from '../lib/native';
+import { native, platformLabels, previewName, type NativePlatform } from '../lib/native';
+import { NativeImage, hasNativeImage } from './native-image';
 import { categoryLabels, categoryOrder } from '../lib/site';
 import { Code } from './code';
 
@@ -49,6 +50,15 @@ export function NativeCatalogue({ platform }: { platform: NativePlatform }) {
                   </>
                 )}
               </p>
+              {previewName(c) && hasNativeImage(platform, previewName(c)!) && (
+                <figure className="native-preview" data-platform={platform}>
+                  <NativeImage
+                    platform={platform}
+                    name={previewName(c)!}
+                    alt={`${c.name} rendered on ${label.name}`}
+                  />
+                </figure>
+              )}
               <Code code={c.example} language={label.language} />
               {c.accessibility.length > 0 && (
                 <ul className="native-item__a11y">

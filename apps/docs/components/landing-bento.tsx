@@ -11,14 +11,12 @@ import {
   CardTitle,
   DataTable,
   Icon,
-  PinInput,
   Progress,
   SignaturePad,
   Slider,
   Sparkline,
   StatCard,
   Switch,
-  ThemeSwitcher,
   toast,
 } from '@bindshq/stance-react';
 import type { DataTableColumn } from '@bindshq/stance-react';
@@ -67,37 +65,11 @@ export function LandingBento() {
   const [rollout, setRollout] = React.useState(72);
   return (
     <div className="bento">
-      <div className="bento__tile">
+      <div className="bento__tile bento__tile--feature">
         <LandingShowcase compact />
       </div>
 
-      <StatCard
-        className="bento__tile"
-        label="Signatures deployed"
-        value="1,942"
-        delta="12%"
-        trend="up"
-        comparison="from last month"
-        chart={
-          <Sparkline
-            data={[12, 18, 15, 22, 27, 25, 34, 38]}
-            label="Deployments over eight weeks"
-            area
-          />
-        }
-      />
-      <StatCard
-        className="bento__tile"
-        label="Failed deliveries"
-        value="7"
-        delta="31%"
-        trend="down"
-        invert
-        comparison="from last month"
-        chart={<Sparkline data={[19, 16, 17, 12, 13, 9, 8, 7]} label="Failures over eight weeks" />}
-      />
-
-      <Card className="bento__tile bento__tile--center">
+      <Card className="bento__tile bento__tile--calendar">
         <CardContent>
           <Calendar
             aria-label="Rollout date"
@@ -107,7 +79,35 @@ export function LandingBento() {
         </CardContent>
       </Card>
 
-      <Card className="bento__tile">
+      <div className="bento__tile bento__tile--stats">
+        <StatCard
+          label="Signatures deployed"
+          value="1,942"
+          delta="12%"
+          trend="up"
+          comparison="from last month"
+          chart={
+            <Sparkline
+              data={[12, 18, 15, 22, 27, 25, 34, 38]}
+              label="Deployments over eight weeks"
+              area
+            />
+          }
+        />
+        <StatCard
+          label="Failed deliveries"
+          value="7"
+          delta="31%"
+          trend="down"
+          invert
+          comparison="from last month"
+          chart={
+            <Sparkline data={[19, 16, 17, 12, 13, 9, 8, 7]} label="Failures over eight weeks" />
+          }
+        />
+      </div>
+
+      <Card className="bento__tile bento__tile--table">
         <CardContent>
           <DataTable
             columns={columns}
@@ -119,68 +119,35 @@ export function LandingBento() {
         </CardContent>
       </Card>
 
-      <Card className="bento__tile">
+      <Card className="bento__tile bento__tile--sign">
         <CardHeader>
           <CardTitle>Sign here</CardTitle>
         </CardHeader>
         <CardContent>
-          <SignaturePad label="Signature" height={130} />
+          <SignaturePad label="Signature" height={150} />
         </CardContent>
       </Card>
 
-      <Card className="bento__tile">
-        <CardHeader>
-          <CardTitle>Verification code</CardTitle>
-        </CardHeader>
-        <CardContent className="bento__stack">
-          <PinInput length={6} defaultValue="204" aria-label="Verification code" />
-          <Button
-            variant="outline"
-            size="sm"
-            leadingIcon={<Icon name="bell" />}
-            onClick={() =>
-              toast.success('Code sent', { description: 'Check your inbox for a new code.' })
-            }
-          >
-            Resend code
-          </Button>
-        </CardContent>
-      </Card>
-
-      <Card className="bento__tile">
+      <Card className="bento__tile bento__tile--side">
         <CardHeader>
           <CardTitle>Rollout</CardTitle>
         </CardHeader>
         <CardContent className="bento__stack">
           <Progress value={rollout} label="Mailboxes updated" showValue />
           <Slider aria-label="Rollout percentage" value={rollout} onValueChange={setRollout} />
-          <Switch defaultChecked label="Notify admins when complete" />
-        </CardContent>
-      </Card>
-
-      <Card className="bento__tile">
-        <CardHeader>
-          <CardTitle>Appearance</CardTitle>
-        </CardHeader>
-        <CardContent className="bento__stack">
-          <ThemeSwitcher label="Site theme" />
-          <div className="bento__row">
-            <Badge tone="success">Live</Badge>
-            <Badge tone="warning">Pending</Badge>
-            <Badge tone="danger">Failed</Badge>
-            <Badge tone="neutral" variant="outline">
-              Draft
-            </Badge>
-          </div>
-          <div className="bento__row">
-            <Button size="sm">Deploy</Button>
-            <Button size="sm" variant="secondary">
-              Preview
-            </Button>
-            <Button size="sm" variant="ghost">
-              Cancel
-            </Button>
-          </div>
+          <Switch defaultChecked label="Notify admins" />
+          <Button
+            variant="outline"
+            size="sm"
+            leadingIcon={<Icon name="bell" />}
+            onClick={() =>
+              toast.success('Rollout started', {
+                description: 'Admins will be notified when it completes.',
+              })
+            }
+          >
+            Start rollout
+          </Button>
         </CardContent>
       </Card>
     </div>

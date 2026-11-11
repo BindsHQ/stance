@@ -7,38 +7,14 @@ import { JsonLd } from '../components/json-ld';
 import { LandingBento } from '../components/landing-bento';
 import { LandingFaq } from '../components/landing-faq';
 import { LandingShowcase } from '../components/landing-showcase';
+import { PlatformShowcase } from '../components/platform-showcase';
 import { StanceMark } from '../components/logo';
 import { ThemeTriptych } from '../components/preview';
-import { native } from '../lib/native';
 import { components } from '../lib/routes';
 import { faqLd, organizationLd, pageMetadata, softwareLd, websiteLd } from '../lib/seo';
 import { categoryLabels, categoryOrder, site } from '../lib/site';
 
 export const metadata: Metadata = pageMetadata('/');
-
-const platforms = [
-  {
-    name: 'Web',
-    tech: 'React',
-    href: '/docs/installation',
-    code: "import { Button } from '@bindshq/stance-react';",
-    count: components.length,
-  },
-  {
-    name: 'iOS and iPadOS',
-    tech: 'SwiftUI',
-    href: '/ios/components',
-    code: 'import StanceUI',
-    count: native.ios.length,
-  },
-  {
-    name: 'Android',
-    tech: 'Jetpack Compose',
-    href: '/android/components',
-    code: 'import com.bindshq.stance.*',
-    count: native.android.length,
-  },
-];
 
 export default function Home() {
   const categories = categoryOrder
@@ -152,20 +128,7 @@ export default function Home() {
           </h2>
           <p className="section-lede">Web, iOS and Android, each in its own language.</p>
         </header>
-        <ul className="platform-grid">
-          {platforms.map((p) => (
-            <li key={p.name}>
-              <Link href={p.href} className="platform-card">
-                <span className="platform-card__tech">{p.tech}</span>
-                <span className="platform-card__name">{p.name}</span>
-                <code className="platform-card__code">{p.code}</code>
-                <span className="platform-card__meta">
-                  {p.count > 0 ? `${p.count} components` : 'In development'}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <PlatformShowcase />
       </section>
 
       <section className="band" aria-labelledby="components-title">
