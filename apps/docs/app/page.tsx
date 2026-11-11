@@ -34,13 +34,12 @@ export default function Home() {
           <StanceMark size={44} />
         </span>
         <h1 id="hero-title" className="hero__title">
-          Less to decide.
+          Crafted with care.
           <br />
-          <span className="hero__muted">More to make.</span>
+          <span className="hero__muted">Built to last.</span>
         </h1>
         <p className="hero__lede">
-          The decisions behind every great interface, made once and made well. So every screen you
-          ship feels considered.
+          Colour, type and components that work together, so every screen you ship feels considered.
         </p>
         <div className="hero__actions">
           <Link

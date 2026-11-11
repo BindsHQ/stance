@@ -50,14 +50,14 @@ export async function GET(_req: Request, { params }: { params: Promise<{ file: s
               .join(' · ')
           : (route.trail[0]?.name ?? 'Documentation');
   const title = isHome
-    ? 'Less to decide.|More to make.'
+    ? 'Crafted with care.|Built to last.'
     : landing
       ? landing.title.join('|')
       : component
         ? component.name
         : route.title;
   const subtitle = isHome
-    ? 'The decisions behind every great interface, made once.'
+    ? 'Colour, type and components that work together.'
     : landing
       ? landing.lede
       : truncate(route.description, 96);
@@ -150,9 +150,8 @@ export async function GET(_req: Request, { params }: { params: Promise<{ file: s
           {clean(subtitle)}
         </div>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 24, color: muted }}>
+      <div style={{ display: 'flex', fontSize: 24, color: muted }}>
         <span>stanceui.com</span>
-        <span>The Binds Design System</span>
       </div>
     </div>,
     {
