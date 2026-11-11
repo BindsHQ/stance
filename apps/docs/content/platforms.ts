@@ -21,6 +21,8 @@ export interface PlatformLanding {
   features: PlatformFeature[];
   faq: { q: string; a: string }[];
   device: 'phone' | 'android';
+  /** Real component renders floated around the hero device. */
+  floats: [string, string, string, string];
   tablet: string;
   docs: { installation: string; theming: string; extra: { href: string; label: string } };
   requirements: string;
@@ -44,7 +46,7 @@ export const platformLandings: Record<NativePlatform, PlatformLanding> = {
     ],
     eyebrow: 'StanceUI for iOS and iPadOS',
     title: ['Feels native.', 'Because it is.'],
-    lede: 'SwiftUI components that use the controls your users already know, styled to feel like your product.',
+    lede: 'SwiftUI components built on the controls people already know.',
     install: {
       language: 'swift',
       title: 'Package.swift',
@@ -123,6 +125,7 @@ struct TemplateSettings: View {
       },
     ],
     device: 'phone',
+    floats: ['stance-toggle-style', 'stance-badge', 'stance-progress-view', 'stance-search-field'],
     tablet: 'showcase-sample-ipad',
     docs: {
       installation: '/ios/installation',
@@ -148,7 +151,7 @@ struct TemplateSettings: View {
     ],
     eyebrow: 'Stance for Android',
     title: ['At home on Android.', 'On every screen.'],
-    lede: 'Jetpack Compose components built on Material 3, from phones to tablets and foldables.',
+    lede: 'Jetpack Compose components for phones, tablets and foldables.',
     install: {
       language: 'kotlin',
       title: 'build.gradle.kts',
@@ -223,6 +226,12 @@ fun TemplateSettings() {
       },
     ],
     device: 'android',
+    floats: [
+      'stance-switch',
+      'stance-filter-chip',
+      'stance-progress-indicator',
+      'stance-button-group',
+    ],
     tablet: 'showcase-sample-tablet',
     docs: {
       installation: '/android/installation',

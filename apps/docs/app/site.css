@@ -1161,6 +1161,7 @@ pre {
   text-transform: uppercase;
 }
 .hero__title {
+  text-wrap: balance;
   margin: 0;
   font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: var(--st-font-weight-semibold);
@@ -1171,6 +1172,7 @@ pre {
   color: var(--st-color-fg-subtle);
 }
 .hero__lede {
+  text-wrap: balance;
   max-width: 34rem;
   margin: var(--st-space-6) 0 0;
   color: var(--st-color-fg-muted);
@@ -1746,6 +1748,103 @@ a.platform-device:hover .device {
 }
 .platform-link-gap {
   margin-left: var(--st-space-5);
+}
+
+/* Platform hero: the device is the hero, real components float around it. */
+.phero {
+  padding-bottom: 0;
+}
+.phero__stage {
+  --phone: clamp(15rem, 24vw, 19.5rem);
+  --float: clamp(13rem, 19vw, 17rem);
+  --tuck: 0.875rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+}
+.phero__device.device--phone {
+  z-index: 1;
+  width: var(--phone);
+  max-width: none;
+}
+.phero__float {
+  position: absolute;
+  z-index: 2;
+  width: var(--float);
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-2xl);
+  background: var(--st-color-bg-canvas);
+  box-shadow: var(--st-shadow-xl);
+  overflow: hidden;
+}
+.phero__float .native-image {
+  width: 100%;
+  height: auto;
+}
+/* Cards tuck against the phone's edges, staggered for depth. */
+.phero__float--1,
+.phero__float--3 {
+  left: calc(50% - var(--phone) / 2 - var(--float) + var(--tuck));
+}
+.phero__float--2,
+.phero__float--4 {
+  left: calc(50% + var(--phone) / 2 - var(--tuck));
+}
+.phero__float--1 {
+  top: 14%;
+}
+.phero__float--2 {
+  top: 6%;
+}
+.phero__float--3 {
+  bottom: 20%;
+}
+.phero__float--4 {
+  bottom: 30%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .phero__device {
+    animation: phero-rise 900ms var(--st-easing-emphasized) both;
+  }
+  .phero__float {
+    animation: phero-rise 900ms var(--st-easing-emphasized) both;
+  }
+  .phero__float--1 {
+    animation-delay: 160ms;
+  }
+  .phero__float--2 {
+    animation-delay: 240ms;
+  }
+  .phero__float--3 {
+    animation-delay: 320ms;
+  }
+  .phero__float--4 {
+    animation-delay: 400ms;
+  }
+}
+@keyframes phero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+@media (max-width: 1100px) {
+  .phero__float--3,
+  .phero__float--4 {
+    display: none;
+  }
+}
+@media (max-width: 760px) {
+  .phero__float {
+    display: none;
+  }
+}
+.band__head--center {
+  max-width: none;
+  text-align: center;
 }
 
 /* Real native component renders */

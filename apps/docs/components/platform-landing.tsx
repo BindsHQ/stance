@@ -48,7 +48,7 @@ export function PlatformLandingPage({ data }: { data: PlatformLanding }) {
         ]}
       />
 
-      <section className="hero platform-hero" aria-labelledby="platform-title">
+      <section className="hero phero" aria-labelledby="platform-title">
         <p className="hero__eyebrow">{data.eyebrow}</p>
         <h1 id="platform-title" className="hero__title">
           {data.title[0]}
@@ -76,53 +76,25 @@ export function PlatformLandingPage({ data }: { data: PlatformLanding }) {
             Browse components
           </Link>
         </div>
-        <div className="platform-hero__install">
-          <Code
-            code={data.install.code}
-            language={data.install.language}
-            title={data.install.title}
-          />
-          <p className="platform-hero__req">{data.requirements}</p>
-        </div>
-      </section>
-
-      <section className="platform-stage" aria-label={`${data.eyebrow} running on a device`}>
-        <span
-          className={`device device--phone device--${data.device === 'android' ? 'android' : 'ios'}`}
-        >
-          {data.device === 'android' && <span className="device__camera" aria-hidden="true" />}
-          <NativeImage
-            platform={data.platform}
-            name="showcase-sample"
-            alt={`The Stance showcase app on ${label.name}, light appearance`}
-            className="device__screen"
-            priority
-            theme="light"
-          />
-        </span>
-        {hasTablet && (
-          <span className="device device--tablet">
+        <div className="phero__stage">
+          {data.floats.map((name, i) => (
+            <span key={name} className={`phero__float phero__float--${i + 1}`}>
+              <NativeImage platform={data.platform} name={name} alt="" />
+            </span>
+          ))}
+          <span
+            className={`device device--phone device--${data.device === 'android' ? 'android' : 'ios'} phero__device`}
+          >
+            {data.device === 'android' && <span className="device__camera" aria-hidden="true" />}
             <NativeImage
               platform={data.platform}
-              name={data.tablet}
-              alt={`The Stance showcase app on a ${data.platform === 'ios' ? 'iPad' : 'tablet'}`}
+              name="showcase-sample"
+              alt={`The Stance showcase app running on ${label.name}`}
               className="device__screen"
-              theme="light"
+              priority
             />
           </span>
-        )}
-        <span
-          className={`device device--phone device--${data.device === 'android' ? 'android' : 'ios'} device--dark`}
-        >
-          {data.device === 'android' && <span className="device__camera" aria-hidden="true" />}
-          <NativeImage
-            platform={data.platform}
-            name="showcase-sample"
-            alt={`The Stance showcase app on ${label.name}, dark appearance`}
-            className="device__screen"
-            theme="dark"
-          />
-        </span>
+        </div>
       </section>
 
       <section className="band" aria-labelledby="features-title">
@@ -142,6 +114,58 @@ export function PlatformLandingPage({ data }: { data: PlatformLanding }) {
             </li>
           ))}
         </ul>
+      </section>
+
+      {hasTablet && (
+        <section className="band" aria-labelledby="devices-title">
+          <header className="band__head band__head--center">
+            <h2 id="devices-title" className="section-title">
+              {data.platform === 'ios'
+                ? 'iPhone. iPad. Light and dark.'
+                : 'Phone. Tablet. Light and dark.'}
+            </h2>
+          </header>
+          <div className="platform-stage">
+            <span className="device device--tablet">
+              <NativeImage
+                platform={data.platform}
+                name={data.tablet}
+                alt={`The Stance showcase app on a ${data.platform === 'ios' ? 'iPad' : 'tablet'}`}
+                className="device__screen"
+                theme="light"
+              />
+            </span>
+            <span
+              className={`device device--phone device--${data.device === 'android' ? 'android' : 'ios'}`}
+            >
+              {data.device === 'android' && <span className="device__camera" aria-hidden="true" />}
+              <NativeImage
+                platform={data.platform}
+                name="showcase-sample"
+                alt={`The Stance showcase app on ${label.name} in dark appearance`}
+                className="device__screen"
+                theme="dark"
+              />
+            </span>
+          </div>
+        </section>
+      )}
+
+      <section className="band band--split" aria-labelledby="start-title">
+        <header className="band__head">
+          <h2 id="start-title" className="section-title">
+            Up and running in a minute.
+          </h2>
+          <p className="section-lede">{data.requirements}</p>
+          <Link href={data.docs.installation} className="text-link">
+            Installation guide
+          </Link>
+        </header>
+        <Code
+          code={data.install.code}
+          language={data.install.language}
+          title={data.install.title}
+        />
       </section>
 
       <section className="band band--split" aria-labelledby="code-title">
