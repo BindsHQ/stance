@@ -59,6 +59,21 @@ describe('Button', () => {
     expect(link).toHaveAttribute('data-variant', 'outline');
   });
 
+  it('keeps leading and trailing icons with asChild', () => {
+    render(
+      <Button
+        asChild
+        leadingIcon={<svg data-testid="lead" />}
+        trailingIcon={<svg data-testid="trail" />}
+      >
+        <a href="/contact">Let’s talk</a>
+      </Button>,
+    );
+    const link = screen.getByRole('link', { name: 'Let’s talk' });
+    expect(link).toContainElement(screen.getByTestId('lead'));
+    expect(link).toContainElement(screen.getByTestId('trail'));
+  });
+
   it('forwards refs', () => {
     const ref = { current: null as HTMLButtonElement | null };
     render(<Button ref={ref}>Save</Button>);

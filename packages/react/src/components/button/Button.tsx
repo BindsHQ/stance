@@ -57,13 +57,37 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function 
     'data-loading': loading ? '' : undefined,
   };
   if (asChild) {
+    // Keep icons when rendering as another element (e.g. a router link): wrap the child's content.
+    let content = children;
+    if (
+      (leadingIcon || trailingIcon) &&
+      React.isValidElement<{ children?: React.ReactNode }>(children)
+    ) {
+      content = React.cloneElement(
+        children,
+        undefined,
+        <>
+          {leadingIcon && (
+            <span className="st-button__icon" aria-hidden="true">
+              {leadingIcon}
+            </span>
+          )}
+          <span className="st-button__label">{children.props.children}</span>
+          {trailingIcon && (
+            <span className="st-button__icon" aria-hidden="true">
+              {trailingIcon}
+            </span>
+          )}
+        </>,
+      );
+    }
     return (
       <Slot
         ref={ref as React.Ref<HTMLElement>}
         {...shared}
         {...(props as React.HTMLAttributes<HTMLElement>)}
       >
-        {children}
+        {content}
       </Slot>
     );
   }
