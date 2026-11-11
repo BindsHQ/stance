@@ -1677,6 +1677,56 @@ a.platform-device:hover .device {
   }
 }
 
+/* One change, everywhere */
+.token-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.2fr);
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+.token-flow__source,
+.token-flow__outputs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-3);
+  min-width: 0;
+}
+.token-flow .site-code {
+  margin: 0;
+}
+.token-flow__label {
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-xs);
+  font-weight: var(--st-font-weight-semibold);
+  letter-spacing: var(--st-letter-spacing-caps);
+  text-transform: uppercase;
+}
+.token-flow__swatch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--st-space-2);
+  font-family: var(--st-font-mono);
+  font-size: var(--st-font-size-sm);
+}
+.token-flow__swatch i {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: var(--st-radius-sm);
+  box-shadow: inset 0 0 0 1px var(--st-color-border-default);
+}
+.token-flow__arrow {
+  color: var(--st-color-fg-subtle);
+}
+@media (max-width: 900px) {
+  .token-flow {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .token-flow__arrow {
+    transform: rotate(90deg);
+    justify-self: center;
+  }
+}
+
 /* Platform landing pages */
 .platform-hero {
   padding-bottom: clamp(2rem, 4vw, 3rem);

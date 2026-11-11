@@ -10,6 +10,7 @@ import { LandingShowcase } from '../components/landing-showcase';
 import { PlatformShowcase } from '../components/platform-showcase';
 import { StanceMark } from '../components/logo';
 import { ThemeTriptych } from '../components/preview';
+import { TokenFlow } from '../components/token-flow';
 import { components } from '../lib/routes';
 import { faqLd, organizationLd, pageMetadata, softwareLd, websiteLd } from '../lib/seo';
 import { categoryLabels, categoryOrder, site } from '../lib/site';
@@ -38,8 +39,8 @@ export default function Home() {
           <span className="hero__muted">More to make.</span>
         </h1>
         <p className="hero__lede">
-          Everything your product needs to look right and work for everyone. On the web, iPhone and
-          Android.
+          The decisions behind every great interface, made once and made well. So every screen you
+          ship feels considered.
         </p>
         <div className="hero__actions">
           <Link
@@ -66,7 +67,7 @@ export default function Home() {
           <li>Free and open source</li>
           <li>WCAG 2.2 AA</li>
           <li>{components.length} components</li>
-          <li>Light, dark, high contrast</li>
+          <li>One source of truth</li>
         </ul>
       </section>
 
@@ -125,6 +126,18 @@ export default function Home() {
             ))}
           </div>
         </div>
+      </section>
+
+      <section className="band" aria-labelledby="flow-title">
+        <header className="band__head">
+          <h2 id="flow-title" className="section-title">
+            One change. Everywhere.
+          </h2>
+          <p className="section-lede">
+            Edit a token once. Every theme and every platform follows, checked in CI.
+          </p>
+        </header>
+        <TokenFlow />
       </section>
 
       <section className="band" aria-labelledby="platforms-title">

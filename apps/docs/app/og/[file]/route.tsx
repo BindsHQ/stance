@@ -57,7 +57,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ file: s
         ? component.name
         : route.title;
   const subtitle = isHome
-    ? 'Tokens, themes and components for web, iPhone and Android.'
+    ? 'The decisions behind every great interface, made once.'
     : landing
       ? landing.lede
       : truncate(route.description, 96);
@@ -152,7 +152,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ file: s
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 24, color: muted }}>
         <span>stanceui.com</span>
-        <span>Web · iOS · Android</span>
+        <span>The Binds Design System</span>
       </div>
     </div>,
     {
