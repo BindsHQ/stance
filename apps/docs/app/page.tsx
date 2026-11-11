@@ -1,4 +1,8 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
+import { faq } from '../content/faq';
+import { JsonLd } from '../components/json-ld';
+import { faqLd, organizationLd, pageMetadata, softwareLd, websiteLd } from '../lib/seo';
 import { brand, contrastRatio, ink } from '@bindshq/stance-tokens';
 import contrast from '@bindshq/stance-tokens/contrast-report.json';
 import meta from '../generated/meta.json';
@@ -12,6 +16,8 @@ const components = meta as { slug: string; name: string; category: string }[];
 const pairs = contrast as { pass: boolean }[];
 const passing = pairs.filter((p) => p.pass).length;
 
+export const metadata: Metadata = pageMetadata('/');
+
 export default function Home() {
   const byCategory = categoryOrder
     .map((c) => ({
@@ -22,6 +28,7 @@ export default function Home() {
     .filter((g) => g.items.length);
   return (
     <main id="main" className="landing" tabIndex={-1}>
+      <JsonLd graph={[organizationLd, websiteLd(), softwareLd(components.length), faqLd(faq)]} />
       <section className="hero" aria-labelledby="hero-title">
         <div className="hero__copy">
           <p className="hero__eyebrow">Stance — The Binds Design System</p>
@@ -234,6 +241,26 @@ export function SignatureSettings() {
             How we test →
           </Link>
         </p>
+      </section>
+
+      <section className="band band--split band--faq" aria-labelledby="faq-title">
+        <div className="band__intro">
+          <p className="section-eyebrow">06 — Questions</p>
+          <h2 id="faq-title" className="section-title">
+            Frequently asked.
+          </h2>
+          <p className="section-lede">
+            Short answers about what Stance is, how to adopt it and what it supports.
+          </p>
+        </div>
+        <dl className="faq">
+          {faq.map((f) => (
+            <div key={f.q} className="faq__item">
+              <dt>{f.q}</dt>
+              <dd>{f.a}</dd>
+            </div>
+          ))}
+        </dl>
       </section>
 
       <section className="band band--cta" aria-labelledby="release-title">

@@ -110,10 +110,10 @@ export function Decoupled() {
   return (
     <Stack gap={1}>
       <Text eyebrow>Contracts</Text>
-      <Heading level={1} size="2xl">
+      <Heading level={2} size="2xl">
         Master services agreement
       </Heading>
-      <Heading level={2} size="md" tone="muted" weight="medium">
+      <Heading level={3} size="md" tone="muted" weight="medium">
         Acme Ltd · Draft v3
       </Heading>
     </Stack>

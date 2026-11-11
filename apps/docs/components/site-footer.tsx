@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import { site } from '../lib/site';
-import { StanceWordmark } from './logo';
+import { StanceLogo } from './logo';
 
 export function SiteFooter() {
   return (
     <footer className="site-footer">
       <div className="site-footer__inner">
         <div className="site-footer__brand">
-          <StanceWordmark />
+          <StanceLogo height={24} title="Stance" />
           <p>
             Stance — {site.tagline}. Open source under the MIT License. © {new Date().getFullYear()}{' '}
             Binds.

@@ -1,5 +1,8 @@
 <p align="center">
-  <img src="apps/docs/public/icon.svg" width="56" height="56" alt="" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="brand/logo/svg/stance-logo-ivory.svg" />
+    <img src="brand/logo/svg/stance-logo-indigo.svg" alt="Stance" width="260" />
+  </picture>
 </p>
 
 <h1 align="center">Stance</h1>

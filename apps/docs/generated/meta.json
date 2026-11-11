@@ -31,7 +31,7 @@
     "slug": "aspect-ratio",
     "name": "AspectRatio",
     "category": "foundations",
-    "summary": "Holds media to a fixed width-to-height ratio.",
+    "summary": "Holds images, video and embeds to a fixed width-to-height ratio so layouts never shift.",
     "status": "stable"
   },
   {
@@ -486,7 +486,7 @@
     "slug": "pagination",
     "name": "Pagination",
     "category": "navigation",
-    "summary": "Moves between pages of a long list or table.",
+    "summary": "Accessible page navigation for long lists and tables, with previous, next and compact modes.",
     "status": "stable"
   },
   {
@@ -696,7 +696,7 @@
     "slug": "tag",
     "name": "Tag",
     "category": "data-display",
-    "summary": "A keyword label that can optionally be removed.",
+    "summary": "A compact keyword label for categories and filters, with an optional accessible remove button.",
     "status": "stable"
   },
   {

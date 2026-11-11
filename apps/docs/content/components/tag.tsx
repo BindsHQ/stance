@@ -6,7 +6,8 @@ export const doc: ComponentDoc = {
   slug: 'tag',
   name: 'Tag',
   category: 'data-display',
-  summary: 'A keyword label that can optionally be removed.',
+  summary:
+    'A compact keyword label for categories and filters, with an optional accessible remove button.',
   description:
     'Use Tag to show assigned groups, departments or labels, and let people remove them. Every remove button has its own label, such as "Remove Marketing", so screen-reader users know which tag it affects.',
   imports: ['Tag'],

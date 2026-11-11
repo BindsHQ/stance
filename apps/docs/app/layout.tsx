@@ -17,19 +17,43 @@ export const metadata: Metadata = {
   title: { default: `${site.name} — ${site.tagline}`, template: `%s · ${site.name}` },
   description: site.description,
   applicationName: site.name,
-  openGraph: {
-    title: `${site.name} — ${site.tagline}`,
-    description: site.description,
-    url: site.url,
-    siteName: site.name,
-    type: 'website',
+  authors: [{ name: 'Binds', url: site.binds }],
+  creator: 'Binds',
+  publisher: 'Binds',
+  category: 'technology',
+  keywords: [
+    'Stance',
+    'Binds',
+    'design system',
+    'React components',
+    'design tokens',
+    'accessible components',
+    'WCAG 2.2',
+    'dark mode',
+    'high contrast',
+    'Tailwind preset',
+  ],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: `${site.name} — ${site.tagline}`,
-    description: site.description,
+  formatDetection: { telephone: false, email: false, address: false },
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: '48x48' },
+    ],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
   },
-  icons: { icon: '/icon.svg' },
+  appleWebApp: { title: site.name, statusBarStyle: 'default' },
+  other: { 'msapplication-TileColor': '#140C2E' },
 };
 
 export const viewport: Viewport = {
@@ -37,12 +61,13 @@ export const viewport: Viewport = {
     { media: '(prefers-color-scheme: light)', color: '#FCF6EB' },
     { media: '(prefers-color-scheme: dark)', color: '#140C2E' },
   ],
+  colorScheme: 'light dark',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
-      lang="en"
+      lang="en-GB"
       className={dmSans.variable}
       suppressHydrationWarning
       data-scroll-behavior="smooth"

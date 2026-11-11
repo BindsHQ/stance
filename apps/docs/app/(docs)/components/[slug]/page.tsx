@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
-import meta from '../../../../generated/meta.json';
-import type { ComponentMeta } from '../../../../lib/registry-types';
 import { ComponentDocPage } from '../../../../components/component-doc-page';
-
-const components = meta as ComponentMeta[];
+import { JsonLd } from '../../../../components/json-ld';
+import { components } from '../../../../lib/routes';
+import { absolute, articleLd, breadcrumbLd, pageMetadata } from '../../../../lib/seo';
+import { categoryLabels } from '../../../../lib/site';
 
 export const dynamicParams = false;
 
@@ -20,15 +20,33 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const c = components.find((x) => x.slug === slug);
-  return c ? { title: c.name, description: c.summary } : {};
+  return c ? pageMetadata(`/components/${slug}`) : {};
 }
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  if (!components.some((c) => c.slug === slug)) notFound();
+  const c = components.find((x) => x.slug === slug);
+  if (!c) notFound();
+  const path = `/components/${slug}`;
   return (
-    <Suspense fallback={<div className="docs-article" aria-busy="true" />}>
-      <ComponentDocPage slug={slug} />
-    </Suspense>
+    <>
+      <JsonLd
+        graph={[
+          breadcrumbLd(path),
+          articleLd(path, {
+            articleSection: categoryLabels[c.category] ?? c.category,
+            keywords: [c.name, 'React', 'component', 'accessible', 'Stance', 'Binds'],
+            encoding: {
+              '@type': 'MediaObject',
+              encodingFormat: 'text/markdown',
+              contentUrl: absolute(`/llms${path}.md`),
+            },
+          }),
+        ]}
+      />
+      <Suspense fallback={<div className="docs-article" aria-busy="true" />}>
+        <ComponentDocPage slug={slug} />
+      </Suspense>
+    </>
   );
 }

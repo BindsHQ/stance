@@ -2,7 +2,9 @@
 //  - generated/registry.ts   lazy loaders keyed by slug (client-side code splitting)
 //  - generated/meta.json      name/category/summary per component (nav, search, metadata)
 //  - generated/examples.json  exact source of every exported example function
-import { readdirSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readdirSync, readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
+import { createRequire } from 'node:module';
+import { pathToFileURL } from 'node:url';
 import { join, basename } from 'node:path';
 
 const root = join(import.meta.dirname, '..');
@@ -177,6 +179,32 @@ writeFileSync(
 );
 writeFileSync(join(out, 'meta.json'), JSON.stringify(meta, null, 2));
 writeFileSync(join(out, 'examples.json'), JSON.stringify(examples, null, 2));
+// Serialisable doc data (no React) for server-only routes: llms.txt, Markdown, OG images.
+// Each content file is compiled with the TypeScript compiler and evaluated in Node.
+const ts = createRequire(import.meta.url)('typescript');
+const evalDir = join(root, '.cache', 'docs-eval');
+rmSync(evalDir, { recursive: true, force: true });
+mkdirSync(evalDir, { recursive: true });
+const docsData = {};
+for (const m of meta) {
+  const src = readFileSync(join(dir, `${m.slug}.tsx`), 'utf8');
+  const { outputText } = ts.transpileModule(src, {
+    compilerOptions: {
+      module: ts.ModuleKind.ESNext,
+      target: ts.ScriptTarget.ES2022,
+      jsx: ts.JsxEmit.ReactJSX,
+      verbatimModuleSyntax: false,
+    },
+  });
+  const file = join(evalDir, `${m.slug}.mjs`);
+  writeFileSync(file, outputText);
+  const mod = await import(pathToFileURL(file).href);
+  docsData[m.slug] = JSON.parse(
+    JSON.stringify(mod.doc, (k, v) => (typeof v === 'function' ? undefined : v)),
+  );
+}
+writeFileSync(join(out, 'docs-data.json'), JSON.stringify(docsData));
+
 if (problems.length) {
   console.error(problems.join('\n'));
   process.exit(1);

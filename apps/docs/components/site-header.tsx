@@ -21,7 +21,7 @@ export function SiteHeader() {
       <div className="site-header__inner">
         <MobileNav />
         <Link href="/" className="site-header__brand" aria-label="Stance home">
-          <StanceWordmark />
+          <StanceWordmark height={22} />
         </Link>
         <nav aria-label="Primary" className="site-header__nav">
           {links.map((l) => (

@@ -31,6 +31,7 @@ jobs:
       - run: npm run check:exports
       - run: npm run check:snippets
       - run: npm run build:docs
+      - run: npm run check:seo
       - name: Generated files are committed
         run: git diff --exit-code -- packages/react/src/components/index.ts
 

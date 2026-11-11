@@ -49,9 +49,10 @@ export const Table = React.forwardRef<HTMLTableElement, TableProps>(function Tab
   const wrapperRef = React.useRef<HTMLDivElement>(null);
   const overflowing = useIsOverflowing(wrapperRef);
   const [captionText, setCaptionText] = React.useState<string | undefined>(undefined);
+  // Re-read the caption whenever the table's content changes.
   React.useEffect(() => {
     setCaptionText(wrapperRef.current?.querySelector('caption')?.textContent?.trim() || undefined);
-  });
+  }, [props.children]);
   const label = scrollLabel ?? props['aria-label'] ?? captionText;
   return (
     <div

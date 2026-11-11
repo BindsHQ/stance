@@ -73,12 +73,11 @@ pre {
 .site-wordmark {
   display: inline-flex;
   align-items: center;
-  gap: var(--st-space-2-5);
+  color: var(--st-color-fg-default);
 }
-.site-wordmark__text {
-  font-size: var(--st-font-size-lg);
-  font-weight: var(--st-font-weight-bold);
-  letter-spacing: var(--st-letter-spacing-tighter);
+.site-logo {
+  display: block;
+  flex-shrink: 0;
 }
 .site-header__nav {
   display: flex;
@@ -1391,6 +1390,69 @@ pre {
   }
 }
 
+/* ---------------- Brand ---------------- */
+.brand-showcase {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: var(--st-space-3);
+  margin: var(--st-space-6) 0;
+}
+.brand-showcase__tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--st-space-4);
+  min-height: 12rem;
+  margin: 0;
+  padding: var(--st-space-6);
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-xl);
+}
+.brand-showcase__tile[data-tone='light'] {
+  background: var(--st-color-brand-ivory);
+  color: var(--st-color-brand-indigo);
+}
+.brand-showcase__tile[data-tone='dark'] {
+  background: var(--st-color-brand-indigo);
+  color: var(--st-color-brand-ivory);
+}
+.brand-showcase__tile img {
+  max-width: 100%;
+  height: auto;
+}
+.brand-showcase__tile figcaption {
+  font-size: var(--st-font-size-xs);
+  font-weight: var(--st-font-weight-medium);
+}
+.brand-downloads {
+  list-style: none;
+  padding: 0 !important;
+}
+
+/* ---------------- FAQ ---------------- */
+.faq {
+  margin: 0;
+  border-top: 2px solid var(--st-color-fg-default);
+}
+.faq__item {
+  padding: var(--st-space-5) 0;
+  border-bottom: var(--st-border-width) solid var(--st-color-border-default);
+}
+.faq__item dt {
+  font-size: var(--st-font-size-lg);
+  font-weight: var(--st-font-weight-semibold);
+  letter-spacing: var(--st-letter-spacing-tight);
+}
+.faq__item dd {
+  margin: var(--st-space-2) 0 0;
+  color: var(--st-color-fg-muted);
+  line-height: var(--st-line-height-relaxed);
+}
+.band--faq {
+  align-items: start;
+}
+
 /* ---------------- Footer ---------------- */
 .site-footer {
   border-top: var(--st-border-width) solid var(--st-color-border-default);
@@ -1407,6 +1469,9 @@ pre {
 }
 .site-footer__brand {
   max-width: 22rem;
+}
+.site-footer__brand > .site-logo {
+  color: var(--st-color-fg-default);
 }
 .site-footer__brand p {
   margin: var(--st-space-4) 0 0;

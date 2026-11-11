@@ -6,7 +6,8 @@ export const doc: ComponentDoc = {
   slug: 'pagination',
   name: 'Pagination',
   category: 'navigation',
-  summary: 'Moves between pages of a long list or table.',
+  summary:
+    'Accessible page navigation for long lists and tables, with previous, next and compact modes.',
   description:
     'Use Pagination below tables and lists that are split into pages. The visible page numbers keep a stable width as the page changes, so the control never jumps under the pointer. Use the compact variant in tight spaces, and getHref when each page has its own URL.',
   imports: ['Pagination'],

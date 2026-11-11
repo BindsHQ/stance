@@ -45,8 +45,9 @@ for (const theme of themes) {
   page.on('pageerror', (e) => errors.push(e.message));
   for (const route of routes) {
     errors = [];
-    await page.goto(base + route, { waitUntil: 'networkidle' });
+    await page.goto(base + route, { waitUntil: 'networkidle', timeout: 30000 });
     await page.addScriptTag({ content: axeSource });
+    if (process.env.AUDIT_VERBOSE) console.log(theme, route);
     const violations = await page.evaluate(async () => {
       const r = await window.axe.run(document, {
         runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'] },

@@ -14,7 +14,8 @@ export const doc: ComponentDoc = {
   slug: 'aspect-ratio',
   name: 'AspectRatio',
   category: 'foundations',
-  summary: 'Holds media to a fixed width-to-height ratio.',
+  summary:
+    'Holds images, video and embeds to a fixed width-to-height ratio so layouts never shift.',
   description:
     'AspectRatio reserves space for images, video and embeds before they load, so the layout does not shift. Its single child fills the box; images and video default to object-fit: cover.',
   imports: ['AspectRatio'],

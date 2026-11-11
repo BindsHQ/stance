@@ -9,3 +9,4 @@ apps/docs/out
 apps/docs/.snippets
 audit-report.json
 apps/docs/next-env.d.ts
+apps/docs/.cache

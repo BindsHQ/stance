@@ -62,6 +62,7 @@ export const guideNav: NavSection[] = [
       { title: 'Releases', href: '/resources/releases' },
       { title: 'Changelog', href: '/resources/changelog' },
       { title: 'Contributing', href: '/resources/contributing' },
+      { title: 'Brand', href: '/resources/brand' },
       { title: 'License', href: '/resources/license' },
     ],
   },
