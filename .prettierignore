@@ -4,3 +4,7 @@ node_modules
 coverage
 package-lock.json
 *.md
+apps/docs/generated
+apps/docs/out
+apps/docs/.snippets
+audit-report.json

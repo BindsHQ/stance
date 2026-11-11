@@ -7,7 +7,13 @@ function channel(c: number): number {
 
 export function hexToRgb(hex: string): [number, number, number] {
   const h = hex.replace('#', '');
-  const full = h.length === 3 ? h.split('').map((x) => x + x).join('') : h;
+  const full =
+    h.length === 3
+      ? h
+          .split('')
+          .map((x) => x + x)
+          .join('')
+      : h;
   const n = Number.parseInt(full.slice(0, 6), 16);
   if (Number.isNaN(n)) throw new Error(`Invalid hex colour: ${hex}`);
   return [(n >> 16) & 255, (n >> 8) & 255, n & 255];

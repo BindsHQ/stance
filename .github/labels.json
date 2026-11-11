@@ -1,0 +1,15 @@
+[
+  { "name": "bug", "color": "A3262E", "description": "Something is broken" },
+  {
+    "name": "accessibility",
+    "color": "140C2E",
+    "description": "Accessibility issue or improvement"
+  },
+  { "name": "proposal", "color": "423D58", "description": "New component, variant or token" },
+  { "name": "tokens", "color": "817D8C", "description": "@bindshq/stance-tokens" },
+  { "name": "react", "color": "555169", "description": "@bindshq/stance-react" },
+  { "name": "docs", "color": "BDB8BB", "description": "Documentation site" },
+  { "name": "triage", "color": "ECE6DF", "description": "Needs triage" },
+  { "name": "breaking", "color": "8A5300", "description": "Breaking change" },
+  { "name": "good first issue", "color": "2E6B3D", "description": "Good for newcomers" }
+]

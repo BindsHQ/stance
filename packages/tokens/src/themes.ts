@@ -28,7 +28,7 @@ export interface ThemeColors {
   'border-strong': string;
   'border-control': string;
   'border-control-hover': string;
-  'separator': string;
+  separator: string;
   /* Accent (the brand-on-brand interactive colour) */
   'accent-bg': string;
   'accent-bg-hover': string;

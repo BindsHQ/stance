@@ -86,7 +86,11 @@ out('css/tokens.css', css);
 out(
   'tokens.json',
   JSON.stringify(
-    { prefix: P, scales, themes: { light: t.light, dark: t.dark, 'high-contrast': t.highContrast } },
+    {
+      prefix: P,
+      scales,
+      themes: { light: t.light, dark: t.dark, 'high-contrast': t.highContrast },
+    },
     null,
     2,
   ),
@@ -94,30 +98,50 @@ out(
 
 // ---- Tailwind v3 preset (works with v3 JS configs; no Tailwind dependency) ----
 const colorNames = Object.keys(t.light.colors);
-const tw = (name) => `color-mix(in srgb, var(--${P}-color-${name}) calc(<alpha-value> * 100%), transparent)`;
+const tw = (name) =>
+  `color-mix(in srgb, var(--${P}-color-${name}) calc(<alpha-value> * 100%), transparent)`;
 const twColors = Object.fromEntries(colorNames.map((n) => [n, tw(n)]));
 twColors.ivory = tw('brand-ivory');
 twColors.indigo = tw('brand-indigo');
 twColors.ink = Object.fromEntries(Object.keys(t.ink).map((k) => [k, tw(`ink-${k}`)]));
-const fromScale = (cat, obj) => Object.fromEntries(Object.keys(obj).map((k) => [key(k), `var(--${P}-${cat}-${key(k)})`]));
+const fromScale = (cat, obj) =>
+  Object.fromEntries(Object.keys(obj).map((k) => [key(k), `var(--${P}-${cat}-${key(k)})`]));
 const preset = {
   darkMode: ['class'],
   theme: {
     extend: {
       colors: { stance: twColors },
       fontFamily: { stance: [`var(--${P}-font-sans)`], 'stance-mono': [`var(--${P}-font-mono)`] },
-      fontSize: Object.fromEntries(Object.keys(t.fontSize).map((k) => [`stance-${k}`, `var(--${P}-font-size-${k})`])),
-      borderRadius: Object.fromEntries(Object.keys(t.radius).map((k) => [`stance-${k}`, `var(--${P}-radius-${k})`])),
-      boxShadow: Object.fromEntries(['xs', 'sm', 'md', 'lg', 'xl'].map((k) => [`stance-${k}`, `var(--${P}-shadow-${k})`])),
-      zIndex: Object.fromEntries(Object.keys(t.zIndex).map((k) => [`stance-${k}`, `var(--${P}-z-${k})`])),
-      transitionDuration: Object.fromEntries(Object.keys(t.duration).map((k) => [`stance-${k}`, `var(--${P}-duration-${k})`])),
-      spacing: Object.fromEntries(Object.entries(fromScale('space', t.space)).map(([k, v]) => [`stance-${k}`, v])),
+      fontSize: Object.fromEntries(
+        Object.keys(t.fontSize).map((k) => [`stance-${k}`, `var(--${P}-font-size-${k})`]),
+      ),
+      borderRadius: Object.fromEntries(
+        Object.keys(t.radius).map((k) => [`stance-${k}`, `var(--${P}-radius-${k})`]),
+      ),
+      boxShadow: Object.fromEntries(
+        ['xs', 'sm', 'md', 'lg', 'xl'].map((k) => [`stance-${k}`, `var(--${P}-shadow-${k})`]),
+      ),
+      zIndex: Object.fromEntries(
+        Object.keys(t.zIndex).map((k) => [`stance-${k}`, `var(--${P}-z-${k})`]),
+      ),
+      transitionDuration: Object.fromEntries(
+        Object.keys(t.duration).map((k) => [`stance-${k}`, `var(--${P}-duration-${k})`]),
+      ),
+      spacing: Object.fromEntries(
+        Object.entries(fromScale('space', t.space)).map(([k, v]) => [`stance-${k}`, v]),
+      ),
     },
   },
 };
 const presetJson = JSON.stringify(preset, null, 2);
-out('tailwind.js', `// Tailwind CSS v3 preset for Stance. Usage: presets: [stancePreset]\nconst preset = ${presetJson};\nexport default preset;\n`);
-out('tailwind.d.ts', `declare const preset: { darkMode: string[]; theme: { extend: Record<string, unknown> } };\nexport default preset;\n`);
+out(
+  'tailwind.js',
+  `// Tailwind CSS v3 preset for Stance. Usage: presets: [stancePreset]\nconst preset = ${presetJson};\nexport default preset;\n`,
+);
+out(
+  'tailwind.d.ts',
+  `declare const preset: { darkMode: string[]; theme: { extend: Record<string, unknown> } };\nexport default preset;\n`,
+);
 
 // ---- Tailwind v4 theme --------------------------------------------------
 const v4 = [
@@ -131,5 +155,8 @@ const v4 = [
 out('css/tailwind-v4.css', `${header}@theme inline {\n${v4}\n}\n`);
 
 // ---- contrast report -----------------------------------------------------
-out('contrast-report.json', JSON.stringify((await import('./contrast-pairs.mjs')).report(t), null, 2));
+out(
+  'contrast-report.json',
+  JSON.stringify((await import('./contrast-pairs.mjs')).report(t), null, 2),
+);
 console.log('tokens emitted →', root);

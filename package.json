@@ -1,11 +1,16 @@
 {
   "name": "stance-monorepo",
   "private": true,
-  "description": "Stance — the official open-source design system by Binds.",
+  "description": "Stance \u2014 the official open-source design system by Binds.",
   "license": "MIT",
-  "workspaces": ["packages/*", "apps/*"],
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "packageManager": "npm@11.6.0",
-  "engines": { "node": ">=20.11" },
+  "engines": {
+    "node": ">=20.11"
+  },
   "scripts": {
     "build": "npm run build -w @bindshq/stance-tokens && npm run build -w @bindshq/stance-react",
     "build:docs": "npm run build -w @bindshq/stance-docs",
@@ -18,11 +23,16 @@
     "check:exports": "node scripts/check-exports.mjs",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "npm run build && changeset publish"
+    "release": "npm run build && changeset publish",
+    "check:snippets": "npm run check:snippets -w @bindshq/stance-docs",
+    "verify": "npm run format:check && npm run lint && npm run build && npm run typecheck && npm test && npm run check:exports && npm run check:snippets && npm run build:docs",
+    "audit:site": "node scripts/audit-site.mjs",
+    "serve:docs": "node scripts/serve-static.mjs"
   },
   "devDependencies": {
     "@changesets/cli": "^3.0.3",
     "@eslint/js": "^10.0.0",
+    "@playwright/test": "^1.65.0",
     "eslint": "^10.14.0",
     "eslint-plugin-react-hooks": "^7.0.0",
     "prettier": "^3.9.10",

@@ -1,0 +1,20 @@
+name: Component or pattern request
+description: Propose a new component, variant or token
+labels: ['proposal']
+body:
+  - type: textarea
+    id: need
+    attributes:
+      { label: What problem does this solve?, description: Which Binds products need it and where? }
+    validations: { required: true }
+  - type: textarea
+    id: existing
+    attributes: { label: Can existing components be composed to solve it? }
+  - type: textarea
+    id: a11y
+    attributes:
+      {
+        label: Accessibility considerations,
+        description: Relevant WAI-ARIA pattern,
+        keyboard model.,
+      }

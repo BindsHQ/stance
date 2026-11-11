@@ -5,28 +5,56 @@
   "license": "MIT",
   "author": "Binds",
   "homepage": "https://stanceui.com",
-  "repository": { "type": "git", "url": "git+https://github.com/BindsHQ/stance.git", "directory": "packages/tokens" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BindsHQ/stance.git",
+    "directory": "packages/tokens"
+  },
   "bugs": "https://github.com/BindsHQ/stance/issues",
-  "keywords": ["design-system", "design-tokens", "binds", "stance", "css-variables", "theming"],
+  "keywords": [
+    "design-system",
+    "design-tokens",
+    "binds",
+    "stance",
+    "css-variables",
+    "theming"
+  ],
   "type": "module",
-  "sideEffects": ["*.css"],
+  "sideEffects": [
+    "*.css"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
     "./css": "./dist/css/tokens.css",
     "./tokens.css": "./dist/css/tokens.css",
-    "./tailwind": { "types": "./dist/tailwind.d.ts", "default": "./dist/tailwind.js" },
+    "./tailwind": {
+      "types": "./dist/tailwind.d.ts",
+      "default": "./dist/tailwind.js"
+    },
     "./tailwind-v4.css": "./dist/css/tailwind-v4.css",
     "./tokens.json": "./dist/tokens.json",
+    "./contrast-report.json": "./dist/contrast-report.json",
     "./package.json": "./package.json"
   },
-  "files": ["dist", "README.md", "LICENSE"],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.build.json && node scripts/emit.mjs",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
-  "devDependencies": { "vitest": "^5.1.0" },
-  "publishConfig": { "access": "public" }
+  "devDependencies": {
+    "vitest": "^5.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

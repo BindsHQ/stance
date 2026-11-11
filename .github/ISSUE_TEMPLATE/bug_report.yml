@@ -1,0 +1,30 @@
+name: Bug report
+description: Something in Stance is broken or inaccessible
+labels: ['bug', 'triage']
+body:
+  - type: input
+    id: component
+    attributes: { label: Component or package, placeholder: 'e.g. Select, @bindshq/stance-tokens' }
+    validations: { required: true }
+  - type: input
+    id: version
+    attributes: { label: Stance version, placeholder: '0.1.1' }
+    validations: { required: true }
+  - type: dropdown
+    id: theme
+    attributes:
+      label: Theme
+      multiple: true
+      options: [Light, Dark, High contrast, All]
+  - type: textarea
+    id: what
+    attributes:
+      { label: What happened?, description: Include steps to reproduce and what you expected. }
+    validations: { required: true }
+  - type: textarea
+    id: env
+    attributes:
+      {
+        label: Environment,
+        description: 'Browser, OS, assistive technology, React version, framework.',
+      }

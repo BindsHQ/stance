@@ -11,3 +11,5 @@ coverage/
 .vercel
 *.tgz
 .turbo
+.snippets/
+audit-report.json
