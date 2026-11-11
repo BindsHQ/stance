@@ -1,0 +1,118 @@
+.st-dialog {
+  --_w: 32.5rem;
+  position: fixed;
+  z-index: var(--st-z-modal);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  width: min(var(--_w), calc(100vw - 2 * var(--st-space-4)));
+  max-height: calc(100dvh - 2 * var(--st-space-6));
+  overflow: hidden;
+  background: var(--st-color-bg-overlay);
+  color: var(--st-color-fg-default);
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-xl);
+  box-shadow: var(--st-shadow-xl);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-sm);
+  line-height: var(--st-line-height-normal);
+  animation: st-dialog-in var(--st-duration-slow) var(--st-easing-emphasized);
+}
+.st-dialog:focus { outline: none; }
+.st-dialog[data-size='sm'] { --_w: 25rem; }
+.st-dialog[data-size='lg'] { --_w: 45rem; }
+.st-dialog[data-size='xl'] { --_w: 60rem; }
+.st-dialog[data-size='full'] { --_w: calc(100vw - 2 * var(--st-space-6)); height: calc(100dvh - 2 * var(--st-space-6)); }
+
+.st-dialog__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-1-5);
+  padding: var(--st-space-6) var(--st-space-12) 0 var(--st-space-6);
+}
+.st-dialog__title {
+  margin: 0;
+  font-size: var(--st-font-size-lg);
+  font-weight: var(--st-font-weight-semibold);
+  line-height: var(--st-line-height-snug);
+  letter-spacing: var(--st-letter-spacing-tight);
+}
+.st-dialog__description {
+  margin: 0;
+  color: var(--st-color-fg-muted);
+}
+.st-dialog__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--st-space-5) var(--st-space-6);
+}
+.st-dialog__header + .st-dialog__footer { margin-top: var(--st-space-6); }
+.st-dialog__footer {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  justify-content: flex-end;
+  gap: var(--st-space-2);
+  padding: var(--st-space-4) var(--st-space-6);
+  border-top: var(--st-border-width) solid var(--st-color-separator);
+  background: var(--st-color-bg-subtle);
+}
+.st-dialog__close {
+  position: absolute;
+  top: var(--st-space-4);
+  right: var(--st-space-4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--st-radius-md);
+  background: transparent;
+  color: var(--st-color-fg-muted);
+  cursor: pointer;
+}
+.st-dialog__close:hover { background: var(--st-color-interactive-hover); color: var(--st-color-fg-default); }
+.st-dialog__close:focus-visible { outline: var(--st-focus-width) solid var(--st-color-focus-ring); outline-offset: 0; }
+
+/* Edge placements, used by Drawer and Sheet. */
+.st-dialog:not([data-placement='center']) {
+  --_w: 26rem;
+  transform: none;
+  max-height: none;
+  border-radius: 0;
+}
+.st-dialog[data-placement='right'] { top: 0; right: 0; bottom: 0; left: auto; height: 100dvh; border-width: 0 0 0 var(--st-border-width); animation: st-slide-in-right var(--st-duration-slow) var(--st-easing-emphasized); }
+.st-dialog[data-placement='left'] { top: 0; left: 0; bottom: 0; height: 100dvh; border-width: 0 var(--st-border-width) 0 0; animation: st-slide-in-left var(--st-duration-slow) var(--st-easing-emphasized); }
+.st-dialog[data-placement='top'] { top: 0; left: 0; right: 0; width: 100%; border-width: 0 0 var(--st-border-width); animation: st-slide-in-top var(--st-duration-slow) var(--st-easing-emphasized); }
+.st-dialog[data-placement='bottom'] {
+  top: auto; bottom: 0; left: 0; right: 0; width: 100%;
+  max-height: 90dvh;
+  border-width: var(--st-border-width) 0 0;
+  border-radius: var(--st-radius-2xl) var(--st-radius-2xl) 0 0;
+  animation: st-slide-in-bottom var(--st-duration-slow) var(--st-easing-emphasized);
+}
+.st-dialog[data-placement='left'][data-size='sm'],
+.st-dialog[data-placement='right'][data-size='sm'] { --_w: 20rem; }
+.st-dialog[data-placement='left'][data-size='lg'],
+.st-dialog[data-placement='right'][data-size='lg'] { --_w: 40rem; }
+
+@media (max-width: 640px) {
+  .st-dialog[data-placement='center'] {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    max-height: 92dvh;
+    border-radius: var(--st-radius-2xl) var(--st-radius-2xl) 0 0;
+    animation: st-slide-in-bottom var(--st-duration-slow) var(--st-easing-emphasized);
+  }
+}
+
+@media (forced-colors: active) {
+  .st-dialog { border: 2px solid CanvasText; }
+}

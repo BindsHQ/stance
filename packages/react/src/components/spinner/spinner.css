@@ -1,0 +1,18 @@
+.st-spinner {
+  display: inline-flex;
+  flex-shrink: 0;
+  width: var(--st-spinner-size, 1.25rem);
+  height: var(--st-spinner-size, 1.25rem);
+  color: currentColor;
+}
+.st-spinner[data-size='xs'] { --st-spinner-size: 0.75rem; }
+.st-spinner[data-size='sm'] { --st-spinner-size: 1rem; }
+.st-spinner[data-size='lg'] { --st-spinner-size: 2rem; }
+.st-spinner > svg {
+  width: 100%;
+  height: 100%;
+  animation: st-spin 0.8s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .st-spinner > svg { animation-duration: 1.6s !important; animation-iteration-count: infinite !important; }
+}

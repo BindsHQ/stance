@@ -1,0 +1,9 @@
+.st-popover {
+  width: max-content;
+  max-width: min(22rem, calc(100vw - 1rem));
+  max-height: var(--st-available-height, 80vh);
+  overflow: auto;
+  padding: var(--st-space-4);
+}
+.st-popover:focus { outline: none; }
+.st-popover:focus-visible { outline: var(--st-focus-width) solid var(--st-color-focus-ring); }

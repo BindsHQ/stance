@@ -1,0 +1,49 @@
+{
+  "name": "@bindshq/stance-react",
+  "version": "0.1.1",
+  "description": "Accessible, dependency-free React components for Stance, the Binds design system.",
+  "license": "MIT",
+  "author": "Binds",
+  "homepage": "https://stanceui.com",
+  "repository": { "type": "git", "url": "git+https://github.com/BindsHQ/stance.git", "directory": "packages/react" },
+  "bugs": "https://github.com/BindsHQ/stance/issues",
+  "keywords": ["design-system", "react", "components", "accessibility", "binds", "stance"],
+  "type": "module",
+  "sideEffects": ["*.css"],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+    "./styles.css": "./dist/styles.css",
+    "./global.css": "./dist/global.css",
+    "./components/*.css": "./dist/css/*.css",
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json && node scripts/build-css.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@bindshq/stance-tokens": "0.1.1",
+    "react": "^18.2.0 || ^19.0.0",
+    "react-dom": "^18.2.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@bindshq/stance-tokens": "0.1.1",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.0",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.9",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "axe-core": "^4.14.0",
+    "jsdom": "^31.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "vitest": "^5.1.0"
+  },
+  "publishConfig": { "access": "public" }
+}

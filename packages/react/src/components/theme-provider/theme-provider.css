@@ -1,0 +1,5 @@
+.st-theme {
+  background: var(--st-color-bg-canvas);
+  color: var(--st-color-fg-default);
+  color-scheme: inherit;
+}

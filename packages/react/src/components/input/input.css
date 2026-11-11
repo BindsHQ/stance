@@ -1,0 +1,67 @@
+/* Shared field box used by Input, Textarea, Select, Combobox, NumberInput, DatePicker… */
+.st-input {
+  --_h: var(--st-size-control-md);
+  --_px: var(--st-space-3);
+  --_fs: var(--st-font-size-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--st-space-2);
+  width: 100%;
+  min-height: var(--_h);
+  padding: 0 var(--_px);
+  border: var(--st-border-width-control) solid var(--st-color-border-control);
+  border-radius: var(--st-radius-md);
+  background: var(--st-color-bg-surface);
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-sans);
+  font-size: var(--_fs);
+  transition: border-color var(--st-duration-fast) var(--st-easing-standard), box-shadow var(--st-duration-fast) var(--st-easing-standard);
+}
+.st-input:hover { border-color: var(--st-color-border-control-hover); }
+.st-input:focus-within {
+  border-color: var(--st-color-focus-ring);
+  box-shadow: 0 0 0 1px var(--st-color-focus-ring);
+  outline: none;
+}
+.st-input[data-size='sm'] { --_h: var(--st-size-control-sm); --_px: var(--st-space-2-5); --_fs: var(--st-font-size-sm); }
+.st-input[data-size='lg'] { --_h: var(--st-size-control-lg); --_px: var(--st-space-4); --_fs: var(--st-font-size-md); }
+.st-input[data-invalid] { border-color: var(--st-color-danger-fg); }
+.st-input[data-invalid]:focus-within { box-shadow: 0 0 0 1px var(--st-color-danger-fg); }
+.st-input[data-disabled] {
+  background: var(--st-color-disabled-bg);
+  border-color: var(--st-color-disabled-border);
+  color: var(--st-color-disabled-fg);
+  cursor: not-allowed;
+}
+.st-input[data-readonly] { background: var(--st-color-bg-subtle); }
+
+.st-input__control {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: calc(var(--_h) - 2px);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: var(--st-line-height-normal);
+  outline: none;
+  appearance: none;
+}
+.st-input__control::placeholder { color: var(--st-color-fg-subtle); opacity: 1; }
+.st-input__control:disabled { cursor: not-allowed; }
+.st-input__control::-webkit-search-cancel-button { appearance: none; }
+
+.st-input__affix {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-sm);
+}
+
+@media (forced-colors: active) {
+  .st-input { border-color: FieldText; }
+  .st-input:focus-within { outline: 2px solid Highlight; }
+}

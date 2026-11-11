@@ -1,0 +1,110 @@
+.st-button {
+  --_bg: var(--st-color-accent-bg);
+  --_fg: var(--st-color-accent-fg);
+  --_border: transparent;
+  --_bg-hover: var(--st-color-accent-bg-hover);
+  --_bg-active: var(--st-color-accent-bg-active);
+  --_h: var(--st-size-control-md);
+  --_px: var(--st-space-4);
+  --_fs: var(--st-font-size-sm);
+  --_gap: var(--st-space-2);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--_gap);
+  min-height: var(--_h);
+  padding: 0 var(--_px);
+  border: var(--st-border-width-control) solid var(--_border);
+  border-radius: var(--st-radius-md);
+  background: var(--_bg);
+  color: var(--_fg);
+  font-family: var(--st-font-sans);
+  font-size: var(--_fs);
+  font-weight: var(--st-font-weight-semibold);
+  line-height: 1;
+  letter-spacing: var(--st-letter-spacing-tight);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color var(--st-duration-fast) var(--st-easing-standard),
+    border-color var(--st-duration-fast) var(--st-easing-standard),
+    color var(--st-duration-fast) var(--st-easing-standard),
+    transform var(--st-duration-fast) var(--st-easing-standard);
+}
+.st-button:hover { background: var(--_bg-hover); }
+.st-button:active:not(:disabled):not([data-loading]) { background: var(--_bg-active); transform: translateY(0.5px); }
+.st-button:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}
+
+/* Variants */
+.st-button[data-variant='secondary'] {
+  --_bg: var(--st-color-bg-muted);
+  --_fg: var(--st-color-fg-default);
+  --_bg-hover: var(--st-color-bg-emphasis);
+  --_bg-active: var(--st-color-bg-emphasis);
+}
+.st-button[data-variant='outline'] {
+  --_bg: transparent;
+  --_fg: var(--st-color-fg-default);
+  --_border: var(--st-color-border-control);
+  --_bg-hover: var(--st-color-interactive-hover);
+  --_bg-active: var(--st-color-interactive-active);
+}
+.st-button[data-variant='ghost'] {
+  --_bg: transparent;
+  --_fg: var(--st-color-fg-default);
+  --_bg-hover: var(--st-color-interactive-hover);
+  --_bg-active: var(--st-color-interactive-active);
+}
+.st-button[data-variant='danger'] {
+  --_bg: var(--st-color-danger-solid);
+  --_fg: var(--st-color-danger-on-solid);
+  --_bg-hover: var(--st-color-danger-solid-hover);
+  --_bg-active: var(--st-color-danger-solid-hover);
+}
+.st-button[data-variant='link'] {
+  --_bg: transparent;
+  --_fg: var(--st-color-fg-link);
+  --_bg-hover: transparent;
+  --_bg-active: transparent;
+  --_px: 0;
+  min-height: auto;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+.st-button[data-variant='link']:hover { text-decoration-thickness: 2px; }
+
+/* Sizes */
+.st-button[data-size='xs'] { --_h: var(--st-size-control-xs); --_px: var(--st-space-2); --_fs: var(--st-font-size-xs); --_gap: var(--st-space-1); border-radius: var(--st-radius-sm); }
+.st-button[data-size='sm'] { --_h: var(--st-size-control-sm); --_px: var(--st-space-3); --_fs: var(--st-font-size-sm); --_gap: var(--st-space-1-5); }
+.st-button[data-size='lg'] { --_h: var(--st-size-control-lg); --_px: var(--st-space-6); --_fs: var(--st-font-size-md); }
+
+.st-button[data-shape='pill'] { border-radius: var(--st-radius-full); }
+.st-button[data-full-width] { width: 100%; }
+
+.st-button__icon { display: inline-flex; flex-shrink: 0; }
+.st-button__label { display: inline-flex; align-items: center; }
+
+/* States */
+.st-button:disabled {
+  --_bg: var(--st-color-disabled-bg);
+  --_fg: var(--st-color-disabled-fg);
+  --_border: var(--st-color-disabled-border);
+  --_bg-hover: var(--st-color-disabled-bg);
+  cursor: not-allowed;
+}
+.st-button[data-variant='ghost']:disabled,
+.st-button[data-variant='link']:disabled { --_bg: transparent; --_bg-hover: transparent; --_border: transparent; }
+.st-button[data-loading] { cursor: progress; }
+
+@media (forced-colors: active) {
+  .st-button { border-color: ButtonText; }
+  .st-button:disabled { color: GrayText; border-color: GrayText; }
+}

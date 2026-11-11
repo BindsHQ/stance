@@ -1,0 +1,32 @@
+{
+  "name": "stance-monorepo",
+  "private": true,
+  "description": "Stance — the official open-source design system by Binds.",
+  "license": "MIT",
+  "workspaces": ["packages/*", "apps/*"],
+  "packageManager": "npm@11.6.0",
+  "engines": { "node": ">=20.11" },
+  "scripts": {
+    "build": "npm run build -w @bindshq/stance-tokens && npm run build -w @bindshq/stance-react",
+    "build:docs": "npm run build -w @bindshq/stance-docs",
+    "dev:docs": "npm run dev -w @bindshq/stance-docs",
+    "test": "npm run test -w @bindshq/stance-tokens && npm run test -w @bindshq/stance-react",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check:exports": "node scripts/check-exports.mjs",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "npm run build && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^3.0.3",
+    "@eslint/js": "^10.0.0",
+    "eslint": "^10.14.0",
+    "eslint-plugin-react-hooks": "^7.0.0",
+    "prettier": "^3.9.10",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.72.2"
+  }
+}
