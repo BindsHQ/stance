@@ -5,6 +5,7 @@ import { CommandGroup, CommandItem, CommandPalette, Icon } from '@bindshq/stance
 import meta from '../generated/meta.json';
 import type { ComponentMeta } from '../lib/registry-types';
 import { categoryLabels, categoryOrder, guideNav } from '../lib/site';
+import { native, nativePath, nativePlatforms, platformLabels } from '../lib/native';
 
 const components = meta as ComponentMeta[];
 
@@ -70,6 +71,28 @@ export function SiteSearch() {
           </CommandGroup>
         );
       })}
+      {nativePlatforms.map((p) => (
+        <CommandGroup key={p} heading={`${platformLabels[p].name} components`}>
+          {native[p].map((c) => (
+            <CommandItem
+              key={c.name}
+              value={`${platformLabels[p].name} ${c.name}`}
+              keywords={[
+                p,
+                platformLabels[p].ui,
+                ...c.summary
+                  .toLowerCase()
+                  .split(/\W+/)
+                  .filter((w) => w.length > 3),
+              ]}
+              onSelect={() => go(nativePath(p, c))}
+            >
+              <Icon name="layout-grid" />
+              {c.name}
+            </CommandItem>
+          ))}
+        </CommandGroup>
+      ))}
     </CommandPalette>
   );
 }

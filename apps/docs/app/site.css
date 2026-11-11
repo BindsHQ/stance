@@ -1847,6 +1847,157 @@ a.platform-device:hover .device {
   text-align: center;
 }
 
+/* Native component index and pages */
+.category-chips--compact {
+  margin-bottom: var(--st-space-4);
+}
+.category-chips--compact a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--st-space-2);
+  margin: 0 var(--st-space-1) var(--st-space-2) 0;
+  padding: var(--st-space-1-5) var(--st-space-3);
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-full);
+  font-size: var(--st-font-size-sm);
+  font-weight: var(--st-font-weight-medium);
+  text-decoration: none;
+}
+.category-chips--compact a:hover {
+  background: var(--st-color-interactive-hover);
+}
+.category-chips--compact span {
+  color: var(--st-color-fg-subtle);
+}
+.native-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: var(--st-space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.native-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-xl);
+  background: var(--st-color-bg-surface);
+  overflow: hidden;
+  text-decoration: none;
+  transition:
+    border-color var(--st-duration-fast) var(--st-easing-standard),
+    transform var(--st-duration-fast) var(--st-easing-standard);
+}
+.native-card:hover {
+  border-color: var(--st-color-border-strong);
+  transform: translateY(-2px);
+}
+.native-card:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: 2px;
+}
+.native-card__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10rem;
+  border-bottom: var(--st-border-width) solid var(--st-color-border-subtle);
+  background: var(--st-color-bg-canvas);
+  overflow: hidden;
+}
+.native-card__media .native-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+.native-card__kind {
+  color: var(--st-color-fg-subtle);
+  font-family: var(--st-font-mono);
+  font-size: var(--st-font-size-xs);
+  text-transform: lowercase;
+}
+.native-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-1);
+  padding: var(--st-space-4);
+}
+.native-card__name {
+  font-family: var(--st-font-mono);
+  font-size: var(--st-font-size-sm);
+  font-weight: var(--st-font-weight-semibold);
+}
+.native-card__summary {
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-sm);
+  line-height: var(--st-line-height-normal);
+}
+.native-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--st-space-2) var(--st-space-8);
+  margin: var(--st-space-5) 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--st-font-size-sm);
+}
+.native-facts span {
+  display: block;
+  color: var(--st-color-fg-subtle);
+  font-size: var(--st-font-size-xs);
+  font-weight: var(--st-font-weight-semibold);
+  letter-spacing: var(--st-letter-spacing-caps);
+  text-transform: uppercase;
+}
+.native-hero {
+  display: flex;
+  justify-content: center;
+  margin: var(--st-space-4) 0;
+  padding: var(--st-space-8);
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-xl);
+  background: var(--st-color-bg-subtle);
+}
+.native-hero .native-image {
+  width: min(100%, 26rem);
+  height: auto;
+  border-radius: var(--st-radius-lg);
+  box-shadow: var(--st-shadow-md);
+}
+.native-themes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--st-space-3);
+}
+.native-themes__item {
+  margin: 0;
+}
+.native-themes__item .native-image {
+  width: 100%;
+  height: auto;
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-lg);
+}
+.native-themes__item figcaption {
+  margin-top: var(--st-space-2);
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-xs);
+  font-weight: var(--st-font-weight-medium);
+}
+@media (max-width: 640px) {
+  .native-themes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.related-list--plain a {
+  text-transform: none;
+  font-family: var(--st-font-mono);
+  font-size: var(--st-font-size-xs);
+}
+
 /* Real native component renders */
 .native-preview {
   width: fit-content;

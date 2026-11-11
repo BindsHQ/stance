@@ -4,6 +4,15 @@ import type { NativePlatform } from '../lib/native';
 type Media = Record<NativePlatform, Record<string, { src: string; width: number; height: number }>>;
 const all = media as Media;
 
+/** Whether a capture exists for one appearance. */
+export function hasNativeTheme(
+  platform: NativePlatform,
+  name: string,
+  theme: 'light' | 'dark' | 'high-contrast',
+) {
+  return Boolean(all[platform][`${name}.${theme}`]);
+}
+
 export function hasNativeImage(platform: NativePlatform, name: string) {
   return Boolean(all[platform][`${name}.light`]);
 }

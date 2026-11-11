@@ -2,6 +2,7 @@ import meta from '../generated/meta.json';
 import { pages } from '../content/pages';
 import type { ComponentMeta } from './registry-types';
 import { platformLandings } from '../content/platforms';
+import { native, nativePath, nativePlatforms, platformLabels } from './native';
 import { categoryLabels } from './site';
 
 export interface SiteRoute {
@@ -70,6 +71,34 @@ export const routes: SiteRoute[] = [
     trail: [{ name: p.platform === 'ios' ? 'iOS and iPadOS' : 'Android', path: p.path }],
     priority: 0.9,
   })),
+  ...nativePlatforms.map((p) => ({
+    path: `/${p}/components`,
+    title: p === 'ios' ? 'iOS components for SwiftUI' : 'Android components for Jetpack Compose',
+    description:
+      p === 'ios'
+        ? `All ${native.ios.length} StanceUI components for iPhone and iPad, each shown as it really renders in light, dark and high contrast.`
+        : `All ${native.android.length} Stance components for Jetpack Compose, each shown as it really renders in light, dark and high contrast.`,
+    section: p,
+    trail: [
+      { name: platformLabels[p].name, path: `/${p}` },
+      { name: 'Components', path: `/${p}/components` },
+    ],
+    priority: 0.8,
+  })),
+  ...nativePlatforms.flatMap((p) =>
+    native[p].map((c) => ({
+      path: nativePath(p, c),
+      title: `${c.name} for ${platformLabels[p].ui}`,
+      description: c.summary,
+      section: p,
+      trail: [
+        { name: platformLabels[p].name, path: `/${p}` },
+        { name: 'Components', path: `/${p}/components` },
+        { name: c.name, path: nativePath(p, c) },
+      ],
+      priority: 0.6,
+    })),
+  ),
   ...pages.map((p) => ({
     path: `/${p.section}/${p.slug}`,
     title: p.title,

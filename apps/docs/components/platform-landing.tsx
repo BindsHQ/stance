@@ -210,7 +210,7 @@ export function PlatformLandingPage({ data }: { data: PlatformLanding }) {
         <ul className="category-chips">
           {groups.map((g) => (
             <li key={g.id}>
-              <Link href={`/${data.platform}/components#native-${g.id}`}>
+              <Link href={`/${data.platform}/components#cat-${g.id}`}>
                 {g.label} <span>{g.count}</span>
               </Link>
             </li>

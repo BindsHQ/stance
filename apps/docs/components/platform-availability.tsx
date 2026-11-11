@@ -1,6 +1,12 @@
 'use client';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@bindshq/stance-react';
-import { nativeEquivalents, platformLabels, previewName, type NativePlatform } from '../lib/native';
+import {
+  nativeEquivalents,
+  nativePath,
+  platformLabels,
+  previewName,
+  type NativePlatform,
+} from '../lib/native';
 import { NativeImage, hasNativeImage } from './native-image';
 import { Code } from './code';
 
@@ -43,7 +49,7 @@ export function PlatformAvailability({
             {eq[p].map((c) => (
               <div key={c.name} className="native-item">
                 <p>
-                  <a href={`/${p}/components#${c.name.toLowerCase()}`}>
+                  <a href={nativePath(p, c)}>
                     <code>{c.name}</code>
                   </a>
                   : {c.summary}

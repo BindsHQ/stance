@@ -2,6 +2,7 @@ import { faq } from '../../content/faq';
 import { pages } from '../../content/pages';
 import { components } from '../../lib/routes';
 import { categoryLabels, categoryOrder, site } from '../../lib/site';
+import { native, nativePlatforms, nativeSlug, platformLabels } from '../../lib/native';
 
 export const dynamic = 'force-static';
 
@@ -34,6 +35,13 @@ export function GET() {
         ),
     ),
     '',
+    ...nativePlatforms.flatMap((p) => [
+      `## ${platformLabels[p].name} components (${platformLabels[p].ui})`,
+      ...native[p].map(
+        (c) => `- [${c.name}](${site.url}/llms/${p}/${nativeSlug(c)}.md): ${c.summary}`,
+      ),
+      '',
+    ]),
     '## Guidelines',
     ...section('guidelines'),
     '',
