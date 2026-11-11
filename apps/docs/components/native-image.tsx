@@ -19,14 +19,17 @@ export function NativeImage({
   alt,
   className,
   priority,
+  theme,
 }: {
   platform: NativePlatform;
   name: string;
   alt: string;
   className?: string;
   priority?: boolean;
+  /** Pin one appearance instead of following the site theme. */
+  theme?: 'light' | 'dark' | 'high-contrast';
 }) {
-  const themes = (['light', 'dark', 'high-contrast'] as const).filter(
+  const themes = (theme ? [theme] : (['light', 'dark', 'high-contrast'] as const)).filter(
     (t) => all[platform][`${name}.${t}`],
   );
   if (themes.length === 0) return null;

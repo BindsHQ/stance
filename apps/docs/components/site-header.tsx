@@ -10,8 +10,9 @@ import { MobileNav } from './mobile-nav';
 const links = [
   { href: '/docs/introduction', label: 'Docs', match: '/docs' },
   { href: '/components', label: 'Components', match: '/components' },
+  { href: '/ios', label: 'iOS', match: '/ios' },
+  { href: '/android', label: 'Android', match: '/android' },
   { href: '/foundations/colors', label: 'Foundations', match: '/foundations' },
-  { href: '/guidelines/principles', label: 'Guidelines', match: '/guidelines' },
 ];
 
 export function SiteHeader() {

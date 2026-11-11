@@ -1,6 +1,7 @@
 import meta from '../generated/meta.json';
 import { pages } from '../content/pages';
 import type { ComponentMeta } from './registry-types';
+import { platformLandings } from '../content/platforms';
 import { categoryLabels } from './site';
 
 export interface SiteRoute {
@@ -36,8 +37,8 @@ const sectionTitle: Record<string, string> = {
 const sectionLanding: Record<string, string> = {
   docs: '/docs/introduction',
   foundations: '/foundations/colors',
-  ios: '/ios/installation',
-  android: '/android/installation',
+  ios: '/ios',
+  android: '/android',
   patterns: '/patterns/forms',
   guidelines: '/guidelines/principles',
   resources: '/resources/releases',
@@ -61,6 +62,14 @@ export const routes: SiteRoute[] = [
     trail: [{ name: 'Components', path: '/components' }],
     priority: 0.9,
   },
+  ...Object.values(platformLandings).map((p) => ({
+    path: p.path,
+    title: p.seoTitle,
+    description: p.seoDescription,
+    section: p.platform,
+    trail: [{ name: p.platform === 'ios' ? 'iOS and iPadOS' : 'Android', path: p.path }],
+    priority: 0.9,
+  })),
   ...pages.map((p) => ({
     path: `/${p.section}/${p.slug}`,
     title: p.title,

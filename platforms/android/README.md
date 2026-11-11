@@ -145,6 +145,23 @@ scripts/test-summary.sh stance-tokens/build/test-results stance-compose/build/te
 
 Tests run on the JVM with Robolectric, so no emulator is needed. The showcase app in `examples/android/StanceShowcase` adds screenshot tests with Roborazzi.
 
+### Component previews
+
+`previews/` holds a rendered image of every visual component in the light, dark and high-contrast themes. The documentation site shows them. They are drawn by the real composables on the JVM with Robolectric and Roborazzi, so they are never mock-ups.
+
+Regenerate them after changing a component or a token. Requires oxipng (`brew install oxipng`) and Node.
+
+```bash
+cd examples/android/StanceShowcase
+./gradlew :app:generateStancePreviews
+```
+
+This renders the images, optimises them losslessly and refreshes `components.json`, which records each preview and its size in dp. To redo one component while iterating, add `-Pstance.previews.only=StanceButton`.
+
+The compositions live in `examples/android/StanceShowcase/app/src/test/.../ComponentPreviews.kt`. Inline components are 408dp wide (360dp of content with 24dp padding) and as tall as their content. Dialogs, menus, sheets and pickers are captured open. Full-screen components use a 411 by 891dp phone.
+
+Entries with `"preview": null` draw nothing on their own: the photo and document picker launchers and `setStanceContent`.
+
 ### Generated files
 
 Do not edit these by hand. Run the script after the source changes.
@@ -154,7 +171,8 @@ Do not edit these by hand. Run the script after the source changes.
 | `stance-tokens/.../StanceTokens.kt` | `packages/tokens/source` | `npm run tokens` |
 | `stance-compose/.../icons/StanceIcons.kt` | `packages/react/src/icons/paths.ts` | `node platforms/android/scripts/generate-icons.mjs` |
 | `stance-compose/src/main/res/values*/stance_colors.xml` | resolved tokens | `node platforms/android/scripts/generate-resources.mjs` |
-| `components.json` | showcase `Examples.kt` | `node platforms/android/scripts/generate-components-json.mjs` |
+| `components.json` | showcase `Examples.kt` and `previews/` | `node platforms/android/scripts/generate-components-json.mjs` |
+| `previews/*.png` | the composables | `./gradlew :app:generateStancePreviews` in the showcase |
 
 `StanceColors` mirrors the generated colour roles one to one. A unit test fails when a role is added to the token source without being exposed there.
 

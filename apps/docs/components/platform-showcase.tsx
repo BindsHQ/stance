@@ -10,7 +10,7 @@ export function PlatformShowcase() {
     <ul className="platform-showcase">
       <li>
         <Link
-          href="/ios/installation"
+          href="/ios"
           className="platform-device"
           aria-label="iOS and iPadOS: get started with StanceUI"
         >
@@ -52,7 +52,7 @@ export function PlatformShowcase() {
       </li>
       <li>
         <Link
-          href="/android/installation"
+          href="/android"
           className="platform-device"
           aria-label="Android: get started with Stance for Compose"
         >

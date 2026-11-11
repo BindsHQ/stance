@@ -1,7 +1,7 @@
 // Builds platforms/android/components.json for the documentation site.
 // Each example is copied from the compiled showcase source (Examples.kt), so it always compiles.
 // Run from the repository root: node platforms/android/scripts/generate-components-json.mjs
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, openSync, readSync, closeSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const root = join(import.meta.dirname, '..', '..', '..');
@@ -91,16 +91,48 @@ const rows = [
   ['setStanceContent', 'advanced', 'helper', 'ComposeView', null, 'Hosts Stance content inside an existing View hierarchy.', ['Composed content keeps its semantics inside Views.'], 'StanceComposeView'],
 ];
 
+// Previews are rendered from the real composables by the showcase build:
+//   cd examples/android/StanceShowcase && ./gradlew :app:generateStancePreviews
+const previewsDir = join(root, 'platforms', 'android', 'previews');
+const themes = ['light', 'dark', 'high-contrast'];
+const SCALE = 2; // previews are rendered at xhdpi
+const slug = (name) => name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+/** Entries that draw nothing on their own. */
+const nonVisual = new Set(['rememberStancePhotoPicker', 'rememberStanceDocumentPicker', 'setStanceContent']);
+
+function pngSize(file) {
+  const fd = openSync(file, 'r');
+  const header = Buffer.alloc(24);
+  readSync(fd, header, 0, 24, 0);
+  closeSync(fd);
+  return { width: header.readUInt32BE(16), height: header.readUInt32BE(20) };
+}
+
+const missingPreviews = [];
+function previewFor(name) {
+  if (nonVisual.has(name)) return null;
+  const files = Object.fromEntries(themes.map((t) => [t, `previews/${slug(name)}.${t}.png`]));
+  const absent = themes.filter((t) => !existsSync(join(root, 'platforms', 'android', files[t])));
+  if (absent.length) {
+    missingPreviews.push(`${name} (${absent.join(', ')})`);
+    return null;
+  }
+  const { width, height } = pngSize(join(previewsDir, `${slug(name)}.light.png`));
+  return { ...files, width: Math.round(width / SCALE), height: Math.round(height / SCALE) };
+}
+
 const missing = [];
 const components = rows.map(([name, category, kind, wrapsNative, webEquivalent, summary, accessibility, key]) => {
   const example = examples[key ?? name];
   if (!example) missing.push(name);
   if (summary.length < 50 || summary.length > 160) throw new Error(`${name}: summary is ${summary.length} characters`);
-  return { name, category, summary, kind, wrapsNative, status: 'beta', example, accessibility, webEquivalent };
+  return { name, category, summary, kind, wrapsNative, status: 'beta', example, accessibility, webEquivalent, preview: previewFor(name) };
 });
 if (missing.length) throw new Error(`No compiled example for: ${missing.join(', ')}`);
 const unused = Object.keys(examples).filter((k) => !rows.some((r) => (r[7] ?? r[0]) === k));
 if (unused.length) throw new Error(`Examples without an inventory entry: ${unused.join(', ')}`);
 
 writeFileSync(join(root, 'platforms', 'android', 'components.json'), JSON.stringify(components, null, 2) + '\n');
-console.log(`components.json: ${components.length} entries`);
+if (missingPreviews.length) console.warn(`No preview image yet for: ${missingPreviews.join('; ')}`);
+const withPreview = components.filter((c) => c.preview).length;
+console.log(`components.json: ${components.length} entries, ${withPreview} with previews, ${components.length - withPreview} without`);

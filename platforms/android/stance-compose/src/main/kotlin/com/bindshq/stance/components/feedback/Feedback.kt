@@ -270,7 +270,7 @@ public fun StanceLoadingOverlay(
     Box(modifier = modifier) {
         content()
         if (visible) {
-            Column(
+            Box(
                 modifier = Modifier
                     .matchParentSize()
                     .background(StanceTheme.colors.bgScrim)
@@ -279,12 +279,20 @@ public fun StanceLoadingOverlay(
                         contentDescription = message
                         liveRegion = LiveRegionMode.Polite
                     },
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(StanceSpacing.space3, Alignment.CenterVertically),
+                contentAlignment = Alignment.Center,
             ) {
-                // The overlay itself announces the message; the spinner and text are decorative here.
-                StanceCircularProgressIndicator(contentDescription = message, modifier = Modifier.clearAndSetSemantics {})
-                Text(message, style = StanceTheme.typography.label, color = StanceTheme.colors.fgInverse, modifier = Modifier.clearAndSetSemantics {})
+                // The message sits on its own surface so it stays readable over any content.
+                StanceSurface(shape = StanceTheme.shapes.large, color = StanceTheme.colors.bgOverlay, elevation = StanceTheme.elevation.lg, bordered = true) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = StanceSpacing.space4, vertical = StanceSpacing.space3),
+                        horizontalArrangement = Arrangement.spacedBy(StanceSpacing.space3),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        // The overlay itself announces the message; the spinner and text are decorative here.
+                        StanceCircularProgressIndicator(contentDescription = message, size = StanceSizes.iconLarge, modifier = Modifier.clearAndSetSemantics {})
+                        Text(message, style = StanceTheme.typography.label, color = StanceTheme.colors.fgDefault, modifier = Modifier.clearAndSetSemantics {})
+                    }
+                }
             }
         }
     }

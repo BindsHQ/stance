@@ -34,7 +34,10 @@ import com.bindshq.stance.components.data.StanceTag
 import com.bindshq.stance.components.data.StanceTimeline
 import com.bindshq.stance.components.data.StanceTimelineEvent
 import com.bindshq.stance.components.feedback.StanceAlertDialog
+import com.bindshq.stance.components.actions.StanceButton
 import com.bindshq.stance.components.feedback.StanceBanner
+import com.bindshq.stance.components.feedback.StanceDialog
+import com.bindshq.stance.components.forms.StanceTextField
 import com.bindshq.stance.components.feedback.StanceErrorState
 import com.bindshq.stance.components.feedback.StanceInlineAlert
 import com.bindshq.stance.components.feedback.StanceLoadingOverlay
@@ -242,6 +245,32 @@ class ContentTest {
         rule.onNodeWithText("Cancel").performClick()
         assertEquals(1, confirmed)
         assertEquals(1, dismissed)
+    }
+
+    @Test
+    fun dialogShowsTitleContentAndActions() {
+        var saved = 0
+        rule.setStanceContent {
+            StanceDialog(
+                title = "Rename template",
+                onDismissRequest = {},
+                actions = { StanceButton("Save", onClick = { saved++ }) },
+            ) { Text("Names are visible to your organisation.") }
+        }
+        rule.onNodeWithText("Rename template").assert(isHeading)
+        rule.onNodeWithText("Names are visible to your organisation.").assertIsDisplayed()
+        rule.onNodeWithText("Save").performClick()
+        assertEquals(1, saved)
+    }
+
+    @Test
+    fun dialogSettlesWithATextFieldInside() {
+        rule.setStanceContent {
+            StanceDialog(title = "Rename template", onDismissRequest = {}) {
+                StanceTextField("Sales team signature", {}, label = "Template name")
+            }
+        }
+        rule.onNodeWithContentDescription("Template name").assertIsDisplayed()
     }
 
     @Test

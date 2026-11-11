@@ -50,6 +50,7 @@ export const guideNav: NavSection[] = [
   {
     title: 'iOS and iPadOS',
     items: [
+      { title: 'Overview', href: '/ios' },
       { title: 'Installation', href: '/ios/installation' },
       { title: 'Theming', href: '/ios/theming' },
       { title: 'UIKit', href: '/ios/uikit' },
@@ -59,6 +60,7 @@ export const guideNav: NavSection[] = [
   {
     title: 'Android',
     items: [
+      { title: 'Overview', href: '/android' },
       { title: 'Installation', href: '/android/installation' },
       { title: 'Theming', href: '/android/theming' },
       { title: 'Adaptive and Views', href: '/android/adaptive' },

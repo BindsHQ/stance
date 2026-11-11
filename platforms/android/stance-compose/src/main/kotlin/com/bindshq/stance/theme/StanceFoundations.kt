@@ -34,6 +34,7 @@ public object StanceSpacing {
     public val space16: Dp = StanceTokens.Space.space16.dp
     public val space20: Dp = StanceTokens.Space.space20.dp
     public val space24: Dp = StanceTokens.Space.space24.dp
+    public val space32: Dp = StanceTokens.Space.space32.dp
 }
 
 /** Component dimensions shared across Stance components. */
