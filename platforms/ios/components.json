@@ -11,7 +11,9 @@
       "System mode follows the colour scheme and Increase Contrast",
       "Preference is read before the first frame"
     ],
-    "webEquivalent": "theme-provider"
+    "webEquivalent": "theme-provider",
+    "slug": "stance-theme-provider",
+    "preview": null
   },
   {
     "name": "stanceTheme(_:)",
@@ -24,7 +26,15 @@
     "accessibility": [
       "Sets tint, foreground and canvas background from tokens"
     ],
-    "webEquivalent": "theme-provider"
+    "webEquivalent": "theme-provider",
+    "slug": "stance-theme",
+    "preview": {
+      "light": "previews/stance-theme.light.png",
+      "dark": "previews/stance-theme.dark.png",
+      "high-contrast": "previews/stance-theme.high-contrast.png",
+      "width": 393,
+      "height": 300
+    }
   },
   {
     "name": "stanceScopedTheme(_:)",
@@ -37,7 +47,15 @@
     "accessibility": [
       "Scoped themes keep the same verified contrast as page themes"
     ],
-    "webEquivalent": "theme-provider"
+    "webEquivalent": "theme-provider",
+    "slug": "stance-scoped-theme",
+    "preview": {
+      "light": "previews/stance-scoped-theme.light.png",
+      "dark": "previews/stance-scoped-theme.dark.png",
+      "high-contrast": "previews/stance-scoped-theme.high-contrast.png",
+      "width": 393,
+      "height": 210
+    }
   },
   {
     "name": "StanceAppearance",
@@ -50,7 +68,9 @@
     "accessibility": [
       "Increase Contrast resolves system mode to high contrast"
     ],
-    "webEquivalent": "theme-switcher"
+    "webEquivalent": "theme-switcher",
+    "slug": "stance-appearance",
+    "preview": null
   },
   {
     "name": "StanceCard",
@@ -63,7 +83,15 @@
     "accessibility": [
       "Title is exposed as a heading"
     ],
-    "webEquivalent": "card"
+    "webEquivalent": "card",
+    "slug": "stance-card",
+    "preview": {
+      "light": "previews/stance-card.light.png",
+      "dark": "previews/stance-card.dark.png",
+      "high-contrast": "previews/stance-card.high-contrast.png",
+      "width": 393,
+      "height": 229
+    }
   },
   {
     "name": "stanceCard()",
@@ -76,7 +104,15 @@
     "accessibility": [
       "High contrast replaces the shadow with a solid outline"
     ],
-    "webEquivalent": "card"
+    "webEquivalent": "card",
+    "slug": "stance-card-modifier",
+    "preview": {
+      "light": "previews/stance-card-modifier.light.png",
+      "dark": "previews/stance-card-modifier.dark.png",
+      "high-contrast": "previews/stance-card-modifier.high-contrast.png",
+      "width": 393,
+      "height": 163
+    }
   },
   {
     "name": "stanceSurface()",
@@ -89,7 +125,15 @@
     "accessibility": [
       "Boundaries meet 3:1 contrast in every theme"
     ],
-    "webEquivalent": "box"
+    "webEquivalent": "box",
+    "slug": "stance-surface",
+    "preview": {
+      "light": "previews/stance-surface.light.png",
+      "dark": "previews/stance-surface.dark.png",
+      "high-contrast": "previews/stance-surface.high-contrast.png",
+      "width": 393,
+      "height": 292
+    }
   },
   {
     "name": "stanceShadow()",
@@ -102,7 +146,15 @@
     "accessibility": [
       "Depth never relies on subtle shading in high contrast"
     ],
-    "webEquivalent": null
+    "webEquivalent": null,
+    "slug": "stance-shadow",
+    "preview": {
+      "light": "previews/stance-shadow.light.png",
+      "dark": "previews/stance-shadow.dark.png",
+      "high-contrast": "previews/stance-shadow.high-contrast.png",
+      "width": 393,
+      "height": 152
+    }
   },
   {
     "name": "StanceDivider",
@@ -115,7 +167,15 @@
     "accessibility": [
       "Decorative: hidden from assistive technology"
     ],
-    "webEquivalent": "divider"
+    "webEquivalent": "divider",
+    "slug": "stance-divider",
+    "preview": {
+      "light": "previews/stance-divider.light.png",
+      "dark": "previews/stance-divider.dark.png",
+      "high-contrast": "previews/stance-divider.high-contrast.png",
+      "width": 393,
+      "height": 174
+    }
   },
   {
     "name": "StanceSection",
@@ -128,7 +188,15 @@
     "accessibility": [
       "Title is exposed as a heading for rotor navigation"
     ],
-    "webEquivalent": null
+    "webEquivalent": null,
+    "slug": "stance-section",
+    "preview": {
+      "light": "previews/stance-section.light.png",
+      "dark": "previews/stance-section.dark.png",
+      "high-contrast": "previews/stance-section.high-contrast.png",
+      "width": 393,
+      "height": 223
+    }
   },
   {
     "name": "StanceContainer",
@@ -141,7 +209,15 @@
     "accessibility": [
       "Keeps line length readable at every size class"
     ],
-    "webEquivalent": "container"
+    "webEquivalent": "container",
+    "slug": "stance-container",
+    "preview": {
+      "light": "previews/stance-container.light.png",
+      "dark": "previews/stance-container.dark.png",
+      "high-contrast": "previews/stance-container.high-contrast.png",
+      "width": 393,
+      "height": 138
+    }
   },
   {
     "name": "StanceGrid",
@@ -154,7 +230,15 @@
     "accessibility": [
       "Reflows to one column at large text sizes"
     ],
-    "webEquivalent": "grid"
+    "webEquivalent": "grid",
+    "slug": "stance-grid",
+    "preview": {
+      "light": "previews/stance-grid.light.png",
+      "dark": "previews/stance-grid.dark.png",
+      "high-contrast": "previews/stance-grid.high-contrast.png",
+      "width": 393,
+      "height": 299
+    }
   },
   {
     "name": "StanceIcon",
@@ -168,7 +252,15 @@
       "Hidden from VoiceOver without a label",
       "Scales with Dynamic Type"
     ],
-    "webEquivalent": "icon"
+    "webEquivalent": "icon",
+    "slug": "stance-icon",
+    "preview": {
+      "light": "previews/stance-icon.light.png",
+      "dark": "previews/stance-icon.dark.png",
+      "high-contrast": "previews/stance-icon.high-contrast.png",
+      "width": 393,
+      "height": 288
+    }
   },
   {
     "name": "stanceText(_:)",
@@ -182,7 +274,15 @@
       "Scales through the largest accessibility sizes",
       "Never below 12pt at the default size"
     ],
-    "webEquivalent": "text"
+    "webEquivalent": "text",
+    "slug": "stance-text",
+    "preview": {
+      "light": "previews/stance-text.light.png",
+      "dark": "previews/stance-text.dark.png",
+      "high-contrast": "previews/stance-text.high-contrast.png",
+      "width": 393,
+      "height": 321
+    }
   },
   {
     "name": "StanceButton",
@@ -196,7 +296,15 @@
       "44pt minimum target at every size",
       "Loading is announced as “In progress”"
     ],
-    "webEquivalent": "button"
+    "webEquivalent": "button",
+    "slug": "stance-button",
+    "preview": {
+      "light": "previews/stance-button.light.png",
+      "dark": "previews/stance-button.dark.png",
+      "high-contrast": "previews/stance-button.high-contrast.png",
+      "width": 393,
+      "height": 316
+    }
   },
   {
     "name": "StanceButtonStyle",
@@ -209,7 +317,15 @@
     "accessibility": [
       "Press feedback respects Reduce Motion"
     ],
-    "webEquivalent": "button"
+    "webEquivalent": "button",
+    "slug": "stance-button-style",
+    "preview": {
+      "light": "previews/stance-button-style.light.png",
+      "dark": "previews/stance-button-style.dark.png",
+      "high-contrast": "previews/stance-button-style.high-contrast.png",
+      "width": 393,
+      "height": 212
+    }
   },
   {
     "name": "StanceIconButton",
@@ -223,7 +339,15 @@
       "Label is required and used by VoiceOver and Voice Control",
       "Pointer hover effect on iPad"
     ],
-    "webEquivalent": "icon-button"
+    "webEquivalent": "icon-button",
+    "slug": "stance-icon-button",
+    "preview": {
+      "light": "previews/stance-icon-button.light.png",
+      "dark": "previews/stance-icon-button.dark.png",
+      "high-contrast": "previews/stance-icon-button.high-contrast.png",
+      "width": 393,
+      "height": 124
+    }
   },
   {
     "name": "StanceButtonGroup",
@@ -236,7 +360,15 @@
     "accessibility": [
       "Reflows instead of truncating at large text sizes"
     ],
-    "webEquivalent": "button-group"
+    "webEquivalent": "button-group",
+    "slug": "stance-button-group",
+    "preview": {
+      "light": "previews/stance-button-group.light.png",
+      "dark": "previews/stance-button-group.dark.png",
+      "high-contrast": "previews/stance-button-group.high-contrast.png",
+      "width": 393,
+      "height": 288
+    }
   },
   {
     "name": "StanceMenu",
@@ -249,7 +381,15 @@
     "accessibility": [
       "System menu behaviour, VoiceOver and keyboard support"
     ],
-    "webEquivalent": "dropdown-menu"
+    "webEquivalent": "dropdown-menu",
+    "slug": "stance-menu",
+    "preview": {
+      "light": "previews/stance-menu.light.png",
+      "dark": "previews/stance-menu.dark.png",
+      "high-contrast": "previews/stance-menu.high-contrast.png",
+      "width": 402,
+      "height": 874
+    }
   },
   {
     "name": "StanceFormField",
@@ -263,7 +403,15 @@
       "Label becomes the control’s accessibility label",
       "Errors are announced when they appear"
     ],
-    "webEquivalent": "form-field"
+    "webEquivalent": "form-field",
+    "slug": "stance-form-field",
+    "preview": {
+      "light": "previews/stance-form-field.light.png",
+      "dark": "previews/stance-form-field.dark.png",
+      "high-contrast": "previews/stance-form-field.high-contrast.png",
+      "width": 393,
+      "height": 273
+    }
   },
   {
     "name": "StanceTextField",
@@ -277,7 +425,15 @@
       "Visible label matches the accessibility label for Voice Control",
       "Error replaces the helper in the hint"
     ],
-    "webEquivalent": "input"
+    "webEquivalent": "input",
+    "slug": "stance-text-field",
+    "preview": {
+      "light": "previews/stance-text-field.light.png",
+      "dark": "previews/stance-text-field.dark.png",
+      "high-contrast": "previews/stance-text-field.high-contrast.png",
+      "width": 393,
+      "height": 407
+    }
   },
   {
     "name": "StanceSecureField",
@@ -290,7 +446,15 @@
     "accessibility": [
       "Toggle is labelled Show password or Hide password"
     ],
-    "webEquivalent": "password-input"
+    "webEquivalent": "password-input",
+    "slug": "stance-secure-field",
+    "preview": {
+      "light": "previews/stance-secure-field.light.png",
+      "dark": "previews/stance-secure-field.dark.png",
+      "high-contrast": "previews/stance-secure-field.high-contrast.png",
+      "width": 393,
+      "height": 241
+    }
   },
   {
     "name": "StanceTextEditor",
@@ -303,7 +467,15 @@
     "accessibility": [
       "Character count is part of the field hint"
     ],
-    "webEquivalent": "textarea"
+    "webEquivalent": "textarea",
+    "slug": "stance-text-editor",
+    "preview": {
+      "light": "previews/stance-text-editor.light.png",
+      "dark": "previews/stance-text-editor.dark.png",
+      "high-contrast": "previews/stance-text-editor.high-contrast.png",
+      "width": 393,
+      "height": 210
+    }
   },
   {
     "name": "StanceSearchField",
@@ -316,7 +488,15 @@
     "accessibility": [
       "Clear button is labelled and reachable"
     ],
-    "webEquivalent": "search-input"
+    "webEquivalent": "search-input",
+    "slug": "stance-search-field",
+    "preview": {
+      "light": "previews/stance-search-field.light.png",
+      "dark": "previews/stance-search-field.dark.png",
+      "high-contrast": "previews/stance-search-field.high-contrast.png",
+      "width": 393,
+      "height": 148
+    }
   },
   {
     "name": "StancePicker",
@@ -329,7 +509,15 @@
     "accessibility": [
       "Selected value is exposed as the accessibility value"
     ],
-    "webEquivalent": "select"
+    "webEquivalent": "select",
+    "slug": "stance-picker",
+    "preview": {
+      "light": "previews/stance-picker.light.png",
+      "dark": "previews/stance-picker.dark.png",
+      "high-contrast": "previews/stance-picker.high-contrast.png",
+      "width": 393,
+      "height": 219
+    }
   },
   {
     "name": "StanceCheckbox",
@@ -343,7 +531,15 @@
       "Whole row is the 44pt target",
       "Announces Checked or Not checked"
     ],
-    "webEquivalent": "checkbox"
+    "webEquivalent": "checkbox",
+    "slug": "stance-checkbox",
+    "preview": {
+      "light": "previews/stance-checkbox.light.png",
+      "dark": "previews/stance-checkbox.dark.png",
+      "high-contrast": "previews/stance-checkbox.high-contrast.png",
+      "width": 393,
+      "height": 233
+    }
   },
   {
     "name": "StanceRadioGroup",
@@ -357,7 +553,15 @@
       "Selected option carries the selected trait",
       "Group is labelled by its title"
     ],
-    "webEquivalent": "radio-group"
+    "webEquivalent": "radio-group",
+    "slug": "stance-radio-group",
+    "preview": {
+      "light": "previews/stance-radio-group.light.png",
+      "dark": "previews/stance-radio-group.dark.png",
+      "high-contrast": "previews/stance-radio-group.high-contrast.png",
+      "width": 393,
+      "height": 241
+    }
   },
   {
     "name": "StanceToggleStyle",
@@ -370,7 +574,15 @@
     "accessibility": [
       "Native switch semantics and haptics"
     ],
-    "webEquivalent": "switch"
+    "webEquivalent": "switch",
+    "slug": "stance-toggle-style",
+    "preview": {
+      "light": "previews/stance-toggle-style.light.png",
+      "dark": "previews/stance-toggle-style.dark.png",
+      "high-contrast": "previews/stance-toggle-style.high-contrast.png",
+      "width": 393,
+      "height": 230
+    }
   },
   {
     "name": "StanceSlider",
@@ -383,7 +595,15 @@
     "accessibility": [
       "Adjustable trait with a readable value"
     ],
-    "webEquivalent": "slider"
+    "webEquivalent": "slider",
+    "slug": "stance-slider",
+    "preview": {
+      "light": "previews/stance-slider.light.png",
+      "dark": "previews/stance-slider.dark.png",
+      "high-contrast": "previews/stance-slider.high-contrast.png",
+      "width": 393,
+      "height": 226
+    }
   },
   {
     "name": "StanceDatePicker",
@@ -396,7 +616,15 @@
     "accessibility": [
       "System picker with full VoiceOver and keyboard support"
     ],
-    "webEquivalent": "date-picker"
+    "webEquivalent": "date-picker",
+    "slug": "stance-date-picker",
+    "preview": {
+      "light": "previews/stance-date-picker.light.png",
+      "dark": "previews/stance-date-picker.dark.png",
+      "high-contrast": "previews/stance-date-picker.high-contrast.png",
+      "width": 393,
+      "height": 198
+    }
   },
   {
     "name": "StanceAdaptiveNavigation",
@@ -409,7 +637,15 @@
     "accessibility": [
       "System bars keep their materials, including Liquid Glass on iOS 26"
     ],
-    "webEquivalent": "sidebar"
+    "webEquivalent": "sidebar",
+    "slug": "stance-adaptive-navigation",
+    "preview": {
+      "light": "previews/stance-adaptive-navigation.light.png",
+      "dark": "previews/stance-adaptive-navigation.dark.png",
+      "high-contrast": "previews/stance-adaptive-navigation.high-contrast.png",
+      "width": 402,
+      "height": 874
+    }
   },
   {
     "name": "stanceNavigationChrome()",
@@ -422,7 +658,15 @@
     "accessibility": [
       "Bar content stays legible in all three themes"
     ],
-    "webEquivalent": null
+    "webEquivalent": null,
+    "slug": "stance-navigation-chrome",
+    "preview": {
+      "light": "previews/stance-navigation-chrome.light.png",
+      "dark": "previews/stance-navigation-chrome.dark.png",
+      "high-contrast": "previews/stance-navigation-chrome.high-contrast.png",
+      "width": 402,
+      "height": 874
+    }
   },
   {
     "name": "StanceStepper",
@@ -435,7 +679,15 @@
     "accessibility": [
       "Each step reads “Step x of y” with its state"
     ],
-    "webEquivalent": "stepper"
+    "webEquivalent": "stepper",
+    "slug": "stance-stepper",
+    "preview": {
+      "light": "previews/stance-stepper.light.png",
+      "dark": "previews/stance-stepper.dark.png",
+      "high-contrast": "previews/stance-stepper.high-contrast.png",
+      "width": 393,
+      "height": 256
+    }
   },
   {
     "name": "StancePageIndicator",
@@ -449,7 +701,15 @@
       "Read as “Page 2 of 4”",
       "Animation respects Reduce Motion"
     ],
-    "webEquivalent": null
+    "webEquivalent": null,
+    "slug": "stance-page-indicator",
+    "preview": {
+      "light": "previews/stance-page-indicator.light.png",
+      "dark": "previews/stance-page-indicator.dark.png",
+      "high-contrast": "previews/stance-page-indicator.high-contrast.png",
+      "width": 393,
+      "height": 136
+    }
   },
   {
     "name": "StanceBadge",
@@ -463,7 +723,15 @@
       "Never colour alone",
       "Outlined in high contrast"
     ],
-    "webEquivalent": "badge"
+    "webEquivalent": "badge",
+    "slug": "stance-badge",
+    "preview": {
+      "light": "previews/stance-badge.light.png",
+      "dark": "previews/stance-badge.dark.png",
+      "high-contrast": "previews/stance-badge.high-contrast.png",
+      "width": 393,
+      "height": 185
+    }
   },
   {
     "name": "StanceTag",
@@ -476,7 +744,15 @@
     "accessibility": [
       "Remove button reads “Remove Sales”"
     ],
-    "webEquivalent": "tag"
+    "webEquivalent": "tag",
+    "slug": "stance-tag",
+    "preview": {
+      "light": "previews/stance-tag.light.png",
+      "dark": "previews/stance-tag.dark.png",
+      "high-contrast": "previews/stance-tag.high-contrast.png",
+      "width": 393,
+      "height": 156
+    }
   },
   {
     "name": "StanceAvatar",
@@ -489,7 +765,15 @@
     "accessibility": [
       "Name is the accessibility label"
     ],
-    "webEquivalent": "avatar"
+    "webEquivalent": "avatar",
+    "slug": "stance-avatar",
+    "preview": {
+      "light": "previews/stance-avatar.light.png",
+      "dark": "previews/stance-avatar.dark.png",
+      "high-contrast": "previews/stance-avatar.high-contrast.png",
+      "width": 393,
+      "height": 196
+    }
   },
   {
     "name": "StanceAvatarGroup",
@@ -502,7 +786,15 @@
     "accessibility": [
       "Reads names followed by “and N more”"
     ],
-    "webEquivalent": "avatar-group"
+    "webEquivalent": "avatar-group",
+    "slug": "stance-avatar-group",
+    "preview": {
+      "light": "previews/stance-avatar-group.light.png",
+      "dark": "previews/stance-avatar-group.dark.png",
+      "high-contrast": "previews/stance-avatar-group.high-contrast.png",
+      "width": 393,
+      "height": 240
+    }
   },
   {
     "name": "StanceProgressView",
@@ -515,7 +807,15 @@
     "accessibility": [
       "Label and percentage are exposed to VoiceOver"
     ],
-    "webEquivalent": "progress"
+    "webEquivalent": "progress",
+    "slug": "stance-progress-view",
+    "preview": {
+      "light": "previews/stance-progress-view.light.png",
+      "dark": "previews/stance-progress-view.dark.png",
+      "high-contrast": "previews/stance-progress-view.high-contrast.png",
+      "width": 393,
+      "height": 202
+    }
   },
   {
     "name": "StanceSkeleton",
@@ -528,7 +828,15 @@
     "accessibility": [
       "Hidden from VoiceOver"
     ],
-    "webEquivalent": "skeleton"
+    "webEquivalent": "skeleton",
+    "slug": "stance-skeleton",
+    "preview": {
+      "light": "previews/stance-skeleton.light.png",
+      "dark": "previews/stance-skeleton.dark.png",
+      "high-contrast": "previews/stance-skeleton.high-contrast.png",
+      "width": 393,
+      "height": 286
+    }
   },
   {
     "name": "StanceEmptyState",
@@ -541,7 +849,15 @@
     "accessibility": [
       "Title is a heading"
     ],
-    "webEquivalent": "empty-state"
+    "webEquivalent": "empty-state",
+    "slug": "stance-empty-state",
+    "preview": {
+      "light": "previews/stance-empty-state.light.png",
+      "dark": "previews/stance-empty-state.dark.png",
+      "high-contrast": "previews/stance-empty-state.high-contrast.png",
+      "width": 393,
+      "height": 300
+    }
   },
   {
     "name": "StanceTimeline",
@@ -554,7 +870,15 @@
     "accessibility": [
       "Each event is one combined element"
     ],
-    "webEquivalent": "timeline"
+    "webEquivalent": "timeline",
+    "slug": "stance-timeline",
+    "preview": {
+      "light": "previews/stance-timeline.light.png",
+      "dark": "previews/stance-timeline.dark.png",
+      "high-contrast": "previews/stance-timeline.high-contrast.png",
+      "width": 393,
+      "height": 335
+    }
   },
   {
     "name": "StanceStatCard",
@@ -567,7 +891,15 @@
     "accessibility": [
       "Reads “up 12% from last month”, not just an arrow"
     ],
-    "webEquivalent": "stat-card"
+    "webEquivalent": "stat-card",
+    "slug": "stance-stat-card",
+    "preview": {
+      "light": "previews/stance-stat-card.light.png",
+      "dark": "previews/stance-stat-card.dark.png",
+      "high-contrast": "previews/stance-stat-card.high-contrast.png",
+      "width": 393,
+      "height": 285
+    }
   },
   {
     "name": "StanceDescriptionList",
@@ -580,7 +912,15 @@
     "accessibility": [
       "Each pair is read together"
     ],
-    "webEquivalent": "description-list"
+    "webEquivalent": "description-list",
+    "slug": "stance-description-list",
+    "preview": {
+      "light": "previews/stance-description-list.light.png",
+      "dark": "previews/stance-description-list.dark.png",
+      "high-contrast": "previews/stance-description-list.high-contrast.png",
+      "width": 393,
+      "height": 247
+    }
   },
   {
     "name": "StanceListRow",
@@ -593,7 +933,15 @@
     "accessibility": [
       "44pt minimum row height"
     ],
-    "webEquivalent": "list-item"
+    "webEquivalent": "list-item",
+    "slug": "stance-list-row",
+    "preview": {
+      "light": "previews/stance-list-row.light.png",
+      "dark": "previews/stance-list-row.dark.png",
+      "high-contrast": "previews/stance-list-row.high-contrast.png",
+      "width": 393,
+      "height": 206
+    }
   },
   {
     "name": "stanceListStyle()",
@@ -606,7 +954,15 @@
     "accessibility": [
       "Keeps native list behaviour, swipe actions and editing"
     ],
-    "webEquivalent": "list"
+    "webEquivalent": "list",
+    "slug": "stance-list-style",
+    "preview": {
+      "light": "previews/stance-list-style.light.png",
+      "dark": "previews/stance-list-style.dark.png",
+      "high-contrast": "previews/stance-list-style.high-contrast.png",
+      "width": 393,
+      "height": 348
+    }
   },
   {
     "name": "StanceDisclosureGroupStyle",
@@ -619,7 +975,15 @@
     "accessibility": [
       "Announces Expanded or Collapsed"
     ],
-    "webEquivalent": "collapsible"
+    "webEquivalent": "collapsible",
+    "slug": "stance-disclosure-group-style",
+    "preview": {
+      "light": "previews/stance-disclosure-group-style.light.png",
+      "dark": "previews/stance-disclosure-group-style.dark.png",
+      "high-contrast": "previews/stance-disclosure-group-style.high-contrast.png",
+      "width": 393,
+      "height": 217
+    }
   },
   {
     "name": "StanceInlineAlert",
@@ -632,7 +996,15 @@
     "accessibility": [
       "Warning and danger tones are announced when shown"
     ],
-    "webEquivalent": "alert"
+    "webEquivalent": "alert",
+    "slug": "stance-inline-alert",
+    "preview": {
+      "light": "previews/stance-inline-alert.light.png",
+      "dark": "previews/stance-inline-alert.dark.png",
+      "high-contrast": "previews/stance-inline-alert.high-contrast.png",
+      "width": 393,
+      "height": 398
+    }
   },
   {
     "name": "StanceBanner",
@@ -645,7 +1017,15 @@
     "accessibility": [
       "Dismiss button is labelled and 44pt"
     ],
-    "webEquivalent": "banner"
+    "webEquivalent": "banner",
+    "slug": "stance-banner",
+    "preview": {
+      "light": "previews/stance-banner.light.png",
+      "dark": "previews/stance-banner.dark.png",
+      "high-contrast": "previews/stance-banner.high-contrast.png",
+      "width": 393,
+      "height": 220
+    }
   },
   {
     "name": "StanceToastCenter",
@@ -659,7 +1039,15 @@
       "Announced without moving focus",
       "Manual dismiss always available"
     ],
-    "webEquivalent": "toast"
+    "webEquivalent": "toast",
+    "slug": "stance-toast-center",
+    "preview": {
+      "light": "previews/stance-toast-center.light.png",
+      "dark": "previews/stance-toast-center.dark.png",
+      "high-contrast": "previews/stance-toast-center.high-contrast.png",
+      "width": 393,
+      "height": 238
+    }
   },
   {
     "name": "StanceLoadingState",
@@ -672,7 +1060,15 @@
     "accessibility": [
       "Indicator and message are one element"
     ],
-    "webEquivalent": "loading-overlay"
+    "webEquivalent": "loading-overlay",
+    "slug": "stance-loading-state",
+    "preview": {
+      "light": "previews/stance-loading-state.light.png",
+      "dark": "previews/stance-loading-state.dark.png",
+      "high-contrast": "previews/stance-loading-state.high-contrast.png",
+      "width": 393,
+      "height": 228
+    }
   },
   {
     "name": "StanceErrorState",
@@ -685,7 +1081,15 @@
     "accessibility": [
       "Title is a heading; retry is a labelled button"
     ],
-    "webEquivalent": "empty-state"
+    "webEquivalent": "empty-state",
+    "slug": "stance-error-state",
+    "preview": {
+      "light": "previews/stance-error-state.light.png",
+      "dark": "previews/stance-error-state.dark.png",
+      "high-contrast": "previews/stance-error-state.high-contrast.png",
+      "width": 393,
+      "height": 300
+    }
   },
   {
     "name": "stanceSheet()",
@@ -698,7 +1102,15 @@
     "accessibility": [
       "System sheet gestures, grabber and focus handling"
     ],
-    "webEquivalent": "sheet"
+    "webEquivalent": "sheet",
+    "slug": "stance-sheet",
+    "preview": {
+      "light": "previews/stance-sheet.light.png",
+      "dark": "previews/stance-sheet.dark.png",
+      "high-contrast": "previews/stance-sheet.high-contrast.png",
+      "width": 402,
+      "height": 874
+    }
   },
   {
     "name": "stanceAlert()",
@@ -711,7 +1123,15 @@
     "accessibility": [
       "System alert semantics and focus"
     ],
-    "webEquivalent": "alert-dialog"
+    "webEquivalent": "alert-dialog",
+    "slug": "stance-alert",
+    "preview": {
+      "light": "previews/stance-alert.light.png",
+      "dark": "previews/stance-alert.dark.png",
+      "high-contrast": "previews/stance-alert.high-contrast.png",
+      "width": 402,
+      "height": 874
+    }
   },
   {
     "name": "stanceConfirmationDialog()",
@@ -724,7 +1144,15 @@
     "accessibility": [
       "Cancel is always available"
     ],
-    "webEquivalent": "confirmation-dialog"
+    "webEquivalent": "confirmation-dialog",
+    "slug": "stance-confirmation-dialog",
+    "preview": {
+      "light": "previews/stance-confirmation-dialog.light.png",
+      "dark": "previews/stance-confirmation-dialog.dark.png",
+      "high-contrast": "previews/stance-confirmation-dialog.high-contrast.png",
+      "width": 402,
+      "height": 874
+    }
   },
   {
     "name": "StanceFilterBar",
@@ -737,7 +1165,15 @@
     "accessibility": [
       "Selected chips carry the selected trait and a check mark"
     ],
-    "webEquivalent": "filter-bar"
+    "webEquivalent": "filter-bar",
+    "slug": "stance-filter-bar",
+    "preview": {
+      "light": "previews/stance-filter-bar.light.png",
+      "dark": "previews/stance-filter-bar.dark.png",
+      "high-contrast": "previews/stance-filter-bar.high-contrast.png",
+      "width": 393,
+      "height": 172
+    }
   },
   {
     "name": "StanceSearchableList",
@@ -751,7 +1187,15 @@
       "Result count is announced",
       "Empty state explains what to try"
     ],
-    "webEquivalent": "searchable-list"
+    "webEquivalent": "searchable-list",
+    "slug": "stance-searchable-list",
+    "preview": {
+      "light": "previews/stance-searchable-list.light.png",
+      "dark": "previews/stance-searchable-list.dark.png",
+      "high-contrast": "previews/stance-searchable-list.high-contrast.png",
+      "width": 402,
+      "height": 874
+    }
   },
   {
     "name": "StanceCalendar",
@@ -764,7 +1208,15 @@
     "accessibility": [
       "Full system calendar accessibility"
     ],
-    "webEquivalent": "calendar"
+    "webEquivalent": "calendar",
+    "slug": "stance-calendar",
+    "preview": {
+      "light": "previews/stance-calendar.light.png",
+      "dark": "previews/stance-calendar.dark.png",
+      "high-contrast": "previews/stance-calendar.high-contrast.png",
+      "width": 393,
+      "height": 400
+    }
   },
   {
     "name": "StanceSignatureCanvas",
@@ -778,7 +1230,15 @@
       "Direct-touch trait for VoiceOver",
       "Offer the typed alternative for people who cannot draw"
     ],
-    "webEquivalent": null
+    "webEquivalent": null,
+    "slug": "stance-signature-canvas",
+    "preview": {
+      "light": "previews/stance-signature-canvas.light.png",
+      "dark": "previews/stance-signature-canvas.dark.png",
+      "high-contrast": "previews/stance-signature-canvas.high-contrast.png",
+      "width": 393,
+      "height": 412
+    }
   },
   {
     "name": "StanceAttachmentPicker",
@@ -791,7 +1251,15 @@
     "accessibility": [
       "System pickers are fully accessible"
     ],
-    "webEquivalent": "file-upload"
+    "webEquivalent": "file-upload",
+    "slug": "stance-attachment-picker",
+    "preview": {
+      "light": "previews/stance-attachment-picker.light.png",
+      "dark": "previews/stance-attachment-picker.dark.png",
+      "high-contrast": "previews/stance-attachment-picker.high-contrast.png",
+      "width": 393,
+      "height": 209
+    }
   },
   {
     "name": "StanceDocumentPreview",
@@ -804,7 +1272,15 @@
     "accessibility": [
       "Quick Look provides zoom, VoiceOver and text selection"
     ],
-    "webEquivalent": null
+    "webEquivalent": null,
+    "slug": "stance-document-preview",
+    "preview": {
+      "light": "previews/stance-document-preview.light.png",
+      "dark": "previews/stance-document-preview.dark.png",
+      "high-contrast": "previews/stance-document-preview.high-contrast.png",
+      "width": 402,
+      "height": 874
+    }
   },
   {
     "name": "stanceTouchTarget()",
@@ -817,7 +1293,15 @@
     "accessibility": [
       "Apple HIG minimum target"
     ],
-    "webEquivalent": null
+    "webEquivalent": null,
+    "slug": "stance-touch-target",
+    "preview": {
+      "light": "previews/stance-touch-target.light.png",
+      "dark": "previews/stance-touch-target.dark.png",
+      "high-contrast": "previews/stance-touch-target.high-contrast.png",
+      "width": 393,
+      "height": 124
+    }
   },
   {
     "name": "StanceUIKit",
@@ -830,7 +1314,9 @@
     "accessibility": [
       "Dynamic colours follow dark mode and Increase Contrast"
     ],
-    "webEquivalent": null
+    "webEquivalent": null,
+    "slug": "stance-uikit",
+    "preview": null
   },
   {
     "name": "StanceHaptics",
@@ -843,6 +1329,8 @@
     "accessibility": [
       "Haptics supplement, never replace, visible feedback"
     ],
-    "webEquivalent": null
+    "webEquivalent": null,
+    "slug": "stance-haptics",
+    "preview": null
   }
 ]

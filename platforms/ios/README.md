@@ -196,6 +196,32 @@ xcodebuild test -project StanceShowcase.xcodeproj -scheme StanceShowcase \
 `components.json` is the machine-readable inventory the documentation site reads. Every example
 in it is compiled by `Tests/StanceUITests/ComponentExamples.swift`.
 
+## Previews
+
+`previews/` holds real renders of every visual component in light, dark and high contrast, plus
+full-screen showcase captures for the website. They come from the actual SwiftUI components
+running in the showcase app on the iPhone 17 Pro simulator, never from mock-ups.
+
+Regenerate them from the repository root:
+
+```bash
+sh platforms/ios/Scripts/build-previews.sh
+```
+
+The script needs Xcode, xcodegen, oxipng, node and python3 with Pillow. It:
+
+1. Captures inline component previews with the simulator's own screenshot, cropped to the rect
+   the showcase reports. Each composition is defined in
+   `examples/ios/StanceShowcase/StanceShowcase/PreviewGallery.swift`.
+2. Captures presented system UI (menus, sheets, alerts and confirmation dialogs) in its
+   presented state with `PreviewCaptureTests`, which taps the trigger first.
+3. Captures the home-page showcase screens with the status bar set to 9:41.
+4. Resamples iPhone captures to 2x, optimises every PNG losslessly with oxipng, and records each
+   preview with its size in `components.json`. Non-visual helpers get `"preview": null`.
+
+Inline previews are 345pt of content with 24pt padding on the theme canvas, capped at 520pt of
+content height. File names follow `previews/<slug>.<theme>.png`.
+
 ## Licence
 
 MIT. The Stance and Binds names and logos are trademarks of Binds.

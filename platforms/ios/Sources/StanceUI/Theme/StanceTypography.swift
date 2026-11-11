@@ -56,7 +56,8 @@ public enum StanceTextStyle: String, CaseIterable, Sendable {
     public var tracking: CGFloat {
         switch self {
         case .display: size * StanceTokens.LetterSpacing.tighter
-        case .title, .heading, .subheading, .button: size * StanceTokens.LetterSpacing.tight
+        // Buttons get no tracking: their labels are views, and environment tracking there can truncate on iOS.
+        case .title, .heading, .subheading: size * StanceTokens.LetterSpacing.tight
         case .eyebrow: size * StanceTokens.LetterSpacing.caps
         default: 0
         }

@@ -7,9 +7,29 @@ struct StanceShowcaseApp: App {
     var body: some Scene {
         WindowGroup {
             StanceThemeProvider {
-                RootView().stanceToastHost()
+                switch LaunchMode.current {
+                case .app: RootView().stanceToastHost()
+                case .previewGallery: PreviewGalleryView()
+                case let .previewScreen(slug): (PreviewCatalog.screen(slug)?.view ?? AnyView(Text("Unknown preview"))).stanceToastHost()
+                }
             }
         }
+    }
+}
+
+/// How the app starts. Preview modes exist only to render documentation images.
+enum LaunchMode {
+    case app
+    /// `-preview-gallery`: one inline component preview at a time.
+    case previewGallery
+    /// `-preview <slug>`: one full-screen preview, such as a sheet or alert in context.
+    case previewScreen(String)
+
+    static var current: LaunchMode {
+        let args = ProcessInfo.processInfo.arguments
+        if args.contains("-preview-gallery") { return .previewGallery }
+        if let i = args.firstIndex(of: "-preview"), i + 1 < args.count { return .previewScreen(args[i + 1]) }
+        return .app
     }
 }
 

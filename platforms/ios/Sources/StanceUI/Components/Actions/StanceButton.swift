@@ -66,6 +66,10 @@ private struct StanceButtonBody: View {
             .stanceText(style.size.textStyle)
             .lineLimit(2)
             .multilineTextAlignment(.center)
+            // Buttons that hug their label take its natural width, so the label is never cut
+            // short when a parent under-proposes width (seen on iOS when a theme is scoped to a
+            // subtree). Full-width buttons wrap within their width instead.
+            .fixedSize(horizontal: !style.fullWidth, vertical: true)
             .padding(.horizontal, style.variant == .link ? 0 : style.size.horizontalPadding)
             .padding(.vertical, StanceSpacing.xs)
             .frame(maxWidth: style.fullWidth ? .infinity : nil, minHeight: style.variant == .link ? nil : style.size.height)
@@ -148,13 +152,25 @@ public struct StanceButton: View {
         self.action = action
     }
 
+    @Environment(\.stanceTheme) private var theme
+
+    private var spinnerColor: Color {
+        switch variant {
+        case .primary: theme.colors.accentFg
+        case .danger: theme.colors.dangerOnSolid
+        case .link: theme.colors.fgLink
+        default: theme.colors.fgDefault
+        }
+    }
+
     public var body: some View {
         Button(role: role) {
             if !isLoading { action() }
         } label: {
             HStack(spacing: StanceSpacing.sm) {
                 if isLoading {
-                    ProgressView().controlSize(.small).tint(variant == .primary || variant == .danger ? nil : nil)
+                    // The spinner takes the label colour so it is visible on every variant.
+                    ProgressView().controlSize(.small).tint(spinnerColor)
                 } else if let leadingIcon {
                     StanceIcon(leadingIcon, size: StanceSize.iconSm + 2)
                 }
@@ -194,7 +210,7 @@ public struct StanceIconButton: View {
     }
 }
 
-/// Lays related buttons out in a row, wrapping to a column at large text sizes.
+/// Lays related buttons out in a row, and in a column when they do not fit or at large text sizes.
 public struct StanceButtonGroup<Content: View>: View {
     private let content: Content
     @Environment(\.dynamicTypeSize) private var typeSize
@@ -202,8 +218,15 @@ public struct StanceButtonGroup<Content: View>: View {
     public init(@ViewBuilder content: () -> Content) { self.content = content() }
 
     public var body: some View {
-        let layout = typeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading, spacing: StanceSpacing.sm)) : AnyLayout(HStackLayout(spacing: StanceSpacing.sm))
-        layout { content }
+        if typeSize.isAccessibilitySize {
+            VStack(alignment: .leading, spacing: StanceSpacing.sm) { content }
+        } else {
+            // One row when the buttons fit, otherwise a column. Labels are never squeezed.
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: StanceSpacing.sm) { content }
+                VStack(alignment: .leading, spacing: StanceSpacing.sm) { content }
+            }
+        }
     }
 }
 
