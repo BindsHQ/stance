@@ -192,8 +192,16 @@ export const MenuContent = React.forwardRef<HTMLDivElement, MenuContentInternalP
       const trigger = root.triggerRef;
       return () => {
         window.setTimeout(() => {
-          const active = document.activeElement;
-          if ((!active || active === document.body) && trigger.current?.isConnected) {
+          const active = document.activeElement as HTMLElement | null;
+          // Restore to the trigger when focus was lost: on <body>, on a detached node, or on an
+          // element users cannot tab to — unless another layer (e.g. a dialog opened by the item) took it.
+          const lost =
+            !active ||
+            active === document.body ||
+            !active.isConnected ||
+            (active.tabIndex < 0 &&
+              !active.closest('[data-stance-layer], [role="dialog"], [role="alertdialog"]'));
+          if (lost && trigger.current?.isConnected) {
             trigger.current.focus({ preventScroll: true });
           }
         }, 0);

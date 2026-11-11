@@ -107,7 +107,7 @@ twColors.ink = Object.fromEntries(Object.keys(t.ink).map((k) => [k, tw(`ink-${k}
 const fromScale = (cat, obj) =>
   Object.fromEntries(Object.keys(obj).map((k) => [key(k), `var(--${P}-${cat}-${key(k)})`]));
 const preset = {
-  darkMode: ['class'],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: { stance: twColors },
@@ -140,7 +140,7 @@ out(
 );
 out(
   'tailwind.d.ts',
-  `declare const preset: { darkMode: string[]; theme: { extend: Record<string, unknown> } };\nexport default preset;\n`,
+  `declare const preset: { darkMode: 'class'; theme: { extend: Record<string, any> } };\nexport default preset;\n`,
 );
 
 // ---- Tailwind v4 theme --------------------------------------------------

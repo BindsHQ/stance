@@ -251,3 +251,59 @@ describe('DropdownMenu', () => {
     await expectNoA11yViolations(document.body);
   });
 });
+
+describe('DropdownMenu focus return', () => {
+  it('returns focus to the trigger when selection leaves focus on a non-tabbable element', async () => {
+    const user = userEvent.setup();
+    render(
+      <div>
+        <div data-testid="wrapper" tabIndex={-1} />
+        <DropdownMenu>
+          <DropdownMenuTrigger>Theme</DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem
+              onSelect={() =>
+                (document.querySelector('[data-testid="wrapper"]') as HTMLElement).focus()
+              }
+            >
+              Dark
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>,
+    );
+    const trigger = screen.getByRole('button', { name: 'Theme' });
+    trigger.focus();
+    await user.keyboard('{Enter}');
+    await user.keyboard('{Enter}');
+    await waitFor(() => expect(trigger).toHaveFocus());
+  });
+
+  it('does not steal focus from a dialog opened by the item', async () => {
+    const user = userEvent.setup();
+    function Example() {
+      const [open, setOpen] = React.useState(false);
+      return (
+        <>
+          <DropdownMenu>
+            <DropdownMenuTrigger>Actions</DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem onSelect={() => setOpen(true)}>Rename</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          {open && (
+            <div role="dialog" aria-label="Rename" data-stance-layer="">
+              <input aria-label="Name" autoFocus />
+            </div>
+          )}
+        </>
+      );
+    }
+    render(<Example />);
+    screen.getByRole('button', { name: 'Actions' }).focus();
+    await user.keyboard('{Enter}');
+    await user.keyboard('{Enter}');
+    await new Promise((r) => setTimeout(r, 10));
+    expect(screen.getByRole('textbox', { name: 'Name' })).toHaveFocus();
+  });
+});

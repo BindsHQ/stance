@@ -22,8 +22,11 @@
   flex-shrink: 0;
 }
 .st-skeleton[data-variant='rect'] {
-  height: 6rem;
   border-radius: var(--st-radius-lg);
+}
+/* Zero-specificity default so consumer sizing (e.g. Tailwind h-*) always wins. */
+:where(.st-skeleton[data-variant='rect']) {
+  height: 6rem;
 }
 .st-skeleton[data-static] {
   animation: none;

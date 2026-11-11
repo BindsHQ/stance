@@ -1,5 +1,7 @@
+'use client';
 import * as React from 'react';
 import { cx } from '../../internal/cx.js';
+import { useIsOverflowing } from '../../internal/use-is-overflowing.js';
 import { Icon } from '../../icons/Icon.js';
 
 export type TableDensity = 'compact' | 'default' | 'comfortable';
@@ -44,14 +46,20 @@ export const Table = React.forwardRef<HTMLTableElement, TableProps>(function Tab
   },
   ref,
 ) {
-  const label = scrollLabel ?? props['aria-label'];
+  const wrapperRef = React.useRef<HTMLDivElement>(null);
+  const overflowing = useIsOverflowing(wrapperRef);
+  const [captionText, setCaptionText] = React.useState<string | undefined>(undefined);
+  React.useEffect(() => {
+    setCaptionText(wrapperRef.current?.querySelector('caption')?.textContent?.trim() || undefined);
+  });
+  const label = scrollLabel ?? props['aria-label'] ?? captionText;
   return (
     <div
+      ref={wrapperRef}
       className={cx('st-table-wrapper', wrapperClassName)}
-      // A focusable region lets keyboard users scroll overflowing tables (WCAG 2.1.1).
-      tabIndex={0}
-      role="region"
-      aria-label={label ?? 'Table'}
+      // Only when the table actually scrolls does the wrapper become a focusable, named region
+      // so keyboard users can scroll it (WCAG 2.1.1). Its name comes from the caption by default.
+      {...(overflowing && { tabIndex: 0, role: 'region', 'aria-label': label ?? 'Table' })}
       style={maxHeight !== undefined ? { maxHeight } : undefined}
       data-sticky-header={stickyHeader ? '' : undefined}
     >

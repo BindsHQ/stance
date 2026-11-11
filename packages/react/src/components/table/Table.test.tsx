@@ -60,8 +60,8 @@ describe('Table', () => {
     expect(screen.getAllByRole('row')).toHaveLength(4);
   });
 
-  it('wraps the table in a focusable labelled scroll region', async () => {
-    render(
+  it('is not a tab stop or region when the table fits', () => {
+    const { container } = render(
       <Table scrollLabel="Users">
         <TableBody>
           <TableRow>
@@ -70,9 +70,33 @@ describe('Table', () => {
         </TableBody>
       </Table>,
     );
-    const region = screen.getByRole('region', { name: 'Users' });
-    await userEvent.tab();
-    expect(region).toHaveFocus();
+    expect(screen.queryByRole('region')).toBeNull();
+    expect(container.querySelector('.st-table-wrapper')).not.toHaveAttribute('tabindex');
+  });
+
+  it('becomes a focusable region named by its caption when it overflows', async () => {
+    const width = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'scrollWidth');
+    Object.defineProperty(HTMLElement.prototype, 'scrollWidth', {
+      configurable: true,
+      get: () => 900,
+    });
+    try {
+      render(
+        <Table>
+          <TableCaption>Organisation users</TableCaption>
+          <TableBody>
+            <TableRow>
+              <TableCell>x</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>,
+      );
+      const region = await screen.findByRole('region', { name: 'Organisation users' });
+      await userEvent.tab();
+      expect(region).toHaveFocus();
+    } finally {
+      if (width) Object.defineProperty(HTMLElement.prototype, 'scrollWidth', width);
+    }
   });
 
   it('exposes sort state with aria-sort and a keyboard-operable button', async () => {
