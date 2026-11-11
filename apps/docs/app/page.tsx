@@ -54,16 +54,16 @@ export default function Home() {
 
       <section className="hero" aria-labelledby="hero-title">
         <span className="hero__mark" aria-hidden="true">
-          <StanceMark size={56} />
+          <StanceMark size={44} />
         </span>
-        <p className="hero__eyebrow">The Binds Design System</p>
         <h1 id="hero-title" className="hero__title">
-          One system.
+          Less to decide.
           <br />
-          <span className="hero__muted">Distinct products.</span>
+          <span className="hero__muted">More to make.</span>
         </h1>
         <p className="hero__lede">
-          Tokens, themes and {components.length} accessible components for web, iOS and Android.
+          Colour, type, spacing and {components.length} accessible components. Ready on web, iOS and
+          Android.
         </p>
         <div className="hero__actions">
           <Link
@@ -91,11 +91,9 @@ export default function Home() {
       <section className="band" aria-labelledby="live-title">
         <header className="band__head">
           <h2 id="live-title" className="section-title">
-            Built from the real thing.
+            Go ahead, try it.
           </h2>
-          <p className="section-lede">
-            Every tile is a live Stance component. Type, drag, sign, sort.
-          </p>
+          <p className="section-lede">Every tile is live. Type, drag, sign, sort.</p>
         </header>
         <LandingBento />
       </section>
@@ -105,9 +103,7 @@ export default function Home() {
           <h2 id="modes-title" className="section-title">
             Light. Dark. High contrast.
           </h2>
-          <p className="section-lede">
-            Three complete themes on every component, following the system by default.
-          </p>
+          <p className="section-lede">Your users choose. Every screen follows.</p>
         </header>
         <ThemeTriptych minHeight={340}>
           <div className="triptych-showcase">
@@ -119,11 +115,9 @@ export default function Home() {
       <section className="band band--split" aria-labelledby="tokens-title">
         <header className="band__head">
           <h2 id="tokens-title" className="section-title">
-            Two colours.
-            <br />
-            Nothing borrowed.
+            Calm by design.
           </h2>
-          <p className="section-lede">Every neutral is mixed from Binds Ivory and Binds Indigo.</p>
+          <p className="section-lede">Two colours, ivory and indigo, and every shade between.</p>
           <Link href="/foundations/colors" className="text-link">
             Explore colour
           </Link>
@@ -156,7 +150,7 @@ export default function Home() {
           <h2 id="platforms-title" className="section-title">
             Native everywhere.
           </h2>
-          <p className="section-lede">One token source. Three native libraries.</p>
+          <p className="section-lede">Web, iOS and Android, each in its own language.</p>
         </header>
         <ul className="platform-grid">
           {platforms.map((p) => (
@@ -177,7 +171,7 @@ export default function Home() {
       <section className="band" aria-labelledby="components-title">
         <header className="band__head band__head--row">
           <h2 id="components-title" className="section-title">
-            {components.length} components.
+            Everything you reach for.
           </h2>
           <Link
             href="/components"
@@ -229,9 +223,9 @@ export default function Home() {
 
       <section className="band band--cta" aria-labelledby="release-title">
         <h2 id="release-title" className="section-title">
-          Open source.
+          Free to use.
           <br />
-          <span className="hero__muted">Built by Binds.</span>
+          <span className="hero__muted">Yours to shape.</span>
         </h2>
         <div className="hero__actions">
           <a

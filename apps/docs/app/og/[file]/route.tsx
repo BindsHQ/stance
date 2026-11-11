@@ -37,11 +37,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ file: s
     : component
       ? `Component · ${categoryLabels[component.category] ?? component.category}`
       : (route.trail[0]?.name ?? 'Documentation');
-  const title = isHome
-    ? 'One system. Consistent foundations. Distinct products.'
-    : component
-      ? component.name
-      : route.title;
+  const title = isHome ? 'Less to decide. More to make.' : component ? component.name : route.title;
   // Only glyphs in the bundled font are used, so the build never fetches fonts from the network.
   const clean = (t: string) =>
     t
