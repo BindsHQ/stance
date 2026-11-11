@@ -1,0 +1,135 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "cd ../.. && npm ci --include=dev",
+  "buildCommand": "cd ../.. && npm run build && npm run build:docs",
+  "outputDirectory": "out",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.stanceui.com"
+        }
+      ],
+      "destination": "https://stanceui.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/docs",
+      "destination": "/docs/introduction",
+      "permanent": false
+    },
+    {
+      "source": "/foundations",
+      "destination": "/foundations/colors",
+      "permanent": false
+    },
+    {
+      "source": "/web",
+      "destination": "/docs/installation",
+      "permanent": false
+    },
+    {
+      "source": "/patterns",
+      "destination": "/patterns/forms",
+      "permanent": false
+    },
+    {
+      "source": "/guidelines",
+      "destination": "/guidelines/principles",
+      "permanent": false
+    },
+    {
+      "source": "/resources",
+      "destination": "/resources/releases",
+      "permanent": false
+    },
+    {
+      "source": "/brand",
+      "destination": "/resources/brand",
+      "permanent": false
+    },
+    {
+      "source": "/changelog",
+      "destination": "/resources/changelog",
+      "permanent": false
+    },
+    {
+      "source": "/github",
+      "destination": "https://github.com/BindsHQ/stance",
+      "permanent": false
+    },
+    {
+      "source": "/npm",
+      "destination": "https://www.npmjs.com/package/@bindshq/stance-react",
+      "permanent": false
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        }
+      ]
+    },
+    {
+      "source": "/_next/static/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(og|native|brand)/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=604800"
+        }
+      ]
+    },
+    {
+      "source": "/llms/(.*)\\.md",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/markdown; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "source": "/(llms.txt|llms-full.txt)",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        }
+      ]
+    }
+  ]
+}

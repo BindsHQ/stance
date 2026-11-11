@@ -25,7 +25,7 @@
     "version-packages": "changeset version",
     "release": "npm run build && changeset publish",
     "check:snippets": "npm run check:snippets -w @bindshq/stance-docs",
-    "verify": "npm run format:check && npm run tokens:check && npm run lint && npm run build && npm run typecheck && npm test && npm run check:exports && npm run check:consumer && npm run check:snippets && npm run build:docs && npm run check:seo",
+    "verify": "npm run format:check && npm run check:vercel && npm run tokens:check && npm run lint && npm run build && npm run typecheck && npm test && npm run check:exports && npm run check:consumer && npm run check:snippets && npm run build:docs && npm run check:seo",
     "audit:site": "node scripts/audit-site.mjs",
     "serve:docs": "node scripts/serve-static.mjs",
     "check:consumer": "tsc -p tests/consumer",
@@ -34,7 +34,8 @@
     "tokens": "npm run tokens -w @bindshq/stance-tokens",
     "tokens:check": "npm run tokens:check -w @bindshq/stance-tokens",
     "native:generate": "node scripts/generate-native.mjs",
-    "check:react18": "node scripts/check-react18.mjs"
+    "check:react18": "node scripts/check-react18.mjs",
+    "check:vercel": "node scripts/check-vercel.mjs"
   },
   "devDependencies": {
     "@changesets/cli": "^3.0.3",
