@@ -1,10 +1,11 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { ImageResponse } from 'next/og';
-import { LOGO } from '../../../components/brand-paths';
+import { LOGO, MARK } from '../../../components/brand-paths';
+import { platformLandings } from '../../../content/platforms';
 import { routes } from '../../../lib/routes';
 import { ogKey } from '../../../lib/seo';
-import { categoryLabels, site } from '../../../lib/site';
+import { categoryLabels } from '../../../lib/site';
 import { components } from '../../../lib/routes';
 
 export const dynamic = 'force-static';
@@ -25,6 +26,9 @@ const font = (file: string) => readFile(join(fontDir, file));
 const IVORY = '#FCF6EB';
 const INDIGO = '#140C2E';
 const MUTED = '#555169';
+const INK_150 = '#CFC9C9';
+const INK_800 = '#2F2A48';
+const INK_50 = '#ECE6DF';
 
 export async function GET(_req: Request, { params }: { params: Promise<{ file: string }> }) {
   const { file } = await params;
@@ -32,12 +36,31 @@ export async function GET(_req: Request, { params }: { params: Promise<{ file: s
   const route = routes.find((r) => ogKey(r.path) === key) ?? routes[0]!;
   const component = components.find((c) => `/components/${c.slug}` === route.path);
   const isHome = route.path === '/';
+  const landing = Object.values(platformLandings).find((l) => l.path === route.path);
   const eyebrow = isHome
     ? 'The Binds Design System'
-    : component
-      ? `Component · ${categoryLabels[component.category] ?? component.category}`
-      : (route.trail[0]?.name ?? 'Documentation');
-  const title = isHome ? 'Less to decide. More to make.' : component ? component.name : route.title;
+    : landing
+      ? landing.eyebrow
+      : component
+        ? `Web component · ${categoryLabels[component.category] ?? component.category}`
+        : route.trail.length > 1
+          ? route.trail
+              .slice(0, -1)
+              .map((t) => t.name)
+              .join(' · ')
+          : (route.trail[0]?.name ?? 'Documentation');
+  const title = isHome
+    ? 'Less to decide.|More to make.'
+    : landing
+      ? landing.title.join('|')
+      : component
+        ? component.name
+        : route.title;
+  const subtitle = isHome
+    ? 'Tokens, themes and components for web, iPhone and Android.'
+    : landing
+      ? landing.lede
+      : truncate(route.description, 96);
   // Only glyphs in the bundled font are used, so the build never fetches fonts from the network.
   const clean = (t: string) =>
     t
@@ -48,89 +71,88 @@ export async function GET(_req: Request, { params }: { params: Promise<{ file: s
     font('dm-sans-latin-600-normal.woff'),
   ]);
 
+  // Home is indigo with ivory type; every other page is ivory with indigo type.
+  const bg = isHome ? INDIGO : IVORY;
+  const fg = isHome ? IVORY : INDIGO;
+  const muted = isHome ? INK_150 : MUTED;
+  const watermark = isHome ? INK_800 : INK_50;
+  const lines = clean(title).split('|');
+  const longest = Math.max(...lines.map((l) => l.length));
+  const size = longest > 30 ? 60 : longest > 22 ? 72 : longest > 16 ? 88 : 100;
+
   return new ImageResponse(
     <div
       style={{
+        position: 'relative',
         width: '100%',
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        background: IVORY,
-        color: INDIGO,
-        padding: '64px 72px',
+        background: bg,
+        color: fg,
+        padding: '68px 76px',
         fontFamily: 'DM Sans',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <svg width={(44 * 1682) / 376} height={44} viewBox={LOGO.viewBox} fill={INDIGO}>
-          <path d={LOGO.d} />
-        </svg>
+      {/* The Stance mark, large and quiet, set into the right edge. */}
+      <svg
+        width={560}
+        height={(560 * 376) / 382}
+        viewBox={MARK.viewBox}
+        fill={watermark}
+        style={{ position: 'absolute', right: -120, top: 35 }}
+      >
+        <path d={MARK.d} />
+      </svg>
+      <svg width={(40 * 1682) / 376} height={40} viewBox={LOGO.viewBox} fill={fg}>
+        <path d={LOGO.d} />
+      </svg>
+      <div style={{ display: 'flex', flexDirection: 'column', maxWidth: 860 }}>
         <div
           style={{
             display: 'flex',
-            fontSize: 22,
-            color: MUTED,
-            border: `2px solid ${INDIGO}22`,
-            borderRadius: 999,
-            padding: '8px 20px',
-          }}
-        >
-          v{site.version} · MIT
-        </div>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <div
-          style={{
-            display: 'flex',
-            fontSize: 26,
+            fontSize: 24,
             fontWeight: 600,
             letterSpacing: '0.08em',
             textTransform: 'uppercase',
-            color: MUTED,
-            marginBottom: 20,
+            color: muted,
+            marginBottom: 22,
           }}
         >
-          {eyebrow}
+          {clean(eyebrow)}
         </div>
+        {lines.map((line, i) => (
+          <div
+            key={line}
+            style={{
+              display: 'flex',
+              fontSize: size,
+              fontWeight: 600,
+              lineHeight: 1.04,
+              letterSpacing: '-0.045em',
+              color: i === 1 ? muted : fg,
+            }}
+          >
+            {line}
+          </div>
+        ))}
         <div
           style={{
             display: 'flex',
-            fontSize: isHome ? 64 : title.length > 22 ? 72 : 96,
-            fontWeight: 600,
-            lineHeight: 1.04,
-            letterSpacing: '-0.04em',
-            maxWidth: 1000,
+            fontSize: 30,
+            lineHeight: 1.35,
+            color: muted,
+            marginTop: 26,
+            maxWidth: 820,
           }}
         >
-          {clean(title)}
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            fontSize: 28,
-            lineHeight: 1.4,
-            color: MUTED,
-            marginTop: 24,
-            maxWidth: 960,
-          }}
-        >
-          {clean(truncate(route.description, 150))}
+          {clean(subtitle)}
         </div>
       </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          fontSize: 24,
-          color: MUTED,
-          borderTop: `2px solid ${INDIGO}1a`,
-          paddingTop: 24,
-        }}
-      >
+      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 24, color: muted }}>
         <span>stanceui.com</span>
-        <span>Design tokens · Themes · Accessible React components</span>
+        <span>Web · iOS · Android</span>
       </div>
     </div>,
     {

@@ -6,7 +6,8 @@ export const absolute = (path: string) => new URL(path, site.url).toString();
 
 /** OG image path for a page: /og/<key>.png, generated statically at build. */
 export const ogKey = (path: string) => (path === '/' ? 'home' : path.slice(1).replace(/\//g, '--'));
-export const ogImagePath = (path: string) => `/og/${ogKey(path)}.png`;
+/** Versioned so social platforms fetch a fresh image after each release instead of a stale cache. */
+export const ogImagePath = (path: string) => `/og/${ogKey(path)}.png?v=${site.version}`;
 
 /** Complete, consistent metadata for any page: canonical, Open Graph, Twitter and robots. */
 export function pageMetadata(
@@ -16,7 +17,13 @@ export function pageMetadata(
   const route = routeByPath.get(path);
   const title = overrides.title ?? route?.title ?? site.name;
   const description = overrides.description ?? route?.description ?? site.description;
-  const image = { url: ogImagePath(path), width: 1200, height: 630, alt: `${title} | Stance` };
+  const image = {
+    url: ogImagePath(path),
+    type: 'image/png',
+    width: 1200,
+    height: 630,
+    alt: `${title} | Stance`,
+  };
   const isHome = path === '/';
   return {
     title: isHome ? { absolute: title } : title,

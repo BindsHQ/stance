@@ -28,7 +28,7 @@ export default function Home() {
     <main id="main" className="landing" tabIndex={-1}>
       <JsonLd graph={[organizationLd, websiteLd(), softwareLd(components.length), faqLd(faq)]} />
 
-      <section className="hero" aria-labelledby="hero-title">
+      <section className="hero hero--full" aria-labelledby="hero-title">
         <span className="hero__mark" aria-hidden="true">
           <StanceMark size={44} />
         </span>
@@ -38,7 +38,7 @@ export default function Home() {
           <span className="hero__muted">More to make.</span>
         </h1>
         <p className="hero__lede">
-          Colour, type, spacing and {components.length} accessible components. Ready on web, iOS and
+          Everything your product needs to look right and work for everyone. On the web, iPhone and
           Android.
         </p>
         <div className="hero__actions">
@@ -62,6 +62,12 @@ export default function Home() {
           </Link>
         </div>
         <InstallSnippet />
+        <ul className="hero__facts" aria-label="At a glance">
+          <li>Free and open source</li>
+          <li>WCAG 2.2 AA</li>
+          <li>{components.length} components</li>
+          <li>Light, dark, high contrast</li>
+        </ul>
       </section>
 
       <section className="band" aria-labelledby="live-title">

@@ -1136,6 +1136,37 @@ pre {
 [data-theme='high-contrast'] .hero::before {
   display: none;
 }
+/* Home: the hero owns the first screen; the next section starts below the fold. */
+.hero--full {
+  justify-content: center;
+  min-height: calc(100svh - var(--site-header-h));
+  padding-top: clamp(2rem, 5vh, 4rem);
+  padding-bottom: clamp(2rem, 5vh, 4rem);
+}
+.hero__facts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--st-space-2) var(--st-space-6);
+  margin: var(--st-space-8) 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-sm);
+}
+.hero__facts li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--st-space-2);
+}
+.hero__facts li::before {
+  content: '';
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  background: var(--st-color-fg-subtle);
+}
+
 .hero__mark {
   display: inline-flex;
   margin-bottom: var(--st-space-6);
