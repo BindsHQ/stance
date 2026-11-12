@@ -30,6 +30,8 @@ import com.bindshq.stance.icons.StanceIcon
 import com.bindshq.stance.theme.StanceSizes
 import com.bindshq.stance.theme.StanceSpacing
 import com.bindshq.stance.theme.StanceTheme
+import androidx.compose.ui.res.stringResource
+import com.bindshq.stance.R
 
 /** Visual emphasis of a [StanceButton]. Use one [Primary] action per screen. */
 public enum class StanceButtonVariant { Primary, Secondary, Outline, Ghost, Danger, Link }
@@ -104,7 +106,7 @@ public fun StanceButton(
     fullWidth: Boolean = false,
     leadingIcon: ImageVector? = null,
     trailingIcon: ImageVector? = null,
-    loadingDescription: String = "Loading",
+    loadingDescription: String = stringResource(R.string.stance_loading),
 ) {
     val spec = size.spec()
     val colors = StanceTheme.colors

@@ -52,10 +52,32 @@ import com.bindshq.stance.icons.StanceIcons
 import com.bindshq.stance.theme.StanceSizes
 import com.bindshq.stance.theme.StanceSpacing
 import com.bindshq.stance.theme.StanceTheme
+import androidx.compose.ui.res.stringResource
+import com.bindshq.stance.R
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.MutableTransitionState
+import com.bindshq.stance.foundation.expandEnter
+import com.bindshq.stance.foundation.shrinkExit
+import com.bindshq.stance.foundation.fadeEnter
+import com.bindshq.stance.foundation.fadeExit
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
+import androidx.activity.compose.PredictiveBackHandler
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.LaunchedEffect
 
 /**
  * A dialog for a focused task with custom content. Dismisses on back and outside taps.
  * The [title] is the dialog's heading.
+ *
+ * With predictive back (Android 14 and later, `android:enableOnBackInvokedCallback="true"`) the
+ * dialog shrinks slightly as the back gesture progresses and restores if the gesture is cancelled.
+ * With animations off it dismisses without the preview.
  */
 @Composable
 public fun StanceDialog(
@@ -66,7 +88,13 @@ public fun StanceDialog(
     content: @Composable ColumnScope.() -> Unit,
 ) {
     BasicAlertDialog(onDismissRequest = onDismissRequest, modifier = modifier) {
-        StanceSurface(shape = StanceTheme.shapes.extraLarge, color = StanceTheme.colors.bgOverlay, elevation = StanceTheme.elevation.xl, bordered = true) {
+        StanceSurface(
+            modifier = Modifier.predictiveBackScale(onDismissRequest),
+            shape = StanceTheme.shapes.extraLarge,
+            color = StanceTheme.colors.bgOverlay,
+            elevation = StanceTheme.elevation.xl,
+            bordered = true,
+        ) {
             Column(modifier = Modifier.padding(StanceSpacing.space6), verticalArrangement = Arrangement.spacedBy(StanceSpacing.space4)) {
                 Text(title, style = StanceTheme.typography.headingSmall, modifier = Modifier.semantics { heading() })
                 content()
@@ -93,7 +121,7 @@ public fun StanceAlertDialog(
     onConfirm: () -> Unit,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
-    cancelLabel: String = "Cancel",
+    cancelLabel: String = stringResource(R.string.stance_cancel),
     destructive: Boolean = false,
     confirmLoading: Boolean = false,
 ) {
@@ -122,7 +150,9 @@ public fun StanceAlertDialog(
 
 /**
  * A modal bottom sheet for secondary tasks. Supports drag to dismiss, back and scrim taps,
- * and handles the navigation bar and keyboard insets.
+ * and handles the navigation bar and keyboard insets. Predictive back is handled by the
+ * Material sheet: it scales down with the gesture when the app opts in to
+ * `android:enableOnBackInvokedCallback`.
  */
 @Composable
 public fun StanceBottomSheet(
@@ -198,12 +228,21 @@ private fun StatusMessage(
     action: (@Composable () -> Unit)?,
     onDismiss: (() -> Unit)?,
     dismissDescription: String,
+    visible: Boolean,
 ) {
     val t = tone.colors()
     val shape = if (fullWidth) StanceTheme.shapes.extraSmall else StanceTheme.shapes.large
     val urgent = tone == StanceTone.Danger || tone == StanceTone.Warning
+    val motion = StanceTheme.motion
+    // Starts hidden so the message eases in when it first appears. With animations off it is simply there.
+    // The entrance plays once: a message scrolled back into a lazy list does not ease in again.
+    var appeared by rememberSaveable { mutableStateOf(false) }
+    val visibility = remember { MutableTransitionState(visible && (appeared || motion.reduceMotion)) }
+    visibility.targetState = visible
+    LaunchedEffect(Unit) { appeared = true }
+    AnimatedVisibility(visibleState = visibility, modifier = modifier, enter = motion.expandEnter(), exit = motion.shrinkExit()) {
     Row(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
             .clip(shape)
             .background(t.background)
@@ -221,11 +260,15 @@ private fun StatusMessage(
         }
         if (onDismiss != null) StanceIconButton(StanceIcons.X, dismissDescription, onDismiss)
     }
+    }
 }
 
 /**
  * A status message inside the content it relates to. Warnings and errors are announced
  * immediately; information and success politely.
+ *
+ * @param visible Keep the alert in composition and set this to false to ease it out.
+ * It eases in when it first appears. Both are instant when animations are off.
  */
 @Composable
 public fun StanceInlineAlert(
@@ -235,13 +278,17 @@ public fun StanceInlineAlert(
     title: String? = null,
     action: (@Composable () -> Unit)? = null,
     onDismiss: (() -> Unit)? = null,
-    dismissDescription: String = "Dismiss",
+    dismissDescription: String = stringResource(R.string.stance_dismiss),
+    visible: Boolean = true,
 ) {
-    StatusMessage(tone, title, message, modifier, fullWidth = false, action, onDismiss, dismissDescription)
+    StatusMessage(tone, title, message, modifier, fullWidth = false, action, onDismiss, dismissDescription, visible)
 }
 
 /**
  * A page-level announcement across the top of a screen, such as maintenance or an expired plan.
+ *
+ * @param visible Keep the banner in composition and set this to false to ease it out.
+ * It eases in when it first appears. Both are instant when animations are off.
  */
 @Composable
 public fun StanceBanner(
@@ -251,9 +298,10 @@ public fun StanceBanner(
     title: String? = null,
     action: (@Composable () -> Unit)? = null,
     onDismiss: (() -> Unit)? = null,
-    dismissDescription: String = "Dismiss",
+    dismissDescription: String = stringResource(R.string.stance_dismiss),
+    visible: Boolean = true,
 ) {
-    StatusMessage(tone, title, message, modifier, fullWidth = true, action, onDismiss, dismissDescription)
+    StatusMessage(tone, title, message, modifier, fullWidth = true, action, onDismiss, dismissDescription, visible)
 }
 
 /**
@@ -264,15 +312,16 @@ public fun StanceBanner(
 public fun StanceLoadingOverlay(
     visible: Boolean,
     modifier: Modifier = Modifier,
-    message: String = "Loading",
+    message: String = stringResource(R.string.stance_loading),
     content: @Composable () -> Unit,
 ) {
     Box(modifier = modifier) {
         content()
-        if (visible) {
+        val motion = StanceTheme.motion
+        AnimatedVisibility(visible = visible, modifier = Modifier.matchParentSize(), enter = motion.fadeEnter(), exit = motion.fadeExit()) {
             Box(
                 modifier = Modifier
-                    .matchParentSize()
+                    .fillMaxSize()
                     .background(StanceTheme.colors.bgScrim)
                     .clickable(interactionSource = remember { MutableInteractionSource() }, indication = null, onClick = {})
                     .semantics(mergeDescendants = true) {
@@ -306,7 +355,7 @@ public fun StanceErrorState(
     title: String,
     modifier: Modifier = Modifier,
     description: String? = null,
-    retryLabel: String = "Try again",
+    retryLabel: String = stringResource(R.string.stance_try_again),
     onRetry: (() -> Unit)? = null,
 ) {
     val c = StanceTheme.colors
@@ -321,3 +370,31 @@ public fun StanceErrorState(
         if (onRetry != null) StanceButton(retryLabel, onClick = onRetry, variant = StanceButtonVariant.Outline, leadingIcon = StanceIcons.Refresh)
     }
 }
+
+/**
+ * Previews the back gesture on a dialog surface: it shrinks a little as the gesture progresses,
+ * then [onBack] runs when the gesture commits. Does nothing when no back dispatcher is available
+ * or when animations are off, where the platform dialog handles back on its own.
+ */
+@Composable
+private fun Modifier.predictiveBackScale(onBack: () -> Unit): Modifier {
+    if (StanceTheme.motion.reduceMotion || LocalOnBackPressedDispatcherOwner.current == null) return this
+    var progress by remember { mutableFloatStateOf(0f) }
+    val currentOnBack by rememberUpdatedState(onBack)
+    PredictiveBackHandler { events ->
+        try {
+            events.collect { progress = it.progress }
+            currentOnBack()
+        } finally {
+            progress = 0f
+        }
+    }
+    return graphicsLayer {
+        val scale = 1f - PREDICTIVE_BACK_SHRINK * progress
+        scaleX = scale
+        scaleY = scale
+    }
+}
+
+/** How much a dialog shrinks at the end of a back gesture, as a fraction of its size. */
+private const val PREDICTIVE_BACK_SHRINK = 0.1f

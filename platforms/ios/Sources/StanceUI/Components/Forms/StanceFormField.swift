@@ -13,8 +13,9 @@ public struct StanceFieldState: Equatable, Sendable {
     public var isInvalid: Bool { !(error ?? "").isEmpty }
 
     /// What VoiceOver reads after the label: "required" and the error, when present.
-    public func accessibilitySuffix(helper: String?) -> String {
-        [isRequired ? "required" : nil, isInvalid ? "Error: \(error!)" : helper]
+    /// The fixed words are localised for `locale`.
+    public func accessibilitySuffix(helper: String?, locale: Locale = .current) -> String {
+        [isRequired ? stanceString("stance.field.required", locale) : nil, isInvalid ? stanceString("stance.field.error \(error ?? "")", locale) : helper]
             .compactMap { $0 }
             .joined(separator: ", ")
     }
@@ -30,7 +31,9 @@ public struct StanceFormField<Content: View>: View {
     private let state: StanceFieldState
     private let content: Content
     @Environment(\.stanceTheme) private var theme
+    @Environment(\.locale) private var locale
 
+    @_disfavoredOverload
     public init(_ label: String, helper: String? = nil, error: String? = nil, isRequired: Bool = false, @ViewBuilder content: () -> Content) {
         self.label = label
         self.helper = helper
@@ -47,7 +50,7 @@ public struct StanceFormField<Content: View>: View {
             .accessibilityHidden(true)
             content
                 .accessibilityLabel(label)
-                .accessibilityHint(state.accessibilitySuffix(helper: helper))
+                .accessibilityHint(state.accessibilitySuffix(helper: helper, locale: locale))
             if let error = state.error, state.isInvalid {
                 Label {
                     Text(error)
@@ -62,7 +65,7 @@ public struct StanceFormField<Content: View>: View {
             }
         }
         .onChange(of: state.error) { _, new in
-            if let new, !new.isEmpty { StanceAnnouncer.announce("\(label): \(new)", urgent: true) }
+            if let new, !new.isEmpty { StanceAnnouncer.announce(stanceString("stance.field.announcement \(label) \(new)", locale), urgent: true) }
         }
     }
 }
@@ -105,6 +108,7 @@ public struct StanceTextField: View {
     @FocusState private var focused: Bool
     @Environment(\.stanceTheme) private var theme
 
+    @_disfavoredOverload
     public init(
         _ label: String,
         text: Binding<String>,
@@ -147,7 +151,9 @@ public struct StanceSecureField: View {
     @ScaledMetric(relativeTo: .body) private var fieldHeight: CGFloat = StanceSize.touchTarget
     @FocusState private var focused: Bool
     @Environment(\.stanceTheme) private var theme
+    @Environment(\.locale) private var locale
 
+    @_disfavoredOverload
     public init(_ label: String, text: Binding<String>, helper: String? = nil, error: String? = nil, isRequired: Bool = false) {
         self.label = label
         _text = text
@@ -179,7 +185,7 @@ public struct StanceSecureField: View {
                 .buttonStyle(.plain)
                 .accessibilityElement()
                 .accessibilityAddTraits(.isButton)
-                .accessibilityLabel(revealed ? "Hide password" : "Show password")
+                .accessibilityLabel(stanceString(revealed ? "stance.password.hide" : "stance.password.show", locale))
             }
             .padding(.trailing, -StanceSpacing.md)
             .modifier(StanceFieldChrome(isFocused: focused, isInvalid: !(error ?? "").isEmpty))
@@ -198,7 +204,9 @@ public struct StanceTextEditor: View {
     @Binding private var text: String
     @FocusState private var focused: Bool
     @Environment(\.stanceTheme) private var theme
+    @Environment(\.locale) private var locale
 
+    @_disfavoredOverload
     public init(_ label: String, text: Binding<String>, helper: String? = nil, error: String? = nil, limit: Int? = nil) {
         self.label = label
         _text = text
@@ -208,7 +216,7 @@ public struct StanceTextEditor: View {
     }
 
     public var body: some View {
-        StanceFormField(label, helper: limit.map { "\(text.count) of \($0) characters" } ?? helper, error: error) {
+        StanceFormField(label, helper: limit.map { stanceString("stance.characters \(text.count) \($0)", locale) } ?? helper, error: error) {
             TextEditor(text: $text)
                 .focused($focused)
                 .scrollContentBackground(.hidden)
@@ -223,13 +231,18 @@ public struct StanceTextEditor: View {
 
 /// An inline search field with a clear button. For screen-level search prefer `.searchable`.
 public struct StanceSearchField: View {
-    private let prompt: String
+    private let customPrompt: String?
     @Binding private var text: String
     @FocusState private var focused: Bool
     @Environment(\.stanceTheme) private var theme
+    @Environment(\.locale) private var locale
 
-    public init(_ prompt: String = "Search", text: Binding<String>) {
-        self.prompt = prompt
+    private var prompt: String { customPrompt ?? stanceString("stance.search", locale) }
+
+    /// - Parameter prompt: The placeholder and accessible name. Defaults to a localised "Search".
+    @_disfavoredOverload
+    public init(_ prompt: String? = nil, text: Binding<String>) {
+        customPrompt = prompt
         _text = text
     }
 
@@ -254,12 +267,57 @@ public struct StanceSearchField: View {
                 .buttonStyle(.plain)
                 .accessibilityElement()
                 .accessibilityAddTraits(.isButton)
-                .accessibilityLabel("Clear search")
+                .accessibilityLabel(stanceString("stance.search.clear", locale))
                 .padding(.trailing, -StanceSpacing.md)
             }
         }
         .modifier(StanceFieldChrome(isFocused: focused, isInvalid: false))
         .contentShape(Rectangle())
         .onTapGesture { focused = true }
+    }
+}
+
+// MARK: Localised labels
+
+extension StanceFormField {
+    /// Creates a field whose label is looked up in the app's string tables.
+    public init(_ labelKey: LocalizedStringResource, helper: String? = nil, error: String? = nil, isRequired: Bool = false, @ViewBuilder content: () -> Content) {
+        self.init(String(localized: labelKey), helper: helper, error: error, isRequired: isRequired, content: content)
+    }
+}
+
+extension StanceTextField {
+    /// Creates a text field whose label is looked up in the app's string tables.
+    public init(
+        _ labelKey: LocalizedStringResource,
+        text: Binding<String>,
+        placeholder: String = "",
+        helper: String? = nil,
+        error: String? = nil,
+        isRequired: Bool = false,
+        leadingIcon: StanceIconName? = nil
+    ) {
+        self.init(String(localized: labelKey), text: text, placeholder: placeholder, helper: helper, error: error, isRequired: isRequired, leadingIcon: leadingIcon)
+    }
+}
+
+extension StanceSecureField {
+    /// Creates a password field whose label is looked up in the app's string tables.
+    public init(_ labelKey: LocalizedStringResource, text: Binding<String>, helper: String? = nil, error: String? = nil, isRequired: Bool = false) {
+        self.init(String(localized: labelKey), text: text, helper: helper, error: error, isRequired: isRequired)
+    }
+}
+
+extension StanceTextEditor {
+    /// Creates an editor whose label is looked up in the app's string tables.
+    public init(_ labelKey: LocalizedStringResource, text: Binding<String>, helper: String? = nil, error: String? = nil, limit: Int? = nil) {
+        self.init(String(localized: labelKey), text: text, helper: helper, error: error, limit: limit)
+    }
+}
+
+extension StanceSearchField {
+    /// Creates a search field whose prompt is looked up in the app's string tables.
+    public init(_ promptKey: LocalizedStringResource, text: Binding<String>) {
+        self.init(String(localized: promptKey), text: text)
     }
 }

@@ -125,9 +125,22 @@ public class StanceMotion(public val reduceMotion: Boolean) {
     public val emphasizedEasing: Easing = StanceTokens.Easing.emphasized.toEasing()
     public val exitEasing: Easing = StanceTokens.Easing.exit.toEasing()
 
+    /** Constant speed, for looping motion such as a shimmer sweep. */
+    public val linearEasing: Easing = StanceTokens.Easing.linear.toEasing()
+
     public val fastMillis: Int = StanceTokens.Duration.fast
     public val normalMillis: Int = StanceTokens.Duration.normal
     public val slowMillis: Int = StanceTokens.Duration.slow
+    public val slowerMillis: Int = StanceTokens.Duration.slower
+
+    /** The cadence of one revealed chunk of streaming text. */
+    public val streamMillis: Int = StanceTokens.Duration.stream
+
+    /** One shimmer sweep. */
+    public val shimmerMillis: Int = StanceTokens.Duration.shimmer
+
+    /** One pulse breath, from rest to peak and back. */
+    public val pulseMillis: Int = StanceTokens.Duration.pulse
 
     /** Hover, press and colour changes. */
     public fun <T> fast(): FiniteAnimationSpec<T> = spec(fastMillis, standardEasing)
@@ -137,6 +150,9 @@ public class StanceMotion(public val reduceMotion: Boolean) {
 
     /** Dialogs and sheets entering. */
     public fun <T> slow(): FiniteAnimationSpec<T> = spec(slowMillis, emphasizedEasing)
+
+    /** Large surfaces and expanding content that travel further. */
+    public fun <T> slower(): FiniteAnimationSpec<T> = spec(slowerMillis, emphasizedEasing)
 
     /** Anything leaving the screen. Exits are quicker than entrances. */
     public fun <T> exit(): FiniteAnimationSpec<T> = spec(fastMillis, exitEasing)

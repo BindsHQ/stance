@@ -13,6 +13,27 @@ struct StanceShowcaseApp: App {
                 case let .previewScreen(slug): (PreviewCatalog.screen(slug)?.view ?? AnyView(Text("Unknown preview"))).stanceToastHost()
                 }
             }
+            .modifier(LocaleOverride())
+        }
+    }
+}
+
+/// `-stance-locale ar` shows StanceUI's built in strings in another language, with the layout
+/// direction that language is written in. The showcase's own sample text stays in English.
+struct LocaleOverride: ViewModifier {
+    private static let locale: Locale? = {
+        let args = ProcessInfo.processInfo.arguments
+        guard let i = args.firstIndex(of: "-stance-locale"), i + 1 < args.count else { return nil }
+        return Locale(identifier: args[i + 1])
+    }()
+
+    func body(content: Content) -> some View {
+        if let locale = Self.locale {
+            content
+                .environment(\.locale, locale)
+                .environment(\.layoutDirection, locale.language.characterDirection == .rightToLeft ? .rightToLeft : .leftToRight)
+        } else {
+            content
         }
     }
 }
@@ -34,7 +55,7 @@ enum LaunchMode {
 }
 
 enum Screen: String, CaseIterable, Hashable {
-    case foundations, components, sample, settings
+    case foundations, components, assistant, sample, settings
 
     /// `-screen <name>` selects the first screen (used for screenshots and UI tests).
     static var initial: Screen {
@@ -51,12 +72,14 @@ struct RootView: View {
         StanceAdaptiveNavigation("Stance", selection: $screen, destinations: [
             .init(id: Screen.components, title: "Components", systemImage: "square.grid.2x2"),
             .init(id: Screen.foundations, title: "Foundations", systemImage: "paintpalette"),
+            .init(id: Screen.assistant, title: "Assistant", systemImage: "sparkles"),
             .init(id: Screen.sample, title: "Sample", systemImage: "signature"),
             .init(id: Screen.settings, title: "Settings", systemImage: "gearshape"),
         ]) { screen in
             switch screen {
             case .foundations: FoundationsView()
             case .components: ComponentsView()
+            case .assistant: AssistantView()
             case .sample: SampleView()
             case .settings: SettingsView()
             }

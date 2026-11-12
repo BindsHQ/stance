@@ -38,7 +38,7 @@ final class StanceShowcaseUITests: XCTestCase {
 
     func testComponentsOverviewShowsEveryCategory() {
         let app = launch(["-screen", "components"])
-        for id in ["actions", "forms", "dataDisplay", "feedback", "overlays", "navigation", "advanced"] {
+        for id in ["actions", "forms", "dataDisplay", "feedback", "overlays", "navigation", "advanced", "ai"] {
             XCTAssertTrue(app.descendants(matching: .any)["category-\(id)"].waitForExistence(timeout: 5), "missing \(id)")
         }
     }
@@ -49,6 +49,36 @@ final class StanceShowcaseUITests: XCTestCase {
         app.buttons["Assign users"].tap()
         XCTAssertTrue(app.buttons["Done"].waitForExistence(timeout: 5))
         app.buttons["Done"].tap()
+    }
+
+    func testAssistantSendsADraftAndStreamsAReply() {
+        let app = launch(["-screen", "assistant"])
+        let field = app.textFields["Message"].firstMatch
+        // The keyboard has a "send" key of its own. Match the composer's button by its label.
+        let send = app.buttons.matching(NSPredicate(format: "label == %@", "Send")).firstMatch
+        XCTAssertTrue(field.waitForExistence(timeout: 5))
+        XCTAssertFalse(send.isEnabled)
+        field.tap()
+        field.typeText("List the biggest movements")
+        XCTAssertTrue(send.isEnabled)
+        send.tap()
+        // The draft appears as a message, the reply streams in, and the composer is empty again.
+        XCTAssertTrue(app.staticTexts["List the biggest movements"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.buttons["Thought for 2 seconds"].waitForExistence(timeout: 30))
+        XCTAssertFalse(send.isEnabled)
+        // Return sends too.
+        field.tap()
+        field.typeText("And the smallest\n")
+        XCTAssertTrue(app.staticTexts["And the smallest"].waitForExistence(timeout: 10))
+    }
+
+    func testAccessibilityAuditAIComponentsInEveryTheme() throws {
+        for theme in ["light", "dark", "high-contrast"] {
+            let app = launch(["-screen", "components", "-category", "ai", "-stance-theme", theme])
+            XCTAssertTrue(app.staticTexts["Conversation"].waitForExistence(timeout: 5), theme)
+            try audit(app, "ai \(theme)")
+            app.terminate()
+        }
     }
 
     func testAccessibilityAuditSampleScreen() throws {

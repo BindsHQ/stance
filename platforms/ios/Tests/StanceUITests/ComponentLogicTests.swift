@@ -75,8 +75,8 @@ struct FormStateTests {
 
     @Test("VoiceOver hears required, then the error instead of the helper")
     func suffix() {
-        #expect(StanceFieldState(isRequired: true).accessibilitySuffix(helper: "Visible to your organisation") == "required, Visible to your organisation")
-        #expect(StanceFieldState(error: "Required", isRequired: true).accessibilitySuffix(helper: "Help") == "required, Error: Required")
+        #expect(StanceFieldState(isRequired: true).accessibilitySuffix(helper: "Visible to your organisation", locale: Locale(identifier: "en")) == "required, Visible to your organisation")
+        #expect(StanceFieldState(error: "Required", isRequired: true).accessibilitySuffix(helper: "Help", locale: Locale(identifier: "en")) == "required, Error: Required")
         #expect(StanceFieldState().accessibilitySuffix(helper: nil) == "")
     }
 }
@@ -125,9 +125,9 @@ struct DataDisplayTests {
 
     @Test("Stat changes are described in words")
     func stat() {
-        #expect(StanceStatCard("Deployments", value: "48", change: 0.12).changeDescription == "up 12% from last month")
-        #expect(StanceStatCard("Failures", value: "3", change: -0.5, period: "this week").changeDescription == "down 50% this week")
-        #expect(StanceStatCard("Users", value: "10", change: 0).changeDescription == "no change from last month")
+        #expect(StanceStatCard("Deployments", value: "48", change: 0.12).changeDescription(locale: Locale(identifier: "en")) == "up 12% from last month")
+        #expect(StanceStatCard("Failures", value: "3", change: -0.5, period: "this week").changeDescription(locale: Locale(identifier: "en")) == "down 50% this week")
+        #expect(StanceStatCard("Users", value: "10", change: 0).changeDescription(locale: Locale(identifier: "en")) == "no change from last month")
         #expect(StanceStatCard("Users", value: "10").changeDescription == nil)
     }
 

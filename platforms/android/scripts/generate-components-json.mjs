@@ -1,11 +1,12 @@
 // Builds platforms/android/components.json for the documentation site.
-// Each example is copied from the compiled showcase source (Examples.kt), so it always compiles.
+// Each example is copied from the compiled showcase source (Examples.kt and AiExamples.kt), so it always compiles.
 // Run from the repository root: node platforms/android/scripts/generate-components-json.mjs
 import { existsSync, openSync, readSync, closeSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const root = join(import.meta.dirname, '..', '..', '..');
-const source = readFileSync(join(root, 'examples', 'android', 'StanceShowcase', 'app', 'src', 'main', 'kotlin', 'si', 'binds', 'stance', 'showcase', 'Examples.kt'), 'utf8');
+const showcase = join(root, 'examples', 'android', 'StanceShowcase', 'app', 'src', 'main', 'kotlin', 'si', 'binds', 'stance', 'showcase');
+const source = ['Examples.kt', 'AiExamples.kt'].map((file) => readFileSync(join(showcase, file), 'utf8')).join('\n');
 
 const examples = {};
 const lines = source.split('\n');
@@ -27,7 +28,7 @@ const rows = [
   ['StanceDivider', 'foundations', 'composable', 'HorizontalDivider', 'separator', 'A thin horizontal or vertical line that separates content.', ['Decorative, so it is not announced.']],
   ['StanceScaffold', 'foundations', 'composable', 'Scaffold', null, 'The page frame: edge to edge on the canvas colour, with insets and an optional snackbar host.', ['Content receives system bar, cutout and keyboard insets as padding.']],
   ['StanceAdaptiveGrid', 'foundations', 'composable', 'LazyVerticalGrid', 'grid', 'A lazy grid that fits as many columns as the window allows on phones, tablets and foldables.', ['Reading order follows the grid from start to end.']],
-  ['StanceIcon', 'foundations', 'composable', 'Icon', 'icon', 'Draws one of the 90 Stance icons, tinted with the current content colour.', ['Pass null as the description for decorative icons.']],
+  ['StanceIcon', 'foundations', 'composable', 'Icon', 'icon', 'Draws one of the 99 Stance icons, tinted with the current content colour.', ['Pass null as the description for decorative icons.']],
   ['stanceFocusRing', 'foundations', 'helper', 'Modifier.border', null, 'A modifier that draws the Stance focus ring while an element has keyboard or D-pad focus.', ['The ring is 2dp, or 3dp in high contrast.'], 'StanceFocusRing'],
   ['StanceButton', 'actions', 'composable', 'Button', 'button', 'Triggers an action, with six variants, three sizes, icons and a loading state.', [touch, 'Loading keeps focus and is announced as Loading.']],
   ['StanceIconButton', 'actions', 'composable', 'IconButton', 'icon-button', 'An icon-only button in ghost, outline or filled styles that requires an accessible name.', [touch, 'The content description is required.']],
@@ -89,6 +90,40 @@ const rows = [
   ['rememberStanceDocumentPicker', 'advanced', 'helper', 'ActivityResultContracts.OpenDocument', 'file-upload', 'Launches the system file picker for attaching documents.', ['Uses the accessible system picker.'], 'StanceDocumentPicker'],
   ['StanceButtonView', 'advanced', 'helper', 'AbstractComposeView', null, 'A Stance button usable from XML layouts and View code.', ['Keeps the same semantics as StanceButton.']],
   ['setStanceContent', 'advanced', 'helper', 'ComposeView', null, 'Hosts Stance content inside an existing View hierarchy.', ['Composed content keeps its semantics inside Views.'], 'StanceComposeView'],
+  // AI components, wave one. The contract is specs/ai-components.json.
+  ['StanceThread', 'ai', 'composable', 'LazyColumn', 'thread', 'The scrolling container for a conversation. Follows the newest message only while the reader is at the bottom.', ['A list named by its label.', 'New responses are announced once, when complete.']],
+  ['StanceMessage', 'ai', 'composable', null, 'message', 'One turn in a conversation from the user, the assistant or the system, as a bubble or plain.', ['The author and time are a heading.', 'Status is read as the heading state while a response arrives.', 'Message actions are screen reader custom actions.']],
+  ['StanceMessageGroup', 'ai', 'composable', null, 'message-group', 'Consecutive messages from one author under a single avatar and name.', ['The author row is a heading.']],
+  ['StanceMessageActions', 'ai', 'composable', 'IconToggleButton', 'message-actions', 'The row of actions under a message: copy, retry, edit, good response and bad response.', [touch, 'Rating buttons are toggles.', 'Copy confirms with a polite announcement.']],
+  ['StanceBranchSwitcher', 'ai', 'composable', null, 'branch-switcher', 'Steps between alternative versions of a message after an edit or retry.', [touch, 'The position, for example 2 of 3, is a polite live region.', 'Arrows mirror in right to left layouts.']],
+  ['StanceScrollToLatest', 'ai', 'composable', 'Surface', 'scroll-to-latest', 'A floating button that appears when the reader has scrolled away from the newest message.', [touch, 'The name includes the number of new messages.']],
+  ['StanceConversationList', 'ai', 'composable', 'LazyColumn', 'conversation-list', 'A list of past conversations grouped by date, with selection, rename, delete and pin.', ['Group names are headings.', 'The current conversation is announced as selected.', 'Row actions are also screen reader custom actions.']],
+  ['StanceThreadEmptyState', 'ai', 'composable', null, 'thread-empty-state', 'The opening screen of a new conversation with a greeting and starter prompts.', ['The title is a heading.', 'Each starter is one button.']],
+  ['StancePromptComposer', 'ai', 'composable', 'BasicTextField', 'prompt-composer', 'The message input: a text area that grows with content, with slots and a send button that becomes stop.', [touch, 'Send is disabled when the draft is empty.', 'While a response arrives the same button is named Stop.']],
+  ['StanceAttachmentTray', 'ai', 'composable', null, 'attachment-tray', 'The attachments on a draft or a sent message, with progress, errors and remove.', ['Each remove button names its file.', 'Upload errors are announced.']],
+  ['StanceMentionPicker', 'ai', 'composable', 'Popup', 'mention-picker', 'A filterable list that opens above the composer to reference files, people or tools.', ['Does not take focus, so typing continues.', 'The active row is announced as selected.', 'Closes on back, Escape and outside taps.']],
+  ['StanceSlashCommandMenu', 'ai', 'composable', 'Popup', 'slash-command-menu', 'A command list that opens above the composer when the draft starts with a slash.', ['Same list behaviour as the mention picker.']],
+  ['StanceModelPicker', 'ai', 'composable', 'ModalBottomSheet', 'model-picker', 'Chooses the model for the next message, with a short description and capability badges.', [touch, 'The sheet is a radio group with the chosen model selected.']],
+  ['StanceContextChips', 'ai', 'composable', null, 'context-chips', 'Shows what the assistant can see for this message, such as files or pages, each removable.', [touch, 'A removable chip is one button named Remove and its label.']],
+  ['StanceVoiceInputButton', 'ai', 'composable', 'IconButton', 'voice-input-button', 'A microphone button with idle, listening and processing states and a level ring.', [touch, 'A toggle button whose state changes are announced.']],
+  ['StanceStopButton', 'ai', 'composable', 'IconButton', 'stop-button', 'Stops a response that is being generated, as an icon or a labelled button.', [touch, 'Named Stop for screen readers.']],
+  ['StanceTokenBudgetMeter', 'ai', 'composable', null, 'token-budget-meter', 'A compact meter of how much of the context or message limit is used, as a ring, bar or text.', ['A progress value with value text.', 'Crossing the warning threshold or the limit is announced once.', 'The warning has an icon, not colour alone.']],
+  ['StanceStreamingText', 'ai', 'composable', 'Text', 'streaming-text', 'Reveals text as it arrives at a steady cadence with a caret, without moving lines already shown.', ['Announced once when complete, never token by token.', 'Shows at once when animations are off.']],
+  ['StanceThinkingIndicator', 'ai', 'composable', null, 'thinking-indicator', 'Shows that the assistant is working before any text arrives, with a label and elapsed time.', ['A polite status.', 'A static mark with the label when animations are off.']],
+  ['StanceReasoningDisclosure', 'ai', 'composable', null, 'reasoning-disclosure', 'A collapsible block for reasoning: open while thinking, collapsed to a summary when done.', [touch, 'A button that reports expanded or collapsed.', 'The summary reads, for example, Thought for 12 seconds.']],
+  ['StanceShimmerText', 'ai', 'composable', 'Text', 'shimmer-text', 'Text with a slow light sweep for labels of work in progress, such as Searching the web.', ['Plain text to screen readers.', 'No sweep when animations are off.']],
+  ['StanceGenerationProgress', 'ai', 'composable', 'LinearProgressIndicator', 'generation-progress', 'Progress for longer generations such as images or documents, with a stage label and cancel.', ['Announced with its label and percentage.', 'Stage changes are announced politely.']],
+  ['StanceStreamingSkeleton', 'ai', 'composable', null, 'streaming-skeleton', 'Placeholder lines, card or image for a response that has been requested and has not started.', ['Read as one loading status.', 'The pulse stops when animations are off.']],
+  ['StanceInterruptedState', 'ai', 'composable', null, 'interrupted-state', 'Marks a response that was stopped or failed part way, with retry and continue.', ['Errors and lost connections are alerts.', 'Stopped and limit are polite statuses.']],
+  ['StanceCitationChip', 'ai', 'composable', 'ModalBottomSheet', 'citation-chip', 'A numbered marker that links a claim to its source and previews it in a bottom sheet.', [touch, 'A button named, for example, Source 2 and the title.', 'The preview is reachable by touch, keyboard and screen reader.']],
+  ['StanceSourceList', 'ai', 'composable', null, 'source-list', 'The sources behind an answer, as a compact row of chips that expands to a full list.', ['The title is a heading.', 'Each chip is named by its source title.']],
+  ['StanceSourcePreview', 'ai', 'composable', 'Surface', 'source-preview', 'A card for one source: site, title, snippet and a link to open it.', ['The link is a button with a visible label.']],
+  ['StanceConfidenceBadge', 'ai', 'composable', null, 'confidence-badge', 'States how sure the system is in words with a distinct icon, never colour alone.', ['Read as the label and its description together.']],
+  ['StanceAIGeneratedLabel', 'ai', 'composable', null, 'ai-generated-label', 'Marks content as generated, assisted or edited by AI, with the sparkle icon and the model name.', ['Read as one phrase.']],
+  ['StanceDisclaimerNote', 'ai', 'composable', null, 'disclaimer-note', 'A quiet note under the composer or a response, such as a reminder to check important facts.', ['Read as plain text.']],
+  ['StanceFeedbackBar', 'ai', 'composable', 'IconToggleButton', 'feedback-bar', 'Thumbs up or down, followed by optional reasons and a comment, then a thank you.', [touch, 'Rating buttons are toggles.', 'Reasons are a labelled group.', 'The thank you is announced.']],
+  ['StanceReportDialog', 'ai', 'composable', 'ModalBottomSheet', 'report-dialog', 'A bottom sheet to report a response with a category and details.', ['The title is a heading.', 'Categories are a radio group.', 'Stays open and busy while the report is sent.']],
+  ['StanceSensitiveContentGate', 'ai', 'composable', null, 'sensitive-content-gate', 'Hides content behind a notice until the reader chooses to see it.', ['Hidden content is absent from the accessibility tree.', 'Focus moves to the content on reveal.']],
 ];
 
 // Previews are rendered from the real composables by the showcase build:

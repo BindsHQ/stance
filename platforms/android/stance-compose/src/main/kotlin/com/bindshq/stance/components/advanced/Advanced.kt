@@ -50,6 +50,13 @@ import com.bindshq.stance.icons.StanceIcon
 import com.bindshq.stance.icons.StanceIcons
 import com.bindshq.stance.theme.StanceSpacing
 import com.bindshq.stance.theme.StanceTheme
+import androidx.compose.ui.res.stringResource
+import com.bindshq.stance.R
+import com.bindshq.stance.foundation.defaultResultsDescription
+import com.bindshq.stance.foundation.defaultEmptyDescription
+import androidx.compose.animation.AnimatedVisibility
+import com.bindshq.stance.foundation.expandHorizontalEnter
+import com.bindshq.stance.foundation.shrinkHorizontalExit
 
 /**
  * Wraps scrollable content with the platform pull-to-refresh gesture.
@@ -152,11 +159,11 @@ public fun <T> StanceSearchableList(
     items: List<T>,
     matches: (item: T, query: String) -> Boolean,
     modifier: Modifier = Modifier,
-    placeholder: String = "Search",
+    placeholder: String = stringResource(R.string.stance_search),
     key: ((T) -> Any)? = null,
-    resultsDescription: (Int) -> String = { count -> if (count == 1) "1 result" else "$count results" },
-    emptyTitle: String = "No results",
-    emptyDescription: (String) -> String = { query -> "Nothing matches “$query”." },
+    resultsDescription: (Int) -> String = defaultResultsDescription(),
+    emptyTitle: String = stringResource(R.string.stance_no_results),
+    emptyDescription: (String) -> String = defaultEmptyDescription(),
     itemContent: @Composable (T) -> Unit,
 ) {
     var query by rememberSaveable { mutableStateOf("") }
@@ -192,7 +199,7 @@ public fun StanceFilterBar(
     onToggle: (id: String) -> Unit,
     onClearAll: () -> Unit,
     modifier: Modifier = Modifier,
-    clearAllLabel: String = "Clear all",
+    clearAllLabel: String = stringResource(R.string.stance_clear_all),
 ) {
     Row(
         modifier = modifier.horizontalScroll(rememberScrollState()).padding(horizontal = StanceSpacing.space4),
@@ -202,7 +209,12 @@ public fun StanceFilterBar(
         filters.forEach { filter ->
             StanceFilterChip(label = filter.label, selected = filter.selected, onClick = { onToggle(filter.id) })
         }
-        if (filters.any { it.selected }) {
+        val motion = StanceTheme.motion
+        AnimatedVisibility(
+            visible = filters.any { it.selected },
+            enter = motion.expandHorizontalEnter(),
+            exit = motion.shrinkHorizontalExit(),
+        ) {
             StanceButton(clearAllLabel, onClick = onClearAll, variant = StanceButtonVariant.Ghost, size = StanceButtonSize.Small)
         }
     }

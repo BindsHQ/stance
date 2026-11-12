@@ -103,6 +103,7 @@ public enum StanceRadius {
 public enum StanceSize {
     /// Minimum interactive target on iOS (44pt, Apple Human Interface Guidelines).
     public static let touchTarget: CGFloat = StanceTokens.TouchTarget.ios
+    public static let controlXs: CGFloat = StanceTokens.Size.controlXs
     public static let controlSm: CGFloat = StanceTokens.Size.controlSm
     public static let controlMd: CGFloat = StanceTokens.Size.controlMd
     public static let controlLg: CGFloat = StanceTokens.Size.controlLg

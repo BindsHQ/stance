@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>stance.ai.sources.count %lld</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>zero</key>
+			<string>لا مصادر</string>
+			<key>one</key>
+			<string>مصدر واحد</string>
+			<key>two</key>
+			<string>مصدران</string>
+			<key>few</key>
+			<string>%lld مصادر</string>
+			<key>many</key>
+			<string>%lld مصدرًا</string>
+			<key>other</key>
+			<string>%lld مصدر</string>
+		</dict>
+	</dict>
+	<key>stance.ai.unread %lld</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>zero</key>
+			<string>لا رسائل جديدة</string>
+			<key>one</key>
+			<string>رسالة جديدة واحدة</string>
+			<key>two</key>
+			<string>رسالتان جديدتان</string>
+			<key>few</key>
+			<string>%lld رسائل جديدة</string>
+			<key>many</key>
+			<string>%lld رسالة جديدة</string>
+			<key>other</key>
+			<string>%lld رسالة جديدة</string>
+		</dict>
+	</dict>
+	<key>stance.results.count %lld</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>zero</key>
+			<string>لا نتائج</string>
+			<key>one</key>
+			<string>نتيجة واحدة</string>
+			<key>two</key>
+			<string>نتيجتان</string>
+			<key>few</key>
+			<string>%lld نتائج</string>
+			<key>many</key>
+			<string>%lld نتيجة</string>
+			<key>other</key>
+			<string>%lld نتيجة</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

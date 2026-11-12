@@ -50,6 +50,7 @@ public struct StanceBadge: View {
     private let tone: StanceTone
     @Environment(\.stanceTheme) private var theme
 
+    @_disfavoredOverload
     public init(_ text: String, tone: StanceTone = .neutral) {
         self.text = text
         self.tone = tone
@@ -72,7 +73,9 @@ public struct StanceTag: View {
     private let text: String
     private let onRemove: (() -> Void)?
     @Environment(\.stanceTheme) private var theme
+    @Environment(\.locale) private var locale
 
+    @_disfavoredOverload
     public init(_ text: String, onRemove: (() -> Void)? = nil) {
         self.text = text
         self.onRemove = onRemove
@@ -88,7 +91,7 @@ public struct StanceTag: View {
                         .contentShape(Rectangle().inset(by: -10))
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel("Remove \(text)")
+                .accessibilityLabel(stanceString("stance.remove \(text)", locale))
             }
         }
         .padding(.leading, StanceSpacing.md)
@@ -157,6 +160,7 @@ public struct StanceAvatarGroup: View {
     private let max: Int
     private let size: StanceAvatar.Size
     @Environment(\.stanceTheme) private var theme
+    @Environment(\.locale) private var locale
 
     public init(names: [String], max: Int = 4, size: StanceAvatar.Size = .small) {
         self.names = names
@@ -173,7 +177,7 @@ public struct StanceAvatarGroup: View {
                     .overlay { Circle().strokeBorder(theme.colors.bgSurface, lineWidth: 2) }
             }
             if extra > 0 {
-                Text("+\(extra)")
+                Text(verbatim: "+\(extra.formatted(.number.locale(locale)))")
                     .font(.system(size: size.points * 0.34, weight: .semibold))
                     .frame(width: size.points, height: size.points)
                     .background(theme.colors.bgMuted, in: Circle())
@@ -181,7 +185,7 @@ public struct StanceAvatarGroup: View {
             }
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(shown.joined(separator: ", ") + (extra > 0 ? " and \(extra) more" : ""))
+        .accessibilityLabel((shown + (extra > 0 ? [stanceString("stance.more \(extra)", locale)] : [])).formatted(.list(type: .and).locale(locale)))
     }
 }
 
@@ -193,8 +197,10 @@ public struct StanceProgressView: View {
     private let value: Double?
     private let shape: Shape
     @Environment(\.stanceTheme) private var theme
+    @Environment(\.locale) private var locale
 
     /// - Parameter value: 0...1, or `nil` for indeterminate progress.
+    @_disfavoredOverload
     public init(_ label: String, value: Double? = nil, shape: Shape = .linear) {
         self.label = label
         self.value = value
@@ -202,13 +208,23 @@ public struct StanceProgressView: View {
     }
 
     public var body: some View {
+        content
+            // A success tap when progress reaches the end, as the system gives for a finished task.
+            .sensoryFeedback(.success, trigger: (value ?? 0) >= 1) { _, complete in complete }
+    }
+
+    @ViewBuilder private var content: some View {
         switch shape {
         case .linear:
             VStack(alignment: .leading, spacing: StanceSpacing.xs) {
                 HStack {
                     Text(label).stanceText(.label)
                     Spacer()
-                    if let value { Text(value, format: .percent.precision(.fractionLength(0))).stanceText(.label).foregroundStyle(theme.colors.fgMuted).monospacedDigit() }
+                    if let value {
+                        Text(value, format: .percent.precision(.fractionLength(0))).stanceText(.label).foregroundStyle(theme.colors.fgMuted).monospacedDigit()
+                            .contentTransition(.numericText(value: value))
+                            .stanceAnimation(.normal, value: value)
+                    }
                 }
                 Group {
                     if let value { ProgressView(value: min(max(value, 0), 1)) } else { ProgressView().progressViewStyle(.linear) }
@@ -218,7 +234,7 @@ public struct StanceProgressView: View {
             // One element for label, bar and value, so the accessible frame is not a 4pt bar.
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(label)
-            .accessibilityValue(value.map { Text($0, format: .percent.precision(.fractionLength(0))) } ?? Text("In progress"))
+            .accessibilityValue(value.map { Text($0, format: .percent.precision(.fractionLength(0))) } ?? Text(stanceString("stance.inProgress", locale)))
             .accessibilityAddTraits(.updatesFrequently)
         case .circular:
             Group {
@@ -263,11 +279,12 @@ public struct StanceSkeleton: View {
             .fill(theme.colors.bgEmphasis)
             .frame(width: shape == .circle ? height : width, height: height)
             .frame(maxWidth: shape == .circle || width != nil ? nil : .infinity, alignment: .leading)
-            .opacity(dim ? 0.45 : 1)
+            .opacity(dim ? StanceMotion.pulseRestOpacity : 1)
             .accessibilityHidden(true)
             .onAppear {
-                guard !reduceMotion else { return }
-                withAnimation(.easeInOut(duration: 0.9).repeatForever(autoreverses: true)) { dim = true }
+                // One breath per pulse token. Static under Reduce Motion.
+                guard let pulse = StanceMotion.pulse(reduceMotion: reduceMotion) else { return }
+                withAnimation(pulse) { dim = true }
             }
     }
 }
@@ -359,11 +376,15 @@ public struct StanceStatCard: View {
     private let label: String
     private let value: String
     private let change: Double?
-    private let period: String
+    private let period: String?
     @Environment(\.stanceTheme) private var theme
+    @Environment(\.locale) private var locale
 
-    /// - Parameter change: Fractional change (0.12 = up 12%).
-    public init(_ label: String, value: String, change: Double? = nil, period: String = "from last month") {
+    /// - Parameters:
+    ///   - change: Fractional change (0.12 = up 12%).
+    ///   - period: What the change is measured against. Defaults to a localised "from last month".
+    @_disfavoredOverload
+    public init(_ label: String, value: String, change: Double? = nil, period: String? = nil) {
         self.label = label
         self.value = value
         self.change = change
@@ -371,13 +392,19 @@ public struct StanceStatCard: View {
     }
 
     /// The change in words, for example "up 12% from last month".
-    public var changeDescription: String? {
+    public var changeDescription: String? { changeDescription(locale: .current) }
+
+    /// The change in words, localised for `locale`.
+    public func changeDescription(locale: Locale) -> String? {
         guard let change else { return nil }
         let percent = Int((abs(change) * 100).rounded())
-        return change == 0 ? "no change \(period)" : "\(change > 0 ? "up" : "down") \(percent)% \(period)"
+        let period = period ?? stanceString("stance.stat.period", locale)
+        if change == 0 { return stanceString("stance.stat.noChange \(period)", locale) }
+        return change > 0 ? stanceString("stance.stat.up \(percent) \(period)", locale) : stanceString("stance.stat.down \(percent) \(period)", locale)
     }
 
     public var body: some View {
+        let changeDescription = changeDescription(locale: locale)
         VStack(alignment: .leading, spacing: StanceSpacing.xs) {
             Text(label).stanceText(.label).foregroundStyle(theme.colors.fgMuted)
             Text(value).stanceText(.title).monospacedDigit()
@@ -430,6 +457,7 @@ public struct StanceListRow<Leading: View, Trailing: View>: View {
     private let trailing: Trailing
     @Environment(\.stanceTheme) private var theme
 
+    @_disfavoredOverload
     public init(_ title: String, subtitle: String? = nil, @ViewBuilder leading: () -> Leading = { EmptyView() }, @ViewBuilder trailing: () -> Trailing = { EmptyView() }) {
         self.title = title
         self.subtitle = subtitle
@@ -494,6 +522,7 @@ private struct StanceDisclosureBody: View {
     let configuration: DisclosureGroupStyleConfiguration
     @Environment(\.stanceTheme) private var theme
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.locale) private var locale
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -511,7 +540,7 @@ private struct StanceDisclosureBody: View {
                 .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
-            .accessibilityValue(configuration.isExpanded ? "Expanded" : "Collapsed")
+            .accessibilityValue(stanceString(configuration.isExpanded ? "stance.expanded" : "stance.collapsed", locale))
             if configuration.isExpanded {
                 configuration.content.padding(.bottom, StanceSpacing.md)
             }
@@ -521,4 +550,41 @@ private struct StanceDisclosureBody: View {
 
 extension DisclosureGroupStyle where Self == StanceDisclosureGroupStyle {
     public static var stance: StanceDisclosureGroupStyle { StanceDisclosureGroupStyle() }
+}
+
+// MARK: Localised labels
+
+extension StanceBadge {
+    /// Creates a badge whose text is looked up in the app's string tables.
+    public init(_ textKey: LocalizedStringResource, tone: StanceTone = .neutral) {
+        self.init(String(localized: textKey), tone: tone)
+    }
+}
+
+extension StanceTag {
+    /// Creates a tag whose text is looked up in the app's string tables.
+    public init(_ textKey: LocalizedStringResource, onRemove: (() -> Void)? = nil) {
+        self.init(String(localized: textKey), onRemove: onRemove)
+    }
+}
+
+extension StanceProgressView {
+    /// Creates a progress view whose label is looked up in the app's string tables.
+    public init(_ labelKey: LocalizedStringResource, value: Double? = nil, shape: Shape = .linear) {
+        self.init(String(localized: labelKey), value: value, shape: shape)
+    }
+}
+
+extension StanceStatCard {
+    /// Creates a stat card whose label is looked up in the app's string tables.
+    public init(_ labelKey: LocalizedStringResource, value: String, change: Double? = nil, period: String? = nil) {
+        self.init(String(localized: labelKey), value: value, change: change, period: period)
+    }
+}
+
+extension StanceListRow {
+    /// Creates a row whose title is looked up in the app's string tables.
+    public init(_ titleKey: LocalizedStringResource, subtitle: String? = nil, @ViewBuilder leading: () -> Leading = { EmptyView() }, @ViewBuilder trailing: () -> Trailing = { EmptyView() }) {
+        self.init(String(localized: titleKey), subtitle: subtitle, leading: leading, trailing: trailing)
+    }
 }

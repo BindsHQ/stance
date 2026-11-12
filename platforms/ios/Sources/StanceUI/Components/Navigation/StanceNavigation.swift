@@ -43,6 +43,7 @@ public struct StanceAdaptiveNavigation<ID: Hashable, Content: View>: View {
     @Environment(\.horizontalSizeClass) private var sizeClass
     @Environment(\.stanceTheme) private var theme
 
+    @_disfavoredOverload
     public init(_ title: String, selection: Binding<ID>, destinations: [StanceDestination<ID>], @ViewBuilder content: @escaping (ID) -> Content) {
         self.title = title
         _selection = selection
@@ -80,6 +81,7 @@ public struct StancePageIndicator: View {
     private let count: Int
     private let current: Int
     @Environment(\.stanceTheme) private var theme
+    @Environment(\.locale) private var locale
 
     public init(count: Int, current: Int) {
         self.count = max(0, count)
@@ -96,7 +98,7 @@ public struct StancePageIndicator: View {
         }
         .stanceAnimation(.normal, value: current)
         .accessibilityElement()
-        .accessibilityLabel("Page \(min(current + 1, count)) of \(count)")
+        .accessibilityLabel(stanceString("stance.page \(min(current + 1, count)) \(count)", locale))
     }
 }
 
@@ -105,6 +107,7 @@ public struct StanceStepper: View {
     private let steps: [String]
     private let current: Int
     @Environment(\.stanceTheme) private var theme
+    @Environment(\.locale) private var locale
 
     public init(steps: [String], current: Int) {
         self.steps = steps
@@ -114,7 +117,7 @@ public struct StanceStepper: View {
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             ForEach(Array(steps.enumerated()), id: \.offset) { index, step in
-                let state = index < current ? "Completed" : index == current ? "Current" : "Not started"
+                let state = stanceString(index < current ? "stance.step.completed" : index == current ? "stance.step.current" : "stance.step.notStarted", locale)
                 HStack(alignment: .top, spacing: StanceSpacing.md) {
                     VStack(spacing: 0) {
                         ZStack {
@@ -123,7 +126,7 @@ public struct StanceStepper: View {
                             if index < current {
                                 StanceIcon(.check, size: StanceSize.iconSm - 2).foregroundStyle(theme.colors.accentFg)
                             } else {
-                                Text("\(index + 1)").font(.system(size: 12, weight: .semibold))
+                                Text((index + 1).formatted(.number.locale(locale))).font(.system(size: 12, weight: .semibold))
                                     .foregroundStyle(index == current ? theme.colors.accentFg : theme.colors.fgMuted)
                             }
                         }
@@ -138,9 +141,16 @@ public struct StanceStepper: View {
                         .padding(.top, 3)
                 }
                 .accessibilityElement(children: .ignore)
-                .accessibilityLabel("Step \(index + 1) of \(steps.count): \(step)")
+                .accessibilityLabel(stanceString("stance.step \(index + 1) \(steps.count) \(step)", locale))
                 .accessibilityValue(state)
             }
         }
+    }
+}
+
+extension StanceAdaptiveNavigation {
+    /// Creates adaptive navigation whose title is looked up in the app's string tables.
+    public init(_ titleKey: LocalizedStringResource, selection: Binding<ID>, destinations: [StanceDestination<ID>], @ViewBuilder content: @escaping (ID) -> Content) {
+        self.init(String(localized: titleKey), selection: selection, destinations: destinations, content: content)
     }
 }

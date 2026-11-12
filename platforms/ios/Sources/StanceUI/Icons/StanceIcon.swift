@@ -5,16 +5,21 @@ import SwiftUI
 /// Icons are decorative by default and hidden from VoiceOver. Pass `label` when
 /// the icon conveys meaning on its own. The size scales with Dynamic Type.
 ///
+/// Directional icons (chevrons and arrows that point along the reading direction) mirror in
+/// right to left layouts, the way SF Symbols do. Pass `mirrorsInRightToLeft` to override.
+///
 /// For glyphs people expect to match the system (share, back, etc.) use SF Symbols
 /// with `Image(systemName:)` instead.
 public struct StanceIcon: View {
     private let name: StanceIconName
     private let label: String?
+    private let mirrors: Bool
     @ScaledMetric private var size: CGFloat
 
-    public init(_ name: StanceIconName, size: CGFloat = StanceSize.iconMd, label: String? = nil) {
+    public init(_ name: StanceIconName, size: CGFloat = StanceSize.iconMd, label: String? = nil, mirrorsInRightToLeft: Bool? = nil) {
         self.name = name
         self.label = label
+        mirrors = mirrorsInRightToLeft ?? name.isDirectional
         _size = ScaledMetric(wrappedValue: size, relativeTo: .body)
     }
 
@@ -22,9 +27,22 @@ public struct StanceIcon: View {
         StanceIconShape(name: name)
             .stroke(style: StrokeStyle(lineWidth: 1.75 * size / 24, lineCap: .round, lineJoin: .round))
             .frame(width: size, height: size)
+            .flipsForRightToLeftLayoutDirection(mirrors)
             .accessibilityHidden(label == nil)
             .accessibilityLabel(label ?? "")
             .accessibilityAddTraits(label == nil ? [] : .isImage)
+    }
+}
+
+extension StanceIconName {
+    /// Whether the icon points along the reading direction and so mirrors in right to left
+    /// layouts: back and forward chevrons and arrows, the sidebar, the bulleted list and log out.
+    /// Icons that show a physical object, a clock direction or a tick stay as drawn.
+    public var isDirectional: Bool {
+        switch self {
+        case .chevronLeft, .chevronRight, .chevronsLeft, .chevronsRight, .arrowLeft, .arrowRight, .panelLeft, .list, .logOut: true
+        default: false
+        }
     }
 }
 

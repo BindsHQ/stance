@@ -128,6 +128,7 @@ public struct StanceButton: View {
     private let role: ButtonRole?
     private let action: () -> Void
 
+    @_disfavoredOverload
     public init(
         _ title: String,
         variant: StanceButtonVariant = .primary,
@@ -153,6 +154,7 @@ public struct StanceButton: View {
     }
 
     @Environment(\.stanceTheme) private var theme
+    @Environment(\.locale) private var locale
 
     private var spinnerColor: Color {
         switch variant {
@@ -179,7 +181,7 @@ public struct StanceButton: View {
             }
         }
         .buttonStyle(.stance(variant, size: size, fullWidth: fullWidth, pill: pill))
-        .accessibilityValue(isLoading ? "In progress" : "")
+        .accessibilityValue(isLoading ? stanceString("stance.inProgress", locale) : "")
     }
 }
 
@@ -191,6 +193,7 @@ public struct StanceIconButton: View {
     private let action: () -> Void
     @Environment(\.stanceTheme) private var theme
 
+    @_disfavoredOverload
     public init(_ icon: StanceIconName, label: String, variant: StanceButtonVariant = .ghost, action: @escaping () -> Void) {
         self.icon = icon
         self.label = label
@@ -236,6 +239,7 @@ public struct StanceMenu<Content: View>: View {
     private let variant: StanceButtonVariant
     private let content: Content
 
+    @_disfavoredOverload
     public init(_ title: String, variant: StanceButtonVariant = .outline, @ViewBuilder content: () -> Content) {
         self.title = title
         self.variant = variant
@@ -252,5 +256,43 @@ public struct StanceMenu<Content: View>: View {
             }
         }
         .buttonStyle(.stance(variant))
+    }
+}
+
+// MARK: Localised titles
+
+extension StanceButton {
+    /// Creates a button whose title is looked up in the app's string tables.
+    /// A string literal resolves here, the way `Button("Save")` does in SwiftUI.
+    public init(
+        _ titleKey: LocalizedStringResource,
+        variant: StanceButtonVariant = .primary,
+        size: StanceButtonSize = .medium,
+        leadingIcon: StanceIconName? = nil,
+        trailingIcon: StanceIconName? = nil,
+        isLoading: Bool = false,
+        fullWidth: Bool = false,
+        pill: Bool = false,
+        role: ButtonRole? = nil,
+        action: @escaping () -> Void
+    ) {
+        self.init(
+            String(localized: titleKey), variant: variant, size: size, leadingIcon: leadingIcon, trailingIcon: trailingIcon,
+            isLoading: isLoading, fullWidth: fullWidth, pill: pill, role: role, action: action
+        )
+    }
+}
+
+extension StanceIconButton {
+    /// Creates an icon button whose accessible name is looked up in the app's string tables.
+    public init(_ icon: StanceIconName, label labelKey: LocalizedStringResource, variant: StanceButtonVariant = .ghost, action: @escaping () -> Void) {
+        self.init(icon, label: String(localized: labelKey), variant: variant, action: action)
+    }
+}
+
+extension StanceMenu {
+    /// Creates a menu whose title is looked up in the app's string tables.
+    public init(_ titleKey: LocalizedStringResource, variant: StanceButtonVariant = .outline, @ViewBuilder content: () -> Content) {
+        self.init(String(localized: titleKey), variant: variant, content: content)
     }
 }

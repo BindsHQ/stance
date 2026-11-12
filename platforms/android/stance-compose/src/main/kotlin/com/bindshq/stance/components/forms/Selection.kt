@@ -32,6 +32,8 @@ import androidx.compose.ui.state.ToggleableState
 import com.bindshq.stance.theme.StanceSizes
 import com.bindshq.stance.theme.StanceSpacing
 import com.bindshq.stance.theme.StanceTheme
+import androidx.compose.ui.res.stringResource
+import com.bindshq.stance.R
 
 @Composable
 private fun ChoiceLabel(label: String, description: String?, enabled: Boolean, modifier: Modifier = Modifier) {
@@ -266,7 +268,7 @@ public fun StanceRangeSlider(
     valueRange: ClosedFloatingPointRange<Float> = 0f..1f,
     steps: Int = 0,
     enabled: Boolean = true,
-    valueText: String = "${value.start.toInt()} to ${value.endInclusive.toInt()}",
+    valueText: String = stringResource(R.string.stance_range_value, value.start.toInt(), value.endInclusive.toInt()),
 ) {
     Column(modifier = modifier.padding(vertical = StanceSpacing.space1)) {
         SliderHeader(label, valueText, enabled)

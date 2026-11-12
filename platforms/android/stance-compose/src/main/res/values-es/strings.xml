@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="stance_loading">Cargando</string>
+    <string name="stance_cancel">Cancelar</string>
+    <string name="stance_ok">Aceptar</string>
+    <string name="stance_dismiss">Descartar</string>
+    <string name="stance_try_again">Reintentar</string>
+    <string name="stance_required">obligatorio</string>
+    <string name="stance_select">Seleccionar</string>
+    <string name="stance_select_date">Seleccionar fecha</string>
+    <string name="stance_select_dates">Seleccionar fechas</string>
+    <string name="stance_select_time">Seleccionar hora</string>
+    <string name="stance_date_range">%1$s a %2$s</string>
+    <string name="stance_range_value">%1$d a %2$d</string>
+    <string name="stance_percent">%1$d %%</string>
+    <string name="stance_show_password">Mostrar contraseña</string>
+    <string name="stance_hide_password">Ocultar contraseña</string>
+    <string name="stance_search">Buscar</string>
+    <string name="stance_clear_search">Borrar búsqueda</string>
+    <string name="stance_navigate_up">Volver</string>
+    <string name="stance_page_of">Página %1$d de %2$d</string>
+    <string name="stance_step_of">Paso %1$d de %2$d, %3$s</string>
+    <string name="stance_step_complete">completado</string>
+    <string name="stance_step_current">actual</string>
+    <string name="stance_step_upcoming">pendiente</string>
+    <string name="stance_step_error">error</string>
+    <plurals name="stance_results">
+        <item quantity="one">%1$d resultado</item>
+        <item quantity="many">%1$d de resultados</item>
+        <item quantity="other">%1$d resultados</item>
+    </plurals>
+    <string name="stance_no_results">Sin resultados</string>
+    <string name="stance_nothing_matches">Nada coincide con «%1$s».</string>
+    <string name="stance_clear_all">Borrar todo</string>
+    <string name="stance_sign_here">Firma aquí</string>
+    <string name="stance_undo">Deshacer</string>
+    <string name="stance_clear">Borrar</string>
+    <string name="stance_signed">Firmado</string>
+    <string name="stance_empty">Vacío</string>
+    <plurals name="stance_names_and_more">
+        <item quantity="one">%1$s y %2$d más</item>
+        <item quantity="many">%1$s y %2$d más</item>
+        <item quantity="other">%1$s y %2$d más</item>
+    </plurals>
+    <string name="stance_list_separator">", "</string>
+    <string name="stance_table_cell">%1$s: %2$s</string>
+</resources>

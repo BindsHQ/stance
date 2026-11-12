@@ -31,6 +31,7 @@ import com.bindshq.stance.theme.StanceSizes
 import com.bindshq.stance.theme.StanceSpacing
 import com.bindshq.stance.theme.StanceTheme
 import com.bindshq.stance.tokens.StanceTokens
+import com.bindshq.stance.foundation.defaultAvatarSummary
 
 /** How strongly a [StanceBadge] stands out. */
 public enum class StanceBadgeVariant { Soft, Solid, Outline }
@@ -143,9 +144,7 @@ public fun StanceAvatarGroup(
     modifier: Modifier = Modifier,
     max: Int = 4,
     size: StanceAvatarSize = StanceAvatarSize.Medium,
-    summary: (shown: List<String>, remaining: Int) -> String = { shown, remaining ->
-        if (remaining > 0) "${shown.joinToString(", ")} and $remaining more" else shown.joinToString(", ")
-    },
+    summary: (shown: List<String>, remaining: Int) -> String = defaultAvatarSummary(),
 ) {
     val c = StanceTheme.colors
     val shown = names.take(max)

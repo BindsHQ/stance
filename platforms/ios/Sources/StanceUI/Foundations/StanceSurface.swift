@@ -69,6 +69,7 @@ public struct StanceCard<Content: View, Footer: View>: View {
     private let footer: Footer
     @Environment(\.stanceTheme) private var theme
 
+    @_disfavoredOverload
     public init(
         _ title: String? = nil,
         description: String? = nil,
@@ -123,6 +124,7 @@ public struct StanceSection<Content: View>: View {
     private let content: Content
     @Environment(\.stanceTheme) private var theme
 
+    @_disfavoredOverload
     public init(_ title: String, caption: String? = nil, @ViewBuilder content: () -> Content) {
         self.title = title
         self.caption = caption
@@ -175,5 +177,27 @@ public struct StanceGrid<Content: View>: View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: minItemWidth), spacing: spacing, alignment: .top)], alignment: .leading, spacing: spacing) {
             content
         }
+    }
+}
+
+// MARK: Localised titles
+
+extension StanceCard {
+    /// Creates a card whose title is looked up in the app's string tables.
+    public init(
+        _ titleKey: LocalizedStringResource,
+        description: String? = nil,
+        elevated: Bool = false,
+        @ViewBuilder content: () -> Content,
+        @ViewBuilder footer: () -> Footer = { EmptyView() }
+    ) {
+        self.init(String(localized: titleKey), description: description, elevated: elevated, content: content, footer: footer)
+    }
+}
+
+extension StanceSection {
+    /// Creates a section whose title is looked up in the app's string tables.
+    public init(_ titleKey: LocalizedStringResource, caption: String? = nil, @ViewBuilder content: () -> Content) {
+        self.init(String(localized: titleKey), caption: caption, content: content)
     }
 }

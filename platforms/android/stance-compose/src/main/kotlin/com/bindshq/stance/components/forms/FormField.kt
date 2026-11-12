@@ -17,6 +17,9 @@ import com.bindshq.stance.icons.StanceIcons
 import com.bindshq.stance.theme.StanceSizes
 import com.bindshq.stance.theme.StanceSpacing
 import com.bindshq.stance.theme.StanceTheme
+import androidx.compose.ui.res.stringResource
+import com.bindshq.stance.R
+import androidx.compose.animation.animateContentSize
 
 /**
  * Lays out a label, a control, helper text and an error message.
@@ -35,11 +38,12 @@ public fun StanceFormField(
     error: String? = null,
     required: Boolean = false,
     enabled: Boolean = true,
-    requiredDescription: String = "required",
+    requiredDescription: String = stringResource(R.string.stance_required),
     control: @Composable () -> Unit,
 ) {
     val c = StanceTheme.colors
-    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(StanceSpacing.space15)) {
+    // Helper and error text change the height; the change eases instead of snapping.
+    Column(modifier = modifier.animateContentSize(StanceTheme.motion.fast()), verticalArrangement = Arrangement.spacedBy(StanceSpacing.space15)) {
         if (label != null) {
             Row(horizontalArrangement = Arrangement.spacedBy(StanceSpacing.space1)) {
                 Text(label, style = StanceTheme.typography.label, color = if (enabled) c.fgDefault else c.fgDisabled)

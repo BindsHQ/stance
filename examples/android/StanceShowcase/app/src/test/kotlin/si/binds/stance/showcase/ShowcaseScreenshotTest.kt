@@ -65,6 +65,12 @@ class ShowcaseScreenshotTest {
 
     @Test fun phoneAccessibilityHighContrast() = capture("phone", phone, StanceWindowWidth.Compact, StanceTokens.highContrast, Destination.Accessibility)
 
+    @Test fun phoneAssistantLight() = capture("phone", phone, StanceWindowWidth.Compact, StanceTokens.light, Destination.Assistant)
+
+    @Test fun phoneAssistantHighContrast() = capture("phone", phone, StanceWindowWidth.Compact, StanceTokens.highContrast, Destination.Assistant)
+
+    @Test fun tabletAssistantDark() = capture("tablet", tablet, StanceWindowWidth.Expanded, StanceTokens.dark, Destination.Assistant)
+
     @Test fun tabletSampleLight() = capture("tablet", tablet, StanceWindowWidth.Expanded, StanceTokens.light, Destination.Sample)
 
     @Test fun tabletSampleDark() = capture("tablet", tablet, StanceWindowWidth.Expanded, StanceTokens.dark, Destination.Sample)

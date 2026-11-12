@@ -122,6 +122,7 @@ class ComponentPreviewTest(private val name: String, private val themeName: Stri
             "showcase-sample" to ShowcaseCapture(Destination.Sample, PHONE, StanceWindowWidth.Compact, listOf("light", "dark")),
             "showcase-components" to ShowcaseCapture(Destination.Components, PHONE, StanceWindowWidth.Compact, listOf("light")),
             "showcase-sample-tablet" to ShowcaseCapture(Destination.Sample, TABLET, StanceWindowWidth.Expanded, listOf("light")),
+            "showcase-assistant" to ShowcaseCapture(Destination.Assistant, PHONE, StanceWindowWidth.Compact, listOf("light", "dark", "high-contrast")),
         )
 
         @JvmStatic

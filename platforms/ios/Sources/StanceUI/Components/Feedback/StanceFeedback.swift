@@ -8,6 +8,7 @@ public struct StanceInlineAlert<Actions: View>: View {
     private let actions: Actions
     @Environment(\.stanceTheme) private var theme
 
+    @_disfavoredOverload
     public init(_ title: String, message: String? = nil, tone: StanceTone = .info, @ViewBuilder actions: () -> Actions = { EmptyView() }) {
         self.title = title
         self.message = message
@@ -43,7 +44,9 @@ public struct StanceBanner: View {
     private let action: (() -> Void)?
     private let onDismiss: (() -> Void)?
     @Environment(\.stanceTheme) private var theme
+    @Environment(\.locale) private var locale
 
+    @_disfavoredOverload
     public init(_ text: String, tone: StanceTone = .info, actionTitle: String? = nil, action: (() -> Void)? = nil, onDismiss: (() -> Void)? = nil) {
         self.text = text
         self.tone = tone
@@ -66,7 +69,7 @@ public struct StanceBanner: View {
                 .buttonStyle(.plain)
                 .accessibilityElement()
                 .accessibilityAddTraits(.isButton)
-                .accessibilityLabel("Dismiss")
+                .accessibilityLabel(stanceString("stance.dismiss", locale))
                 .padding(.trailing, -StanceSpacing.md)
             }
         }
@@ -80,15 +83,18 @@ public struct StanceBanner: View {
 
 /// A centred loading indicator with a message. Announced once when it appears.
 public struct StanceLoadingState: View {
-    private let message: String
+    private let message: String?
     @Environment(\.stanceTheme) private var theme
+    @Environment(\.locale) private var locale
 
-    public init(_ message: String = "Loading") { self.message = message }
+    /// - Parameter message: The text under the indicator. Defaults to a localised "Loading".
+    @_disfavoredOverload
+    public init(_ message: String? = nil) { self.message = message }
 
     public var body: some View {
         VStack(spacing: StanceSpacing.md) {
             ProgressView().controlSize(.large).tint(theme.colors.accentBg)
-            Text(message).stanceText(.bodySmall).foregroundStyle(theme.colors.fgMuted)
+            Text(message ?? stanceString("stance.loading", locale)).stanceText(.bodySmall).foregroundStyle(theme.colors.fgMuted)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(StanceSpacing.xl)
@@ -99,12 +105,16 @@ public struct StanceLoadingState: View {
 
 /// Explains a failure and offers a way to retry.
 public struct StanceErrorState: View {
-    private let title: String
+    private let title: String?
     private let message: String
-    private let retryTitle: String
+    private let retryTitle: String?
     private let retry: (() -> Void)?
+    @Environment(\.locale) private var locale
 
-    public init(title: String = "Something went wrong", message: String, retryTitle: String = "Try again", retry: (() -> Void)? = nil) {
+    /// - Parameters:
+    ///   - title: Defaults to a localised "Something went wrong".
+    ///   - retryTitle: Defaults to a localised "Try again".
+    public init(title: String? = nil, message: String, retryTitle: String? = nil, retry: (() -> Void)? = nil) {
         self.title = title
         self.message = message
         self.retryTitle = retryTitle
@@ -112,8 +122,8 @@ public struct StanceErrorState: View {
     }
 
     public var body: some View {
-        StanceEmptyState(icon: .alertTriangle, title: title, message: message) {
-            if let retry { StanceButton(retryTitle, variant: .outline, leadingIcon: .refresh, action: retry) }
+        StanceEmptyState(icon: .alertTriangle, title: title ?? stanceString("stance.error.title", locale), message: message) {
+            if let retry { StanceButton(retryTitle ?? stanceString("stance.retry", locale), variant: .outline, leadingIcon: .refresh, action: retry) }
         }
     }
 }
@@ -152,6 +162,12 @@ public final class StanceToastCenter {
         show(StanceToast(message, tone: tone, duration: duration))
     }
 
+    /// Shows a toast whose message is looked up in the app's string tables.
+    /// Pass a `LocalizedStringResource` value: a plain string literal is shown as written.
+    public func show(_ messageKey: LocalizedStringResource, tone: StanceTone = .neutral, duration: TimeInterval = 4) {
+        show(StanceToast(String(localized: messageKey), tone: tone, duration: duration))
+    }
+
     public func show(_ toast: StanceToast) {
         queue.append(toast)
         if current == nil { advance() }
@@ -181,6 +197,7 @@ struct StanceToastHost: ViewModifier {
     @State private var center = StanceToastCenter()
     @Environment(\.stanceTheme) private var theme
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.locale) private var locale
 
     func body(content: Content) -> some View {
         content
@@ -198,7 +215,7 @@ struct StanceToastHost: ViewModifier {
                         .buttonStyle(.plain)
                         .accessibilityElement()
                         .accessibilityAddTraits(.isButton)
-                        .accessibilityLabel("Dismiss")
+                        .accessibilityLabel(stanceString("stance.dismiss", locale))
                         .padding(.trailing, -StanceSpacing.md)
                     }
                     .padding(.horizontal, StanceSpacing.lg)
@@ -214,10 +231,43 @@ struct StanceToastHost: ViewModifier {
                 }
             }
             .animation(StanceMotion.normal.animation(reduceMotion: reduceMotion), value: center.current)
+            // The same tap the system gives a notification banner, matched to the tone.
+            .sensoryFeedback(trigger: center.current) { _, toast in
+                switch toast?.tone {
+                case nil: nil
+                case .success: .success
+                case .warning: .warning
+                case .danger: .error
+                default: .impact(weight: .light)
+                }
+            }
     }
 }
 
 extension View {
     /// Hosts Stance toasts for this hierarchy. Apply once near the root.
     public func stanceToastHost() -> some View { modifier(StanceToastHost()) }
+}
+
+// MARK: Localised titles
+
+extension StanceInlineAlert {
+    /// Creates an alert whose title is looked up in the app's string tables.
+    public init(_ titleKey: LocalizedStringResource, message: String? = nil, tone: StanceTone = .info, @ViewBuilder actions: () -> Actions = { EmptyView() }) {
+        self.init(String(localized: titleKey), message: message, tone: tone, actions: actions)
+    }
+}
+
+extension StanceBanner {
+    /// Creates a banner whose text is looked up in the app's string tables.
+    public init(_ textKey: LocalizedStringResource, tone: StanceTone = .info, actionTitle: String? = nil, action: (() -> Void)? = nil, onDismiss: (() -> Void)? = nil) {
+        self.init(String(localized: textKey), tone: tone, actionTitle: actionTitle, action: action, onDismiss: onDismiss)
+    }
+}
+
+extension StanceLoadingState {
+    /// Creates a loading state whose message is looked up in the app's string tables.
+    public init(_ messageKey: LocalizedStringResource) {
+        self.init(String(localized: messageKey))
+    }
 }

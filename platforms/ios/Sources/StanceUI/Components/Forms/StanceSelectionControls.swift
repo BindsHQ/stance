@@ -8,7 +8,9 @@ public struct StanceCheckbox: View {
     @Binding private var isOn: Bool
     @Environment(\.stanceTheme) private var theme
     @Environment(\.isEnabled) private var isEnabled
+    @Environment(\.locale) private var locale
 
+    @_disfavoredOverload
     public init(_ label: String, description: String? = nil, isOn: Binding<Bool>) {
         self.label = label
         self.description = description
@@ -18,7 +20,6 @@ public struct StanceCheckbox: View {
     public var body: some View {
         Button {
             isOn.toggle()
-            StanceHaptics.selection()
         } label: {
             HStack(alignment: .firstTextBaseline, spacing: StanceSpacing.md) {
                 ZStack {
@@ -26,9 +27,14 @@ public struct StanceCheckbox: View {
                         .fill(isOn ? (isEnabled ? theme.colors.accentBg : theme.colors.disabledBg) : theme.colors.bgSurface)
                     RoundedRectangle(cornerRadius: StanceRadius.xs, style: .continuous)
                         .strokeBorder(isOn ? .clear : (isEnabled ? theme.colors.borderControl : theme.colors.disabledBorder), lineWidth: max(1.5, theme.controlBorderWidth))
-                    if isOn { StanceIcon(.check, size: StanceSize.iconSm).foregroundStyle(isEnabled ? theme.colors.accentFg : theme.colors.disabledFg) }
+                    if isOn {
+                        StanceIcon(.check, size: StanceSize.iconSm)
+                            .foregroundStyle(isEnabled ? theme.colors.accentFg : theme.colors.disabledFg)
+                            .transition(.scale.combined(with: .opacity))
+                    }
                 }
                 .frame(width: 22, height: 22)
+                .stanceAnimation(.fast, value: isOn)
                 .alignmentGuide(.firstTextBaseline) { $0[.bottom] - 5 }
                 VStack(alignment: .leading, spacing: StanceSpacing.xxs) {
                     Text(label).stanceText(.body).foregroundStyle(isEnabled ? theme.colors.fgDefault : theme.colors.disabledFg)
@@ -44,8 +50,10 @@ public struct StanceCheckbox: View {
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(label)
         .accessibilityHint(description ?? "")
-        .accessibilityValue(isOn ? "Checked" : "Not checked")
+        .accessibilityValue(stanceString(isOn ? "stance.checked" : "stance.unchecked", locale))
         .accessibilityAddTraits(.isToggle)
+        // The selection tick a system toggle gives, for taps and for changes made elsewhere.
+        .sensoryFeedback(.selection, trigger: isOn)
     }
 }
 
@@ -71,6 +79,7 @@ public struct StanceRadioGroup<Value: Hashable>: View {
     @Binding private var selection: Value
     @Environment(\.stanceTheme) private var theme
 
+    @_disfavoredOverload
     public init(_ title: String, selection: Binding<Value>, options: [StanceRadioOption<Value>]) {
         self.title = title
         _selection = selection
@@ -89,9 +98,10 @@ public struct StanceRadioGroup<Value: Hashable>: View {
                     HStack(alignment: .firstTextBaseline, spacing: StanceSpacing.md) {
                         ZStack {
                             Circle().strokeBorder(selected ? theme.colors.accentBg : theme.colors.borderControl, lineWidth: max(1.5, theme.controlBorderWidth))
-                            if selected { Circle().fill(theme.colors.accentBg).padding(5) }
+                            if selected { Circle().fill(theme.colors.accentBg).padding(5).transition(.scale.combined(with: .opacity)) }
                         }
                         .frame(width: 22, height: 22)
+                        .stanceAnimation(.fast, value: selected)
                         .alignmentGuide(.firstTextBaseline) { $0[.bottom] - 5 }
                         VStack(alignment: .leading, spacing: StanceSpacing.xxs) {
                             Text(option.label).stanceText(.body)
@@ -152,6 +162,7 @@ public struct StanceSlider: View {
     @Binding private var value: Double
     @Environment(\.stanceTheme) private var theme
 
+    @_disfavoredOverload
     public init(_ label: String, value: Binding<Double>, in range: ClosedRange<Double> = 0 ... 100, step: Double = 1, format: @escaping (Double) -> String = { String(Int($0)) }) {
         self.label = label
         _value = value
@@ -166,6 +177,8 @@ public struct StanceSlider: View {
                 Text(label).stanceText(.label)
                 Spacer()
                 Text(format(value)).stanceText(.label).foregroundStyle(theme.colors.fgMuted).monospacedDigit()
+                    .contentTransition(.numericText(value: value))
+                    .stanceAnimation(.fast, value: value)
             }
             .accessibilityHidden(true)
             Slider(value: $value, in: range, step: step)
@@ -185,6 +198,7 @@ public struct StancePicker<Value: Hashable>: View {
     @Binding private var selection: Value
     @Environment(\.stanceTheme) private var theme
 
+    @_disfavoredOverload
     public init(_ label: String, selection: Binding<Value>, options: [(value: Value, title: String)], helper: String? = nil) {
         self.label = label
         _selection = selection
@@ -222,6 +236,7 @@ public struct StanceDatePicker: View {
     @Binding private var date: Date
     @Environment(\.stanceTheme) private var theme
 
+    @_disfavoredOverload
     public init(_ label: String, selection: Binding<Date>, displayedComponents: DatePickerComponents = .date, in range: ClosedRange<Date>? = nil, helper: String? = nil) {
         self.label = label
         _date = selection
@@ -244,5 +259,42 @@ public struct StanceDatePicker: View {
             .frame(minHeight: StanceSize.touchTarget)
             if let helper { Text(helper).stanceText(.caption).foregroundStyle(theme.colors.fgMuted) }
         }
+    }
+}
+
+// MARK: Localised labels
+
+extension StanceCheckbox {
+    /// Creates a checkbox whose label is looked up in the app's string tables.
+    public init(_ labelKey: LocalizedStringResource, description: String? = nil, isOn: Binding<Bool>) {
+        self.init(String(localized: labelKey), description: description, isOn: isOn)
+    }
+}
+
+extension StanceRadioGroup {
+    /// Creates a radio group whose title is looked up in the app's string tables.
+    public init(_ titleKey: LocalizedStringResource, selection: Binding<Value>, options: [StanceRadioOption<Value>]) {
+        self.init(String(localized: titleKey), selection: selection, options: options)
+    }
+}
+
+extension StanceSlider {
+    /// Creates a slider whose label is looked up in the app's string tables.
+    public init(_ labelKey: LocalizedStringResource, value: Binding<Double>, in range: ClosedRange<Double> = 0 ... 100, step: Double = 1, format: @escaping (Double) -> String = { String(Int($0)) }) {
+        self.init(String(localized: labelKey), value: value, in: range, step: step, format: format)
+    }
+}
+
+extension StancePicker {
+    /// Creates a picker whose label is looked up in the app's string tables.
+    public init(_ labelKey: LocalizedStringResource, selection: Binding<Value>, options: [(value: Value, title: String)], helper: String? = nil) {
+        self.init(String(localized: labelKey), selection: selection, options: options, helper: helper)
+    }
+}
+
+extension StanceDatePicker {
+    /// Creates a date picker whose label is looked up in the app's string tables.
+    public init(_ labelKey: LocalizedStringResource, selection: Binding<Date>, displayedComponents: DatePickerComponents = .date, in range: ClosedRange<Date>? = nil, helper: String? = nil) {
+        self.init(String(localized: labelKey), selection: selection, displayedComponents: displayedComponents, in: range, helper: helper)
     }
 }

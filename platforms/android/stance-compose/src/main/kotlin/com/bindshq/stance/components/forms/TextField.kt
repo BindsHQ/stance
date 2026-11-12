@@ -26,6 +26,8 @@ import com.bindshq.stance.icons.StanceIcon
 import com.bindshq.stance.icons.StanceIcons
 import com.bindshq.stance.theme.StanceSizes
 import com.bindshq.stance.theme.StanceTheme
+import androidx.compose.ui.res.stringResource
+import com.bindshq.stance.R
 
 @Composable
 internal fun stanceTextFieldColors(): TextFieldColors {
@@ -133,8 +135,8 @@ public fun StancePasswordField(
     error: String? = null,
     required: Boolean = false,
     enabled: Boolean = true,
-    showDescription: String = "Show password",
-    hideDescription: String = "Hide password",
+    showDescription: String = stringResource(R.string.stance_show_password),
+    hideDescription: String = stringResource(R.string.stance_hide_password),
     keyboardActions: KeyboardActions = KeyboardActions.Default,
 ) {
     var visible by rememberSaveable { mutableStateOf(false) }
@@ -169,10 +171,10 @@ public fun StanceSearchBar(
     query: String,
     onQueryChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    placeholder: String = "Search",
+    placeholder: String = stringResource(R.string.stance_search),
     onSearch: (String) -> Unit = {},
     enabled: Boolean = true,
-    clearDescription: String = "Clear search",
+    clearDescription: String = stringResource(R.string.stance_clear_search),
 ) {
     OutlinedTextField(
         value = query,

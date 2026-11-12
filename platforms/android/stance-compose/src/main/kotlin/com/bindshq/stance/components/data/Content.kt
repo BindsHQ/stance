@@ -50,6 +50,8 @@ import com.bindshq.stance.icons.StanceIcons
 import com.bindshq.stance.theme.StanceSizes
 import com.bindshq.stance.theme.StanceSpacing
 import com.bindshq.stance.theme.StanceTheme
+import androidx.compose.ui.res.stringResource
+import com.bindshq.stance.R
 
 /**
  * A row in a list: optional leading content, a headline, supporting text and trailing content.
@@ -89,6 +91,8 @@ public fun StanceListItem(
 /**
  * Linear progress. Pass [progress] between 0 and 1, or null while the amount is unknown.
  * Announced with the label and percentage.
+ *
+ * @param valueText The value as people read and hear it. Defaults to the percentage in the current locale.
  */
 @Composable
 public fun StanceProgressIndicator(
@@ -97,10 +101,11 @@ public fun StanceProgressIndicator(
     label: String? = null,
     tone: StanceTone = StanceTone.Neutral,
     showValue: Boolean = true,
+    valueText: String? = progress?.let { stringResource(R.string.stance_percent, (it.coerceIn(0f, 1f) * 100).toInt()) },
 ) {
     val c = StanceTheme.colors
     val color = if (tone == StanceTone.Neutral) c.accentBg else tone.colors().solid
-    val percent = progress?.let { "${(it.coerceIn(0f, 1f) * 100).toInt()}%" }
+    val percent = valueText
     Column(
         modifier = modifier.semantics(mergeDescendants = true) {
             if (label != null) contentDescription = label
@@ -172,7 +177,7 @@ public fun StanceSkeleton(
         val value by transition.animateFloat(
             initialValue = 1f,
             targetValue = 0.5f,
-            animationSpec = infiniteRepeatable(tween(StanceTheme.motion.slowMillis * 3), RepeatMode.Reverse),
+            animationSpec = infiniteRepeatable(tween(StanceTheme.motion.pulseMillis / 2, easing = StanceTheme.motion.standardEasing), RepeatMode.Reverse),
             label = "stance-skeleton-alpha",
         )
         value
@@ -340,6 +345,8 @@ public data class StanceTableColumn<T>(val header: String, val width: Dp = Stanc
  * A simple table for small sets of records. It scrolls horizontally when columns do not fit,
  * headers are marked as headings, and each row is read as "header: value" pairs.
  * For long lists on phones prefer `StanceListItem`.
+ *
+ * @param rowDescription How a row is read aloud. Defaults to its header and value pairs.
  */
 @Composable
 public fun <T> StanceDataTable(
@@ -348,8 +355,11 @@ public fun <T> StanceDataTable(
     modifier: Modifier = Modifier,
     caption: String? = null,
     onRowClick: ((T) -> Unit)? = null,
+    rowDescription: ((T) -> String)? = null,
 ) {
     val c = StanceTheme.colors
+    val cellFormat = stringResource(R.string.stance_table_cell)
+    val separator = stringResource(R.string.stance_list_separator)
     Column(modifier = modifier.semantics { if (caption != null) contentDescription = caption }) {
         Column(modifier = Modifier.horizontalScroll(rememberScrollState())) {
             Row(modifier = Modifier.background(c.bgSubtle)) {
@@ -368,7 +378,7 @@ public fun <T> StanceDataTable(
             }
             StanceDivider()
             rows.forEachIndexed { index, row ->
-                val description = columns.joinToString(", ") { "${it.header}: ${it.cell(row)}" }
+                val description = rowDescription?.invoke(row) ?: columns.joinToString(separator) { cellFormat.format(it.header, it.cell(row)) }
                 Row(
                     modifier = Modifier
                         .heightIn(min = StanceSizes.touchTarget)

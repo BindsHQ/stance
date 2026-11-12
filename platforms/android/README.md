@@ -114,6 +114,27 @@ binding.save.setOnClickListener { viewModel.save() }
 - `StanceAdaptiveGrid` fits as many columns as the window allows.
 - Predictive back works with the standard `BackHandler` and navigation APIs. Set `android:enableOnBackInvokedCallback="true"` in your manifest.
 
+## Localisation
+
+Every built-in string lives in `res/values/strings.xml` with a `stance_` prefix (`strings_ai.xml` and `stance_ai_` for the AI components), and is the default of a parameter. Stance ships English, Arabic and Spanish.
+
+- To change one string in one place, pass the parameter: `StanceBanner(message, dismissDescription = "Hide notice")`.
+- To change it everywhere, or to add a language, define the same resource name in your app. App resources win over library resources.
+- Counts use plurals (`stance_results`, `stance_names_and_more`), so languages with more than two forms read correctly.
+
+```xml
+<!-- app/src/main/res/values-fr/strings.xml -->
+<string name="stance_dismiss">Fermer</string>
+```
+
+Right to left needs no extra code. Layout uses start and end, chevrons and horizontal arrows mirror, and sliders and swipe actions follow the reading direction. A signature is never mirrored. Set `android:supportsRtl="true"` in your manifest.
+
+## Motion
+
+Banners, inline alerts, the loading overlay, the stepper and the tab indicator ease between states with the Stance duration and easing tokens. Pass `visible = false` to `StanceBanner` or `StanceInlineAlert` to ease it out before removing it. When the system animator duration scale is 0, every change applies at once.
+
+`StanceBottomSheet` follows the predictive back gesture through Material 3, and `StanceDialog` shrinks slightly as the gesture progresses.
+
 ## Accessibility
 
 - Every component sets roles, states and labels for TalkBack.
@@ -126,6 +147,47 @@ binding.save.setOnClickListener { viewModel.save() }
 - Contrast is tested for every theme: 4.5:1 for text and 3:1 for boundaries, and 7:1 for text in high contrast.
 
 A signature cannot be drawn with a screen reader or switch. Always offer a typed or uploaded alternative next to `StanceSignatureCanvas`.
+
+## AI components
+
+`com.bindshq.stance.components.ai` implements the cross-platform contract in `specs/ai-components.json`: 33 components in four groups.
+
+| Group | Components |
+| --- | --- |
+| Conversation | `StanceThread`, `StanceMessage`, `StanceMessageGroup`, `StanceMessageActions`, `StanceBranchSwitcher`, `StanceScrollToLatest`, `StanceConversationList`, `StanceThreadEmptyState` |
+| Prompt | `StancePromptComposer`, `StanceAttachmentTray`, `StanceMentionPicker`, `StanceSlashCommandMenu`, `StanceModelPicker`, `StanceContextChips`, `StanceVoiceInputButton`, `StanceStopButton`, `StanceTokenBudgetMeter` |
+| Streaming | `StanceStreamingText`, `StanceThinkingIndicator`, `StanceReasoningDisclosure`, `StanceShimmerText`, `StanceGenerationProgress`, `StanceStreamingSkeleton`, `StanceInterruptedState` |
+| Trust | `StanceCitationChip`, `StanceSourceList`, `StanceSourcePreview`, `StanceConfidenceBadge`, `StanceAIGeneratedLabel`, `StanceDisclaimerNote`, `StanceFeedbackBar`, `StanceReportDialog`, `StanceSensitiveContentGate` |
+
+They are presentational. There is no networking and no model SDK: your app owns the messages and passes a `StanceGenerationStatus` (idle, submitted, streaming, complete, stopped, error).
+
+```kotlin
+Column {
+    StanceThread(modifier = Modifier.weight(1f)) {
+        items(messages, key = { it.id }) { message ->
+            StanceMessage(message.role, status = message.status, timestamp = message.time) {
+                StanceStreamingText(message.text, streaming = message.status == StanceGenerationStatus.Streaming)
+            }
+        }
+    }
+    StancePromptComposer(
+        value = draft,
+        onValueChange = { draft = it },
+        onSubmit = viewModel::send,
+        onStop = viewModel::stop,
+        status = status,
+    )
+}
+```
+
+- `StanceThread` follows the newest message only while the reader is at the bottom. Give items stable keys.
+- `StanceStreamingText` reveals at the `stream` token cadence as a draw-time clip, so a beat never lays the text out again. Screen readers hear a response once, when it is complete.
+- Shimmer, pulse and reveal are static or instant when the system has animations turned off.
+- AI surfaces use the ink scale only. Identity comes from the sparkle icon, motion and plain labels.
+- Send, stop and ratings give haptic feedback.
+- Touch has no hover, so `StanceMessageActions` takes a `visible` flag where the web has a hover option, and a citation previews in a bottom sheet.
+
+The showcase has an Assistant screen with a full conversation and a canned, local reply.
 
 ## Components
 
@@ -158,7 +220,7 @@ cd examples/android/StanceShowcase
 
 This renders the images, optimises them losslessly and refreshes `components.json`, which records each preview and its size in dp. To redo one component while iterating, add `-Pstance.previews.only=StanceButton`.
 
-The compositions live in `examples/android/StanceShowcase/app/src/test/.../ComponentPreviews.kt`. Inline components are 408dp wide (360dp of content with 24dp padding) and as tall as their content. Dialogs, menus, sheets and pickers are captured open. Full-screen components use a 411 by 891dp phone.
+The compositions live in `examples/android/StanceShowcase/app/src/test/.../ComponentPreviews.kt` and `AiComponentPreviews.kt`. Inline components are 408dp wide (360dp of content with 24dp padding) and as tall as their content. Dialogs, menus, sheets and pickers are captured open. Full-screen components use a 411 by 891dp phone.
 
 Entries with `"preview": null` draw nothing on their own: the photo and document picker launchers and `setStanceContent`.
 
@@ -171,7 +233,7 @@ Do not edit these by hand. Run the script after the source changes.
 | `stance-tokens/.../StanceTokens.kt` | `packages/tokens/source` | `npm run tokens` |
 | `stance-compose/.../icons/StanceIcons.kt` | `packages/react/src/icons/paths.ts` | `node platforms/android/scripts/generate-icons.mjs` |
 | `stance-compose/src/main/res/values*/stance_colors.xml` | resolved tokens | `node platforms/android/scripts/generate-resources.mjs` |
-| `components.json` | showcase `Examples.kt` and `previews/` | `node platforms/android/scripts/generate-components-json.mjs` |
+| `components.json` | showcase `Examples.kt`, `AiExamples.kt` and `previews/` | `node platforms/android/scripts/generate-components-json.mjs` |
 | `previews/*.png` | the composables | `./gradlew :app:generateStancePreviews` in the showcase |
 
 `StanceColors` mirrors the generated colour roles one to one. A unit test fails when a role is added to the token source without being exposed there.

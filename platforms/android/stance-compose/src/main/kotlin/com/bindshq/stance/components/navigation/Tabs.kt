@@ -16,7 +16,6 @@ import androidx.compose.material3.PrimaryScrollableTabRow
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRowDefaults
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,6 +31,24 @@ import com.bindshq.stance.icons.StanceIcons
 import com.bindshq.stance.theme.StanceSizes
 import com.bindshq.stance.theme.StanceSpacing
 import com.bindshq.stance.theme.StanceTheme
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.togetherWith
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.AnimationVector1D
+import androidx.compose.animation.core.VectorConverter
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.material3.TabIndicatorScope
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.unit.Dp
+import kotlinx.coroutines.launch
+import com.bindshq.stance.foundation.defaultPageDescription
+import com.bindshq.stance.foundation.defaultStepDescription
+import com.bindshq.stance.foundation.defaultStepStateLabel
+import com.bindshq.stance.foundation.fadeEnter
+import com.bindshq.stance.foundation.fadeExit
 
 /**
  * Switches between views of the same context. Tabs are announced with their position and
@@ -66,7 +83,7 @@ public fun StanceTabs(
             containerColor = c.bgCanvas,
             contentColor = c.fgDefault,
             edgePadding = StanceSpacing.space4,
-            indicator = { TabRowDefaults.PrimaryIndicator(Modifier.tabIndicatorOffset(selectedIndex), color = c.fgDefault) },
+            indicator = { StanceTabIndicator(selectedIndex) },
             tabs = content,
         )
     } else {
@@ -75,10 +92,41 @@ public fun StanceTabs(
             modifier = modifier,
             containerColor = c.bgCanvas,
             contentColor = c.fgDefault,
-            indicator = { TabRowDefaults.PrimaryIndicator(Modifier.tabIndicatorOffset(selectedIndex), color = c.fgDefault) },
+            indicator = { StanceTabIndicator(selectedIndex) },
             tabs = content,
         )
     }
+}
+
+/**
+ * The selected tab indicator. It slides between tabs with the theme's `normal` motion and
+ * jumps when animations are off. Positions are relative, so it follows right to left layouts.
+ */
+@Composable
+private fun TabIndicatorScope.StanceTabIndicator(selectedIndex: Int) {
+    val spec = StanceTheme.motion.normal<Dp>()
+    val scope = rememberCoroutineScope()
+    val slide = remember { TabIndicatorSlide() }
+    TabRowDefaults.PrimaryIndicator(
+        modifier = Modifier.tabIndicatorLayout { measurable, constraints, tabPositions ->
+            val tab = tabPositions[selectedIndex.coerceIn(0, tabPositions.lastIndex)]
+            val offset = slide.offset ?: Animatable(tab.left, Dp.VectorConverter).also { slide.offset = it }
+            val width = slide.width ?: Animatable(tab.width, Dp.VectorConverter).also { slide.width = it }
+            if (offset.targetValue != tab.left) scope.launch { offset.animateTo(tab.left, spec) }
+            if (width.targetValue != tab.width) scope.launch { width.animateTo(tab.width, spec) }
+            val placeable = measurable.measure(constraints.copy(minWidth = width.value.roundToPx(), maxWidth = width.value.roundToPx()))
+            layout(constraints.maxWidth, constraints.maxHeight) {
+                placeable.placeRelative(offset.value.roundToPx(), constraints.maxHeight - placeable.height)
+            }
+        }.wrapContentWidth(),
+        color = StanceTheme.colors.fgDefault,
+    )
+}
+
+/** Holds the indicator animations, created on the first measure so the indicator never slides in from zero. */
+private class TabIndicatorSlide {
+    var offset: Animatable<Dp, AnimationVector1D>? = null
+    var width: Animatable<Dp, AnimationVector1D>? = null
 }
 
 /**
@@ -89,7 +137,7 @@ public fun StancePagerIndicator(
     pageCount: Int,
     currentPage: Int,
     modifier: Modifier = Modifier,
-    description: (current: Int, count: Int) -> String = { current, count -> "Page $current of $count" },
+    description: (current: Int, count: Int) -> String = defaultPageDescription(),
 ) {
     val c = StanceTheme.colors
     Row(
@@ -98,12 +146,8 @@ public fun StancePagerIndicator(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         repeat(pageCount) { index ->
-            Box(
-                Modifier
-                    .size(StanceSpacing.space2)
-                    .clip(CircleShape)
-                    .background(if (index == currentPage) c.accentBg else c.borderStrong),
-            )
+            val dot by animateColorAsState(if (index == currentPage) c.accentBg else c.borderStrong, StanceTheme.motion.fast(), label = "stance-pager-dot")
+            Box(Modifier.size(StanceSpacing.space2).clip(CircleShape).background(dot))
         }
     }
 }
@@ -117,6 +161,8 @@ public enum class StanceStepState { Complete, Current, Upcoming, Error }
  *
  * @param currentStep Zero-based index of the current step. Earlier steps are complete.
  * @param errorSteps Indices of steps that need attention.
+ * @param stateLabel The spoken word for a step's state.
+ * @param stepDescription The spoken position of a step, from its one-based number, the step count and its label.
  */
 @Composable
 public fun StanceStepper(
@@ -124,8 +170,10 @@ public fun StanceStepper(
     currentStep: Int,
     modifier: Modifier = Modifier,
     errorSteps: Set<Int> = emptySet(),
-    stateLabel: (StanceStepState) -> String = { it.name.lowercase() },
+    stateLabel: (StanceStepState) -> String = defaultStepStateLabel(),
+    stepDescription: (step: Int, count: Int, label: String) -> String = defaultStepDescription(),
 ) {
+    val motion = StanceTheme.motion
     val c = StanceTheme.colors
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(StanceSpacing.space1)) {
         steps.forEachIndexed { index, label ->
@@ -135,16 +183,19 @@ public fun StanceStepper(
                 index == currentStep -> StanceStepState.Current
                 else -> StanceStepState.Upcoming
             }
-            val (fill, content) = when (state) {
+            val (targetFill, targetContent) = when (state) {
                 StanceStepState.Complete, StanceStepState.Current -> c.accentBg to c.accentFg
                 StanceStepState.Error -> c.dangerSolid to c.dangerOnSolid
                 StanceStepState.Upcoming -> c.bgMuted to c.fgMuted
             }
+            // Moving between steps eases the colours and swaps the mark instead of snapping.
+            val fill by animateColorAsState(targetFill, motion.normal(), label = "stance-step-fill")
+            val content by animateColorAsState(targetContent, motion.normal(), label = "stance-step-content")
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .semantics(mergeDescendants = true) {
-                        contentDescription = "Step ${index + 1} of ${steps.size}, $label"
+                        contentDescription = stepDescription(index + 1, steps.size, label)
                         stateDescription = stateLabel(state)
                     },
                 verticalAlignment = Alignment.CenterVertically,
@@ -153,10 +204,17 @@ public fun StanceStepper(
                     modifier = Modifier.size(StanceSizes.controlSmall).clip(CircleShape).background(fill),
                     contentAlignment = Alignment.Center,
                 ) {
-                    when (state) {
-                        StanceStepState.Complete -> StanceIcon(StanceIcons.Check, null, size = StanceSizes.iconSmall, tint = content)
-                        StanceStepState.Error -> StanceIcon(StanceIcons.AlertCircle, null, size = StanceSizes.iconSmall, tint = content)
-                        else -> Text("${index + 1}", style = StanceTheme.typography.labelSmall, color = content, modifier = Modifier.clearAndSetSemantics {})
+                    AnimatedContent(
+                        targetState = state,
+                        transitionSpec = { motion.fadeEnter() togetherWith motion.fadeExit() },
+                        contentAlignment = Alignment.Center,
+                        label = "stance-step-mark",
+                    ) { mark ->
+                        when (mark) {
+                            StanceStepState.Complete -> StanceIcon(StanceIcons.Check, null, size = StanceSizes.iconSmall, tint = content)
+                            StanceStepState.Error -> StanceIcon(StanceIcons.AlertCircle, null, size = StanceSizes.iconSmall, tint = content)
+                            else -> Text("${index + 1}", style = StanceTheme.typography.labelSmall, color = content, modifier = Modifier.clearAndSetSemantics {})
+                        }
                     }
                 }
                 Spacer(Modifier.width(StanceSpacing.space3))
@@ -168,12 +226,13 @@ public fun StanceStepper(
                 )
             }
             if (index < steps.lastIndex) {
+                val connector by animateColorAsState(if (index < currentStep) c.accentBg else c.borderDefault, motion.normal(), label = "stance-step-connector")
                 Box(
                     Modifier
                         .padding(start = StanceSizes.controlSmall / 2)
                         .width(StanceSpacing.hairline * 2)
                         .height(StanceSpacing.space4)
-                        .background(if (index < currentStep) c.accentBg else c.borderDefault),
+                        .background(connector),
                 )
             }
         }

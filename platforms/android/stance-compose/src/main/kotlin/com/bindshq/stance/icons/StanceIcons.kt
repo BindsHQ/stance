@@ -4,7 +4,7 @@ package com.bindshq.stance.icons
 import androidx.compose.ui.graphics.vector.ImageVector
 
 /**
- * The Stance icon set: 90 icons on a 24dp grid with a 1.75 stroke and round caps and joins.
+ * The Stance icon set: 99 icons on a 24dp grid with a 1.75 stroke and round caps and joins.
  * The geometry is shared with the web and iOS implementations.
  */
 public object StanceIcons {
@@ -278,6 +278,33 @@ public object StanceIcons {
     /** `square` */
     public val Square: ImageVector by lazy { stanceIcon("square", "M5 5h14v14H5z") }
 
+    /** `stop` */
+    public val Stop: ImageVector by lazy { stanceIcon("stop", "M7 7h10v10H7z") }
+
+    /** `thumbs-up` */
+    public val ThumbsUp: ImageVector by lazy { stanceIcon("thumbs-up", "M7 10v10H4V10z", "M7 10l4-7c1.7 0 2.5 1.2 2.5 2.7V9h4.6a2 2 0 0 1 2 2.4l-1.3 7a2 2 0 0 1-2 1.6H7") }
+
+    /** `thumbs-down` */
+    public val ThumbsDown: ImageVector by lazy { stanceIcon("thumbs-down", "M7 14V4H4v10z", "M7 14l4 7c1.7 0 2.5-1.2 2.5-2.7V15h4.6a2 2 0 0 0 2-2.4l-1.3-7a2 2 0 0 0-2-1.6H7") }
+
+    /** `microphone` */
+    public val Microphone: ImageVector by lazy { stanceIcon("microphone", "M12 3a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z", "M5.5 11a6.5 6.5 0 0 0 13 0", "M12 17.5V21") }
+
+    /** `paperclip` */
+    public val Paperclip: ImageVector by lazy { stanceIcon("paperclip", "M20 11.5l-8.2 8.2a5 5 0 0 1-7.1-7.1l8.5-8.5a3.3 3.3 0 0 1 4.7 4.7l-8.5 8.5a1.7 1.7 0 0 1-2.4-2.4l7.8-7.8") }
+
+    /** `at-sign` */
+    public val AtSign: ImageVector by lazy { stanceIcon("at-sign", "M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z", "M16 8v5.5a2.5 2.5 0 0 0 5 0V12a9 9 0 1 0-3.5 7.1") }
+
+    /** `pin` */
+    public val Pin: ImageVector by lazy { stanceIcon("pin", "M9 4h6l-1 6 3 3H7l3-3z", "M12 13v7") }
+
+    /** `message` */
+    public val Message: ImageVector by lazy { stanceIcon("message", "M4 5h16v11H9l-5 4z") }
+
+    /** `flag` */
+    public val Flag: ImageVector by lazy { stanceIcon("flag", "M5 21V4", "M5 4h13l-2.5 4.5L18 13H5") }
+
     /** Every icon with its token name, for galleries and tests. */
     public val all: List<Pair<String, ImageVector>> by lazy {
         listOf(
@@ -371,6 +398,15 @@ public object StanceIcons {
             "dot" to Dot,
             "circle" to Circle,
             "square" to Square,
+            "stop" to Stop,
+            "thumbs-up" to ThumbsUp,
+            "thumbs-down" to ThumbsDown,
+            "microphone" to Microphone,
+            "paperclip" to Paperclip,
+            "at-sign" to AtSign,
+            "pin" to Pin,
+            "message" to Message,
+            "flag" to Flag,
         )
     }
 }

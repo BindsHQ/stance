@@ -116,6 +116,11 @@ StanceUI wraps system controls and styles them with tokens. It does not reimplem
 Custom controls exist only where iOS has none: checkbox, radio group, badge, tag, avatar,
 banner, toast, empty state, skeleton, timeline, stepper, filter bar and signature canvas.
 
+Motion comes from the motion tokens through `StanceMotion` and is removed under Reduce Motion.
+Where a system control would give feedback, StanceUI does too: a selection tick on the
+checkbox, a tap when a toast appears, a success tap when progress completes, and numeric text
+transitions on changing values.
+
 On iOS 26 the system bars, sheets and controls keep their Liquid Glass materials. StanceUI does
 not draw its own glass and does not recolour system chrome beyond the tint.
 
@@ -147,6 +152,100 @@ example: it hosts the Quick Look controller.
 
 Token contrast is tested for all three themes. The showcase UI tests run the system
 accessibility audit on real screens.
+
+## Localisation
+
+StanceUI is fully localisable, and right to left layouts work without extra parameters.
+
+- **Built in strings.** Words the library supplies itself, such as "Dismiss", "Loading", "Send"
+  and "Thought for 12 seconds", live in string tables in the package bundle
+  (`Sources/StanceUI/Resources`). English is the base, with complete Arabic and Spanish
+  translations and plural rules for each. They resolve with `String(localized:bundle:locale:)`
+  for the locale in the SwiftUI environment, so `.environment(\.locale, Locale(identifier: "ar"))`
+  works in previews and tests. Other languages fall back to English.
+- **Your strings.** A string literal is a localisation key looked up in your app, the way
+  `Text("Save")` is. A `String` value is shown as written, and you can pass a
+  `LocalizedStringResource` explicitly.
+- **Overrides.** Every built in string has a parameter or a labels value, for example
+  `StanceLoadingState("Fetching mailboxes")` or
+  `StancePromptComposerLabels(send: "Ask")`. Leave it out to keep the localised default.
+
+```swift
+StanceButton("Deploy") {}                              // key "Deploy" in your string catalog
+StanceButton(template.name) {}                         // shown as written
+StanceLocalization.string("stance.dismiss", locale: Locale(identifier: "es"))   // "Descartar"
+```
+
+Your app must declare the languages it supports (a string catalog or `CFBundleLocalizations`)
+for iOS to use the package's translations. A title passed as a localisation key is resolved
+when the view is created, with the app's language.
+
+Right to left: layouts use leading and trailing edges throughout. Directional Stance icons
+(back and forward chevrons and arrows, the sidebar, the list and log out) mirror on their own;
+ticks, clocks and objects do not. The signature canvas keeps its coordinates so a signature is
+never mirrored, and the system slider follows the layout direction as every iOS slider does.
+
+To add a language, copy `en.lproj` in `Sources/StanceUI/Resources`, translate both files and
+run the tests: they fail if a key is missing or empty.
+
+## AI components
+
+Thirty three components for conversational and generative interfaces, in
+`Sources/StanceUI/Components/AI`. They implement the cross-platform contract in
+`specs/ai-components.json`, shared with the web and Android packages.
+
+| Group | Components |
+| --- | --- |
+| Conversation | `StanceThread`, `StanceMessage`, `StanceMessageGroup`, `StanceMessageActions`, `StanceBranchSwitcher`, `StanceScrollToLatest`, `StanceConversationList`, `StanceThreadEmptyState` |
+| Prompt | `StancePromptComposer`, `StanceAttachmentTray`, `StanceMentionPicker`, `StanceSlashCommandMenu`, `StanceModelPicker`, `StanceContextChips`, `StanceVoiceInputButton`, `StanceStopButton`, `StanceTokenBudgetMeter` |
+| Streaming | `StanceStreamingText`, `StanceThinkingIndicator`, `StanceReasoningDisclosure`, `StanceShimmerText`, `StanceGenerationProgress`, `StanceStreamingSkeleton`, `StanceInterruptedState` |
+| Trust | `StanceCitationChip`, `StanceSourceList`, `StanceSourcePreview`, `StanceConfidenceBadge`, `StanceAIGeneratedLabel`, `StanceDisclaimerNote`, `StanceFeedbackBar`, `StanceReportDialog`, `StanceSensitiveContentGate` |
+
+- **Presentational.** No networking and no model SDK. Your app owns the conversation and
+  passes text and a `StanceGenerationStatus` in: `idle`, `submitted`, `streaming`, `complete`,
+  `stopped` or `error`.
+- **Native first.** The thread is a `ScrollView` with a bottom anchor, the composer a vertical
+  `TextField`, the model picker a `Menu`, the report dialog a sheet with detents, and a citation
+  previews in a popover on iPad and a sheet on iPhone.
+- **Streaming safe.** Text is only added at the end, so earlier lines never move, and the
+  thread follows the newest message only while the reader is at the bottom.
+- **No new hues.** Surfaces use the ink scale. The assistant is identified by the sparkle icon,
+  motion and clear labels.
+- **Calm for everyone.** Shimmer, pulse and the text reveal use the `shimmer`, `pulse` and
+  `stream` motion tokens and are still under Reduce Motion. VoiceOver hears a response start,
+  finish, stop or fail once, never token by token.
+
+```swift
+struct Chat: View {
+    @State private var draft = ""
+    @State private var status = StanceGenerationStatus.idle
+    let messages: [ChatMessage]
+
+    var body: some View {
+        VStack(spacing: 0) {
+            StanceThread {
+                ForEach(messages) { message in
+                    StanceMessage(role: message.role, status: message.status) {
+                        StanceStreamingText(message.text, isStreaming: message.status == .streaming)
+                    } actions: {
+                        StanceMessageActions(onCopy: { copy(message) }, onRetry: { retry(message) })
+                    }
+                }
+                if status == .submitted { StanceThinkingIndicator() }
+            }
+            StancePromptComposer(text: $draft, status: status) { text in
+                send(text)
+            } onStop: {
+                stop()
+            }
+            .padding()
+        }
+    }
+}
+```
+
+System glyphs (send, stop, microphone, copy, thumbs) are SF Symbols. The sparkle is the Stance
+icon.
 
 ## Icons
 

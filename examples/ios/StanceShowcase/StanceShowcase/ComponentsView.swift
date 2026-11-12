@@ -2,7 +2,7 @@ import StanceUI
 import SwiftUI
 
 enum ComponentCategory: String, CaseIterable, Identifiable, Hashable {
-    case actions, forms, dataDisplay, feedback, overlays, navigation, advanced
+    case actions, forms, dataDisplay, feedback, overlays, navigation, advanced, ai
 
     var id: String { rawValue }
 
@@ -15,6 +15,7 @@ enum ComponentCategory: String, CaseIterable, Identifiable, Hashable {
         case .overlays: "Overlays"
         case .navigation: "Navigation"
         case .advanced: "Advanced"
+        case .ai: "AI"
         }
     }
 
@@ -27,6 +28,7 @@ enum ComponentCategory: String, CaseIterable, Identifiable, Hashable {
         case .overlays: "Sheets, alerts and confirmation dialogs"
         case .navigation: "Steppers, page indicators and adaptive navigation"
         case .advanced: "Filters, calendar, signature and attachments"
+        case .ai: "Conversation, prompt, streaming and trust"
         }
     }
 
@@ -38,7 +40,8 @@ enum ComponentCategory: String, CaseIterable, Identifiable, Hashable {
         case .feedback: .bell
         case .overlays: .panelLeft
         case .navigation: .arrowUpRight
-        case .advanced: .sparkle
+        case .advanced: .sliders
+        case .ai: .sparkle
         }
     }
 
@@ -94,6 +97,7 @@ extension ComponentCategory {
         case .overlays: OverlaysDemo()
         case .navigation: NavigationDemo()
         case .advanced: AdvancedDemo()
+        case .ai: AIDemo()
         }
     }
 }

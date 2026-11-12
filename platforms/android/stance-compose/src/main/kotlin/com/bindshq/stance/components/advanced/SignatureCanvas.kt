@@ -50,6 +50,8 @@ import com.bindshq.stance.icons.StanceIcons
 import com.bindshq.stance.theme.StanceSpacing
 import com.bindshq.stance.theme.StanceTheme
 import com.bindshq.stance.tokens.StanceTokens
+import androidx.compose.ui.res.stringResource
+import com.bindshq.stance.R
 
 /**
  * Holds the strokes of a [StanceSignatureCanvas]. Hoist it to read, clear, undo or export the signature.
@@ -126,6 +128,9 @@ public fun rememberStanceSignatureState(): StanceSignatureState = remember { Sta
  * next to it, such as typing a name or uploading an image. The canvas announces whether
  * a signature has been drawn.
  *
+ * The drawing surface uses physical coordinates and never mirrors in right to left layouts:
+ * a signature keeps the shape it was drawn with. Only the buttons under it follow the layout direction.
+ *
  * @param label Names the canvas for screen readers, for example "Signature".
  */
 @Composable
@@ -134,11 +139,11 @@ public fun StanceSignatureCanvas(
     label: String,
     modifier: Modifier = Modifier,
     height: Dp = (StanceTokens.Space.space32 + StanceTokens.Space.space12).dp,
-    placeholder: String = "Sign here",
-    undoLabel: String = "Undo",
-    clearLabel: String = "Clear",
-    signedDescription: String = "Signed",
-    emptyDescription: String = "Empty",
+    placeholder: String = stringResource(R.string.stance_sign_here),
+    undoLabel: String = stringResource(R.string.stance_undo),
+    clearLabel: String = stringResource(R.string.stance_clear),
+    signedDescription: String = stringResource(R.string.stance_signed),
+    emptyDescription: String = stringResource(R.string.stance_empty),
 ) {
     val c = StanceTheme.colors
     val strokeWidth = with(LocalDensity.current) { StanceSpacing.space05.toPx() }

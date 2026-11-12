@@ -20,6 +20,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceThemeProvider { Text("Hello") }
         }
@@ -36,6 +39,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             Text("Preview").stanceTheme(.highContrast)
         }
@@ -52,6 +58,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             Text("Inverted").stanceScopedTheme(.dark)
         }
@@ -68,6 +77,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             Text(StanceAppearance.stored().title)
         }
@@ -84,6 +96,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceCard("Rollout", description: "Exchange relay") { Text("48 mailboxes") }
         }
@@ -100,6 +115,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             Text("Content").stanceCard(elevated: true)
         }
@@ -116,6 +134,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             Text("Content").padding().stanceSurface(.subtle)
         }
@@ -132,6 +153,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             Text("Raised").padding().stanceShadow(.md)
         }
@@ -148,6 +172,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceDivider()
         }
@@ -164,6 +191,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceSection("Details", caption: "Shown to your organisation") { Text("Body") }
         }
@@ -180,6 +210,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceContainer { Text("Readable") }
         }
@@ -196,6 +229,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceGrid(minItemWidth: 140) { Text("A"); Text("B") }
         }
@@ -212,6 +248,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceIcon(.signature, label: "Signature")
         }
@@ -228,6 +267,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             Text("Contracts, signed in minutes").stanceText(.heading)
         }
@@ -244,6 +286,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceButton("Deploy", leadingIcon: .send, isLoading: false) {}
         }
@@ -260,6 +305,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             Button("Save changes") {}.buttonStyle(.stance(.outline, fullWidth: true))
         }
@@ -276,6 +324,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceIconButton(.pencil, label: "Edit template") {}
         }
@@ -292,6 +343,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceButtonGroup { StanceButton("Cancel", variant: .ghost) {}; StanceButton("Save") {} }
         }
@@ -308,6 +362,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceMenu("More") { Button("Rename") {}; Button("Delete", role: .destructive) {} }
         }
@@ -324,6 +381,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceFormField("Plan", helper: "Billed monthly") { Text("Team") }
         }
@@ -340,6 +400,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceTextField("Template name", text: $text, helper: "Visible to your organisation", isRequired: true)
         }
@@ -356,6 +419,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceSecureField("Relay API key", text: $text)
         }
@@ -372,6 +438,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceTextEditor("Notes", text: $text, limit: 200)
         }
@@ -388,6 +457,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceSearchField("Search users", text: $text)
         }
@@ -404,6 +476,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StancePicker("Plan", selection: $role, options: [("admin", "Admin"), ("member", "Member")])
         }
@@ -420,6 +495,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceCheckbox("Apply to new members", description: "Added later", isOn: $isOn)
         }
@@ -436,6 +514,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceRadioGroup("Role", selection: $role, options: [.init("admin", label: "Admin"), .init("member", label: "Member")])
         }
@@ -452,6 +533,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             Toggle("Auto-deploy", isOn: $isOn).toggleStyle(.stance)
         }
@@ -468,6 +552,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceSlider("Logo width", value: $value, in: 24...160, step: 4)
         }
@@ -484,6 +571,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceDatePicker("Deploy on", selection: $date, displayedComponents: .date)
         }
@@ -500,6 +590,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceAdaptiveNavigation("Stance", selection: $role, destinations: [.init(id: "admin", title: "Home", systemImage: "house")]) { _ in Text("Home") }
         }
@@ -516,6 +609,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             Text("Screen").stanceNavigationChrome()
         }
@@ -532,6 +628,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceStepper(steps: ["Choose", "Customise", "Deploy"], current: 1)
         }
@@ -548,6 +647,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StancePageIndicator(count: 4, current: 1)
         }
@@ -564,6 +666,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceBadge("Live", tone: .success)
         }
@@ -580,6 +685,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceTag("Sales") {}
         }
@@ -596,6 +704,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceAvatar(name: "Priya Nair", size: .large)
         }
@@ -612,6 +723,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceAvatarGroup(names: ["Priya Nair", "Hana Sato", "Owen Price"], max: 2)
         }
@@ -628,6 +742,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceProgressView("Mailboxes updated", value: 0.72)
         }
@@ -644,6 +761,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceSkeleton(.text, width: 160)
         }
@@ -660,6 +780,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceEmptyState(title: "No templates yet", message: "Create your first signature template.") { StanceButton("New template") {} }
         }
@@ -676,6 +799,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceTimeline([.init(id: "1", title: "Deployed", detail: "48 mailboxes", time: "09:41", tone: .success)])
         }
@@ -692,6 +818,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceStatCard("Deployments", value: "1,284", change: 0.12)
         }
@@ -708,6 +837,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceDescriptionList([("Owner", "Priya Nair"), ("Updated", "Today")])
         }
@@ -724,6 +856,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceListRow("Sales team", subtitle: "48 users")
         }
@@ -740,6 +875,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             List { Text("Row").stanceListRow() }.stanceListStyle()
         }
@@ -756,6 +894,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             DisclosureGroup("Advanced") { Text("Options") }.disclosureGroupStyle(.stance)
         }
@@ -772,6 +913,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceInlineAlert("Relay offline", message: "Deployments will resume.", tone: .warning)
         }
@@ -788,6 +932,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceBanner("Maintenance on Sunday", actionTitle: "Details", action: {}, onDismiss: {})
         }
@@ -804,6 +951,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             Text("Screen").stanceToastHost()
         }
@@ -820,6 +970,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceLoadingState("Loading organisation users")
         }
@@ -836,6 +989,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceErrorState(message: "We could not load your templates.") {}
         }
@@ -852,6 +1008,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             Text("Screen").stanceSheet("Rename template", isPresented: $isPresented) { Text("Form") }
         }
@@ -868,6 +1027,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             Text("Screen").stanceAlert($confirmation) {}
         }
@@ -884,6 +1046,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             Text("Screen").stanceConfirmationDialog($confirmation) {}
         }
@@ -900,6 +1065,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceFilterBar(filters: [.init(id: "live", title: "Live"), .init(id: "draft", title: "Draft")], selection: $filters)
         }
@@ -916,6 +1084,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceSearchableList(["Priya", "Hana"].map(Named.init), matches: { $0.name.contains($1) }) { Text($0.name) }
         }
@@ -932,6 +1103,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceCalendar("Deployment date", selection: $date)
         }
@@ -948,6 +1122,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceSignatureCanvas(signature: $signature) { StanceTextField("Or type your name", text: $text) }
         }
@@ -964,6 +1141,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceAttachmentPicker { _ in }
         }
@@ -981,6 +1161,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             StanceDocumentPreview(url: URL(fileURLWithPath: "/tmp/contract.pdf"))
         }
@@ -998,6 +1181,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             Image(systemName: "xmark").stanceTouchTarget()
         }
@@ -1015,6 +1201,9 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             Text(String(describing: StanceUIKit.font(.heading).pointSize))
         }
@@ -1032,12 +1221,642 @@ enum ComponentExamples {
         @State var signature = StanceSignature()
         @State var isPresented = false
         @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
         var body: some View {
             Button("Save") { StanceHaptics.success() }
         }
     }
+
+    /// StanceThread
+    struct Example64: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceThread { StanceMessage(role: .assistant) { Text("Hello") } }
+        }
+    }
+
+    /// StanceMessage
+    struct Example65: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceMessage(role: .assistant, status: .streaming, author: "Assistant") { StanceStreamingText(text, isStreaming: true) }
+        }
+    }
+
+    /// StanceMessageGroup
+    struct Example66: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceMessageGroup(role: .user, author: "Priya Nair") { StanceMessage(role: .user) { Text("Thanks") } }
+        }
+    }
+
+    /// StanceMessageActions
+    struct Example67: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceMessageActions(rating: rating, onCopy: {}, onRetry: {}, onRate: { rating = $0 })
+        }
+    }
+
+    /// StanceBranchSwitcher
+    struct Example68: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceBranchSwitcher(count: 3, index: $index)
+        }
+    }
+
+    /// StanceScrollToLatest
+    struct Example69: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceScrollToLatest(isVisible: true, unreadCount: 3) {}
+        }
+    }
+
+    /// StanceConversationList
+    struct Example70: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceConversationList([StanceConversation(id: "1", title: "Budget review", updatedAt: date)], selection: $selection, onDelete: { _ in })
+        }
+    }
+
+    /// StanceThreadEmptyState
+    struct Example71: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceThreadEmptyState(description: "Ask about your documents.", starters: [StanceStarter(id: "1", label: "Summarise a file")]) { _ in }
+        }
+    }
+
+    /// StancePromptComposer
+    struct Example72: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StancePromptComposer(text: $text, status: .idle) { _ in } onStop: {}
+        }
+    }
+
+    /// StanceAttachmentTray
+    struct Example73: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceAttachmentTray([StanceAttachmentItem(id: "1", name: "budget.xlsx", size: 48_000)]) { _ in }
+        }
+    }
+
+    /// StanceMentionPicker
+    struct Example74: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceMentionPicker(isPresented: $isPresented, query: text, items: [StanceSuggestion(id: "1", label: "Budget.xlsx")]) { _ in }
+        }
+    }
+
+    /// StanceSlashCommandMenu
+    struct Example75: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceSlashCommandMenu(isPresented: $isPresented, query: text, commands: [StanceSlashCommand(id: "1", name: "summarise")]) { _ in }
+        }
+    }
+
+    /// StanceModelPicker
+    struct Example76: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceModelPicker(models: [StanceModel(id: "admin", name: "Atlas", description: "Everyday work")], selection: $role)
+        }
+    }
+
+    /// StanceContextChips
+    struct Example77: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceContextChips([StanceContextItem(id: "1", label: "budget.xlsx", icon: .file, kind: "File")], onRemove: { _ in }, onAdd: {})
+        }
+    }
+
+    /// StanceVoiceInputButton
+    struct Example78: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceVoiceInputButton(state: .listening, level: 0.6) {}
+        }
+    }
+
+    /// StanceStopButton
+    struct Example79: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceStopButton {}
+        }
+    }
+
+    /// StanceTokenBudgetMeter
+    struct Example80: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceTokenBudgetMeter(used: 13_200, limit: 16_000, variant: .bar)
+        }
+    }
+
+    /// StanceStreamingText
+    struct Example81: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceStreamingText(text, isStreaming: isOn)
+        }
+    }
+
+    /// StanceThinkingIndicator
+    struct Example82: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceThinkingIndicator(elapsed: 4)
+        }
+    }
+
+    /// StanceReasoningDisclosure
+    struct Example83: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceReasoningDisclosure(status: .done, duration: 12) { Text("Compared both versions.") }
+        }
+    }
+
+    /// StanceShimmerText
+    struct Example84: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceShimmerText("Searching the web")
+        }
+    }
+
+    /// StanceGenerationProgress
+    struct Example85: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceGenerationProgress("Creating image", value: 0.4, stage: "Rendering") {}
+        }
+    }
+
+    /// StanceStreamingSkeleton
+    struct Example86: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceStreamingSkeleton(lines: 3)
+        }
+    }
+
+    /// StanceInterruptedState
+    struct Example87: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceInterruptedState(reason: .network, onRetry: {}, onContinue: {})
+        }
+    }
+
+    /// StanceCitationChip
+    struct Example88: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceCitationChip(index: 2, source: StanceSource(id: "1", title: "Quarterly report", url: URL(string: "https://example.com")))
+        }
+    }
+
+    /// StanceSourceList
+    struct Example89: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceSourceList([StanceSource(id: "1", title: "Quarterly report", domain: "example.com")], variant: .list)
+        }
+    }
+
+    /// StanceSourcePreview
+    struct Example90: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceSourcePreview(StanceSource(id: "1", title: "Quarterly report", domain: "example.com", snippet: "Revenue grew 12%."))
+        }
+    }
+
+    /// StanceConfidenceBadge
+    struct Example91: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceConfidenceBadge(.medium, description: "Based on two sources.")
+        }
+    }
+
+    /// StanceAIGeneratedLabel
+    struct Example92: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceAIGeneratedLabel(.generated, model: "Atlas")
+        }
+    }
+
+    /// StanceDisclaimerNote
+    struct Example93: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceDisclaimerNote()
+        }
+    }
+
+    /// StanceFeedbackBar
+    struct Example94: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceFeedbackBar(value: $rating, reasons: [StanceFeedbackReason(id: "accurate", label: "Accurate")]) { _ in }
+        }
+    }
+
+    /// StanceReportDialog
+    struct Example95: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            Button("Report") { isPresented = true }.stanceReportDialog(isPresented: $isPresented, categories: [StanceReportCategory(id: "wrong", label: "Incorrect")]) { _ in }
+        }
+    }
+
+    /// StanceSensitiveContentGate
+    struct Example96: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceSensitiveContentGate { Text("Hidden until shown") }
+        }
+    }
 }
 
-@Test("components.json lists 64 documented components") func inventoryCount() {
-    #expect(64 > 50)
+@Test("components.json lists 97 documented components") func inventoryCount() {
+    #expect(97 > 50)
 }

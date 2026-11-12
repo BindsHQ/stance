@@ -123,7 +123,7 @@
   {
     "name": "StanceIcon",
     "category": "foundations",
-    "summary": "Draws one of the 90 Stance icons, tinted with the current content colour.",
+    "summary": "Draws one of the 99 Stance icons, tinted with the current content colour.",
     "kind": "composable",
     "wrapsNative": "Icon",
     "status": "beta",
@@ -1357,5 +1357,704 @@
     ],
     "webEquivalent": null,
     "preview": null
+  },
+  {
+    "name": "StanceThread",
+    "category": "ai",
+    "summary": "The scrolling container for a conversation. Follows the newest message only while the reader is at the bottom.",
+    "kind": "composable",
+    "wrapsNative": "LazyColumn",
+    "status": "beta",
+    "example": "val messages = remember { listOf(\"How do I roll out a new signature?\", \"Publish the template, then assign it to a group.\") }\nStanceThread(modifier = Modifier.height(StanceSizes.pickerMaxHeight / 2), label = \"Signature rollout\") {\n    items(messages, key = { it }) { text ->\n        val role = if (text.endsWith(\"?\")) StanceMessageRole.User else StanceMessageRole.Assistant\n        StanceMessage(role) { Text(text) }\n    }\n}",
+    "accessibility": [
+      "A list named by its label.",
+      "New responses are announced once, when complete."
+    ],
+    "webEquivalent": "thread",
+    "preview": {
+      "light": "previews/stance-thread.light.png",
+      "dark": "previews/stance-thread.dark.png",
+      "high-contrast": "previews/stance-thread.high-contrast.png",
+      "width": 408,
+      "height": 368
+    }
+  },
+  {
+    "name": "StanceMessage",
+    "category": "ai",
+    "summary": "One turn in a conversation from the user, the assistant or the system, as a bubble or plain.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "Column(verticalArrangement = Arrangement.spacedBy(StanceSpacing.space4)) {\n    StanceMessage(StanceMessageRole.User, timestamp = \"10:41\") { Text(\"Who still has the old footer?\") }\n    StanceMessage(StanceMessageRole.Assistant, timestamp = \"10:41\", status = StanceGenerationStatus.Complete) {\n        Text(\"Two people in Sales. Their mailboxes sync tonight.\")\n    }\n}",
+    "accessibility": [
+      "The author and time are a heading.",
+      "Status is read as the heading state while a response arrives.",
+      "Message actions are screen reader custom actions."
+    ],
+    "webEquivalent": "message",
+    "preview": {
+      "light": "previews/stance-message.light.png",
+      "dark": "previews/stance-message.dark.png",
+      "high-contrast": "previews/stance-message.high-contrast.png",
+      "width": 408,
+      "height": 206
+    }
+  },
+  {
+    "name": "StanceMessageGroup",
+    "category": "ai",
+    "summary": "Consecutive messages from one author under a single avatar and name.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceMessageGroup(StanceMessageRole.Assistant, timestamp = \"10:42\") {\n    StanceMessage(StanceMessageRole.Assistant, showHeader = false) { Text(\"I found two mailboxes on the old footer.\") }\n    StanceMessage(StanceMessageRole.Assistant, showHeader = false) { Text(\"Both sync tonight, so no action is needed.\") }\n}",
+    "accessibility": [
+      "The author row is a heading."
+    ],
+    "webEquivalent": "message-group",
+    "preview": {
+      "light": "previews/stance-message-group.light.png",
+      "dark": "previews/stance-message-group.dark.png",
+      "high-contrast": "previews/stance-message-group.high-contrast.png",
+      "width": 408,
+      "height": 136
+    }
+  },
+  {
+    "name": "StanceMessageActions",
+    "category": "ai",
+    "summary": "The row of actions under a message: copy, retry, edit, good response and bad response.",
+    "kind": "composable",
+    "wrapsNative": "IconToggleButton",
+    "status": "beta",
+    "example": "var rating by remember { mutableStateOf<StanceRating?>(null) }\nStanceMessageActions(onCopy = { println(\"Copied\") }, onRetry = { println(\"Retry\") }, onRate = { rating = it }, rating = rating)",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "Rating buttons are toggles.",
+      "Copy confirms with a polite announcement."
+    ],
+    "webEquivalent": "message-actions",
+    "preview": {
+      "light": "previews/stance-message-actions.light.png",
+      "dark": "previews/stance-message-actions.dark.png",
+      "high-contrast": "previews/stance-message-actions.high-contrast.png",
+      "width": 408,
+      "height": 96
+    }
+  },
+  {
+    "name": "StanceBranchSwitcher",
+    "category": "ai",
+    "summary": "Steps between alternative versions of a message after an edit or retry.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "var index by remember { mutableIntStateOf(1) }\nStanceBranchSwitcher(count = 3, index = index, onIndexChange = { index = it })",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "The position, for example 2 of 3, is a polite live region.",
+      "Arrows mirror in right to left layouts."
+    ],
+    "webEquivalent": "branch-switcher",
+    "preview": {
+      "light": "previews/stance-branch-switcher.light.png",
+      "dark": "previews/stance-branch-switcher.dark.png",
+      "high-contrast": "previews/stance-branch-switcher.high-contrast.png",
+      "width": 408,
+      "height": 96
+    }
+  },
+  {
+    "name": "StanceScrollToLatest",
+    "category": "ai",
+    "summary": "A floating button that appears when the reader has scrolled away from the newest message.",
+    "kind": "composable",
+    "wrapsNative": "Surface",
+    "status": "beta",
+    "example": "StanceScrollToLatest(visible = true, onClick = { println(\"Scroll to latest\") }, unreadCount = 2)",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "The name includes the number of new messages."
+    ],
+    "webEquivalent": "scroll-to-latest",
+    "preview": {
+      "light": "previews/stance-scroll-to-latest.light.png",
+      "dark": "previews/stance-scroll-to-latest.dark.png",
+      "high-contrast": "previews/stance-scroll-to-latest.high-contrast.png",
+      "width": 408,
+      "height": 96
+    }
+  },
+  {
+    "name": "StanceConversationList",
+    "category": "ai",
+    "summary": "A list of past conversations grouped by date, with selection, rename, delete and pin.",
+    "kind": "composable",
+    "wrapsNative": "LazyColumn",
+    "status": "beta",
+    "example": "var selected by remember { mutableStateOf(\"rollout\") }\nStanceConversationList(\n    items = listOf(\n        StanceConversation(\"rollout\", \"Signature rollout\", updatedAt = \"10:42\", group = \"Today\"),\n        StanceConversation(\"footer\", \"Legal footer wording\", updatedAt = \"Monday\", group = \"This week\", pinned = true),\n        StanceConversation(\"audit\", \"March audit summary\", updatedAt = \"Tuesday\", group = \"This week\"),\n    ),\n    selectedId = selected,\n    onSelect = { selected = it.id },\n    onRename = { println(\"Rename ${it.title}\") },\n    onDelete = { println(\"Delete ${it.title}\") },\n    onPin = { item, pinned -> println(\"Pin ${item.title}: $pinned\") },\n    modifier = Modifier.height(StanceSizes.pickerMaxHeight / 2),\n)",
+    "accessibility": [
+      "Group names are headings.",
+      "The current conversation is announced as selected.",
+      "Row actions are also screen reader custom actions."
+    ],
+    "webEquivalent": "conversation-list",
+    "preview": {
+      "light": "previews/stance-conversation-list.light.png",
+      "dark": "previews/stance-conversation-list.dark.png",
+      "high-contrast": "previews/stance-conversation-list.high-contrast.png",
+      "width": 408,
+      "height": 304
+    }
+  },
+  {
+    "name": "StanceThreadEmptyState",
+    "category": "ai",
+    "summary": "The opening screen of a new conversation with a greeting and starter prompts.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceThreadEmptyState(\n    title = \"How can I help?\",\n    description = \"Ask about templates, rollouts and policies.\",\n    starters = listOf(\n        StanceStarter(\"audit\", \"Summarise the last rollout\", \"Who received it and who did not\", StanceIcons.BarChart),\n        StanceStarter(\"footer\", \"Draft a legal footer\", \"Based on the brand policy\", StanceIcons.FileText),\n    ),\n    onStarterSelect = { println(\"Starter ${it.id}\") },\n)",
+    "accessibility": [
+      "The title is a heading.",
+      "Each starter is one button."
+    ],
+    "webEquivalent": "thread-empty-state",
+    "preview": {
+      "light": "previews/stance-thread-empty-state.light.png",
+      "dark": "previews/stance-thread-empty-state.dark.png",
+      "high-contrast": "previews/stance-thread-empty-state.high-contrast.png",
+      "width": 408,
+      "height": 351
+    }
+  },
+  {
+    "name": "StancePromptComposer",
+    "category": "ai",
+    "summary": "The message input: a text area that grows with content, with slots and a send button that becomes stop.",
+    "kind": "composable",
+    "wrapsNative": "BasicTextField",
+    "status": "beta",
+    "example": "var draft by remember { mutableStateOf(\"\") }\nvar status by remember { mutableStateOf(StanceGenerationStatus.Idle) }\nStancePromptComposer(\n    value = draft,\n    onValueChange = { draft = it },\n    onSubmit = { status = StanceGenerationStatus.Streaming },\n    onStop = { status = StanceGenerationStatus.Stopped },\n    status = status,\n    leading = { StanceIconButton(StanceIcons.Paperclip, \"Attach a file\", onClick = { println(\"Attach\") }) },\n    footer = { StanceDisclaimerNote(\"Answers can be wrong. Check important facts.\", icon = null) },\n)",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "Send is disabled when the draft is empty.",
+      "While a response arrives the same button is named Stop."
+    ],
+    "webEquivalent": "prompt-composer",
+    "preview": {
+      "light": "previews/stance-prompt-composer.light.png",
+      "dark": "previews/stance-prompt-composer.dark.png",
+      "high-contrast": "previews/stance-prompt-composer.high-contrast.png",
+      "width": 408,
+      "height": 277
+    }
+  },
+  {
+    "name": "StanceAttachmentTray",
+    "category": "ai",
+    "summary": "The attachments on a draft or a sent message, with progress, errors and remove.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceAttachmentTray(\n    items = listOf(\n        StanceAttachment(\"policy\", \"Brand policy.pdf\", sizeLabel = \"1.2 MB\"),\n        StanceAttachment(\"logo\", \"Logo.png\", kind = StanceAttachmentKind.Image, progress = 0.4f),\n        StanceAttachment(\"scan\", \"Scan.tiff\", kind = StanceAttachmentKind.Image, error = \"Too large\"),\n    ),\n    onRemove = { println(\"Remove ${it.name}\") },\n)",
+    "accessibility": [
+      "Each remove button names its file.",
+      "Upload errors are announced."
+    ],
+    "webEquivalent": "attachment-tray",
+    "preview": {
+      "light": "previews/stance-attachment-tray.light.png",
+      "dark": "previews/stance-attachment-tray.dark.png",
+      "high-contrast": "previews/stance-attachment-tray.high-contrast.png",
+      "width": 408,
+      "height": 96
+    }
+  },
+  {
+    "name": "StanceMentionPicker",
+    "category": "ai",
+    "summary": "A filterable list that opens above the composer to reference files, people or tools.",
+    "kind": "composable",
+    "wrapsNative": "Popup",
+    "status": "beta",
+    "example": "var open by remember { mutableStateOf(false) }\nBox {\n    StanceButton(\"Mention\", onClick = { open = true }, variant = StanceButtonVariant.Outline, leadingIcon = StanceIcons.AtSign)\n    StanceMentionPicker(\n        expanded = open,\n        onDismissRequest = { open = false },\n        items = listOf(\n            StanceMentionItem(\"policy\", \"Brand policy.pdf\", \"Shared file\", StanceIcons.FileText, group = \"Files\"),\n            StanceMentionItem(\"ana\", \"Ana Novak\", \"Legal\", StanceIcons.User, group = \"People\"),\n        ),\n        onSelect = { open = false },\n    )\n}",
+    "accessibility": [
+      "Does not take focus, so typing continues.",
+      "The active row is announced as selected.",
+      "Closes on back, Escape and outside taps."
+    ],
+    "webEquivalent": "mention-picker",
+    "preview": {
+      "light": "previews/stance-mention-picker.light.png",
+      "dark": "previews/stance-mention-picker.dark.png",
+      "high-contrast": "previews/stance-mention-picker.high-contrast.png",
+      "width": 408,
+      "height": 360
+    }
+  },
+  {
+    "name": "StanceSlashCommandMenu",
+    "category": "ai",
+    "summary": "A command list that opens above the composer when the draft starts with a slash.",
+    "kind": "composable",
+    "wrapsNative": "Popup",
+    "status": "beta",
+    "example": "var open by remember { mutableStateOf(false) }\nBox {\n    StanceButton(\"Commands\", onClick = { open = true }, variant = StanceButtonVariant.Outline, leadingIcon = StanceIcons.Command)\n    StanceSlashCommandMenu(\n        expanded = open,\n        onDismissRequest = { open = false },\n        commands = listOf(\n            StanceSlashCommand(\"summarise\", \"summarise\", \"Shorten the attached document\"),\n            StanceSlashCommand(\"translate\", \"translate\", \"Translate the last answer\"),\n        ),\n        onSelect = { open = false },\n    )\n}",
+    "accessibility": [
+      "Same list behaviour as the mention picker."
+    ],
+    "webEquivalent": "slash-command-menu",
+    "preview": {
+      "light": "previews/stance-slash-command-menu.light.png",
+      "dark": "previews/stance-slash-command-menu.dark.png",
+      "high-contrast": "previews/stance-slash-command-menu.high-contrast.png",
+      "width": 408,
+      "height": 320
+    }
+  },
+  {
+    "name": "StanceModelPicker",
+    "category": "ai",
+    "summary": "Chooses the model for the next message, with a short description and capability badges.",
+    "kind": "composable",
+    "wrapsNative": "ModalBottomSheet",
+    "status": "beta",
+    "example": "var model by remember { mutableStateOf(\"swift\") }\nStanceModelPicker(models = sampleModels, selectedId = model, onSelect = { model = it.id })",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "The sheet is a radio group with the chosen model selected."
+    ],
+    "webEquivalent": "model-picker",
+    "preview": {
+      "light": "previews/stance-model-picker.light.png",
+      "dark": "previews/stance-model-picker.dark.png",
+      "high-contrast": "previews/stance-model-picker.high-contrast.png",
+      "width": 408,
+      "height": 560
+    }
+  },
+  {
+    "name": "StanceContextChips",
+    "category": "ai",
+    "summary": "Shows what the assistant can see for this message, such as files or pages, each removable.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "var items by remember {\n    mutableStateOf(\n        listOf(\n            StanceContextItem(\"policy\", \"Brand policy.pdf\", StanceIcons.FileText, kind = \"File\"),\n            StanceContextItem(\"page\", \"Rollout settings\", StanceIcons.Globe, kind = \"Page\"),\n        ),\n    )\n}\nStanceContextChips(items = items, onRemove = { removed -> items = items - removed }, onAdd = { println(\"Add context\") })",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "A removable chip is one button named Remove and its label."
+    ],
+    "webEquivalent": "context-chips",
+    "preview": {
+      "light": "previews/stance-context-chips.light.png",
+      "dark": "previews/stance-context-chips.dark.png",
+      "high-contrast": "previews/stance-context-chips.high-contrast.png",
+      "width": 408,
+      "height": 148
+    }
+  },
+  {
+    "name": "StanceVoiceInputButton",
+    "category": "ai",
+    "summary": "A microphone button with idle, listening and processing states and a level ring.",
+    "kind": "composable",
+    "wrapsNative": "IconButton",
+    "status": "beta",
+    "example": "var listening by remember { mutableStateOf(false) }\nStanceVoiceInputButton(\n    state = if (listening) StanceVoiceInputState.Listening else StanceVoiceInputState.Idle,\n    onClick = { listening = !listening },\n    level = 0.6f,\n)",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "A toggle button whose state changes are announced."
+    ],
+    "webEquivalent": "voice-input-button",
+    "preview": {
+      "light": "previews/stance-voice-input-button.light.png",
+      "dark": "previews/stance-voice-input-button.dark.png",
+      "high-contrast": "previews/stance-voice-input-button.high-contrast.png",
+      "width": 408,
+      "height": 96
+    }
+  },
+  {
+    "name": "StanceStopButton",
+    "category": "ai",
+    "summary": "Stops a response that is being generated, as an icon or a labelled button.",
+    "kind": "composable",
+    "wrapsNative": "IconButton",
+    "status": "beta",
+    "example": "Row(horizontalArrangement = Arrangement.spacedBy(StanceSpacing.space3), verticalAlignment = Alignment.CenterVertically) {\n    StanceStopButton(onStop = { println(\"Stopped\") })\n    StanceStopButton(onStop = { println(\"Stopped\") }, variant = StanceStopButtonVariant.Labelled)\n}",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "Named Stop for screen readers."
+    ],
+    "webEquivalent": "stop-button",
+    "preview": {
+      "light": "previews/stance-stop-button.light.png",
+      "dark": "previews/stance-stop-button.dark.png",
+      "high-contrast": "previews/stance-stop-button.high-contrast.png",
+      "width": 408,
+      "height": 96
+    }
+  },
+  {
+    "name": "StanceTokenBudgetMeter",
+    "category": "ai",
+    "summary": "A compact meter of how much of the context or message limit is used, as a ring, bar or text.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "Column(verticalArrangement = Arrangement.spacedBy(StanceSpacing.space3)) {\n    StanceTokenBudgetMeter(used = 42_000, limit = 100_000, variant = StanceTokenBudgetVariant.Bar)\n    StanceTokenBudgetMeter(used = 91_000, limit = 100_000, variant = StanceTokenBudgetVariant.Bar)\n}",
+    "accessibility": [
+      "A progress value with value text.",
+      "Crossing the warning threshold or the limit is announced once.",
+      "The warning has an icon, not colour alone."
+    ],
+    "webEquivalent": "token-budget-meter",
+    "preview": {
+      "light": "previews/stance-token-budget-meter.light.png",
+      "dark": "previews/stance-token-budget-meter.dark.png",
+      "high-contrast": "previews/stance-token-budget-meter.high-contrast.png",
+      "width": 408,
+      "height": 150
+    }
+  },
+  {
+    "name": "StanceStreamingText",
+    "category": "ai",
+    "summary": "Reveals text as it arrives at a steady cadence with a caret, without moving lines already shown.",
+    "kind": "composable",
+    "wrapsNative": "Text",
+    "status": "beta",
+    "example": "var streaming by remember { mutableStateOf(true) }\nStanceStreamingText(\n    text = \"Publish the template, then assign it to a group. Mailboxes pick it up within an hour.\",\n    streaming = streaming,\n    onRevealEnd = { println(\"Reveal finished\") },\n)\nStanceButton(\"Finish\", onClick = { streaming = false }, variant = StanceButtonVariant.Ghost)",
+    "accessibility": [
+      "Announced once when complete, never token by token.",
+      "Shows at once when animations are off."
+    ],
+    "webEquivalent": "streaming-text",
+    "preview": {
+      "light": "previews/stance-streaming-text.light.png",
+      "dark": "previews/stance-streaming-text.dark.png",
+      "high-contrast": "previews/stance-streaming-text.high-contrast.png",
+      "width": 408,
+      "height": 91
+    }
+  },
+  {
+    "name": "StanceThinkingIndicator",
+    "category": "ai",
+    "summary": "Shows that the assistant is working before any text arrives, with a label and elapsed time.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "Column(verticalArrangement = Arrangement.spacedBy(StanceSpacing.space3)) {\n    StanceThinkingIndicator(elapsedSeconds = 4)\n    StanceThinkingIndicator(label = \"Reading the policy\", variant = StanceThinkingVariant.Shimmer)\n}",
+    "accessibility": [
+      "A polite status.",
+      "A static mark with the label when animations are off."
+    ],
+    "webEquivalent": "thinking-indicator",
+    "preview": {
+      "light": "previews/stance-thinking-indicator.light.png",
+      "dark": "previews/stance-thinking-indicator.dark.png",
+      "high-contrast": "previews/stance-thinking-indicator.high-contrast.png",
+      "width": 408,
+      "height": 129
+    }
+  },
+  {
+    "name": "StanceReasoningDisclosure",
+    "category": "ai",
+    "summary": "A collapsible block for reasoning: open while thinking, collapsed to a summary when done.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceReasoningDisclosure(status = StanceReasoningStatus.Done, durationSeconds = 12, initiallyExpanded = true) {\n    Text(\"The policy requires the footer on external mail only.\")\n    Text(\"Two Sales mailboxes last synced before the change.\")\n}",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "A button that reports expanded or collapsed.",
+      "The summary reads, for example, Thought for 12 seconds."
+    ],
+    "webEquivalent": "reasoning-disclosure",
+    "preview": {
+      "light": "previews/stance-reasoning-disclosure.light.png",
+      "dark": "previews/stance-reasoning-disclosure.dark.png",
+      "high-contrast": "previews/stance-reasoning-disclosure.high-contrast.png",
+      "width": 408,
+      "height": 210
+    }
+  },
+  {
+    "name": "StanceShimmerText",
+    "category": "ai",
+    "summary": "Text with a slow light sweep for labels of work in progress, such as Searching the web.",
+    "kind": "composable",
+    "wrapsNative": "Text",
+    "status": "beta",
+    "example": "StanceShimmerText(\"Searching the brand policy\")",
+    "accessibility": [
+      "Plain text to screen readers.",
+      "No sweep when animations are off."
+    ],
+    "webEquivalent": "shimmer-text",
+    "preview": {
+      "light": "previews/stance-shimmer-text.light.png",
+      "dark": "previews/stance-shimmer-text.dark.png",
+      "high-contrast": "previews/stance-shimmer-text.high-contrast.png",
+      "width": 408,
+      "height": 65
+    }
+  },
+  {
+    "name": "StanceGenerationProgress",
+    "category": "ai",
+    "summary": "Progress for longer generations such as images or documents, with a stage label and cancel.",
+    "kind": "composable",
+    "wrapsNative": "LinearProgressIndicator",
+    "status": "beta",
+    "example": "StanceGenerationProgress(\n    label = \"Creating rollout report\",\n    progress = 0.42f,\n    stage = \"Rendering page 2 of 5\",\n    onCancel = { println(\"Cancelled\") },\n)",
+    "accessibility": [
+      "Announced with its label and percentage.",
+      "Stage changes are announced politely."
+    ],
+    "webEquivalent": "generation-progress",
+    "preview": {
+      "light": "previews/stance-generation-progress.light.png",
+      "dark": "previews/stance-generation-progress.dark.png",
+      "high-contrast": "previews/stance-generation-progress.high-contrast.png",
+      "width": 408,
+      "height": 161
+    }
+  },
+  {
+    "name": "StanceStreamingSkeleton",
+    "category": "ai",
+    "summary": "Placeholder lines, card or image for a response that has been requested and has not started.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceStreamingSkeleton(lines = 3)",
+    "accessibility": [
+      "Read as one loading status.",
+      "The pulse stops when animations are off."
+    ],
+    "webEquivalent": "streaming-skeleton",
+    "preview": {
+      "light": "previews/stance-streaming-skeleton.light.png",
+      "dark": "previews/stance-streaming-skeleton.dark.png",
+      "high-contrast": "previews/stance-streaming-skeleton.high-contrast.png",
+      "width": 408,
+      "height": 244
+    }
+  },
+  {
+    "name": "StanceInterruptedState",
+    "category": "ai",
+    "summary": "Marks a response that was stopped or failed part way, with retry and continue.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceInterruptedState(\n    reason = StanceInterruptedReason.Network,\n    description = \"The answer stopped part way. Your draft is safe.\",\n    onRetry = { println(\"Retry\") },\n    onContinue = { println(\"Continue\") },\n)",
+    "accessibility": [
+      "Errors and lost connections are alerts.",
+      "Stopped and limit are polite statuses."
+    ],
+    "webEquivalent": "interrupted-state",
+    "preview": {
+      "light": "previews/stance-interrupted-state.light.png",
+      "dark": "previews/stance-interrupted-state.dark.png",
+      "high-contrast": "previews/stance-interrupted-state.high-contrast.png",
+      "width": 408,
+      "height": 273
+    }
+  },
+  {
+    "name": "StanceCitationChip",
+    "category": "ai",
+    "summary": "A numbered marker that links a claim to its source and previews it in a bottom sheet.",
+    "kind": "composable",
+    "wrapsNative": "ModalBottomSheet",
+    "status": "beta",
+    "example": "Row(verticalAlignment = Alignment.CenterVertically) {\n    Text(\"Templates reach every mailbox within an hour.\")\n    StanceCitationChip(index = 1, source = sampleSources[0], onOpen = { println(\"Open ${it.url}\") })\n}",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "A button named, for example, Source 2 and the title.",
+      "The preview is reachable by touch, keyboard and screen reader."
+    ],
+    "webEquivalent": "citation-chip",
+    "preview": {
+      "light": "previews/stance-citation-chip.light.png",
+      "dark": "previews/stance-citation-chip.dark.png",
+      "high-contrast": "previews/stance-citation-chip.high-contrast.png",
+      "width": 408,
+      "height": 480
+    }
+  },
+  {
+    "name": "StanceSourceList",
+    "category": "ai",
+    "summary": "The sources behind an answer, as a compact row of chips that expands to a full list.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceSourceList(sources = sampleSources, max = 2, onSourceOpen = { println(\"Open ${it.title}\") })",
+    "accessibility": [
+      "The title is a heading.",
+      "Each chip is named by its source title."
+    ],
+    "webEquivalent": "source-list",
+    "preview": {
+      "light": "previews/stance-source-list.light.png",
+      "dark": "previews/stance-source-list.dark.png",
+      "high-contrast": "previews/stance-source-list.high-contrast.png",
+      "width": 408,
+      "height": 383
+    }
+  },
+  {
+    "name": "StanceSourcePreview",
+    "category": "ai",
+    "summary": "A card for one source: site, title, snippet and a link to open it.",
+    "kind": "composable",
+    "wrapsNative": "Surface",
+    "status": "beta",
+    "example": "StanceSourcePreview(source = sampleSources[0], onOpen = { println(\"Open source\") })",
+    "accessibility": [
+      "The link is a button with a visible label."
+    ],
+    "webEquivalent": "source-preview",
+    "preview": {
+      "light": "previews/stance-source-preview.light.png",
+      "dark": "previews/stance-source-preview.dark.png",
+      "high-contrast": "previews/stance-source-preview.high-contrast.png",
+      "width": 408,
+      "height": 202
+    }
+  },
+  {
+    "name": "StanceConfidenceBadge",
+    "category": "ai",
+    "summary": "States how sure the system is in words with a distinct icon, never colour alone.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "Column(verticalArrangement = Arrangement.spacedBy(StanceSpacing.space2)) {\n    StanceConfidenceBadge(StanceConfidenceLevel.High, description = \"Three sources agree\")\n    StanceConfidenceBadge(StanceConfidenceLevel.Low, description = \"Based on one source\")\n}",
+    "accessibility": [
+      "Read as the label and its description together."
+    ],
+    "webEquivalent": "confidence-badge",
+    "preview": {
+      "light": "previews/stance-confidence-badge.light.png",
+      "dark": "previews/stance-confidence-badge.dark.png",
+      "high-contrast": "previews/stance-confidence-badge.high-contrast.png",
+      "width": 408,
+      "height": 152
+    }
+  },
+  {
+    "name": "StanceAIGeneratedLabel",
+    "category": "ai",
+    "summary": "Marks content as generated, assisted or edited by AI, with the sparkle icon and the model name.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "Column(verticalArrangement = Arrangement.spacedBy(StanceSpacing.space2)) {\n    StanceAIGeneratedLabel(model = \"Atlas\")\n    StanceAIGeneratedLabel(variant = StanceAIGeneratedVariant.Edited)\n}",
+    "accessibility": [
+      "Read as one phrase."
+    ],
+    "webEquivalent": "ai-generated-label",
+    "preview": {
+      "light": "previews/stance-aigenerated-label.light.png",
+      "dark": "previews/stance-aigenerated-label.dark.png",
+      "high-contrast": "previews/stance-aigenerated-label.high-contrast.png",
+      "width": 408,
+      "height": 112
+    }
+  },
+  {
+    "name": "StanceDisclaimerNote",
+    "category": "ai",
+    "summary": "A quiet note under the composer or a response, such as a reminder to check important facts.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceDisclaimerNote(\"Answers can be wrong. Check important facts.\")",
+    "accessibility": [
+      "Read as plain text."
+    ],
+    "webEquivalent": "disclaimer-note",
+    "preview": {
+      "light": "previews/stance-disclaimer-note.light.png",
+      "dark": "previews/stance-disclaimer-note.dark.png",
+      "high-contrast": "previews/stance-disclaimer-note.high-contrast.png",
+      "width": 408,
+      "height": 64
+    }
+  },
+  {
+    "name": "StanceFeedbackBar",
+    "category": "ai",
+    "summary": "Thumbs up or down, followed by optional reasons and a comment, then a thank you.",
+    "kind": "composable",
+    "wrapsNative": "IconToggleButton",
+    "status": "beta",
+    "example": "var rating by remember { mutableStateOf<StanceRating?>(null) }\nvar submitted by remember { mutableStateOf(false) }\nStanceFeedbackBar(\n    rating = rating,\n    onRatingChange = { rating = it },\n    reasons = listOf(StanceFeedbackReason(\"wrong\", \"Not accurate\"), StanceFeedbackReason(\"long\", \"Too long\")),\n    onSubmit = { submitted = true },\n    submitted = submitted,\n)",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "Rating buttons are toggles.",
+      "Reasons are a labelled group.",
+      "The thank you is announced."
+    ],
+    "webEquivalent": "feedback-bar",
+    "preview": {
+      "light": "previews/stance-feedback-bar.light.png",
+      "dark": "previews/stance-feedback-bar.dark.png",
+      "high-contrast": "previews/stance-feedback-bar.high-contrast.png",
+      "width": 408,
+      "height": 402
+    }
+  },
+  {
+    "name": "StanceReportDialog",
+    "category": "ai",
+    "summary": "A bottom sheet to report a response with a category and details.",
+    "kind": "composable",
+    "wrapsNative": "ModalBottomSheet",
+    "status": "beta",
+    "example": "var open by remember { mutableStateOf(false) }\nStanceButton(\"Report\", onClick = { open = true }, variant = StanceButtonVariant.Outline, leadingIcon = StanceIcons.Flag)\nif (open) {\n    StanceReportDialog(\n        onDismissRequest = { open = false },\n        categories = listOf(\n            StanceReportCategory(\"wrong\", \"Incorrect\", \"Facts or figures are wrong\"),\n            StanceReportCategory(\"harm\", \"Harmful\", \"Could hurt someone\"),\n        ),\n        onSubmit = { open = false },\n    )\n}",
+    "accessibility": [
+      "The title is a heading.",
+      "Categories are a radio group.",
+      "Stays open and busy while the report is sent."
+    ],
+    "webEquivalent": "report-dialog",
+    "preview": {
+      "light": "previews/stance-report-dialog.light.png",
+      "dark": "previews/stance-report-dialog.dark.png",
+      "high-contrast": "previews/stance-report-dialog.high-contrast.png",
+      "width": 408,
+      "height": 640
+    }
+  },
+  {
+    "name": "StanceSensitiveContentGate",
+    "category": "ai",
+    "summary": "Hides content behind a notice until the reader chooses to see it.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceSensitiveContentGate {\n    Text(\"A customer complaint with strong language.\")\n}",
+    "accessibility": [
+      "Hidden content is absent from the accessibility tree.",
+      "Focus moves to the content on reveal."
+    ],
+    "webEquivalent": "sensitive-content-gate",
+    "preview": {
+      "light": "previews/stance-sensitive-content-gate.light.png",
+      "dark": "previews/stance-sensitive-content-gate.dark.png",
+      "high-contrast": "previews/stance-sensitive-content-gate.high-contrast.png",
+      "width": 408,
+      "height": 263
+    }
   }
 ]

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="stance_loading">جارٍ التحميل</string>
+    <string name="stance_cancel">إلغاء</string>
+    <string name="stance_ok">موافق</string>
+    <string name="stance_dismiss">إغلاق</string>
+    <string name="stance_try_again">إعادة المحاولة</string>
+    <string name="stance_required">مطلوب</string>
+    <string name="stance_select">اختيار</string>
+    <string name="stance_select_date">اختيار التاريخ</string>
+    <string name="stance_select_dates">اختيار التواريخ</string>
+    <string name="stance_select_time">اختيار الوقت</string>
+    <string name="stance_date_range">من %1$s إلى %2$s</string>
+    <string name="stance_range_value">من %1$d إلى %2$d</string>
+    <string name="stance_percent">%1$d٪</string>
+    <string name="stance_show_password">إظهار كلمة المرور</string>
+    <string name="stance_hide_password">إخفاء كلمة المرور</string>
+    <string name="stance_search">بحث</string>
+    <string name="stance_clear_search">مسح البحث</string>
+    <string name="stance_navigate_up">رجوع</string>
+    <string name="stance_page_of">الصفحة %1$d من %2$d</string>
+    <string name="stance_step_of">الخطوة %1$d من %2$d، %3$s</string>
+    <string name="stance_step_complete">مكتملة</string>
+    <string name="stance_step_current">الحالية</string>
+    <string name="stance_step_upcoming">قادمة</string>
+    <string name="stance_step_error">خطأ</string>
+    <plurals name="stance_results">
+        <item quantity="zero">لا نتائج</item>
+        <item quantity="one">نتيجة واحدة</item>
+        <item quantity="two">نتيجتان</item>
+        <item quantity="few">%1$d نتائج</item>
+        <item quantity="many">%1$d نتيجة</item>
+        <item quantity="other">%1$d نتيجة</item>
+    </plurals>
+    <string name="stance_no_results">لا توجد نتائج</string>
+    <string name="stance_nothing_matches">لا شيء يطابق «%1$s».</string>
+    <string name="stance_clear_all">مسح الكل</string>
+    <string name="stance_sign_here">وقّع هنا</string>
+    <string name="stance_undo">تراجع</string>
+    <string name="stance_clear">مسح</string>
+    <string name="stance_signed">تم التوقيع</string>
+    <string name="stance_empty">فارغ</string>
+    <plurals name="stance_names_and_more">
+        <item quantity="zero">%1$s</item>
+        <item quantity="one">%1$s وشخص آخر</item>
+        <item quantity="two">%1$s وشخصان آخران</item>
+        <item quantity="few">%1$s و%2$d آخرين</item>
+        <item quantity="many">%1$s و%2$d آخرًا</item>
+        <item quantity="other">%1$s و%2$d آخر</item>
+    </plurals>
+    <string name="stance_list_separator">"، "</string>
+    <string name="stance_table_cell">%1$s: %2$s</string>
+</resources>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Built-in strings of the Stance components. Every one is the default of a parameter, so apps can override it. -->
+<resources>
+    <string name="stance_loading">Loading</string>
+    <string name="stance_cancel">Cancel</string>
+    <string name="stance_ok">OK</string>
+    <string name="stance_dismiss">Dismiss</string>
+    <string name="stance_try_again">Try again</string>
+    <string name="stance_required">required</string>
+    <string name="stance_select">Select</string>
+    <string name="stance_select_date">Select date</string>
+    <string name="stance_select_dates">Select dates</string>
+    <string name="stance_select_time">Select time</string>
+    <!-- A date range: start date, end date. -->
+    <string name="stance_date_range">%1$s to %2$s</string>
+    <!-- A numeric range: lower value, upper value. -->
+    <string name="stance_range_value">%1$d to %2$d</string>
+    <string name="stance_percent">%1$d%%</string>
+    <string name="stance_show_password">Show password</string>
+    <string name="stance_hide_password">Hide password</string>
+    <string name="stance_search">Search</string>
+    <string name="stance_clear_search">Clear search</string>
+    <string name="stance_navigate_up">Navigate up</string>
+    <!-- Pager position: current page, page count. -->
+    <string name="stance_page_of">Page %1$d of %2$d</string>
+    <!-- Stepper position: step number, step count, step label. -->
+    <string name="stance_step_of">Step %1$d of %2$d, %3$s</string>
+    <string name="stance_step_complete">complete</string>
+    <string name="stance_step_current">current</string>
+    <string name="stance_step_upcoming">upcoming</string>
+    <string name="stance_step_error">error</string>
+    <plurals name="stance_results">
+        <item quantity="one">%1$d result</item>
+        <item quantity="other">%1$d results</item>
+    </plurals>
+    <string name="stance_no_results">No results</string>
+    <!-- Empty search: the query. -->
+    <string name="stance_nothing_matches">Nothing matches “%1$s”.</string>
+    <string name="stance_clear_all">Clear all</string>
+    <string name="stance_sign_here">Sign here</string>
+    <string name="stance_undo">Undo</string>
+    <string name="stance_clear">Clear</string>
+    <string name="stance_signed">Signed</string>
+    <string name="stance_empty">Empty</string>
+    <!-- Avatar group summary: the names shown, the number of people not shown. -->
+    <plurals name="stance_names_and_more">
+        <item quantity="one">%1$s and %2$d more</item>
+        <item quantity="other">%1$s and %2$d more</item>
+    </plurals>
+    <!-- Joins items of a spoken list. -->
+    <string name="stance_list_separator">", "</string>
+    <!-- A table cell read aloud: column header, value. -->
+    <string name="stance_table_cell">%1$s: %2$s</string>
+</resources>

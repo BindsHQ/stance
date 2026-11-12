@@ -13,6 +13,7 @@ const baseSlug = (name) =>
   name
     .replace(/\(.*\)/, '')
     .replace(/UIKit/, 'Uikit')
+    .replace(/AI/, 'Ai')
     .replace(/(?<!^)([A-Z])/g, '-$1')
     .toLowerCase();
 

@@ -93,6 +93,15 @@ public enum StanceIconName: String, CaseIterable, Sendable {
     case dot = "dot"
     case circle = "circle"
     case square = "square"
+    case stop = "stop"
+    case thumbsUp = "thumbs-up"
+    case thumbsDown = "thumbs-down"
+    case microphone = "microphone"
+    case paperclip = "paperclip"
+    case atSign = "at-sign"
+    case pin = "pin"
+    case message = "message"
+    case flag = "flag"
 
     /// SVG path data for each stroke of the icon.
     var pathData: [String] {
@@ -187,6 +196,15 @@ public enum StanceIconName: String, CaseIterable, Sendable {
         case .dot: ["M12 12h.01"]
         case .circle: ["M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"]
         case .square: ["M5 5h14v14H5z"]
+        case .stop: ["M7 7h10v10H7z"]
+        case .thumbsUp: ["M7 10v10H4V10z", "M7 10l4-7c1.7 0 2.5 1.2 2.5 2.7V9h4.6a2 2 0 0 1 2 2.4l-1.3 7a2 2 0 0 1-2 1.6H7"]
+        case .thumbsDown: ["M7 14V4H4v10z", "M7 14l4 7c1.7 0 2.5-1.2 2.5-2.7V15h4.6a2 2 0 0 0 2-2.4l-1.3-7a2 2 0 0 0-2-1.6H7"]
+        case .microphone: ["M12 3a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z", "M5.5 11a6.5 6.5 0 0 0 13 0", "M12 17.5V21"]
+        case .paperclip: ["M20 11.5l-8.2 8.2a5 5 0 0 1-7.1-7.1l8.5-8.5a3.3 3.3 0 0 1 4.7 4.7l-8.5 8.5a1.7 1.7 0 0 1-2.4-2.4l7.8-7.8"]
+        case .atSign: ["M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z", "M16 8v5.5a2.5 2.5 0 0 0 5 0V12a9 9 0 1 0-3.5 7.1"]
+        case .pin: ["M9 4h6l-1 6 3 3H7l3-3z", "M12 13v7"]
+        case .message: ["M4 5h16v11H9l-5 4z"]
+        case .flag: ["M5 21V4", "M5 4h13l-2.5 4.5L18 13H5"]
         }
     }
 }

@@ -44,6 +44,9 @@ import java.text.DateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import androidx.compose.ui.res.stringResource
+import com.bindshq.stance.R
+import com.bindshq.stance.foundation.defaultDateRangeText
 
 /** A read-only field that opens a picker when tapped or activated from the keyboard. */
 @Composable
@@ -118,13 +121,13 @@ public fun StanceDatePicker(
     selectedDateMillis: Long?,
     onDateSelected: (Long?) -> Unit,
     modifier: Modifier = Modifier,
-    placeholder: String = "Select date",
+    placeholder: String = stringResource(R.string.stance_select_date),
     helper: String? = null,
     error: String? = null,
     required: Boolean = false,
     enabled: Boolean = true,
-    confirmLabel: String = "OK",
-    cancelLabel: String = "Cancel",
+    confirmLabel: String = stringResource(R.string.stance_ok),
+    cancelLabel: String = stringResource(R.string.stance_cancel),
     locale: Locale = Locale.getDefault(),
 ) {
     var open by remember { mutableStateOf(false) }
@@ -153,6 +156,8 @@ public fun StanceDatePicker(
 
 /**
  * A field for a start and end date that opens the Material date range picker.
+ *
+ * @param rangeText Joins the formatted start and end dates, for example "1 Mar to 8 Mar".
  */
 @Composable
 public fun StanceDateRangePicker(
@@ -161,18 +166,19 @@ public fun StanceDateRangePicker(
     endDateMillis: Long?,
     onRangeSelected: (start: Long?, end: Long?) -> Unit,
     modifier: Modifier = Modifier,
-    placeholder: String = "Select dates",
+    placeholder: String = stringResource(R.string.stance_select_dates),
     helper: String? = null,
     error: String? = null,
     required: Boolean = false,
     enabled: Boolean = true,
-    confirmLabel: String = "OK",
-    cancelLabel: String = "Cancel",
+    confirmLabel: String = stringResource(R.string.stance_ok),
+    cancelLabel: String = stringResource(R.string.stance_cancel),
     locale: Locale = Locale.getDefault(),
+    rangeText: (start: String, end: String) -> String = defaultDateRangeText(),
 ) {
     var open by remember { mutableStateOf(false) }
     val text = if (startDateMillis != null && endDateMillis != null) {
-        "${formatDate(startDateMillis, locale)} to ${formatDate(endDateMillis, locale)}"
+        rangeText(formatDate(startDateMillis, locale), formatDate(endDateMillis, locale))
     } else {
         ""
     }
@@ -214,14 +220,14 @@ public fun StanceTimePicker(
     minute: Int?,
     onTimeSelected: (hour: Int, minute: Int) -> Unit,
     modifier: Modifier = Modifier,
-    placeholder: String = "Select time",
+    placeholder: String = stringResource(R.string.stance_select_time),
     helper: String? = null,
     error: String? = null,
     required: Boolean = false,
     enabled: Boolean = true,
     is24Hour: Boolean = true,
-    confirmLabel: String = "OK",
-    cancelLabel: String = "Cancel",
+    confirmLabel: String = stringResource(R.string.stance_ok),
+    cancelLabel: String = stringResource(R.string.stance_cancel),
 ) {
     var open by remember { mutableStateOf(false) }
     val text = if (hour != null && minute != null) String.format(Locale.ROOT, "%02d:%02d", hour, minute) else ""
@@ -279,7 +285,7 @@ public fun <T> StanceSelect(
     selected: T?,
     onSelect: (T) -> Unit,
     modifier: Modifier = Modifier,
-    placeholder: String = "Select",
+    placeholder: String = stringResource(R.string.stance_select),
     helper: String? = null,
     error: String? = null,
     required: Boolean = false,

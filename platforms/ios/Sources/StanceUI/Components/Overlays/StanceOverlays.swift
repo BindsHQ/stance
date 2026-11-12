@@ -9,11 +9,14 @@ public struct StanceConfirmation: Identifiable, Sendable {
     public let cancelTitle: String
     public let isDestructive: Bool
 
-    public init(title: String, message: String? = nil, confirmTitle: String = "Confirm", cancelTitle: String = "Cancel", isDestructive: Bool = false) {
+    /// - Parameters:
+    ///   - confirmTitle: Defaults to a localised "Confirm".
+    ///   - cancelTitle: Defaults to a localised "Cancel".
+    public init(title: String, message: String? = nil, confirmTitle: String? = nil, cancelTitle: String? = nil, isDestructive: Bool = false) {
         self.title = title
         self.message = message
-        self.confirmTitle = confirmTitle
-        self.cancelTitle = cancelTitle
+        self.confirmTitle = confirmTitle ?? StanceLocalization.string("stance.confirm")
+        self.cancelTitle = cancelTitle ?? StanceLocalization.string("stance.cancel")
         self.isDestructive = isDestructive
     }
 }
@@ -51,6 +54,7 @@ extension View {
 
     /// Presents a native sheet with a Stance title bar, detents and themed content.
     /// The system sheet material, grabber and dismissal gestures are kept.
+    @_disfavoredOverload
     public func stanceSheet<SheetContent: View>(
         _ title: String,
         isPresented: Binding<Bool>,
@@ -58,6 +62,16 @@ extension View {
         @ViewBuilder content: @escaping () -> SheetContent
     ) -> some View {
         modifier(StanceSheetModifier(title: title, isPresented: isPresented, detents: detents, sheetContent: content))
+    }
+
+    /// Presents a native sheet whose title is looked up in the app's string tables.
+    public func stanceSheet<SheetContent: View>(
+        _ titleKey: LocalizedStringResource,
+        isPresented: Binding<Bool>,
+        detents: Set<PresentationDetent> = [.medium, .large],
+        @ViewBuilder content: @escaping () -> SheetContent
+    ) -> some View {
+        modifier(StanceSheetModifier(title: String(localized: titleKey), isPresented: isPresented, detents: detents, sheetContent: content))
     }
 }
 
@@ -67,6 +81,8 @@ private struct StanceSheetModifier<SheetContent: View>: ViewModifier {
     let detents: Set<PresentationDetent>
     @ViewBuilder let sheetContent: () -> SheetContent
     @Environment(\.stanceTheme) private var theme
+    @Environment(\.locale) private var locale
+    @Environment(\.layoutDirection) private var layoutDirection
 
     func body(content: Content) -> some View {
         content.sheet(isPresented: $isPresented) {
@@ -80,13 +96,15 @@ private struct StanceSheetModifier<SheetContent: View>: ViewModifier {
                 #endif
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
-                        Button("Close") { isPresented = false }
+                        Button(stanceString("stance.close", locale)) { isPresented = false }
                     }
                 }
             }
             .presentationDetents(detents)
             .presentationDragIndicator(.visible)
             .environment(\.stanceTheme, theme)
+            .environment(\.locale, locale)
+            .environment(\.layoutDirection, layoutDirection)
             .tint(theme.colors.accentBg)
             .foregroundStyle(theme.colors.fgDefault)
             .preferredColorScheme(theme.colorScheme)

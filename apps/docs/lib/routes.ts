@@ -45,6 +45,12 @@ const sectionLanding: Record<string, string> = {
   resources: '/resources/releases',
 };
 
+/** Native summaries are shared across platforms, so each page names its own toolkit to stay unique. */
+function nativeDescription(summary: string, ui: string) {
+  const suffix = ` Native ${ui}, styled by Stance tokens.`;
+  return summary.length + suffix.length <= 170 ? summary + suffix : `${summary} ${ui}.`;
+}
+
 /** Every indexable page on stanceui.com, the single source for sitemap, llms.txt and metadata. */
 export const routes: SiteRoute[] = [
   {
@@ -89,7 +95,7 @@ export const routes: SiteRoute[] = [
     native[p].map((c) => ({
       path: nativePath(p, c),
       title: `${c.name} for ${platformLabels[p].ui}`,
-      description: c.summary,
+      description: nativeDescription(c.summary, platformLabels[p].ui),
       section: p,
       trail: [
         { name: platformLabels[p].name, path: `/${p}` },

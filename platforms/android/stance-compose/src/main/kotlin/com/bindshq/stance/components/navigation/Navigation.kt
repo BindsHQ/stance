@@ -51,6 +51,8 @@ import com.bindshq.stance.icons.StanceIcons
 import com.bindshq.stance.theme.StanceSizes
 import com.bindshq.stance.theme.StanceSpacing
 import com.bindshq.stance.theme.StanceTheme
+import androidx.compose.ui.res.stringResource
+import com.bindshq.stance.R
 
 /** A top-level destination. */
 @Immutable
@@ -238,7 +240,7 @@ public fun StanceTopAppBar(
     modifier: Modifier = Modifier,
     style: StanceTopAppBarStyle = StanceTopAppBarStyle.Small,
     onNavigateUp: (() -> Unit)? = null,
-    navigateUpDescription: String = "Navigate up",
+    navigateUpDescription: String = stringResource(R.string.stance_navigate_up),
     actions: @Composable RowScope.() -> Unit = {},
 ) {
     StanceTopAppBar(title, scrollBehavior = null, modifier, style, onNavigateUp, navigateUpDescription, actions)
@@ -256,7 +258,7 @@ public fun StanceTopAppBar(
     modifier: Modifier = Modifier,
     style: StanceTopAppBarStyle = StanceTopAppBarStyle.Small,
     onNavigateUp: (() -> Unit)? = null,
-    navigateUpDescription: String = "Navigate up",
+    navigateUpDescription: String = stringResource(R.string.stance_navigate_up),
     actions: @Composable RowScope.() -> Unit = {},
 ) {
     val windowInsets = TopAppBarDefaults.windowInsets
@@ -300,11 +302,12 @@ public fun StanceSafeArea(modifier: Modifier = Modifier, content: @Composable ()
 private fun WindowInsets.asPaddingValuesInternal(): PaddingValues {
     val density = androidx.compose.ui.platform.LocalDensity.current
     val direction = androidx.compose.ui.platform.LocalLayoutDirection.current
+    // Insets are physical edges, so they map to absolute padding and must not swap in right to left.
     return with(density) {
-        PaddingValues(
-            start = getLeft(this, direction).toDp(),
+        PaddingValues.Absolute(
+            left = getLeft(this, direction).toDp(),
             top = getTop(this).toDp(),
-            end = getRight(this, direction).toDp(),
+            right = getRight(this, direction).toDp(),
             bottom = getBottom(this).toDp(),
         )
     }

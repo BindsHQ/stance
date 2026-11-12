@@ -12,12 +12,16 @@ public enum StanceAppearance: String, CaseIterable, Identifiable, Sendable {
     /// The UserDefaults key, shared with the web storage key name.
     public static let storageKey = "stance-theme"
 
-    public var title: String {
+    /// The name of the appearance, localised for the current locale.
+    public var title: String { title(locale: .current) }
+
+    /// The name of the appearance, localised for `locale`.
+    public func title(locale: Locale) -> String {
         switch self {
-        case .system: "System"
-        case .light: "Light"
-        case .dark: "Dark"
-        case .highContrast: "High contrast"
+        case .system: StanceLocalization.string("stance.appearance.system", locale: locale)
+        case .light: StanceLocalization.string("stance.appearance.light", locale: locale)
+        case .dark: StanceLocalization.string("stance.appearance.dark", locale: locale)
+        case .highContrast: StanceLocalization.string("stance.appearance.highContrast", locale: locale)
         }
     }
 

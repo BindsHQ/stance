@@ -51,6 +51,7 @@ enum class Destination(val label: String) {
     Components("Components"),
     Sample("Sample"),
     Accessibility("Accessibility"),
+    Assistant("Assistant"),
 }
 
 private val navigationItems = listOf(
@@ -58,6 +59,7 @@ private val navigationItems = listOf(
     StanceNavigationItem(Destination.Components.label, StanceIcons.LayoutGrid),
     StanceNavigationItem(Destination.Sample.label, StanceIcons.Signature),
     StanceNavigationItem(Destination.Accessibility.label, StanceIcons.Eye),
+    StanceNavigationItem(Destination.Assistant.label, StanceIcons.Sparkle),
 )
 
 val appearanceLabels = mapOf(
@@ -118,6 +120,7 @@ private fun DestinationContent(
         Destination.Components -> ComponentsScreen(padding)
         Destination.Sample -> SampleScreen(padding, snackbars)
         Destination.Accessibility -> AccessibilityScreen(padding, appearance, onAppearanceChange)
+        Destination.Assistant -> AssistantScreen(padding)
     }
 }
 

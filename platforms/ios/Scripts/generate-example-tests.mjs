@@ -8,7 +8,7 @@ const components = JSON.parse(readFileSync(join(dir, 'components.json'), 'utf8')
 const body = components
   .map((c, i) => {
     const uikit = /StanceUIKit|StanceDocumentPreview/.test(c.example);
-    const view = `    /// ${c.name}\n    struct Example${i}: View {\n        @State var text = ""\n        @State var isOn = true\n        @State var value = 50.0\n        @State var date = Date()\n        @State var role = "admin"\n        @State var filters: Set<String> = []\n        @State var signature = StanceSignature()\n        @State var isPresented = false\n        @State var confirmation: StanceConfirmation?\n        var body: some View {\n            ${c.example}\n        }\n    }`;
+    const view = `    /// ${c.name}\n    struct Example${i}: View {\n        @State var text = ""\n        @State var isOn = true\n        @State var value = 50.0\n        @State var date = Date()\n        @State var role = "admin"\n        @State var filters: Set<String> = []\n        @State var signature = StanceSignature()\n        @State var isPresented = false\n        @State var confirmation: StanceConfirmation?\n        @State var index = 0\n        @State var rating: StanceRating?\n        @State var selection: String?\n        var body: some View {\n            ${c.example}\n        }\n    }`;
     return uikit ? `    #if canImport(UIKit)\n${view}\n    #endif` : view;
   })
   .join('\n\n');

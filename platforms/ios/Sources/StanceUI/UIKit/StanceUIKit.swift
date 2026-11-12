@@ -94,5 +94,6 @@ public enum StanceHaptics {
     public static func success() {}
     public static func warning() {}
     public static func error() {}
+    public static func impact() {}
 }
 #endif

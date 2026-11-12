@@ -1,0 +1,346 @@
+import SwiftUI
+
+// Shared types for the Stance AI components.
+//
+// The components are presentational. They make no network calls and import no model SDK: the
+// app owns the conversation and passes text and status in. Surfaces use the ink scale only;
+// identity comes from the sparkle icon, motion and clear labelling.
+
+/// The state of one generation, shared by the composer, messages and streaming components.
+public enum StanceGenerationStatus: String, CaseIterable, Sendable {
+    /// Nothing is in progress.
+    case idle
+    /// The request was sent and no content has arrived yet.
+    case submitted
+    /// Content is arriving.
+    case streaming
+    /// The response finished normally.
+    case complete
+    /// The reader stopped the response.
+    case stopped
+    /// The response failed.
+    case error
+
+    /// Whether a response is being requested or generated.
+    public var isActive: Bool { self == .submitted || self == .streaming }
+
+    /// Whether the generation has ended, in any way.
+    public var isFinished: Bool { self == .complete || self == .stopped || self == .error }
+
+    /// A change worth telling assistive technology about. Each is announced once, never per token.
+    public enum Event: String, CaseIterable, Sendable {
+        case started, finished, stopped, failed
+    }
+
+    /// The event for a status change, or `nil` when the change is not worth announcing.
+    ///
+    /// Moving from `submitted` to `streaming` is silent: the start was already announced.
+    public static func event(from old: StanceGenerationStatus, to new: StanceGenerationStatus) -> Event? {
+        guard old != new else { return nil }
+        switch new {
+        case .idle: return nil
+        case .submitted: return old == .streaming ? nil : .started
+        case .streaming: return old == .submitted ? nil : .started
+        case .complete: return .finished
+        case .stopped: return .stopped
+        case .error: return .failed
+        }
+    }
+
+    /// The polite announcement for a status change, localised for `locale`.
+    public static func announcement(from old: StanceGenerationStatus, to new: StanceGenerationStatus, locale: Locale = .current) -> String? {
+        switch event(from: old, to: new) {
+        case nil: nil
+        case .started: stanceString("stance.ai.status.started", locale)
+        case .finished: stanceString("stance.ai.status.finished", locale)
+        case .stopped: stanceString("stance.ai.status.stopped", locale)
+        case .failed: stanceString("stance.ai.status.failed", locale)
+        }
+    }
+
+    /// The status in words for an accessibility value, or `nil` when there is nothing to say.
+    public func accessibilityDescription(locale: Locale = .current) -> String? {
+        switch self {
+        case .idle, .complete: nil
+        case .submitted: stanceString("stance.ai.status.waiting", locale)
+        case .streaming: stanceString("stance.ai.status.generating", locale)
+        case .stopped: stanceString("stance.ai.status.stopped", locale)
+        case .error: stanceString("stance.ai.status.failed", locale)
+        }
+    }
+}
+
+/// Who a message is from.
+public enum StanceMessageRole: String, CaseIterable, Sendable {
+    case user, assistant, system
+
+    /// The name used when no author is given, localised for `locale`.
+    public func defaultName(locale: Locale = .current) -> String {
+        switch self {
+        case .user: stanceString("stance.ai.role.user", locale)
+        case .assistant: stanceString("stance.ai.role.assistant", locale)
+        case .system: stanceString("stance.ai.role.system", locale)
+        }
+    }
+}
+
+/// A thumbs up or thumbs down rating.
+public enum StanceRating: String, CaseIterable, Sendable {
+    case up, down
+
+    /// The rating after a tap: tapping the current rating clears it.
+    public static func toggled(_ current: StanceRating?, tapped: StanceRating) -> StanceRating? {
+        current == tapped ? nil : tapped
+    }
+}
+
+// MARK: Internal building blocks
+
+/// An SF Symbol sized like a Stance icon. Used for system glyphs: send, stop, microphone, thumbs.
+struct StanceSymbol: View {
+    private let name: String
+    private let variableValue: Double?
+    @ScaledMetric private var size: CGFloat
+
+    init(_ name: String, size: CGFloat = StanceSize.iconMd, variableValue: Double? = nil) {
+        self.name = name
+        self.variableValue = variableValue
+        _size = ScaledMetric(wrappedValue: size, relativeTo: .body)
+    }
+
+    var body: some View {
+        Image(systemName: name, variableValue: variableValue)
+            .resizable()
+            .scaledToFit()
+            .fontWeight(.medium)
+            .frame(width: size, height: size)
+            .accessibilityHidden(true)
+    }
+}
+
+/// The pressed and disabled treatment for quiet, icon sized controls.
+struct StanceQuietButtonStyle: ButtonStyle {
+    var isOn = false
+
+    func makeBody(configuration: Configuration) -> some View {
+        QuietBody(configuration: configuration, isOn: isOn)
+    }
+
+    private struct QuietBody: View {
+        let configuration: ButtonStyleConfiguration
+        let isOn: Bool
+        @Environment(\.stanceTheme) private var theme
+        @Environment(\.isEnabled) private var isEnabled
+
+        var body: some View {
+            configuration.label
+                .foregroundStyle(!isEnabled ? theme.colors.disabledFg : isOn ? theme.colors.fgDefault : theme.colors.fgMuted)
+                .background(configuration.isPressed ? theme.colors.interactiveActive : .clear, in: RoundedRectangle(cornerRadius: StanceRadius.md, style: .continuous))
+                .contentShape(Rectangle())
+        }
+    }
+}
+
+/// Bounces a symbol when `value` changes. Still under Reduce Motion.
+struct StanceSymbolBounce: ViewModifier {
+    let value: Int
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    func body(content: Content) -> some View {
+        if reduceMotion { content } else { content.symbolEffect(.bounce, value: value) }
+    }
+}
+
+/// A quiet icon button with a 44pt target and a required accessible name.
+struct StanceQuietIconButton: View {
+    let symbol: String
+    let label: String
+    var isOn: Bool?
+    var bounce = 0
+    let action: () -> Void
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        Button(action: action) {
+            StanceSymbol(symbol, size: StanceSize.iconSm + StanceSpacing.xxs)
+                .contentTransition(reduceMotion ? .identity : .symbolEffect(.replace))
+                .modifier(StanceSymbolBounce(value: bounce))
+                .frame(width: StanceSize.touchTarget, height: StanceSize.touchTarget)
+        }
+        .buttonStyle(StanceQuietButtonStyle(isOn: isOn ?? false))
+        .accessibilityLabel(label)
+        .accessibilityAddTraits(isOn == nil ? [] : isOn == true ? [.isToggle, .isSelected] : .isToggle)
+        #if os(iOS)
+        .hoverEffect(.highlight)
+        #endif
+    }
+}
+
+/// A filled circle with a symbol: the send, stop and microphone buttons.
+struct StanceCircleSymbol: View {
+    let symbol: String
+    var diameter: CGFloat = StanceSize.controlMd
+    var filled = true
+    @Environment(\.stanceTheme) private var theme
+    @Environment(\.isEnabled) private var isEnabled
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @ScaledMetric(relativeTo: .body) private var scale: CGFloat = 1
+
+    var body: some View {
+        let size = diameter * min(scale, StanceSize.controlLg / StanceSize.controlMd)
+        StanceSymbol(symbol, size: StanceSize.iconSm)
+            .contentTransition(reduceMotion ? .identity : .symbolEffect(.replace))
+            .foregroundStyle(!isEnabled ? theme.colors.disabledFg : filled ? theme.colors.accentFg : theme.colors.fgDefault)
+            .frame(width: size, height: size)
+            .background(!filled ? Color.clear : isEnabled ? theme.colors.accentBg : theme.colors.disabledBg, in: Circle())
+            .overlay { Circle().strokeBorder(filled ? .clear : isEnabled ? theme.colors.borderControl : theme.colors.disabledBorder, lineWidth: theme.controlBorderWidth) }
+            .frame(minWidth: StanceSize.touchTarget, minHeight: StanceSize.touchTarget)
+            .contentShape(Rectangle())
+    }
+}
+
+/// A selectable chip: feedback reasons and similar short choices.
+struct StanceChoiceChip: View {
+    let title: String
+    let isSelected: Bool
+    let action: () -> Void
+    @Environment(\.stanceTheme) private var theme
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: StanceSpacing.xs) {
+                if isSelected { StanceIcon(.check, size: StanceSize.iconSm - StanceSpacing.xxs) }
+                Text(title).stanceText(.label).multilineTextAlignment(.leading)
+            }
+            .padding(.horizontal, StanceSpacing.md)
+            .padding(.vertical, StanceSpacing.xs)
+            .frame(minHeight: StanceSize.controlSm + StanceSpacing.xs)
+            .foregroundStyle(isSelected ? theme.colors.interactiveSelectedFg : theme.colors.fgDefault)
+            .background(isSelected ? theme.colors.interactiveSelected : .clear, in: RoundedRectangle(cornerRadius: StanceRadius.xl, style: .continuous))
+            .overlay {
+                RoundedRectangle(cornerRadius: StanceRadius.xl, style: .continuous)
+                    .strokeBorder(isSelected ? theme.colors.borderStrong : theme.colors.borderControl, lineWidth: theme.controlBorderWidth)
+            }
+            .frame(minHeight: StanceSize.touchTarget)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityAddTraits(isSelected ? [.isToggle, .isSelected] : .isToggle)
+    }
+}
+
+/// A row shaped button on a surface: starter prompts and suggestion rows.
+struct StanceRowButtonStyle: ButtonStyle {
+    var bordered = true
+
+    func makeBody(configuration: Configuration) -> some View {
+        RowBody(configuration: configuration, bordered: bordered)
+    }
+
+    private struct RowBody: View {
+        let configuration: ButtonStyleConfiguration
+        let bordered: Bool
+        @Environment(\.stanceTheme) private var theme
+
+        var body: some View {
+            let shape = RoundedRectangle(cornerRadius: bordered ? StanceRadius.lg : StanceRadius.md, style: .continuous)
+            configuration.label
+                .frame(maxWidth: .infinity, minHeight: StanceSize.touchTarget, alignment: .leading)
+                .padding(.horizontal, StanceSpacing.md)
+                .padding(.vertical, bordered ? StanceSpacing.sm : StanceSpacing.xs)
+                .background(configuration.isPressed ? theme.colors.interactiveActive : bordered ? theme.colors.bgSurface : .clear, in: shape)
+                .overlay { if bordered { shape.strokeBorder(theme.colors.borderDefault, lineWidth: theme.borderWidth) } }
+                .contentShape(shape)
+        }
+    }
+}
+
+/// Wraps its children onto as many lines as they need, in reading order.
+/// SwiftUI mirrors the placement in right to left layouts.
+struct StanceFlowLayout: Layout {
+    var spacing: CGFloat = StanceSpacing.sm
+    var lineSpacing: CGFloat = StanceSpacing.sm
+
+    /// Frames for items of the given sizes wrapped into `maxWidth`, and the size they occupy.
+    static func arrange(sizes: [CGSize], maxWidth: CGFloat, spacing: CGFloat, lineSpacing: CGFloat) -> (frames: [CGRect], size: CGSize) {
+        var frames: [CGRect] = []
+        var x: CGFloat = 0, y: CGFloat = 0, lineHeight: CGFloat = 0, width: CGFloat = 0
+        for size in sizes {
+            if x > 0, x + size.width > maxWidth {
+                x = 0
+                y += lineHeight + lineSpacing
+                lineHeight = 0
+            }
+            frames.append(CGRect(origin: CGPoint(x: x, y: y), size: size))
+            x += size.width + spacing
+            lineHeight = max(lineHeight, size.height)
+            width = max(width, x - spacing)
+        }
+        return (frames, CGSize(width: width, height: y + lineHeight))
+    }
+
+    private func arrangement(_ proposal: ProposedViewSize, _ subviews: Subviews) -> (frames: [CGRect], size: CGSize) {
+        let maxWidth = proposal.width ?? .infinity
+        let sizes = subviews.map { $0.sizeThatFits(ProposedViewSize(width: maxWidth, height: nil)) }
+        return Self.arrange(sizes: sizes, maxWidth: maxWidth, spacing: spacing, lineSpacing: lineSpacing)
+    }
+
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        arrangement(proposal, subviews).size
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        let frames = arrangement(ProposedViewSize(width: bounds.width, height: proposal.height), subviews).frames
+        for (subview, frame) in zip(subviews, frames) {
+            subview.place(at: CGPoint(x: bounds.minX + frame.minX, y: bounds.minY + frame.minY), anchor: .topLeading, proposal: ProposedViewSize(frame.size))
+        }
+    }
+}
+
+/// Carries the Stance theme, locale and layout direction into a sheet or popover.
+struct StancePresentationChrome: ViewModifier {
+    let theme: StanceTheme
+    let locale: Locale
+    let layoutDirection: LayoutDirection
+
+    func body(content: Content) -> some View {
+        content
+            .environment(\.stanceTheme, theme)
+            .environment(\.locale, locale)
+            .environment(\.layoutDirection, layoutDirection)
+            .tint(theme.colors.accentBg)
+            .foregroundStyle(theme.colors.fgDefault)
+            .preferredColorScheme(theme.colorScheme)
+    }
+}
+
+/// The avatar or mark shown beside an author's name.
+struct StanceAuthorMark: View {
+    let role: StanceMessageRole
+    let author: String?
+    let avatar: Image?
+    @Environment(\.stanceTheme) private var theme
+
+    var body: some View {
+        if role == .assistant, avatar == nil {
+            // The assistant is identified by the sparkle, not by a hue.
+            StanceIcon(.sparkle, size: StanceSize.iconSm)
+                .foregroundStyle(theme.colors.fgDefault)
+                .frame(width: StanceSize.controlSm, height: StanceSize.controlSm)
+                .background(theme.colors.bgMuted, in: Circle())
+                .overlay { Circle().strokeBorder(theme.colors.borderDefault, lineWidth: theme.borderWidth) }
+                .accessibilityHidden(true)
+        } else if let author {
+            StanceAvatar(name: author, image: avatar, size: .small).accessibilityHidden(true)
+        }
+    }
+}
+
+extension TimeInterval {
+    /// A duration in words, such as "12 seconds" or "1 minute, 4 seconds".
+    func stanceDuration(locale: Locale, width: Duration.UnitsFormatStyle.UnitWidth = .wide) -> String {
+        let seconds = Int(max(0, self).rounded())
+        let units: Set<Duration.UnitsFormatStyle.Unit> = seconds >= 60 ? [.minutes, .seconds] : [.seconds]
+        return Duration.seconds(seconds).formatted(.units(allowed: units, width: width).locale(locale))
+    }
+}

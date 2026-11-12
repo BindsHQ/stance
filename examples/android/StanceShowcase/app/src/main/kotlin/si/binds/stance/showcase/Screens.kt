@@ -239,6 +239,7 @@ private val catalogue: List<Pair<String, List<Entry>>> = listOf(
         },
         Entry("View interoperability") { StanceButtonViewExample() },
     ),
+    "AI" to aiCatalogue.map { (name, content) -> Entry(name, content) },
 )
 
 /** Every component with its variants, grouped by category. [section] limits it to one category. */

@@ -18,6 +18,7 @@ final class PreviewCaptureTests: XCTestCase {
         ("stance-navigation-chrome", false),
         ("stance-searchable-list", false),
         ("stance-document-preview", false),
+        ("stance-report-dialog", true),
     ]
 
     private func outputDirectory() throws -> URL {

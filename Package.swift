@@ -15,7 +15,13 @@ let package = Package(
     targets: [
         // Generated from packages/tokens/source. Never edited by hand.
         .target(name: "StanceTokens", path: "platforms/ios/Sources/StanceTokens"),
-        .target(name: "StanceUI", dependencies: ["StanceTokens"], path: "platforms/ios/Sources/StanceUI"),
+        // Resources holds the string tables for the built in strings (English base, Arabic, Spanish).
+        .target(
+            name: "StanceUI",
+            dependencies: ["StanceTokens"],
+            path: "platforms/ios/Sources/StanceUI",
+            resources: [.process("Resources")]
+        ),
     ],
     swiftLanguageModes: [.v6]
 )
