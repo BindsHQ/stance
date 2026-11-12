@@ -10,8 +10,8 @@
 <p align="center"><strong>The Binds Design System</strong><br/>One system. Consistent foundations. Distinct product experiences.</p>
 
 <p align="center">
-  <a href="https://stanceui.com">Documentation</a> ·
-  <a href="https://stanceui.com/components">Components</a> ·
+  <a href="https://www.stanceui.com">Documentation</a> ·
+  <a href="https://www.stanceui.com/components">Components</a> ·
   <a href="./CHANGELOG.md">Changelog</a> ·
   <a href="./CONTRIBUTING.md">Contributing</a>
 </p>

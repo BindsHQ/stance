@@ -4,7 +4,7 @@
   "description": "Design tokens for Stance, the Binds design system: colours, typography, spacing and three themes.",
   "license": "MIT",
   "author": "Binds",
-  "homepage": "https://stanceui.com",
+  "homepage": "https://www.stanceui.com",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BindsHQ/stance.git",

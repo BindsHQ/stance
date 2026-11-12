@@ -19,4 +19,4 @@ import { ThemeProvider, ThemeScript, Button } from '@bindshq/stance-react';
 - Plain CSS on tokens: works with or without Tailwind
 - ESM, tree-shakeable, `'use client'` only where needed
 
-Documentation and live examples: https://stanceui.com/components · License: MIT © Binds
+Documentation and live examples: https://www.stanceui.com/components · License: MIT © Binds

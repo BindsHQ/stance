@@ -47,7 +47,7 @@ for (const file of pages) {
     descs.set(desc, [...(descs.get(desc) ?? []), route]);
   }
   if (!canonical) p('missing canonical');
-  else if (!canonical.startsWith('https://stanceui.com')) p(`canonical not absolute: ${canonical}`);
+  else if (!canonical.startsWith('https://www.stanceui.com')) p(`canonical not absolute: ${canonical}`);
   if (!ogImage) p('missing og:image');
   else if (!existsSync(join(out, new URL(ogImage).pathname)))
     p(`og:image file missing: ${ogImage}`);
@@ -81,7 +81,7 @@ for (const f of [
   if (!existsSync(join(out, f))) problems.push(`missing /${f}`);
 const sitemap = readFileSync(join(out, 'sitemap.xml'), 'utf8');
 const listed = new Set(
-  [...sitemap.matchAll(/<loc>https:\/\/stanceui\.com([^<]*)<\/loc>/g)].map((m) => m[1] || '/'),
+  [...sitemap.matchAll(/<loc>https:\/\/www\.stanceui\.com([^<]*)<\/loc>/g)].map((m) => m[1] || '/'),
 );
 for (const file of pages) {
   const route =

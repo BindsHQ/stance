@@ -29,7 +29,7 @@ publishing {
             pom {
                 name.set("Stance Tokens")
                 description.set("Design tokens for Stance, the Binds design system.")
-                url.set("https://stanceui.com")
+                url.set("https://www.stanceui.com")
                 licenses { license { name.set("MIT"); url.set("https://opensource.org/licenses/MIT") } }
             }
         }

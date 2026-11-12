@@ -3,7 +3,7 @@ export const site = {
   tagline: 'The Binds Design System',
   description:
     'Stance is the official open-source design system by Binds: design tokens, three appearance modes and accessible, dependency-free React components.',
-  url: 'https://stanceui.com',
+  url: 'https://www.stanceui.com',
   github: 'https://github.com/BindsHQ/stance',
   npmTokens: 'https://www.npmjs.com/package/@bindshq/stance-tokens',
   npmReact: 'https://www.npmjs.com/package/@bindshq/stance-react',

@@ -78,7 +78,7 @@ publishing {
             pom {
                 name.set("Stance for Compose")
                 description.set("Jetpack Compose components for Stance, the Binds design system.")
-                url.set("https://stanceui.com")
+                url.set("https://www.stanceui.com")
                 licenses { license { name.set("MIT"); url.set("https://opensource.org/licenses/MIT") } }
             }
         }

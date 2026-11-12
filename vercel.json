@@ -8,17 +8,6 @@
   "trailingSlash": false,
   "redirects": [
     {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.stanceui.com"
-        }
-      ],
-      "destination": "https://stanceui.com/:path*",
-      "permanent": true
-    },
-    {
       "source": "/docs",
       "destination": "/docs/introduction",
       "permanent": false

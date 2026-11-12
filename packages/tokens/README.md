@@ -54,4 +54,4 @@ export default { presets: [stance] };
 | `./tokens.json` | All tokens as JSON |
 | `./contrast-report.json` | WCAG contrast results for every theme |
 
-Documentation: https://stanceui.com/foundations/colors · License: MIT © Binds
+Documentation: https://www.stanceui.com/foundations/colors · License: MIT © Binds
