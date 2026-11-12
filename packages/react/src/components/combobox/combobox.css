@@ -1,5 +1,5 @@
 .st-combobox {
-  padding-right: var(--st-space-1);
+  padding-inline-end: var(--st-space-1);
 }
 .st-combobox__clear,
 .st-combobox__toggle {

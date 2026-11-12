@@ -1,5 +1,5 @@
 .st-date-picker {
-  padding-right: var(--st-space-1);
+  padding-inline-end: var(--st-space-1);
 }
 .st-date-picker__button {
   display: inline-flex;

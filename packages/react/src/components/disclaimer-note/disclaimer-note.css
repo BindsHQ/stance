@@ -1,0 +1,65 @@
+.st-disclaimer-note {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--st-space-1-5);
+  margin: 0;
+  color: var(--st-color-fg-muted);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-xs);
+  line-height: var(--st-line-height-normal);
+  text-align: start;
+}
+.st-disclaimer-note[data-align='center'] {
+  justify-content: center;
+  text-align: center;
+}
+.st-disclaimer-note__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  /* Lines the icon up with the first line of text. */
+  block-size: calc(1em * var(--st-line-height-normal));
+}
+.st-disclaimer-note__text {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+.st-disclaimer-note__action {
+  margin-inline-start: var(--st-space-1-5);
+}
+.st-disclaimer-note__action a,
+.st-disclaimer-note__action button {
+  color: var(--st-color-fg-default);
+  font-size: inherit;
+  font-weight: var(--st-font-weight-medium);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+.st-disclaimer-note__action button {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+.st-disclaimer-note__action a:focus-visible,
+.st-disclaimer-note__action button:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+  border-radius: var(--st-radius-xs);
+}
+@media (pointer: coarse) {
+  .st-disclaimer-note__action a,
+  .st-disclaimer-note__action button {
+    display: inline-block;
+    min-block-size: 1.5rem;
+  }
+}
+@media (forced-colors: active) {
+  .st-disclaimer-note {
+    color: CanvasText;
+  }
+  .st-disclaimer-note__action a {
+    color: LinkText;
+  }
+}

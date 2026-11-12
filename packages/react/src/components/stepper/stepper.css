@@ -40,7 +40,7 @@
   background: transparent;
   color: inherit;
   font: inherit;
-  text-align: left;
+  text-align: start;
 }
 button.st-stepper__trigger {
   cursor: pointer;
@@ -130,7 +130,7 @@ button.st-stepper__trigger:hover .st-stepper__title {
   position: absolute;
   top: 2.25rem;
   bottom: 0.5rem;
-  left: calc(0.875rem - 1px);
+  inset-inline-start: calc(0.875rem - 1px);
   width: 2px;
   height: auto;
   min-width: 0;

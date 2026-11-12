@@ -14,6 +14,13 @@
     "status": "stable"
   },
   {
+    "slug": "ai-generated-label",
+    "name": "AIGeneratedLabel",
+    "category": "ai",
+    "summary": "A small label that marks content as generated, assisted or edited by AI, with an optional model name.",
+    "status": "beta"
+  },
+  {
     "slug": "alert-dialog",
     "name": "AlertDialog",
     "category": "overlays",
@@ -33,6 +40,13 @@
     "category": "foundations",
     "summary": "Holds images, video and embeds to a fixed width-to-height ratio so layouts never shift.",
     "status": "stable"
+  },
+  {
+    "slug": "attachment-tray",
+    "name": "AttachmentTray",
+    "category": "ai",
+    "summary": "The files and images attached to a draft or a sent message, with upload progress, errors and a remove button on each.",
+    "status": "beta"
   },
   {
     "slug": "avatar-group",
@@ -68,6 +82,13 @@
     "category": "foundations",
     "summary": "The lowest-level layout primitive: padding, surface, border, radius and shadow from tokens.",
     "status": "stable"
+  },
+  {
+    "slug": "branch-switcher",
+    "name": "BranchSwitcher",
+    "category": "ai",
+    "summary": "Steps between alternative versions of a message after an edit or a retry, and shows which one is on screen.",
+    "status": "beta"
   },
   {
     "slug": "breadcrumbs",
@@ -140,6 +161,13 @@
     "status": "stable"
   },
   {
+    "slug": "citation-chip",
+    "name": "CitationChip",
+    "category": "ai",
+    "summary": "An inline numbered marker that links a claim to its source and previews it on hover, focus or tap.",
+    "status": "beta"
+  },
+  {
     "slug": "code-block",
     "name": "CodeBlock",
     "category": "media",
@@ -182,6 +210,13 @@
     "status": "stable"
   },
   {
+    "slug": "confidence-badge",
+    "name": "ConfidenceBadge",
+    "category": "ai",
+    "summary": "States how sure the system is about an answer in plain words, with a distinct icon for each level.",
+    "status": "beta"
+  },
+  {
     "slug": "confirmation-dialog",
     "name": "ConfirmationDialog",
     "category": "overlays",
@@ -196,11 +231,25 @@
     "status": "stable"
   },
   {
+    "slug": "context-chips",
+    "name": "ContextChips",
+    "category": "ai",
+    "summary": "Chips that show what the assistant can see for a message, such as files, pages or selections, each one removable.",
+    "status": "beta"
+  },
+  {
     "slug": "context-menu",
     "name": "ContextMenu",
     "category": "overlays",
     "summary": "A menu that opens at the pointer on right-click, long-press, Shift+F10 or the Menu key.",
     "status": "stable"
+  },
+  {
+    "slug": "conversation-list",
+    "name": "ConversationList",
+    "category": "ai",
+    "summary": "A list of past conversations grouped by date, with selection, inline rename, delete and pin.",
+    "status": "beta"
   },
   {
     "slug": "copy-button",
@@ -259,6 +308,13 @@
     "status": "stable"
   },
   {
+    "slug": "disclaimer-note",
+    "name": "DisclaimerNote",
+    "category": "ai",
+    "summary": "A quiet note under the composer or a response, such as a reminder to check important facts.",
+    "status": "beta"
+  },
+  {
     "slug": "divider",
     "name": "Divider",
     "category": "foundations",
@@ -292,6 +348,13 @@
     "category": "advanced",
     "summary": "Catches rendering errors in part of the screen and shows a recoverable fallback.",
     "status": "stable"
+  },
+  {
+    "slug": "feedback-bar",
+    "name": "FeedbackBar",
+    "category": "ai",
+    "summary": "Thumbs up or down on a response, followed by optional reasons and a comment, then a thank you.",
+    "status": "beta"
   },
   {
     "slug": "file-tree",
@@ -334,6 +397,13 @@
     "category": "forms",
     "summary": "Wires a label, help text and error message to any Stance form control.",
     "status": "stable"
+  },
+  {
+    "slug": "generation-progress",
+    "name": "GenerationProgress",
+    "category": "ai",
+    "summary": "Progress for longer generations such as images or documents, with a stage label and a way to cancel.",
+    "status": "beta"
   },
   {
     "slug": "grid",
@@ -406,6 +476,13 @@
     "status": "stable"
   },
   {
+    "slug": "interrupted-state",
+    "name": "InterruptedState",
+    "category": "ai",
+    "summary": "Marks a response that was stopped or failed part way, and offers to try again or continue.",
+    "status": "beta"
+  },
+  {
     "slug": "kbd",
     "name": "Kbd",
     "category": "typography",
@@ -448,11 +525,46 @@
     "status": "stable"
   },
   {
+    "slug": "mention-picker",
+    "name": "MentionPicker",
+    "category": "ai",
+    "summary": "A filterable list that opens from a trigger character in the composer, to reference files, people or tools by name.",
+    "status": "beta"
+  },
+  {
     "slug": "menubar",
     "name": "Menubar",
     "category": "navigation",
     "summary": "A persistent bar of menus for editor-style applications, as in File, Edit and View.",
     "status": "stable"
+  },
+  {
+    "slug": "message-actions",
+    "name": "MessageActions",
+    "category": "ai",
+    "summary": "The row of actions under a message: copy, try again, edit, good response and bad response, plus any of your own.",
+    "status": "beta"
+  },
+  {
+    "slug": "message-group",
+    "name": "MessageGroup",
+    "category": "ai",
+    "summary": "Consecutive messages from one author under a single avatar and name, so a long exchange stays easy to scan.",
+    "status": "beta"
+  },
+  {
+    "slug": "message",
+    "name": "Message",
+    "category": "ai",
+    "summary": "One turn in a conversation from the user, the assistant or the system, with slots for an avatar, actions and a footer.",
+    "status": "beta"
+  },
+  {
+    "slug": "model-picker",
+    "name": "ModelPicker",
+    "category": "ai",
+    "summary": "A compact select for choosing which model answers the next message, with a short description and capability badges on each option.",
+    "status": "beta"
   },
   {
     "slug": "multi-select",
@@ -532,6 +644,13 @@
     "status": "stable"
   },
   {
+    "slug": "prompt-composer",
+    "name": "PromptComposer",
+    "category": "ai",
+    "summary": "The message input for a conversation: a text area that grows as people type, with slots for attachments and tools, and a send button that becomes stop.",
+    "status": "beta"
+  },
+  {
     "slug": "radio-group",
     "name": "RadioGroup",
     "category": "forms",
@@ -544,6 +663,20 @@
     "category": "forms",
     "summary": "Select a minimum and maximum with two thumbs that cannot cross.",
     "status": "stable"
+  },
+  {
+    "slug": "reasoning-disclosure",
+    "name": "ReasoningDisclosure",
+    "category": "ai",
+    "summary": "A collapsible block for the reasoning behind an answer: open while thinking and a short summary when done.",
+    "status": "beta"
+  },
+  {
+    "slug": "report-dialog",
+    "name": "ReportDialog",
+    "category": "ai",
+    "summary": "A dialog to report an AI response, with a category to choose and room for details.",
+    "status": "beta"
   },
   {
     "slug": "resizable-panel",
@@ -567,6 +700,13 @@
     "status": "stable"
   },
   {
+    "slug": "scroll-to-latest",
+    "name": "ScrollToLatest",
+    "category": "ai",
+    "summary": "A floating button that appears when the reader has scrolled away from the newest message and takes them back.",
+    "status": "beta"
+  },
+  {
     "slug": "search-input",
     "name": "SearchInput",
     "category": "forms",
@@ -588,6 +728,13 @@
     "status": "stable"
   },
   {
+    "slug": "sensitive-content-gate",
+    "name": "SensitiveContentGate",
+    "category": "ai",
+    "summary": "Hides content behind a short notice until the reader chooses to see it, then moves focus to it.",
+    "status": "beta"
+  },
+  {
     "slug": "separator",
     "name": "Separator",
     "category": "foundations",
@@ -600,6 +747,13 @@
     "category": "overlays",
     "summary": "A bottom sheet for mobile-first flows, with a drag handle to dismiss.",
     "status": "stable"
+  },
+  {
+    "slug": "shimmer-text",
+    "name": "ShimmerText",
+    "category": "ai",
+    "summary": "Text with a slow light sweep for labels of work in progress, such as Searching the web.",
+    "status": "beta"
   },
   {
     "slug": "sidebar",
@@ -630,6 +784,13 @@
     "status": "stable"
   },
   {
+    "slug": "slash-command-menu",
+    "name": "SlashCommandMenu",
+    "category": "ai",
+    "summary": "A list of commands that opens when a draft starts with a slash, filtered as people type and chosen without leaving the text area.",
+    "status": "beta"
+  },
+  {
     "slug": "slider",
     "name": "Slider",
     "category": "forms",
@@ -642,6 +803,20 @@
     "category": "advanced",
     "summary": "A list people can reorder by dragging, with the keyboard, or with move buttons, announcing every change.",
     "status": "stable"
+  },
+  {
+    "slug": "source-list",
+    "name": "SourceList",
+    "category": "ai",
+    "summary": "The sources behind an answer, shown as a compact row of sites that expands to a full numbered list.",
+    "status": "beta"
+  },
+  {
+    "slug": "source-preview",
+    "name": "SourcePreview",
+    "category": "ai",
+    "summary": "A card for one source behind an answer: its title, site, a short snippet and a link to open it.",
+    "status": "beta"
   },
   {
     "slug": "spacer",
@@ -691,6 +866,27 @@
     "category": "navigation",
     "summary": "Shows progress through an ordered, multi-step task.",
     "status": "stable"
+  },
+  {
+    "slug": "stop-button",
+    "name": "StopButton",
+    "category": "ai",
+    "summary": "A button that stops a response while it is being generated, as text with a stop mark or as the mark alone.",
+    "status": "beta"
+  },
+  {
+    "slug": "streaming-skeleton",
+    "name": "StreamingSkeleton",
+    "category": "ai",
+    "summary": "Placeholder lines for a response that has been requested and has not started to arrive.",
+    "status": "beta"
+  },
+  {
+    "slug": "streaming-text",
+    "name": "StreamingText",
+    "category": "ai",
+    "summary": "Reveals text at a steady pace as it arrives, with an optional caret, and never animates what is already on screen.",
+    "status": "beta"
   },
   {
     "slug": "switch",
@@ -756,6 +952,27 @@
     "status": "stable"
   },
   {
+    "slug": "thinking-indicator",
+    "name": "ThinkingIndicator",
+    "category": "ai",
+    "summary": "Shows that the assistant is working before any text arrives, with a label and optional elapsed time.",
+    "status": "beta"
+  },
+  {
+    "slug": "thread-empty-state",
+    "name": "ThreadEmptyState",
+    "category": "ai",
+    "summary": "The opening screen of a new conversation, with a greeting and starter prompts that show what the assistant can do.",
+    "status": "beta"
+  },
+  {
+    "slug": "thread",
+    "name": "Thread",
+    "category": "ai",
+    "summary": "The scrolling container for a conversation. It follows the latest message while the reader is at the bottom and lets go when they scroll up.",
+    "status": "beta"
+  },
+  {
     "slug": "time-picker",
     "name": "TimePicker",
     "category": "forms",
@@ -784,6 +1001,13 @@
     "status": "stable"
   },
   {
+    "slug": "token-budget-meter",
+    "name": "TokenBudgetMeter",
+    "category": "ai",
+    "summary": "A compact meter of how much of the context or message limit is used, with a warning in words as the limit gets close.",
+    "status": "beta"
+  },
+  {
     "slug": "toolbar",
     "name": "Toolbar",
     "category": "actions",
@@ -810,5 +1034,12 @@
     "category": "advanced",
     "summary": "Renders very long lists efficiently by mounting only the visible window of items.",
     "status": "stable"
+  },
+  {
+    "slug": "voice-input-button",
+    "name": "VoiceInputButton",
+    "category": "ai",
+    "summary": "A microphone button for dictating a message, with idle, listening and processing states and a ring that follows the input level.",
+    "status": "beta"
   }
 ]

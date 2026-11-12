@@ -1,0 +1,57 @@
+.st-message-actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--st-space-0-5);
+  color: var(--st-color-fg-muted);
+  transition: opacity var(--st-duration-fast) var(--st-easing-standard);
+}
+.st-message-actions > .st-button[data-variant] {
+  --_fg: var(--st-color-fg-muted);
+}
+.st-message-actions > .st-button:hover,
+.st-message-actions > .st-button:focus-visible {
+  --_fg: var(--st-color-fg-default);
+}
+.st-message-actions > .st-button[data-pressed] {
+  --_fg: var(--st-color-interactive-selected-fg);
+  --_bg: var(--st-color-interactive-selected);
+  --_bg-hover: var(--st-color-interactive-selected);
+}
+/* A pressed rating is filled as well as tinted, so the state never depends on colour alone. */
+.st-message-actions > .st-button[data-pressed] svg {
+  fill: currentColor;
+  fill-opacity: 0.2;
+}
+.st-message-actions[data-visibility='hover'] {
+  opacity: 0;
+}
+.st-message:hover .st-message-actions[data-visibility='hover'],
+.st-message:focus-within .st-message-actions[data-visibility='hover'],
+.st-message-actions[data-visibility='hover']:hover,
+.st-message-actions[data-visibility='hover']:focus-within {
+  opacity: 1;
+}
+/* No hover on touch screens: the actions are always there. */
+@media (hover: none) {
+  .st-message-actions[data-visibility='hover'] {
+    opacity: 1;
+  }
+}
+@media (pointer: coarse) {
+  .st-message-actions > .st-button[data-variant] {
+    --_h: 2.75rem;
+  }
+}
+[data-theme='high-contrast'] .st-message-actions > .st-button[data-pressed] {
+  --_border: var(--st-color-border-strong);
+}
+@media (forced-colors: active) {
+  .st-message-actions[data-visibility='hover'] {
+    opacity: 1;
+  }
+  .st-message-actions > .st-button[data-pressed] {
+    border-color: Highlight;
+    color: Highlight;
+  }
+}

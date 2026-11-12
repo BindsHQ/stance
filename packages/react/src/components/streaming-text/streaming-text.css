@@ -1,0 +1,37 @@
+.st-streaming-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.st-streaming-text__ghost {
+  visibility: hidden;
+}
+.st-streaming-text__caret {
+  display: inline-block;
+  inline-size: 0.5em;
+  block-size: 1em;
+  margin-inline-start: 0.125em;
+  border-radius: var(--st-radius-xs);
+  background: currentColor;
+  vertical-align: text-bottom;
+  animation: st-streaming-text-caret var(--st-duration-pulse, 1200ms) var(--st-easing-standard)
+    infinite;
+}
+@keyframes st-streaming-text-caret {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .st-streaming-text__caret {
+    animation: none !important;
+  }
+}
+@media (forced-colors: active) {
+  .st-streaming-text__caret {
+    background: CanvasText;
+  }
+}

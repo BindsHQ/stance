@@ -1,7 +1,7 @@
 /* Select trigger: the shared .st-input field box rendered as a button. */
 .st-select {
   justify-content: flex-start;
-  text-align: left;
+  text-align: start;
   cursor: pointer;
   user-select: none;
   line-height: var(--st-line-height-normal);
@@ -38,7 +38,7 @@
 }
 .st-select__chevron {
   flex-shrink: 0;
-  margin-left: auto;
+  margin-inline-start: auto;
   color: var(--st-color-fg-muted);
 }
 [data-theme='high-contrast'] .st-select:focus-visible {

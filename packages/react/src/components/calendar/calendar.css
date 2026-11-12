@@ -82,12 +82,12 @@
   background: var(--st-color-interactive-selected);
 }
 .st-calendar__cell[data-range-start] {
-  border-top-left-radius: var(--st-radius-full);
-  border-bottom-left-radius: var(--st-radius-full);
+  border-start-start-radius: var(--st-radius-full);
+  border-end-start-radius: var(--st-radius-full);
 }
 .st-calendar__cell[data-range-end] {
-  border-top-right-radius: var(--st-radius-full);
-  border-bottom-right-radius: var(--st-radius-full);
+  border-start-end-radius: var(--st-radius-full);
+  border-end-end-radius: var(--st-radius-full);
 }
 .st-calendar__day {
   position: relative;
@@ -121,10 +121,10 @@
   content: '';
   position: absolute;
   bottom: 5px;
-  left: 50%;
+  inset-inline-start: 50%;
   width: 4px;
   height: 4px;
-  margin-left: -2px;
+  margin-inline-start: -2px;
   border-radius: 50%;
   background: currentColor;
 }
@@ -175,7 +175,8 @@
 .st-calendar__select {
   min-width: 0;
   height: 2rem;
-  padding: 0 var(--st-space-1) 0 var(--st-space-2);
+  padding-block: 0;
+  padding-inline: var(--st-space-2) var(--st-space-1);
   border: var(--st-border-width) solid transparent;
   border-radius: var(--st-radius-md);
   background: transparent;
@@ -205,4 +206,9 @@
   .st-calendar__select {
     border-color: FieldText;
   }
+}
+
+/* Month navigation chevrons point along the reading direction. */
+.st-calendar__nav:dir(rtl) > .st-icon {
+  transform: scaleX(-1);
 }

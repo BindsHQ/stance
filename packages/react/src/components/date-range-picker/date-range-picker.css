@@ -1,6 +1,6 @@
 .st-date-range-picker {
   justify-content: flex-start;
-  text-align: left;
+  text-align: start;
   cursor: pointer;
   font: inherit;
   font-family: var(--st-font-sans);
@@ -43,8 +43,8 @@
   flex-direction: column;
   gap: 2px;
   min-width: 9rem;
-  padding-right: var(--st-space-3);
-  border-right: var(--st-border-width) solid var(--st-color-separator);
+  padding-inline-end: var(--st-space-3);
+  border-inline-end: var(--st-border-width) solid var(--st-color-separator);
 }
 .st-date-range-picker__preset {
   padding: var(--st-space-2) var(--st-space-3);
@@ -54,7 +54,7 @@
   color: var(--st-color-fg-default);
   font: inherit;
   font-size: var(--st-font-size-sm);
-  text-align: left;
+  text-align: start;
   white-space: nowrap;
   cursor: pointer;
 }
@@ -101,7 +101,7 @@
     flex-wrap: wrap;
     min-width: 0;
     padding: 0 0 var(--st-space-3);
-    border-right: 0;
+    border-inline-end: 0;
     border-bottom: var(--st-border-width) solid var(--st-color-separator);
   }
 }

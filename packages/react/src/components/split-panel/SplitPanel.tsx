@@ -1,6 +1,7 @@
 'use client';
 import * as React from 'react';
 import { cx } from '../../internal/cx.js';
+import { isRtl } from '../../internal/direction.js';
 import { useComposedRefs } from '../../internal/refs.js';
 import { useIsomorphicLayoutEffect } from '../../internal/use-isomorphic-layout-effect.js';
 import {
@@ -211,14 +212,21 @@ export const ResizeHandle = Object.assign(
     const c = ctx.constraints[index];
     const size = ctx.sizes[index] ?? 0;
     const horizontal = ctx.orientation === 'horizontal';
-    const drag = React.useRef<{ start: number; startSize: number; total: number } | null>(null);
+    const drag = React.useRef<{
+      start: number;
+      startSize: number;
+      total: number;
+      sign: 1 | -1;
+    } | null>(null);
 
     const handleKey = (event: React.KeyboardEvent<HTMLDivElement>) => {
       onKeyDown?.(event);
       if (event.defaultPrevented || disabled || !c) return;
       const step = keyboardStep * (event.shiftKey ? 2 : 1);
-      const dec = horizontal ? 'ArrowLeft' : 'ArrowUp';
-      const inc = horizontal ? 'ArrowRight' : 'ArrowDown';
+      // Panels flow along the inline axis, so the growing direction is the left in RTL.
+      const rtl = horizontal && isRtl(event.currentTarget);
+      const dec = horizontal ? (rtl ? 'ArrowRight' : 'ArrowLeft') : 'ArrowUp';
+      const inc = horizontal ? (rtl ? 'ArrowLeft' : 'ArrowRight') : 'ArrowDown';
       let next: number | null = null;
       if (event.key === dec) next = size - step;
       else if (event.key === inc) next = size + step;
@@ -261,6 +269,7 @@ export const ResizeHandle = Object.assign(
             start: horizontal ? event.clientX : event.clientY,
             startSize: size,
             total: (horizontal ? rect.width : rect.height) || 1,
+            sign: horizontal && isRtl(group) ? -1 : 1,
           };
           event.currentTarget.setPointerCapture?.(event.pointerId);
           ctx.setDragging(index);
@@ -269,7 +278,8 @@ export const ResizeHandle = Object.assign(
         onPointerMove={(event) => {
           const d = drag.current;
           if (!d) return;
-          const delta = (((horizontal ? event.clientX : event.clientY) - d.start) / d.total) * 100;
+          const delta =
+            d.sign * (((horizontal ? event.clientX : event.clientY) - d.start) / d.total) * 100;
           ctx.resize(index, d.startSize + delta);
         }}
         onPointerUp={(event) => {

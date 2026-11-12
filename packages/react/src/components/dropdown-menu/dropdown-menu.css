@@ -41,7 +41,7 @@
   cursor: not-allowed;
 }
 .st-menu__item[data-inset] {
-  padding-left: calc(var(--st-space-2) + 1.5rem);
+  padding-inline-start: calc(var(--st-space-2) + 1.5rem);
 }
 .st-menu__indicator {
   display: inline-flex;
@@ -73,15 +73,19 @@
   white-space: nowrap;
 }
 .st-menu__shortcut {
-  margin-left: auto;
-  padding-left: var(--st-space-4);
+  margin-inline-start: auto;
+  padding-inline-start: var(--st-space-4);
   color: var(--st-color-fg-subtle);
   font-size: var(--st-font-size-xs);
   letter-spacing: var(--st-letter-spacing-wide);
 }
 .st-menu__sub-icon {
-  margin-left: auto;
+  margin-inline-start: auto;
   color: var(--st-color-fg-muted);
+}
+/* Submenus open towards the inline end, so the indicator flips in RTL. */
+:dir(rtl) > .st-menu__sub-icon {
+  transform: scaleX(-1);
 }
 .st-menu__label-heading {
   padding: var(--st-space-2) var(--st-space-2) var(--st-space-1);
@@ -92,7 +96,7 @@
   text-transform: uppercase;
 }
 .st-menu__label-heading[data-inset] {
-  padding-left: calc(var(--st-space-2) + 1.5rem);
+  padding-inline-start: calc(var(--st-space-2) + 1.5rem);
 }
 .st-menu__separator {
   height: 1px;

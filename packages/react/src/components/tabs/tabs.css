@@ -94,8 +94,7 @@
 .st-tabs[data-variant='line'] .st-tabs__trigger::after {
   content: '';
   position: absolute;
-  left: 0;
-  right: 0;
+  inset-inline: 0;
   bottom: 0;
   height: 2px;
   border-radius: 2px 2px 0 0;
@@ -107,12 +106,12 @@
 }
 .st-tabs[data-variant='line'][data-orientation='vertical'] .st-tabs__trigger {
   justify-content: flex-start;
-  padding: 0 var(--st-space-4) 0 var(--st-space-3);
+  padding-block: 0;
+  padding-inline: var(--st-space-3) var(--st-space-4);
 }
 .st-tabs[data-variant='line'][data-orientation='vertical'] .st-tabs__trigger::after {
-  left: auto;
+  inset-inline: auto 0;
   top: 0;
-  right: 0;
   width: 2px;
   height: auto;
 }

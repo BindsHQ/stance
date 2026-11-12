@@ -1,0 +1,3 @@
+.st-mention-picker {
+  inline-size: min(20rem, calc(100vw - 1rem));
+}

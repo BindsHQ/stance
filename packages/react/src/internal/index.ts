@@ -13,6 +13,7 @@ export * from './scroll-lock.js';
 export * from './visually-hidden.js';
 export * from './position.js';
 export * from './use-floating.js';
+export * from './direction.js';
 export * from './roving-focus.js';
 export * from './typeahead.js';
 export * from './use-escape-key.js';

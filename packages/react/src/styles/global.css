@@ -40,3 +40,15 @@ body {
     scroll-behavior: smooth;
   }
 }
+
+/* Print: transient layers (toasts, tooltips, popovers, menus, scrims) never belong on paper. */
+@media print {
+  .st-toaster,
+  .st-tooltip,
+  .st-floating,
+  .st-scrim,
+  .st-skip-link,
+  .st-fab {
+    display: none !important;
+  }
+}

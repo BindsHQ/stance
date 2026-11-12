@@ -1,0 +1,108 @@
+/* Listbox popup shared by MentionPicker and SlashCommandMenu. */
+.st-prompt-listbox {
+  display: flex;
+  flex-direction: column;
+  max-block-size: min(var(--st-available-height, 18rem), 18rem);
+  max-inline-size: calc(100vw - 1rem);
+  overflow: hidden;
+  padding: 0;
+  text-align: start;
+}
+.st-prompt-listbox__list {
+  flex: 1 1 auto;
+  min-block-size: 0;
+  margin: 0;
+  padding: var(--st-space-1);
+  overflow-y: auto;
+  list-style: none;
+  overscroll-behavior: contain;
+}
+.st-prompt-listbox__group-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.st-prompt-listbox__group + .st-prompt-listbox__group,
+.st-prompt-listbox__option + .st-prompt-listbox__group {
+  margin-block-start: var(--st-space-1);
+  padding-block-start: var(--st-space-1);
+  border-block-start: var(--st-border-width) solid var(--st-color-separator);
+}
+.st-prompt-listbox__group-label {
+  padding-block: var(--st-space-2) var(--st-space-1);
+  padding-inline: var(--st-space-2);
+  color: var(--st-color-fg-subtle);
+  font-size: var(--st-font-size-2xs);
+  font-weight: var(--st-font-weight-semibold);
+  letter-spacing: var(--st-letter-spacing-caps);
+  text-transform: uppercase;
+}
+.st-prompt-listbox__option {
+  display: flex;
+  align-items: center;
+  gap: var(--st-space-2);
+  min-block-size: 2rem;
+  padding-block: var(--st-space-1-5);
+  padding-inline: var(--st-space-2);
+  border-radius: var(--st-radius-sm);
+  color: var(--st-color-fg-default);
+  font-size: var(--st-font-size-sm);
+  line-height: var(--st-line-height-snug);
+  cursor: pointer;
+  user-select: none;
+}
+.st-prompt-listbox__option[data-active] {
+  background: var(--st-color-interactive-hover);
+}
+.st-prompt-listbox__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--st-color-fg-muted);
+}
+.st-prompt-listbox__text {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+.st-prompt-listbox__label,
+.st-prompt-listbox__description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.st-prompt-listbox__label {
+  font-weight: var(--st-font-weight-medium);
+}
+.st-prompt-listbox__description {
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-xs);
+}
+.st-prompt-listbox__trailing {
+  display: inline-flex;
+  flex-shrink: 0;
+  margin-inline-start: auto;
+  color: var(--st-color-fg-muted);
+}
+.st-prompt-listbox__status {
+  padding-block: var(--st-space-4);
+  padding-inline: var(--st-space-3);
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-sm);
+  text-align: center;
+}
+[data-theme='high-contrast'] .st-prompt-listbox__option[data-active] {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: -3px;
+}
+@media (pointer: coarse) {
+  .st-prompt-listbox__option {
+    min-block-size: 2.75rem;
+  }
+}
+@media (forced-colors: active) {
+  .st-prompt-listbox__option[data-active] {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+}

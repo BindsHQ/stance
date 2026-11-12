@@ -1,0 +1,86 @@
+.st-scroll-to-latest {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--st-space-1-5);
+  min-inline-size: var(--st-size-control-sm);
+  min-block-size: var(--st-size-control-sm);
+  margin: 0;
+  padding-block: 0;
+  padding-inline: var(--st-space-2);
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-full);
+  background: var(--st-color-bg-overlay);
+  color: var(--st-color-fg-default);
+  box-shadow: var(--st-shadow-md);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-xs);
+  font-weight: var(--st-font-weight-medium);
+  line-height: 1;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  animation: st-scroll-to-latest-in var(--st-duration-normal) var(--st-easing-emphasized);
+  transition: background-color var(--st-duration-fast) var(--st-easing-standard);
+}
+.st-scroll-to-latest[hidden] {
+  display: none;
+}
+.st-scroll-to-latest:hover {
+  background: var(--st-color-bg-muted);
+}
+.st-scroll-to-latest:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}
+.st-scroll-to-latest__label {
+  padding-inline-end: var(--st-space-1);
+}
+.st-scroll-to-latest__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 1.25rem;
+  block-size: 1.25rem;
+  padding-inline: var(--st-space-1);
+  border-radius: var(--st-radius-full);
+  background: var(--st-color-accent-bg);
+  color: var(--st-color-accent-fg);
+  font-size: var(--st-font-size-2xs);
+  font-weight: var(--st-font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+@keyframes st-scroll-to-latest-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (pointer: coarse) {
+  .st-scroll-to-latest {
+    min-inline-size: 2.75rem;
+    min-block-size: 2.75rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .st-scroll-to-latest {
+    animation: none !important;
+  }
+}
+@media (forced-colors: active) {
+  .st-scroll-to-latest {
+    border-color: ButtonText;
+  }
+  .st-scroll-to-latest:focus-visible {
+    outline-color: Highlight;
+  }
+  .st-scroll-to-latest__count {
+    border: 1px solid ButtonText;
+    background: ButtonFace;
+    color: ButtonText;
+  }
+}

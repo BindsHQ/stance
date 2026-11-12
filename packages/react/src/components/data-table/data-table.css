@@ -7,14 +7,14 @@
 }
 .st-data-table .st-data-table__select {
   width: 2.75rem;
-  padding-right: 0;
+  padding-inline-end: 0;
 }
 .st-data-table__row-header {
   font-weight: var(--st-font-weight-medium);
-  text-align: left;
+  text-align: start;
 }
 .st-data-table__row-header[data-align='end'] {
-  text-align: right;
+  text-align: end;
 }
 .st-data-table__row-header[data-align='center'] {
   text-align: center;

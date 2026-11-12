@@ -107,3 +107,60 @@ describe('Slider', () => {
     await expectNoA11yViolations(container);
   });
 });
+
+describe('Slider in RTL', () => {
+  it('increases with ArrowLeft and decreases with ArrowRight', async () => {
+    render(
+      <div dir="rtl">
+        <Slider aria-label="Volume" defaultValue={50} step={5} />
+      </div>,
+    );
+    const s = screen.getByRole('slider');
+    s.focus();
+    const user = userEvent.setup();
+    await user.keyboard('{ArrowLeft}');
+    expect(s).toHaveAttribute('aria-valuenow', '55');
+    await user.keyboard('{ArrowRight}{ArrowRight}');
+    expect(s).toHaveAttribute('aria-valuenow', '45');
+    // Vertical keys, Home and End keep their meaning.
+    await user.keyboard('{ArrowUp}');
+    expect(s).toHaveAttribute('aria-valuenow', '50');
+    await user.keyboard('{End}');
+    expect(s).toHaveAttribute('aria-valuenow', '100');
+  });
+
+  it('keeps the horizontal arrows for a vertical slider', async () => {
+    render(
+      <div dir="rtl">
+        <Slider aria-label="Volume" defaultValue={50} step={5} orientation="vertical" />
+      </div>,
+    );
+    const s = screen.getByRole('slider');
+    s.focus();
+    await userEvent.keyboard('{ArrowRight}');
+    expect(s).toHaveAttribute('aria-valuenow', '55');
+  });
+
+  it('measures pointer positions from the right edge', () => {
+    const onChange = vi.fn();
+    const { container } = render(
+      <div dir="rtl">
+        <Slider aria-label="X" onValueChange={onChange} />
+      </div>,
+    );
+    const control = container.querySelector('.st-slider__control') as HTMLElement;
+    control.getBoundingClientRect = () => ({
+      left: 0,
+      top: 0,
+      width: 200,
+      height: 10,
+      right: 200,
+      bottom: 10,
+      x: 0,
+      y: 0,
+      toJSON() {},
+    });
+    fireEvent.pointerDown(control, { clientX: 150, clientY: 5, button: 0, pointerId: 1 });
+    expect(onChange).toHaveBeenLastCalledWith(25);
+  });
+});

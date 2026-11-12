@@ -1,0 +1,16 @@
+/* The stop mark is a solid square so it reads at small sizes. */
+.st-stop-button .st-icon[data-icon='stop'] {
+  fill: currentColor;
+}
+@media (pointer: coarse) {
+  .st-stop-button {
+    min-block-size: 2.75rem;
+    min-inline-size: 2.75rem;
+  }
+}
+@media (forced-colors: active) {
+  .st-stop-button .st-icon[data-icon='stop'] {
+    fill: ButtonText;
+    stroke: ButtonText;
+  }
+}

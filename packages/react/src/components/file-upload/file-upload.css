@@ -94,7 +94,8 @@
   align-items: center;
   gap: var(--st-space-3);
   min-height: 2.75rem;
-  padding: var(--st-space-1) var(--st-space-1) var(--st-space-1) var(--st-space-3);
+  padding-block: var(--st-space-1);
+  padding-inline: var(--st-space-3) var(--st-space-1);
   font-size: var(--st-font-size-sm);
 }
 .st-file-upload__item + .st-file-upload__item {

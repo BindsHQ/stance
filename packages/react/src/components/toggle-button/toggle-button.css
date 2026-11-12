@@ -66,25 +66,25 @@
 }
 .st-toggle-button-group[data-attached][data-orientation='horizontal']
   > .st-toggle-button:not(:first-child) {
-  margin-left: calc(-1 * var(--st-border-width-control));
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+  margin-inline-start: calc(-1 * var(--st-border-width-control));
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
 }
 .st-toggle-button-group[data-attached][data-orientation='horizontal']
   > .st-toggle-button:not(:last-child) {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
 }
 .st-toggle-button-group[data-attached][data-orientation='vertical']
   > .st-toggle-button:not(:first-child) {
   margin-top: calc(-1 * var(--st-border-width-control));
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  border-start-start-radius: 0;
+  border-start-end-radius: 0;
 }
 .st-toggle-button-group[data-attached][data-orientation='vertical']
   > .st-toggle-button:not(:last-child) {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
 }
 
 @media (forced-colors: active) {

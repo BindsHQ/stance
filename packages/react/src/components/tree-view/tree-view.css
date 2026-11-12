@@ -17,7 +17,8 @@
   align-items: center;
   gap: var(--st-space-1-5);
   min-height: 2rem;
-  padding: 0 var(--st-space-2) 0 calc(var(--st-space-1) + var(--st-tree-level, 0) * 1.125rem);
+  padding-block: 0;
+  padding-inline: calc(var(--st-space-1) + var(--st-tree-level, 0) * 1.125rem) var(--st-space-2);
   border-radius: var(--st-radius-md);
   cursor: pointer;
   user-select: none;
@@ -56,6 +57,10 @@
   border-radius: var(--st-radius-xs);
   color: var(--st-color-fg-muted);
   transition: transform var(--st-duration-fast) var(--st-easing-standard);
+}
+/* Collapsed chevrons point towards the inline end: left in RTL. */
+.st-tree__toggle:dir(rtl) {
+  transform: rotate(180deg);
 }
 .st-tree__item[aria-expanded='true'] > .st-tree__row > .st-tree__toggle {
   transform: rotate(90deg);

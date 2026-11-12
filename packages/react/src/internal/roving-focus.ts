@@ -1,5 +1,6 @@
 'use client';
 import * as React from 'react';
+import { getDirection } from './direction.js';
 
 export type Orientation = 'horizontal' | 'vertical' | 'both';
 
@@ -11,7 +12,7 @@ export interface RovingFocusOptions {
   itemSelector?: string;
   /** Move focus on Home/End. Default true. */
   homeEnd?: boolean;
-  /** Text direction, flips horizontal arrows in RTL. */
+  /** Text direction, flips horizontal arrows in RTL. Read from the container when omitted. */
   dir?: 'ltr' | 'rtl';
 }
 
@@ -39,7 +40,7 @@ export function useRovingFocus(
     loop = true,
     itemSelector = DEFAULT_ITEM,
     homeEnd = true,
-    dir = 'ltr',
+    dir: dirOption,
   } = options;
 
   // Ensure exactly one item is tabbable after every render.
@@ -68,6 +69,7 @@ export function useRovingFocus(
       const items = getRovingItems(container, itemSelector);
       const index = items.indexOf(document.activeElement as HTMLElement);
       if (index === -1) return;
+      const dir = dirOption ?? getDirection(container);
       const prevKeys =
         orientation === 'vertical'
           ? ['ArrowUp']
@@ -93,7 +95,7 @@ export function useRovingFocus(
       for (const el of items) el.tabIndex = el === target ? 0 : -1;
       target.focus();
     },
-    [containerRef, itemSelector, orientation, loop, homeEnd, dir],
+    [containerRef, itemSelector, orientation, loop, homeEnd, dirOption],
   );
 
   return { onKeyDown };

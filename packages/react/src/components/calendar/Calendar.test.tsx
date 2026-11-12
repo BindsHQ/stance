@@ -228,3 +228,21 @@ describe('Calendar month and year menus', () => {
     await expectNoA11yViolations(container);
   });
 });
+
+describe('Calendar in RTL', () => {
+  it('moves to the next day with ArrowLeft and the previous day with ArrowRight', async () => {
+    render(
+      <div dir="rtl">
+        <Calendar today={TODAY} locale="en-GB" />
+      </div>,
+    );
+    const user = userEvent.setup();
+    day('2026-11-11').focus();
+    await user.keyboard('{ArrowLeft}');
+    expect(day('2026-11-12')).toHaveFocus();
+    await user.keyboard('{ArrowRight}{ArrowRight}');
+    expect(day('2026-11-10')).toHaveFocus();
+    await user.keyboard('{ArrowDown}');
+    expect(day('2026-11-17')).toHaveFocus();
+  });
+});

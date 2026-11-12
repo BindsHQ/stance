@@ -143,3 +143,24 @@ describe('TreeView', () => {
     await expectNoA11yViolations(container);
   });
 });
+
+describe('TreeView in RTL', () => {
+  it('expands with ArrowLeft and collapses with ArrowRight', async () => {
+    render(
+      <div dir="rtl">
+        <TreeView aria-label="Teams" items={items} />
+      </div>,
+    );
+    const user = userEvent.setup();
+    await user.tab();
+    expect(item('Organisation')).toHaveFocus();
+    await user.keyboard('{ArrowLeft}');
+    expect(item('Organisation')).toHaveAttribute('aria-expanded', 'true');
+    await user.keyboard('{ArrowLeft}');
+    expect(item('Sales')).toHaveFocus();
+    await user.keyboard('{ArrowRight}');
+    expect(item('Organisation')).toHaveFocus();
+    await user.keyboard('{ArrowRight}');
+    expect(item('Organisation')).toHaveAttribute('aria-expanded', 'false');
+  });
+});

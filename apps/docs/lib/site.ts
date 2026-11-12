@@ -115,5 +115,6 @@ export const categoryLabels: Record<string, string> = {
   overlays: 'Overlays',
   media: 'Media & code',
   advanced: 'Advanced',
+  ai: 'AI',
 };
 export const categoryOrder = Object.keys(categoryLabels);

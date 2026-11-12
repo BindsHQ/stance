@@ -21,7 +21,7 @@
   font-family: var(--st-font-sans);
   font-size: var(--st-font-size-sm);
   line-height: var(--st-line-height-normal);
-  text-align: left;
+  text-align: start;
 }
 .st-table[data-density='compact'] {
   --_py: var(--st-space-1-5);
@@ -37,7 +37,7 @@
   padding: var(--st-space-3) var(--_px);
   color: var(--st-color-fg-muted);
   font-size: var(--st-font-size-sm);
-  text-align: left;
+  text-align: start;
   border-bottom: var(--st-border-width) solid var(--st-color-border-default);
 }
 .st-table__head {
@@ -73,7 +73,7 @@
 }
 [data-align='end'].st-table__head,
 [data-align='end'].st-table__cell {
-  text-align: right;
+  text-align: end;
 }
 [data-align='center'].st-table__head,
 [data-align='center'].st-table__cell {
@@ -84,7 +84,7 @@
 }
 .st-table[data-bordered] .st-table__head + .st-table__head,
 .st-table[data-bordered] .st-table__cell + .st-table__cell {
-  border-left: var(--st-border-width) solid var(--st-color-border-subtle);
+  border-inline-start: var(--st-border-width) solid var(--st-color-border-subtle);
 }
 
 .st-table[data-striped] .st-table__body > .st-table__row:nth-child(even) > .st-table__cell {

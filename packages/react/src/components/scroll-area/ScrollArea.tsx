@@ -1,6 +1,7 @@
 'use client';
 import * as React from 'react';
 import { cx } from '../../internal/cx.js';
+import { isRtl } from '../../internal/direction.js';
 import { useComposedRefs } from '../../internal/refs.js';
 import { useIsomorphicLayoutEffect } from '../../internal/use-isomorphic-layout-effect.js';
 
@@ -62,12 +63,17 @@ export const ScrollArea = React.forwardRef<HTMLDivElement, ScrollAreaProps>(func
     const h = orientation !== 'vertical';
     const overflowY = v && el.scrollHeight - el.clientHeight > 1;
     const overflowX = h && el.scrollWidth - el.clientWidth > 1;
+    // scrollLeft is zero at the inline start and runs negative in RTL.
+    const offsetX = Math.abs(el.scrollLeft);
+    const atInlineStart = !overflowX || offsetX <= 1;
+    const atInlineEnd = !overflowX || offsetX + el.clientWidth >= el.scrollWidth - 1;
+    const rtl = overflowX && isRtl(el);
     const next = {
       scrollable: overflowY || overflowX,
       atStart: !overflowY || el.scrollTop <= 1,
       atEnd: !overflowY || el.scrollTop + el.clientHeight >= el.scrollHeight - 1,
-      atLeft: !overflowX || el.scrollLeft <= 1,
-      atRight: !overflowX || el.scrollLeft + el.clientWidth >= el.scrollWidth - 1,
+      atLeft: rtl ? atInlineEnd : atInlineStart,
+      atRight: rtl ? atInlineStart : atInlineEnd,
     };
     setState((prev) =>
       prev.scrollable === next.scrollable &&

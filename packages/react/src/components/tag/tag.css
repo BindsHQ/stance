@@ -21,7 +21,7 @@
   border-radius: var(--st-radius-sm);
 }
 .st-tag[data-removable] {
-  padding-right: var(--st-space-1);
+  padding-inline-end: var(--st-space-1);
 }
 .st-tag[data-disabled] {
   color: var(--st-color-fg-muted);

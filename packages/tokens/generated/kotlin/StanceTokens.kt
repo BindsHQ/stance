@@ -230,6 +230,10 @@ public object StanceTokens {
         public const val fast: Int = 120
         public const val normal: Int = 200
         public const val slow: Int = 320
+        public const val slower: Int = 480
+        public const val stream: Int = 24
+        public const val shimmer: Int = 1600
+        public const val pulse: Int = 1200
     }
 
     /** Cubic bezier control points (x1, y1, x2, y2). */
@@ -237,6 +241,7 @@ public object StanceTokens {
         public val standard: FloatArray = floatArrayOf(0.2f, 0f, 0f, 1f)
         public val emphasized: FloatArray = floatArrayOf(0.16f, 1f, 0.3f, 1f)
         public val exit: FloatArray = floatArrayOf(0.4f, 0f, 1f, 1f)
+        public val linear: FloatArray = floatArrayOf(0f, 0f, 1f, 1f)
     }
 
     public const val fontFamilySans: String = "DM Sans"

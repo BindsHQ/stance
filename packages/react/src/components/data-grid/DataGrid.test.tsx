@@ -175,3 +175,22 @@ describe('DataGrid', () => {
     await expectNoA11yViolations(container);
   });
 });
+
+describe('DataGrid in RTL', () => {
+  it('moves to the next column with ArrowLeft and back with ArrowRight', async () => {
+    render(
+      <div dir="rtl">
+        <Editable />
+      </div>,
+    );
+    const user = userEvent.setup();
+    await user.tab();
+    expect(cell(1, 0)).toHaveFocus();
+    await user.keyboard('{ArrowLeft}');
+    expect(cell(1, 1)).toHaveFocus();
+    await user.keyboard('{ArrowDown}');
+    expect(cell(2, 1)).toHaveFocus();
+    await user.keyboard('{ArrowRight}');
+    expect(cell(2, 0)).toHaveFocus();
+  });
+});

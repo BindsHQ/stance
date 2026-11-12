@@ -31,6 +31,7 @@
       "default": "./dist/index.js"
     },
     "./styles.css": "./dist/styles.css",
+    "./styles.layered.css": "./dist/styles.layered.css",
     "./global.css": "./dist/global.css",
     "./components/*.css": "./dist/css/*.css",
     "./package.json": "./package.json"

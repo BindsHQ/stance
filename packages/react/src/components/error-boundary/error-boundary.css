@@ -3,8 +3,8 @@
   gap: var(--st-space-3);
   padding: var(--st-space-4);
   border: var(--st-border-width) solid var(--st-color-danger-border);
-  border-left-width: 3px;
-  border-left-color: var(--st-color-danger-fg);
+  border-inline-start-width: 3px;
+  border-inline-start-color: var(--st-color-danger-fg);
   border-radius: var(--st-radius-lg);
   background: var(--st-color-danger-bg);
   color: var(--st-color-fg-default);

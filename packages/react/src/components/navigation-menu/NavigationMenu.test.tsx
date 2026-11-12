@@ -113,3 +113,34 @@ describe('NavigationMenu', () => {
     await expectNoA11yViolations(container);
   });
 });
+
+describe('NavigationMenu in RTL', () => {
+  it('moves to the next top-level item with ArrowLeft', async () => {
+    render(
+      <div dir="rtl">
+        <Example />
+      </div>,
+    );
+    const user = userEvent.setup();
+    screen.getByRole('link', { name: 'Home' }).focus();
+    await user.keyboard('{ArrowLeft}');
+    expect(screen.getByRole('button', { name: 'Products' })).toHaveFocus();
+    await user.keyboard('{ArrowRight}');
+    expect(screen.getByRole('link', { name: 'Home' })).toHaveFocus();
+  });
+
+  it('opens a vertical item with ArrowLeft', async () => {
+    render(
+      <div dir="rtl">
+        <Example orientation="vertical" />
+      </div>,
+    );
+    const user = userEvent.setup();
+    const trigger = screen.getByRole('button', { name: 'Products' });
+    trigger.focus();
+    await user.keyboard('{ArrowRight}');
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await user.keyboard('{ArrowLeft}');
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+  });
+});

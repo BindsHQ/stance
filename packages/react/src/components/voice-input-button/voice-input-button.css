@@ -1,0 +1,59 @@
+.st-voice-input-button {
+  --st-voice-level: 0;
+  position: relative;
+}
+/* The level ring grows with the input level while listening. */
+.st-voice-input-button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 0 transparent;
+  pointer-events: none;
+  transition: box-shadow var(--st-duration-fast) var(--st-easing-linear, linear);
+}
+.st-voice-input-button[data-state='listening']::after {
+  box-shadow: 0 0 0 calc(2px + var(--st-voice-level) * 6px)
+    color-mix(in srgb, var(--st-color-accent-bg) 28%, transparent);
+}
+.st-voice-input-button[data-state='processing'] {
+  cursor: progress;
+}
+.st-voice-input-button[data-state='unavailable'] {
+  cursor: not-allowed;
+}
+.st-voice-input-button__spinner {
+  display: inline-flex;
+}
+@media (pointer: coarse) {
+  .st-voice-input-button {
+    inline-size: 2.75rem;
+    min-inline-size: 2.75rem;
+    block-size: 2.75rem;
+  }
+}
+/* Reduced motion: a steady ring instead of one that follows the level. */
+@media (prefers-reduced-motion: reduce) {
+  .st-voice-input-button::after {
+    transition: none;
+  }
+  .st-voice-input-button[data-state='listening']::after {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--st-color-accent-bg) 28%, transparent);
+  }
+}
+[data-theme='high-contrast'] .st-voice-input-button[data-state='listening']::after {
+  box-shadow: 0 0 0 calc(2px + var(--st-voice-level) * 4px) var(--st-color-focus-ring);
+}
+@media (forced-colors: active) {
+  .st-voice-input-button[data-state='listening'] {
+    forced-color-adjust: none;
+    border-color: Highlight;
+    background: Highlight;
+    color: HighlightText;
+  }
+  .st-voice-input-button[data-state='listening']::after {
+    box-shadow: none;
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+}

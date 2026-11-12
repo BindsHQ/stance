@@ -307,3 +307,29 @@ describe('DropdownMenu focus return', () => {
     expect(screen.getByRole('textbox', { name: 'Name' })).toHaveFocus();
   });
 });
+
+describe('DropdownMenu in RTL', () => {
+  it('opens a submenu with ArrowLeft and closes it with ArrowRight', async () => {
+    // Menus are portalled, so the direction has to come from the document.
+    document.documentElement.setAttribute('dir', 'rtl');
+    try {
+      render(<Example />);
+      const user = userEvent.setup();
+      await user.click(trigger());
+      const share = screen.getByRole('menuitem', { name: 'Share' });
+      share.focus();
+      await user.keyboard('{ArrowRight}');
+      expect(share).toHaveAttribute('aria-expanded', 'false');
+      await user.keyboard('{ArrowLeft}');
+      expect(share).toHaveAttribute('aria-expanded', 'true');
+      expect(screen.getByRole('menuitem', { name: 'Email link' })).toHaveFocus();
+      await user.keyboard('{ArrowLeft}');
+      expect(screen.getByRole('menuitem', { name: 'Email link' })).toHaveFocus();
+      await user.keyboard('{ArrowRight}');
+      expect(screen.queryByRole('menuitem', { name: 'Email link' })).toBeNull();
+      expect(share).toHaveFocus();
+    } finally {
+      document.documentElement.removeAttribute('dir');
+    }
+  });
+});

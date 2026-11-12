@@ -8,7 +8,7 @@
   min-height: 0;
   background: var(--st-color-bg-surface);
   color: var(--st-color-fg-default);
-  border-right: var(--st-border-width) solid var(--st-color-border-default);
+  border-inline-end: var(--st-border-width) solid var(--st-color-border-default);
   font-family: var(--st-font-sans);
   font-size: var(--st-font-size-sm);
   transition: width var(--st-duration-normal) var(--st-easing-emphasized);
@@ -72,7 +72,7 @@
   font-weight: var(--st-font-weight-semibold);
   letter-spacing: var(--st-letter-spacing-caps);
   text-transform: uppercase;
-  text-align: left;
+  text-align: start;
 }
 .st-sidebar__group-label[data-collapsible] {
   cursor: pointer;
@@ -89,6 +89,9 @@
 }
 .st-sidebar__group[data-state='closed'] .st-sidebar__group-chevron {
   transform: rotate(-90deg);
+}
+.st-sidebar__group[data-state='closed']:dir(rtl) .st-sidebar__group-chevron {
+  transform: rotate(90deg);
 }
 .st-sidebar[data-collapsed] .st-sidebar__group-label {
   position: absolute;
@@ -125,7 +128,7 @@
   color: var(--st-color-fg-muted);
   font: inherit;
   font-weight: var(--st-font-weight-medium);
-  text-align: left;
+  text-align: start;
   text-decoration: none;
   cursor: pointer;
   transition:
@@ -201,7 +204,7 @@
 .st-sidebar[data-collapsed] .st-sidebar__badge {
   position: absolute;
   top: 0.375rem;
-  right: calc(50% - 1rem);
+  inset-inline-end: calc(50% - 1rem);
   min-width: 0.5rem;
   width: 0.5rem;
   height: 0.5rem;

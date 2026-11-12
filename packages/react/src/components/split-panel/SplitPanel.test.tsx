@@ -127,3 +127,32 @@ describe('SplitPanel', () => {
     await expectNoA11yViolations(container);
   });
 });
+
+describe('SplitPanel in RTL', () => {
+  it('grows the first panel with ArrowLeft and shrinks it with ArrowRight', async () => {
+    render(
+      <div dir="rtl">
+        <Example />
+      </div>,
+    );
+    const user = userEvent.setup();
+    const handle = screen.getByRole('separator');
+    handle.focus();
+    await user.keyboard('{ArrowLeft}');
+    expect(handle).toHaveAttribute('aria-valuenow', '35');
+    await user.keyboard('{ArrowRight}{ArrowRight}');
+    expect(handle).toHaveAttribute('aria-valuenow', '25');
+  });
+
+  it('keeps Up and Down for vertical groups', async () => {
+    render(
+      <div dir="rtl">
+        <Example orientation="vertical" />
+      </div>,
+    );
+    const handle = screen.getByRole('separator');
+    handle.focus();
+    await userEvent.keyboard('{ArrowDown}');
+    expect(handle).toHaveAttribute('aria-valuenow', '35');
+  });
+});

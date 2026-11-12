@@ -1,0 +1,389 @@
+{
+  "$comment": "The cross-platform contract for Stance AI components. Web, iOS and Android implement the same names, parts, states and accessibility rules. Platform idioms decide the rest.",
+  "version": 1,
+  "principles": [
+    "Presentational and transport agnostic. No model SDK, no network calls. The app owns data and passes state in.",
+    "Streaming safe. Partial content never shifts layout above the reading position and never steals focus.",
+    "No new hues. AI surfaces use the ink scale; identity comes from motion, the sparkle icon and clear labelling.",
+    "Every animated state has a reduced motion form. Shimmer and pulse become a static state with text.",
+    "Screen readers hear status changes politely, once: started, finished, stopped, failed. Never each token.",
+    "Every visible string is a prop or label with an English default, so products can translate everything.",
+    "Right to left works without extra props."
+  ],
+  "status": {
+    "$comment": "Shared generation status used by several components.",
+    "values": ["idle", "submitted", "streaming", "complete", "stopped", "error"]
+  },
+  "motionTokens": {
+    "stream": "duration.stream, cadence per revealed chunk",
+    "shimmer": "duration.shimmer, one sweep",
+    "pulse": "duration.pulse, one breath"
+  },
+  "components": [
+    {
+      "name": "Thread",
+      "group": "conversation",
+      "summary": "The scrolling container for a conversation. Sticks to the latest message while the reader is at the bottom and releases as soon as they scroll up.",
+      "props": ["children", "stickToBottom (default true)", "onReachTop (load older)", "label"],
+      "parts": ["viewport", "content", "ScrollToLatest slot"],
+      "a11y": "A labelled log region. New complete messages are announced politely."
+    },
+    {
+      "name": "Message",
+      "group": "conversation",
+      "summary": "One turn in a conversation from the user, the assistant or the system.",
+      "props": [
+        "role: user | assistant | system",
+        "status",
+        "author",
+        "avatar",
+        "timestamp",
+        "children",
+        "actions",
+        "footer",
+        "variant: bubble | plain"
+      ],
+      "states": ["streaming", "error", "stopped"],
+      "a11y": "An article named by author and time. aria-busy while streaming."
+    },
+    {
+      "name": "MessageGroup",
+      "group": "conversation",
+      "summary": "Consecutive messages from one author under a single avatar and name.",
+      "props": ["role", "author", "avatar", "children"]
+    },
+    {
+      "name": "MessageActions",
+      "group": "conversation",
+      "summary": "The row of actions under a message: copy, retry, edit, good response, bad response.",
+      "props": [
+        "onCopy",
+        "onRetry",
+        "onEdit",
+        "onRate(value: up | down | null)",
+        "rating",
+        "visibility: always | hover",
+        "labels",
+        "children (extra actions)"
+      ],
+      "a11y": "A toolbar. Rating buttons are toggle buttons. Copy confirms with a polite announcement."
+    },
+    {
+      "name": "BranchSwitcher",
+      "group": "conversation",
+      "summary": "Steps between alternative versions of a message after an edit or retry.",
+      "props": ["count", "index", "onIndexChange", "labels"],
+      "a11y": "Previous and next buttons with a live text of position, for example 2 of 3."
+    },
+    {
+      "name": "ScrollToLatest",
+      "group": "conversation",
+      "summary": "A floating button that appears when the reader has scrolled away from the newest message.",
+      "props": ["visible", "onClick", "unreadCount", "label"]
+    },
+    {
+      "name": "ConversationList",
+      "group": "conversation",
+      "summary": "A list of past conversations grouped by date, with selection, rename and delete.",
+      "props": [
+        "items: { id, title, updatedAt, group?, pinned? }[]",
+        "selectedId",
+        "onSelect",
+        "onRename",
+        "onDelete",
+        "onPin",
+        "emptyState",
+        "labels"
+      ],
+      "a11y": "A navigation list. The current conversation uses aria-current."
+    },
+    {
+      "name": "ThreadEmptyState",
+      "group": "conversation",
+      "summary": "The opening screen of a new conversation with a greeting and starter prompts.",
+      "props": [
+        "title",
+        "description",
+        "icon",
+        "starters: { id, label, description?, icon? }[]",
+        "onStarterSelect"
+      ]
+    },
+    {
+      "name": "PromptComposer",
+      "group": "prompt",
+      "summary": "The message input. A text area that grows with content, with slots for attachments, tools and the send or stop button.",
+      "props": [
+        "value",
+        "defaultValue",
+        "onValueChange",
+        "onSubmit(value)",
+        "onStop",
+        "status",
+        "placeholder",
+        "disabled",
+        "maxRows (default 8)",
+        "submitOnEnter (default true; Shift Enter adds a line)",
+        "leading (slot)",
+        "trailing (slot)",
+        "header (slot, attachments and context)",
+        "footer (slot, hints and meters)",
+        "labels"
+      ],
+      "states": ["empty", "ready", "submitted", "streaming (send becomes stop)", "disabled"],
+      "a11y": "A labelled form. Send is disabled when empty. While streaming the same button is named Stop."
+    },
+    {
+      "name": "AttachmentTray",
+      "group": "prompt",
+      "summary": "The attachments on a draft or a sent message: files and images with progress, errors and remove.",
+      "props": [
+        "items: { id, name, kind: image | file, size?, previewUrl?, progress?, error? }[]",
+        "onRemove",
+        "readOnly",
+        "labels"
+      ],
+      "a11y": "A list. Each remove button names its file. Upload errors are announced."
+    },
+    {
+      "name": "MentionPicker",
+      "group": "prompt",
+      "summary": "A filterable list that opens from a trigger character to reference files, people or tools.",
+      "props": [
+        "open",
+        "query",
+        "items: { id, label, description?, icon?, group? }[]",
+        "onSelect",
+        "onOpenChange",
+        "anchor",
+        "emptyLabel",
+        "loading"
+      ],
+      "a11y": "A listbox owned by the composer, with active descendant navigation. Escape closes."
+    },
+    {
+      "name": "SlashCommandMenu",
+      "group": "prompt",
+      "summary": "A command list that opens when the draft starts with a slash.",
+      "props": [
+        "open",
+        "query",
+        "commands: { id, name, description?, icon?, shortcut? }[]",
+        "onSelect",
+        "onOpenChange",
+        "anchor"
+      ],
+      "a11y": "Same listbox pattern as MentionPicker."
+    },
+    {
+      "name": "ModelPicker",
+      "group": "prompt",
+      "summary": "Chooses the model for the next message, with a short description and capability badges.",
+      "props": [
+        "models: { id, name, description?, badges?, disabled? }[]",
+        "value",
+        "onValueChange",
+        "size",
+        "label"
+      ]
+    },
+    {
+      "name": "ContextChips",
+      "group": "prompt",
+      "summary": "Shows what the assistant can see for this message, such as files, pages or selections, each removable.",
+      "props": ["items: { id, label, icon?, kind? }[]", "onRemove", "onAdd", "max", "labels"]
+    },
+    {
+      "name": "VoiceInputButton",
+      "group": "prompt",
+      "summary": "A microphone button with idle, listening and processing states and a level indicator.",
+      "props": [
+        "state: idle | listening | processing | unavailable",
+        "level (0 to 1)",
+        "onPress",
+        "labels"
+      ],
+      "a11y": "A toggle button. State changes are announced."
+    },
+    {
+      "name": "StopButton",
+      "group": "prompt",
+      "summary": "Stops a response that is being generated.",
+      "props": ["onStop", "label", "size", "variant"]
+    },
+    {
+      "name": "TokenBudgetMeter",
+      "group": "prompt",
+      "summary": "A compact meter of how much of the context or message limit is used, with a warning near the limit.",
+      "props": [
+        "used",
+        "limit",
+        "warnAt (default 0.8)",
+        "format (function)",
+        "label",
+        "variant: ring | bar | text"
+      ],
+      "a11y": "A meter with value text. Crossing the warning threshold is announced once."
+    },
+    {
+      "name": "StreamingText",
+      "group": "streaming",
+      "summary": "Reveals text as it arrives at a steady cadence with an optional caret, without reflowing what is already on screen.",
+      "props": [
+        "text (the full text so far)",
+        "streaming",
+        "cadence: char | word | instant",
+        "caret",
+        "onRevealEnd",
+        "as"
+      ],
+      "a11y": "Screen readers get the text once it is complete, not token by token. Reduced motion shows text instantly."
+    },
+    {
+      "name": "ThinkingIndicator",
+      "group": "streaming",
+      "summary": "Shows that the assistant is working before any text arrives, with an optional label and elapsed time.",
+      "props": [
+        "label (default Thinking)",
+        "variant: dots | pulse | shimmer",
+        "elapsed (seconds)",
+        "size"
+      ],
+      "a11y": "A status. Reduced motion shows a static mark with the label."
+    },
+    {
+      "name": "ReasoningDisclosure",
+      "group": "streaming",
+      "summary": "A collapsible block for the assistant's reasoning. Open while thinking, collapsed to a summary when done.",
+      "props": [
+        "status: thinking | done",
+        "duration (seconds)",
+        "open",
+        "defaultOpen",
+        "onOpenChange",
+        "children",
+        "labels"
+      ],
+      "a11y": "A disclosure button with expanded state. The summary reads, for example, Thought for 12 seconds."
+    },
+    {
+      "name": "ShimmerText",
+      "group": "streaming",
+      "summary": "Text with a slow light sweep for in-progress labels such as Searching the web.",
+      "props": ["children", "active (default true)", "as"],
+      "a11y": "Plain text to assistive technology. No animation with reduced motion."
+    },
+    {
+      "name": "GenerationProgress",
+      "group": "streaming",
+      "summary": "Progress for longer generations such as images or documents: determinate or indeterminate, with a stage label.",
+      "props": ["value (0 to 1, optional)", "label", "stage", "onCancel", "labels"],
+      "a11y": "A progressbar with value text. Stage changes are announced politely."
+    },
+    {
+      "name": "StreamingSkeleton",
+      "group": "streaming",
+      "summary": "Placeholder lines for a response that has been requested and has not started.",
+      "props": ["lines (default 3)", "variant: text | card | image"]
+    },
+    {
+      "name": "InterruptedState",
+      "group": "streaming",
+      "summary": "Marks a response that was stopped or failed part way, with retry and continue.",
+      "props": [
+        "reason: stopped | error | network | limit",
+        "title",
+        "description",
+        "onRetry",
+        "onContinue",
+        "labels"
+      ],
+      "a11y": "An alert for errors, a status for stopped."
+    },
+    {
+      "name": "CitationChip",
+      "group": "trust",
+      "summary": "An inline numbered marker that links a claim to its source and previews it on hover, focus or tap.",
+      "props": ["index", "source: { title, url?, domain?, favicon?, snippet? }", "onOpen", "href"],
+      "a11y": "A link or button named Source 2: title. The preview is reachable by keyboard."
+    },
+    {
+      "name": "SourceList",
+      "group": "trust",
+      "summary": "The sources behind an answer, as a compact row that expands to a full list.",
+      "props": [
+        "sources: { id, title, url?, domain?, favicon?, snippet? }[]",
+        "variant: inline | list",
+        "max",
+        "onSourceOpen",
+        "labels"
+      ]
+    },
+    {
+      "name": "SourcePreview",
+      "group": "trust",
+      "summary": "A card for one source: title, site, snippet and a link to open it.",
+      "props": ["source", "onOpen", "size"]
+    },
+    {
+      "name": "ConfidenceBadge",
+      "group": "trust",
+      "summary": "States how sure the system is in words, never colour alone.",
+      "props": ["level: high | medium | low | unknown", "label", "description", "showIcon"]
+    },
+    {
+      "name": "AIGeneratedLabel",
+      "group": "trust",
+      "summary": "Marks content as written or edited by AI.",
+      "props": ["variant: generated | assisted | edited", "label", "size", "model"]
+    },
+    {
+      "name": "DisclaimerNote",
+      "group": "trust",
+      "summary": "A quiet note under the composer or a response, such as a reminder to check important facts.",
+      "props": ["children", "icon", "action"]
+    },
+    {
+      "name": "FeedbackBar",
+      "group": "trust",
+      "summary": "Thumbs up or down, followed by optional reasons and a comment, then a thank you.",
+      "props": [
+        "value: up | down | null",
+        "onValueChange",
+        "reasons: { id, label }[]",
+        "onSubmit({ value, reasons, comment })",
+        "allowComment",
+        "labels"
+      ],
+      "states": ["idle", "rated", "detail", "submitted"],
+      "a11y": "Toggle buttons, then a labelled group of reasons. Submission is announced."
+    },
+    {
+      "name": "ReportDialog",
+      "group": "trust",
+      "summary": "A dialog to report a response with a category and details.",
+      "props": [
+        "open",
+        "onOpenChange",
+        "categories: { id, label, description? }[]",
+        "onSubmit({ category, details })",
+        "labels"
+      ]
+    },
+    {
+      "name": "SensitiveContentGate",
+      "group": "trust",
+      "summary": "Hides content behind a notice until the reader chooses to see it.",
+      "props": [
+        "title",
+        "description",
+        "revealed",
+        "defaultRevealed",
+        "onRevealedChange",
+        "children",
+        "labels"
+      ],
+      "a11y": "Hidden content is removed from the accessibility tree until revealed. Focus moves to it on reveal."
+    }
+  ]
+}

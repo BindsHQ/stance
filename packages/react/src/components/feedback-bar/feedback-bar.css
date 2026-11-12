@@ -1,0 +1,98 @@
+.st-feedback-bar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-3);
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-sm);
+  color: var(--st-color-fg-default);
+  text-align: start;
+}
+.st-feedback-bar__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--st-space-2);
+}
+.st-feedback-bar__prompt,
+.st-feedback-bar__thanks {
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-xs);
+}
+.st-feedback-bar__ratings {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--st-space-0-5);
+}
+.st-feedback-bar__rating {
+  color: var(--st-color-fg-muted);
+}
+.st-feedback-bar__rating[data-state='on'] {
+  background: var(--st-color-interactive-selected);
+  color: var(--st-color-interactive-selected-fg);
+}
+[data-theme='high-contrast'] .st-feedback-bar__rating[data-state='on'] {
+  outline: var(--st-border-width-control) solid var(--st-color-border-strong);
+  outline-offset: -2px;
+}
+.st-feedback-bar__detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-3);
+  max-inline-size: 32rem;
+  margin: 0;
+  padding: var(--st-space-3);
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-lg);
+  background: var(--st-color-bg-subtle);
+  animation: st-fade-in var(--st-duration-normal) var(--st-easing-standard);
+}
+.st-feedback-bar__reasons-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-2);
+}
+.st-feedback-bar__heading,
+.st-feedback-bar__comment-label {
+  font-size: var(--st-font-size-sm);
+  font-weight: var(--st-font-weight-semibold);
+}
+.st-feedback-bar__reasons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--st-space-1-5);
+}
+.st-feedback-bar__comment {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-1-5);
+}
+.st-feedback-bar__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--st-space-2);
+}
+@media (pointer: coarse) {
+  .st-feedback-bar__rating {
+    min-inline-size: 2.75rem;
+    min-block-size: 2.75rem;
+  }
+  .st-feedback-bar__reasons .st-chip {
+    min-block-size: 2.75rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .st-feedback-bar__detail {
+    animation: none;
+  }
+}
+@media (forced-colors: active) {
+  .st-feedback-bar__rating[data-state='on'] {
+    border-color: Highlight;
+    color: Highlight;
+  }
+  .st-feedback-bar__detail {
+    border-color: CanvasText;
+  }
+}

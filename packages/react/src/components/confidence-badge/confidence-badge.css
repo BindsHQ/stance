@@ -1,0 +1,64 @@
+.st-confidence-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--st-space-1-5);
+  min-block-size: 1.5rem;
+  padding-block: 0;
+  padding-inline: var(--st-space-2);
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-full);
+  background: var(--st-color-bg-subtle);
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-xs);
+  font-weight: var(--st-font-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.st-confidence-badge[data-size='sm'] {
+  gap: var(--st-space-1);
+  min-block-size: 1.25rem;
+  padding-inline: var(--st-space-1-5);
+  font-size: var(--st-font-size-2xs);
+}
+/* Levels differ by icon shape, words and weight of the outline, not by hue. */
+.st-confidence-badge[data-level='high'] {
+  border-color: var(--st-color-border-strong);
+  font-weight: var(--st-font-weight-semibold);
+}
+.st-confidence-badge[data-level='low'] {
+  border-style: dashed;
+  border-color: var(--st-color-border-strong);
+}
+.st-confidence-badge[data-level='unknown'] {
+  border-style: dotted;
+  background: transparent;
+  color: var(--st-color-fg-muted);
+}
+.st-confidence-badge__icon {
+  flex-shrink: 0;
+}
+.st-confidence-badge[tabindex] {
+  cursor: help;
+}
+.st-confidence-badge:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}
+@media (pointer: coarse) {
+  .st-confidence-badge[tabindex] {
+    position: relative;
+  }
+  .st-confidence-badge[tabindex]::after {
+    content: '';
+    position: absolute;
+    inset-block: min(0px, calc((100% - 2.75rem) / 2));
+    inset-inline: 0;
+  }
+}
+@media (forced-colors: active) {
+  .st-confidence-badge {
+    border-color: CanvasText;
+  }
+}

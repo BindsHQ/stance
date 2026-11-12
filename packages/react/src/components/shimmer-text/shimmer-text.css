@@ -1,0 +1,61 @@
+.st-shimmer-text {
+  color: var(--st-color-fg-muted);
+}
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  .st-shimmer-text[data-active] {
+    background-image: linear-gradient(
+      90deg,
+      var(--st-color-fg-muted) 0%,
+      var(--st-color-fg-muted) 40%,
+      var(--st-color-fg-default) 50%,
+      var(--st-color-fg-muted) 60%,
+      var(--st-color-fg-muted) 100%
+    );
+    background-size: 250% 100%;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: st-shimmer-text-sweep var(--st-duration-shimmer, 1600ms)
+      var(--st-easing-linear, linear) infinite;
+  }
+}
+/* The sweep follows the reading direction. */
+.st-shimmer-text[data-active]:dir(rtl) {
+  animation-direction: reverse;
+}
+@keyframes st-shimmer-text-sweep {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .st-shimmer-text[data-active] {
+    animation: none !important;
+    background-image: none;
+    color: var(--st-color-fg-muted);
+    -webkit-text-fill-color: currentColor;
+  }
+}
+[data-theme='high-contrast'] .st-shimmer-text {
+  color: var(--st-color-fg-default);
+}
+[data-theme='high-contrast'] .st-shimmer-text[data-active] {
+  animation: none;
+  background-image: none;
+  -webkit-text-fill-color: currentColor;
+}
+@media (forced-colors: active) {
+  .st-shimmer-text,
+  .st-shimmer-text[data-active] {
+    animation: none;
+    background-image: none;
+    color: CanvasText;
+    -webkit-text-fill-color: currentColor;
+    forced-color-adjust: auto;
+  }
+}

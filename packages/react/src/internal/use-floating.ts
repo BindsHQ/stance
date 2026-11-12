@@ -7,12 +7,15 @@ import {
   type PositionResult,
   type Side,
 } from './position.js';
+import { isRtl } from './direction.js';
 import { useIsomorphicLayoutEffect } from './use-isomorphic-layout-effect.js';
 
 export interface FloatingOptions extends Partial<PositionOptions> {
   open: boolean;
   /** Match the floating element's min-width to the anchor (selects, comboboxes). */
   matchAnchorWidth?: boolean;
+  /** Treat `left` and `right` as inline start and end, swapping them in RTL (submenus). */
+  mirrorSideInRtl?: boolean;
 }
 
 export interface FloatingPositioningProps {
@@ -42,6 +45,7 @@ export function useFloating(
     collisionPadding = 8,
     avoidCollisions = true,
     matchAnchorWidth = false,
+    mirrorSideInRtl = false,
   } = options;
   const [result, setResult] = React.useState<PositionResult | null>(null);
 
@@ -52,11 +56,18 @@ export function useFloating(
     const a = anchor.getBoundingClientRect();
     if (matchAnchorWidth) floating.style.minWidth = `${a.width}px`;
     const f = floating.getBoundingClientRect();
+    const rtl = isRtl(anchor);
+    const flipped: Side =
+      rtl && mirrorSideInRtl && side === 'left'
+        ? 'right'
+        : rtl && mirrorSideInRtl && side === 'right'
+          ? 'left'
+          : side;
     const next = computePosition(
       { x: a.left, y: a.top, width: a.width, height: a.height },
       { width: f.width, height: f.height },
       { width: window.innerWidth, height: window.innerHeight },
-      { side, align, sideOffset, alignOffset, collisionPadding, avoidCollisions },
+      { side: flipped, align, sideOffset, alignOffset, collisionPadding, avoidCollisions, rtl },
     );
     setResult((prev) =>
       prev &&
@@ -77,6 +88,7 @@ export function useFloating(
     collisionPadding,
     avoidCollisions,
     matchAnchorWidth,
+    mirrorSideInRtl,
   ]);
 
   useIsomorphicLayoutEffect(() => {
@@ -114,6 +126,7 @@ export function useFloating(
 
   const style: React.CSSProperties = {
     position: 'fixed',
+    // Physical on purpose: x and y are viewport coordinates computed in JS.
     left: 0,
     top: 0,
     transform: result

@@ -116,6 +116,34 @@
         "unit": "ms"
       }
     },
+    "duration.slower": {
+      "type": "duration",
+      "value": {
+        "value": 480,
+        "unit": "ms"
+      }
+    },
+    "duration.stream": {
+      "type": "duration",
+      "value": {
+        "value": 24,
+        "unit": "ms"
+      }
+    },
+    "duration.shimmer": {
+      "type": "duration",
+      "value": {
+        "value": 1600,
+        "unit": "ms"
+      }
+    },
+    "duration.pulse": {
+      "type": "duration",
+      "value": {
+        "value": 1200,
+        "unit": "ms"
+      }
+    },
     "easing.standard": {
       "type": "cubicBezier",
       "value": [
@@ -138,6 +166,15 @@
       "type": "cubicBezier",
       "value": [
         0.4,
+        0,
+        1,
+        1
+      ]
+    },
+    "easing.linear": {
+      "type": "cubicBezier",
+      "value": [
+        0,
         0,
         1,
         1

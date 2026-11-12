@@ -27,7 +27,8 @@
   --_size: 2.75rem;
 }
 .st-fab[data-extended] {
-  padding: 0 var(--st-space-5) 0 var(--st-space-4);
+  padding-block: 0;
+  padding-inline: var(--st-space-4) var(--st-space-5);
 }
 .st-fab:hover {
   background: var(--st-color-accent-bg-hover);
@@ -53,15 +54,17 @@
   width: 1.375rem;
   height: 1.375rem;
 }
+/* left and right follow the reading direction. Safe area insets are physical, so take the larger. */
 .st-fab[data-position='bottom-right'] {
-  right: max(var(--st-space-6), env(safe-area-inset-right));
+  inset-inline-end: max(var(--st-space-6), env(safe-area-inset-right), env(safe-area-inset-left));
   bottom: max(var(--st-space-6), env(safe-area-inset-bottom));
 }
 .st-fab[data-position='bottom-left'] {
-  left: max(var(--st-space-6), env(safe-area-inset-left));
+  inset-inline-start: max(var(--st-space-6), env(safe-area-inset-left), env(safe-area-inset-right));
   bottom: max(var(--st-space-6), env(safe-area-inset-bottom));
 }
 .st-fab[data-position='bottom-center'] {
+  /* Physical centring with the translateX below, the same in both directions. */
   left: 50%;
   bottom: max(var(--st-space-6), env(safe-area-inset-bottom));
   transform: translateX(-50%);

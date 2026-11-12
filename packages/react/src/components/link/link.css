@@ -38,8 +38,11 @@
 }
 .st-link__external {
   display: inline-block;
-  margin-left: 0.15em;
+  margin-inline-start: 0.15em;
   vertical-align: -0.1em;
+}
+:dir(rtl) > .st-link__external {
+  transform: scaleX(-1);
 }
 [data-theme='high-contrast'] .st-link {
   text-decoration-thickness: 2px;

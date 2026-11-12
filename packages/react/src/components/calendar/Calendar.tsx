@@ -1,6 +1,7 @@
 'use client';
 import * as React from 'react';
 import { cx } from '../../internal/cx.js';
+import { isRtl } from '../../internal/direction.js';
 import {
   addDays,
   addMonths,
@@ -229,9 +230,11 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
     };
 
     const onKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>, day: Date) => {
+      // The grid is mirrored in RTL, so the next day sits to the left.
+      const inline = isRtl(event.currentTarget) ? -1 : 1;
       const map: Record<string, () => Date> = {
-        ArrowLeft: () => addDays(day, -1),
-        ArrowRight: () => addDays(day, 1),
+        ArrowLeft: () => addDays(day, -inline),
+        ArrowRight: () => addDays(day, inline),
         ArrowUp: () => addDays(day, -7),
         ArrowDown: () => addDays(day, 7),
         Home: () => startOfWeek(day, weekStartsOn),

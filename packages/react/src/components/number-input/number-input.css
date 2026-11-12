@@ -1,5 +1,5 @@
 .st-number-input {
-  padding-right: 0;
+  padding-inline-end: 0;
 }
 .st-number-input__control {
   font-variant-numeric: tabular-nums;
@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: column;
   align-self: stretch;
-  border-left: var(--st-border-width) solid var(--st-color-border-default);
+  border-inline-start: var(--st-border-width) solid var(--st-color-border-default);
 }
 .st-number-input__step {
   display: inline-flex;
@@ -27,10 +27,10 @@
   border-top: var(--st-border-width) solid var(--st-color-border-default);
 }
 .st-number-input__step:first-child {
-  border-top-right-radius: calc(var(--st-radius-md) - 1px);
+  border-start-end-radius: calc(var(--st-radius-md) - 1px);
 }
 .st-number-input__step:last-child {
-  border-bottom-right-radius: calc(var(--st-radius-md) - 1px);
+  border-end-end-radius: calc(var(--st-radius-md) - 1px);
 }
 .st-number-input__step:hover:not(:disabled) {
   background: var(--st-color-interactive-hover);

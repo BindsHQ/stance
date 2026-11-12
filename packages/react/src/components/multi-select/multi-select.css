@@ -19,7 +19,8 @@
   gap: 2px;
   max-width: 12rem;
   height: 1.5rem;
-  padding: 0 2px 0 var(--st-space-2);
+  padding-block: 0;
+  padding-inline: var(--st-space-2) 2px;
   border-radius: var(--st-radius-sm);
   background: var(--st-color-bg-muted);
   color: var(--st-color-fg-default);
@@ -56,7 +57,7 @@
   color: var(--st-color-fg-default);
 }
 .st-multi-select__clear {
-  margin-left: auto;
+  margin-inline-start: auto;
 }
 .st-multi-select__control,
 .st-multi-select__search {
@@ -68,7 +69,7 @@
   background: transparent;
   color: inherit;
   font: inherit;
-  text-align: left;
+  text-align: start;
   outline: none;
   cursor: pointer;
 }
@@ -90,13 +91,13 @@
   font-size: var(--st-font-size-xs);
 }
 .st-multi-select .st-select__chevron {
-  margin-left: 0;
+  margin-inline-start: 0;
 }
 .st-multi-select__clear + .st-select__chevron {
-  margin-left: 0;
+  margin-inline-start: 0;
 }
 .st-multi-select:not(:has(.st-multi-select__clear)) .st-select__chevron {
-  margin-left: auto;
+  margin-inline-start: auto;
 }
 @media (forced-colors: active) {
   .st-multi-select__tag {

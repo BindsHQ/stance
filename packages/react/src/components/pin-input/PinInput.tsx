@@ -1,6 +1,7 @@
 'use client';
 import * as React from 'react';
 import { cx } from '../../internal/cx.js';
+import { logicalKey } from '../../internal/direction.js';
 import { useControllableState } from '../../internal/use-controllable-state.js';
 import { useFormField, useFormFieldControl } from '../form-field/FormField.js';
 
@@ -122,14 +123,15 @@ export const PinInput = React.forwardRef<HTMLDivElement, PinInputProps>(function
       update(next, Math.min(next.length, length - 1));
       return;
     }
-    // Cells fill from the left: typing into a later empty cell appends.
+    // Cells fill from the start: typing into a later empty cell appends.
     const at = Math.min(index, value.length);
     const next = value.slice(0, at) + typed + value.slice(at + 1);
     update(next, at + 1);
   };
 
   const onCellKeyDown = (index: number, event: React.KeyboardEvent<HTMLInputElement>) => {
-    switch (event.key) {
+    // Cells follow the inline direction, so horizontal arrows swap in RTL.
+    switch (logicalKey(event.key, event.currentTarget)) {
       case 'Backspace':
         event.preventDefault();
         if (readOnly) return;

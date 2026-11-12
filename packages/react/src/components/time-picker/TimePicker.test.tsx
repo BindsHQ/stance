@@ -107,3 +107,19 @@ describe('TimePicker', () => {
     await expectNoA11yViolations(container);
   });
 });
+
+describe('TimePicker in RTL', () => {
+  it('moves to the next segment with ArrowLeft and back with ArrowRight', async () => {
+    render(
+      <div dir="rtl">
+        <TimePicker aria-label="Start" hourCycle={24} defaultValue="09:30" />
+      </div>,
+    );
+    const user = userEvent.setup();
+    screen.getByRole('spinbutton', { name: 'Hours' }).focus();
+    await user.keyboard('{ArrowLeft}');
+    expect(screen.getByRole('spinbutton', { name: 'Minutes' })).toHaveFocus();
+    await user.keyboard('{ArrowRight}');
+    expect(screen.getByRole('spinbutton', { name: 'Hours' })).toHaveFocus();
+  });
+});

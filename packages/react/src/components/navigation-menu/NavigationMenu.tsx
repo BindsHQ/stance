@@ -3,6 +3,7 @@ import * as React from 'react';
 import { composeHandlers } from '../../internal/compose-handlers.js';
 import { createStrictContext } from '../../internal/context.js';
 import { cx } from '../../internal/cx.js';
+import { isRtl } from '../../internal/direction.js';
 import { useComposedRefs } from '../../internal/refs.js';
 import { Slot } from '../../internal/slot.js';
 import { useControllableState } from '../../internal/use-controllable-state.js';
@@ -136,8 +137,9 @@ export const NavigationMenu = React.forwardRef<HTMLElement, NavigationMenuProps>
         return;
       }
       const target = e.target as HTMLElement;
-      const prev = orientation === 'horizontal' ? 'ArrowLeft' : 'ArrowUp';
-      const next = orientation === 'horizontal' ? 'ArrowRight' : 'ArrowDown';
+      const rtl = isRtl(root);
+      const prev = orientation === 'horizontal' ? (rtl ? 'ArrowRight' : 'ArrowLeft') : 'ArrowUp';
+      const next = orientation === 'horizontal' ? (rtl ? 'ArrowLeft' : 'ArrowRight') : 'ArrowDown';
       // Arrow keys move between top-level entries.
       if (target.hasAttribute('data-nav-top') && [prev, next, 'Home', 'End'].includes(e.key)) {
         const tops = Array.from(root.querySelectorAll<HTMLElement>('[data-nav-top]')).filter(
@@ -273,7 +275,12 @@ export const NavigationMenuTrigger = React.forwardRef<
         nav.setValue(open ? null : item.value);
       })}
       onKeyDown={composeHandlers(onKeyDown, (e: React.KeyboardEvent) => {
-        const openKey = nav.orientation === 'horizontal' ? 'ArrowDown' : 'ArrowRight';
+        const openKey =
+          nav.orientation === 'horizontal'
+            ? 'ArrowDown'
+            : isRtl(e.currentTarget)
+              ? 'ArrowLeft'
+              : 'ArrowRight';
         if (e.key === openKey) {
           e.preventDefault();
           nav.setValue(item.value);

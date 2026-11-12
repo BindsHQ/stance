@@ -1,0 +1,8 @@
+/* Uses the shared prompt-listbox styles (prompt-listbox.css). */
+.st-slash-command-menu {
+  inline-size: min(22rem, calc(100vw - 1rem));
+}
+.st-slash-command-menu .st-prompt-listbox__label::before {
+  content: '/';
+  color: var(--st-color-fg-subtle);
+}

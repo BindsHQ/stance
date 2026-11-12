@@ -1,6 +1,7 @@
 'use client';
 import * as React from 'react';
 import { cx } from '../../internal/cx.js';
+import { isRtl, logicalKey } from '../../internal/direction.js';
 import { useComposedRefs } from '../../internal/refs.js';
 import { useControllableState } from '../../internal/use-controllable-state.js';
 import { useVirtual } from '../../internal/virtual.js';
@@ -209,7 +210,8 @@ function DataGridInner<T>(
     const { key, ctrlKey, metaKey } = event;
     const mod = ctrlKey || metaKey;
     let next: Pos | null;
-    switch (key) {
+    // Columns are laid out along the inline axis, so horizontal arrows swap in RTL.
+    switch (logicalKey(key, event.currentTarget)) {
       case 'ArrowRight':
         next = { row: p.row, col: p.col + 1 };
         break;
@@ -262,7 +264,7 @@ function DataGridInner<T>(
   const onHandleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>, colIndex: number) => {
     const step = event.shiftKey ? 50 : 10;
     const col = columns[colIndex]!;
-    switch (event.key) {
+    switch (logicalKey(event.key, event.currentTarget)) {
       case 'ArrowRight':
         resizeBy(colIndex, step);
         break;
@@ -289,7 +291,9 @@ function DataGridInner<T>(
     event.stopPropagation();
   };
 
-  const drag = React.useRef<{ col: number; startX: number; startW: number } | null>(null);
+  const drag = React.useRef<{ col: number; startX: number; startW: number; sign: 1 | -1 } | null>(
+    null,
+  );
 
   const renderCellContent = (row: T, rowIndex: number, col: DataGridColumn<T>) =>
     col.cell ? col.cell(row, rowIndex) : String(rawValue(row, col) ?? '');
@@ -356,13 +360,19 @@ function DataGridInner<T>(
                         if (e.button !== 0) return;
                         e.preventDefault();
                         e.stopPropagation();
-                        drag.current = { col: c, startX: e.clientX, startW: widthOf(col) };
+                        drag.current = {
+                          col: c,
+                          startX: e.clientX,
+                          startW: widthOf(col),
+                          // The handle sits on the inline end edge, which is the left in RTL.
+                          sign: isRtl(e.currentTarget) ? -1 : 1,
+                        };
                         e.currentTarget.setPointerCapture?.(e.pointerId);
                       }}
                       onPointerMove={(e) => {
                         const d = drag.current;
                         if (!d) return;
-                        resizeBy(d.col, 0, d.startW + (e.clientX - d.startX));
+                        resizeBy(d.col, 0, d.startW + d.sign * (e.clientX - d.startX));
                       }}
                       onPointerUp={(e) => {
                         drag.current = null;

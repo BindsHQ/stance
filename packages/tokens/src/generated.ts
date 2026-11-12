@@ -173,12 +173,17 @@ export const duration = {
   fast: '120ms',
   normal: '200ms',
   slow: '320ms',
+  slower: '480ms',
+  stream: '24ms',
+  shimmer: '1600ms',
+  pulse: '1200ms',
 } as const;
 
 export const easing = {
   standard: 'cubic-bezier(0.2, 0, 0, 1)',
   emphasized: 'cubic-bezier(0.16, 1, 0.3, 1)',
   exit: 'cubic-bezier(0.4, 0, 1, 1)',
+  linear: 'cubic-bezier(0, 0, 1, 1)',
 } as const;
 
 /** Semantic colour roles. Components only reference these, never primitives. */

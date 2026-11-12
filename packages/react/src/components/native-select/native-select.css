@@ -8,7 +8,8 @@
   min-width: 0;
   height: calc(var(--_h) - 2px);
   margin: 0;
-  padding: 0 calc(var(--_px) + 1.25rem) 0 var(--_px);
+  padding-block: 0;
+  padding-inline: var(--_px) calc(var(--_px) + 1.25rem);
   border: 0;
   border-radius: inherit;
   background: transparent;
@@ -28,7 +29,7 @@
 }
 .st-native-select__icon {
   position: absolute;
-  right: var(--_px);
+  inset-inline-end: var(--_px);
   color: var(--st-color-fg-muted);
   pointer-events: none;
 }

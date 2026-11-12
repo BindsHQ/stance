@@ -19,6 +19,7 @@ export type ComponentCategory =
   | 'overlays'
   | 'media'
   | 'advanced'
+  | 'ai'
   | 'theming';
 
 export interface PropDoc {

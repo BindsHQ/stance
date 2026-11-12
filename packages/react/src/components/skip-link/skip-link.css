@@ -1,7 +1,7 @@
 .st-skip-link {
   position: fixed;
   top: var(--st-space-3);
-  left: var(--st-space-3);
+  inset-inline-start: var(--st-space-3);
   z-index: var(--st-z-tooltip);
   padding: var(--st-space-3) var(--st-space-4);
   border-radius: var(--st-radius-md);

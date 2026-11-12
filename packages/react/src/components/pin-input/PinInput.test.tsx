@@ -158,3 +158,19 @@ describe('PinInput', () => {
     await expectNoA11yViolations(container);
   });
 });
+
+describe('PinInput in RTL', () => {
+  it('swaps the horizontal arrow keys', async () => {
+    render(
+      <div dir="rtl">
+        <PinInput aria-label="Code" length={4} defaultValue="12" />
+      </div>,
+    );
+    const user = userEvent.setup();
+    await user.click(cells()[0]!);
+    await user.keyboard('{ArrowLeft}');
+    expect(cells()[1]).toHaveFocus();
+    await user.keyboard('{ArrowRight}');
+    expect(cells()[0]).toHaveFocus();
+  });
+});

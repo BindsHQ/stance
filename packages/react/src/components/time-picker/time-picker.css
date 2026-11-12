@@ -28,7 +28,7 @@
   user-select: none;
 }
 .st-time-picker__segment[data-segment='period'] {
-  margin-left: var(--st-space-1);
+  margin-inline-start: var(--st-space-1);
   min-width: 2em;
 }
 .st-time-picker__segment[data-placeholder] {

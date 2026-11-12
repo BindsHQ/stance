@@ -1,6 +1,7 @@
 'use client';
 import * as React from 'react';
 import { cx } from '../../internal/cx.js';
+import { logicalKey } from '../../internal/direction.js';
 import { useControllableState } from '../../internal/use-controllable-state.js';
 import { Icon } from '../../icons/Icon.js';
 
@@ -169,7 +170,8 @@ export const TreeView = React.forwardRef<HTMLUListElement, TreeViewProps>(functi
     const hasChildren = !!node.item.children?.length;
     const isOpen = expandedSet.has(node.item.id);
     let handled = true;
-    switch (event.key) {
+    // In RTL the tree is mirrored: ArrowLeft expands and ArrowRight collapses.
+    switch (logicalKey(event.key, event.currentTarget)) {
       case 'ArrowDown': {
         const next = enabledFrom(index + 1, 1);
         focusItem(next?.item.id);

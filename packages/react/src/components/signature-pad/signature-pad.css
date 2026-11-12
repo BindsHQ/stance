@@ -31,15 +31,14 @@
 }
 .st-signature-pad__baseline {
   position: absolute;
-  left: var(--st-space-6);
-  right: var(--st-space-6);
+  inset-inline: var(--st-space-6);
   bottom: 28%;
   border-bottom: 1px dashed var(--st-color-border-strong);
   pointer-events: none;
 }
 .st-signature-pad__hint {
   position: absolute;
-  left: var(--st-space-6);
+  inset-inline-start: var(--st-space-6);
   bottom: calc(28% + var(--st-space-2));
   display: inline-flex;
   align-items: center;

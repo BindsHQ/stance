@@ -1,0 +1,86 @@
+.st-thinking-indicator {
+  --_dot: 0.3125rem;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--st-space-2);
+  min-block-size: 1.5rem;
+  color: var(--st-color-fg-muted);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-sm);
+  line-height: var(--st-line-height-snug);
+}
+.st-thinking-indicator[data-size='sm'] {
+  --_dot: 0.25rem;
+  gap: var(--st-space-1-5);
+  font-size: var(--st-font-size-xs);
+}
+.st-thinking-indicator__mark {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: calc(var(--_dot) * 0.6);
+  color: var(--st-color-fg-default);
+}
+.st-thinking-indicator__dot {
+  inline-size: var(--_dot);
+  block-size: var(--_dot);
+  border-radius: var(--st-radius-full);
+  background: currentColor;
+  animation: st-thinking-indicator-dot var(--st-duration-pulse, 1200ms) var(--st-easing-standard)
+    infinite;
+}
+.st-thinking-indicator__dot:nth-child(2) {
+  animation-delay: calc(var(--st-duration-pulse, 1200ms) / 6);
+}
+.st-thinking-indicator__dot:nth-child(3) {
+  animation-delay: calc(var(--st-duration-pulse, 1200ms) / 3);
+}
+.st-thinking-indicator[data-variant='pulse'] .st-thinking-indicator__mark {
+  animation: st-thinking-indicator-pulse var(--st-duration-pulse, 1200ms) var(--st-easing-standard)
+    infinite;
+}
+.st-thinking-indicator__elapsed {
+  color: var(--st-color-fg-subtle);
+  font-variant-numeric: tabular-nums;
+}
+@keyframes st-thinking-indicator-dot {
+  0%,
+  60%,
+  100% {
+    opacity: 0.3;
+    transform: none;
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-0.125rem);
+  }
+}
+@keyframes st-thinking-indicator-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.88);
+  }
+}
+/* Reduced motion: a static mark beside the label. */
+@media (prefers-reduced-motion: reduce) {
+  .st-thinking-indicator__dot,
+  .st-thinking-indicator[data-variant='pulse'] .st-thinking-indicator__mark {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+}
+[data-theme='high-contrast'] .st-thinking-indicator,
+[data-theme='high-contrast'] .st-thinking-indicator__elapsed {
+  color: var(--st-color-fg-default);
+}
+@media (forced-colors: active) {
+  .st-thinking-indicator__dot {
+    background: CanvasText;
+  }
+}

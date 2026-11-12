@@ -32,7 +32,7 @@
   cursor: pointer;
 }
 .st-filter-chip[data-active] .st-filter-chip__trigger {
-  padding-right: var(--st-space-2);
+  padding-inline-end: var(--st-space-2);
 }
 .st-filter-chip__trigger:hover {
   background: var(--st-color-interactive-hover);
@@ -79,8 +79,10 @@
   width: 1.75rem;
   padding: 0;
   border: 0;
-  border-left: var(--st-border-width) solid var(--st-color-border-default);
-  border-radius: 0 var(--st-radius-full) var(--st-radius-full) 0;
+  border-inline-start: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: 0;
+  border-start-end-radius: var(--st-radius-full);
+  border-end-end-radius: var(--st-radius-full);
   background: transparent;
   color: var(--st-color-fg-muted);
   cursor: pointer;

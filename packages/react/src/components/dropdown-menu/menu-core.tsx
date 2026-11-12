@@ -9,6 +9,7 @@ import * as React from 'react';
 import { cx } from '../../internal/cx.js';
 import { useDismissableLayer } from '../../internal/layer-stack.js';
 import { Portal } from '../../internal/portal.js';
+import { logicalKey } from '../../internal/direction.js';
 import type { Align, Side } from '../../internal/position.js';
 import { useComposedRefs } from '../../internal/refs.js';
 import { useControllableState } from '../../internal/use-controllable-state.js';
@@ -166,6 +167,8 @@ export const MenuContent = React.forwardRef<HTMLDivElement, MenuContentInternalP
       side,
       align,
       sideOffset,
+      // Submenus open towards the inline end, which is the left in RTL.
+      mirrorSideInRtl: isSub,
       ...(alignOffset !== undefined && { alignOffset }),
       ...(collisionPadding !== undefined && { collisionPadding }),
     });
@@ -220,7 +223,8 @@ export const MenuContent = React.forwardRef<HTMLDivElement, MenuContentInternalP
       const items = getItems(container);
       const index = items.indexOf(document.activeElement as HTMLElement);
       const focusAt = (i: number) => items[i]?.focus({ preventScroll: true });
-      switch (event.key) {
+      // In RTL submenus open towards the left, so the horizontal arrows swap roles.
+      switch (logicalKey(event.key, container)) {
         case 'ArrowDown':
           event.preventDefault();
           focusAt(index < 0 ? 0 : index + 1 >= items.length ? (loop ? 0 : index) : index + 1);
@@ -697,7 +701,7 @@ export const MenuSubTrigger = React.forwardRef<
         }}
         onKeyDown={(e) => {
           onKeyDown?.(e);
-          if (e.key === 'ArrowRight' && !disabled) {
+          if (logicalKey(e.key, e.currentTarget) === 'ArrowRight' && !disabled) {
             e.preventDefault();
             e.stopPropagation();
             sub.focusIntentRef.current = 'first';

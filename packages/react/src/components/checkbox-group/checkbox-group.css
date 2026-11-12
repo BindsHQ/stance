@@ -10,6 +10,7 @@
   font-family: var(--st-font-sans);
 }
 .st-choice-group__legend {
+  /* Physical is fine: the legend spans the full width, so the float side never shows. */
   float: left;
   width: 100%;
   margin-bottom: var(--st-space-1);

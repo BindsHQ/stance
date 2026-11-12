@@ -1,0 +1,153 @@
+.st-attachment-tray {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--st-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-sm);
+  color: var(--st-color-fg-default);
+  outline: none;
+}
+.st-attachment-tray:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+  border-radius: var(--st-radius-md);
+}
+.st-attachment-tray__item {
+  display: flex;
+  align-items: center;
+  gap: var(--st-space-2);
+  min-inline-size: 0;
+  max-inline-size: min(100%, 16rem);
+  padding-block: var(--st-space-1);
+  padding-inline: var(--st-space-1) var(--st-space-2);
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-lg);
+  background: var(--st-color-bg-subtle);
+  text-align: start;
+}
+.st-attachment-tray__item[data-state='error'] {
+  border-color: var(--st-color-danger-border);
+  background: var(--st-color-danger-bg);
+}
+.st-attachment-tray__visual {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  overflow: hidden;
+  border-radius: var(--st-radius-md);
+  background: var(--st-color-bg-muted);
+  color: var(--st-color-fg-muted);
+}
+.st-attachment-tray__item[data-state='error'] .st-attachment-tray__visual {
+  background: transparent;
+  color: var(--st-color-danger-fg);
+}
+.st-attachment-tray__thumbnail {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+.st-attachment-tray__body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--st-space-0-5);
+  min-inline-size: 0;
+}
+.st-attachment-tray__name {
+  overflow: hidden;
+  font-weight: var(--st-font-weight-medium);
+  line-height: var(--st-line-height-snug);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.st-attachment-tray__meta {
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-xs);
+  line-height: var(--st-line-height-snug);
+}
+.st-attachment-tray__error {
+  color: var(--st-color-danger-fg);
+  font-size: var(--st-font-size-xs);
+  font-weight: var(--st-font-weight-medium);
+  line-height: var(--st-line-height-snug);
+}
+.st-attachment-tray__progress {
+  display: block;
+  inline-size: 100%;
+  min-inline-size: 4rem;
+  block-size: 0.25rem;
+  margin-block: var(--st-space-1);
+  overflow: hidden;
+  border-radius: var(--st-radius-full);
+  background: var(--st-color-bg-emphasis);
+}
+.st-attachment-tray__progress-bar {
+  display: block;
+  block-size: 100%;
+  border-radius: inherit;
+  background: var(--st-color-accent-bg);
+  transition: inline-size var(--st-duration-normal) var(--st-easing-standard);
+}
+.st-attachment-tray__remove {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--st-radius-full);
+  background: transparent;
+  color: var(--st-color-fg-muted);
+  cursor: pointer;
+}
+.st-attachment-tray__remove:hover {
+  background: var(--st-color-interactive-hover);
+  color: var(--st-color-fg-default);
+}
+.st-attachment-tray__remove:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: 1px;
+}
+@media (pointer: coarse) {
+  .st-attachment-tray__remove {
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .st-attachment-tray__progress-bar {
+    transition: none;
+  }
+}
+[data-theme='high-contrast'] .st-attachment-tray__item {
+  border-color: var(--st-color-border-strong);
+}
+@media (forced-colors: active) {
+  .st-attachment-tray__item {
+    border-color: CanvasText;
+  }
+  .st-attachment-tray__item[data-state='error'] {
+    border-style: dashed;
+  }
+  .st-attachment-tray__progress {
+    border: 1px solid CanvasText;
+    background: Canvas;
+  }
+  .st-attachment-tray__progress-bar {
+    background: Highlight;
+  }
+  .st-attachment-tray__remove {
+    border: 1px solid ButtonText;
+  }
+}

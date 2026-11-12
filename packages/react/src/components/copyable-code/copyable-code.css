@@ -3,7 +3,8 @@
   align-items: center;
   gap: var(--st-space-2);
   max-width: 100%;
-  padding: var(--st-space-1) var(--st-space-1) var(--st-space-1) var(--st-space-3);
+  padding-block: var(--st-space-1);
+  padding-inline: var(--st-space-3) var(--st-space-1);
   border: var(--st-border-width) solid var(--st-color-border-default);
   border-radius: var(--st-radius-md);
   background: var(--st-color-bg-subtle);

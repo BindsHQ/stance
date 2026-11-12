@@ -7,8 +7,7 @@
 }
 .st-tab-bar[data-position='bottom'] {
   position: fixed;
-  left: 0;
-  right: 0;
+  inset-inline: 0;
   bottom: 0;
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
@@ -68,8 +67,7 @@
   content: '';
   position: absolute;
   top: 0;
-  left: 30%;
-  right: 30%;
+  inset-inline: 30%;
   height: 2px;
   border-radius: 0 0 2px 2px;
   background: var(--st-color-fg-default);
@@ -95,7 +93,7 @@
 .st-tab-bar__badge {
   position: absolute;
   top: -4px;
-  left: calc(100% - 6px);
+  inset-inline-start: calc(100% - 6px);
   min-width: 1rem;
   height: 1rem;
   padding: 0 4px;

@@ -15,7 +15,8 @@
   align-items: center;
   gap: var(--st-space-2);
   min-height: var(--st-size-control-lg);
-  padding: var(--st-space-2) var(--st-space-3) var(--st-space-2) var(--st-space-1);
+  padding-block: var(--st-space-2);
+  padding-inline: var(--st-space-1) var(--st-space-3);
   border: var(--st-border-width) solid var(--st-color-border-default);
   border-radius: var(--st-radius-lg);
   background: var(--st-color-bg-surface);

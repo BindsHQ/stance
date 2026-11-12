@@ -38,7 +38,7 @@
   font-size: var(--st-font-size-md);
   font-weight: var(--st-font-weight-semibold);
   letter-spacing: var(--st-letter-spacing-tight);
-  text-align: left;
+  text-align: start;
   cursor: pointer;
   border-radius: var(--st-radius-sm);
 }

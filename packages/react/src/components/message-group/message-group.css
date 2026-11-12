@@ -1,0 +1,45 @@
+.st-message-group {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--st-space-3);
+  min-inline-size: 0;
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-sm);
+}
+.st-message-group[data-role='user'] {
+  flex-direction: row-reverse;
+}
+.st-message-group[data-role='system'] {
+  justify-content: center;
+}
+.st-message-group__avatar {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+.st-message-group__main {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--st-space-1);
+  min-inline-size: 0;
+}
+.st-message-group[data-role='user'] .st-message-group__main {
+  align-items: flex-end;
+}
+.st-message-group[data-role='system'] .st-message-group__main {
+  align-items: center;
+}
+.st-message-group__author {
+  color: var(--st-color-fg-default);
+  font-size: var(--st-font-size-xs);
+  font-weight: var(--st-font-weight-semibold);
+  line-height: var(--st-line-height-snug);
+}
+.st-message-group__messages {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-1-5);
+  inline-size: 100%;
+  min-inline-size: 0;
+}

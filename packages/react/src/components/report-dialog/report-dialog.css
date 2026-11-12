@@ -1,0 +1,24 @@
+.st-report-dialog__form {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-block-size: 0;
+  margin: 0;
+}
+.st-report-dialog__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-5);
+}
+.st-report-dialog__details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-1-5);
+}
+.st-report-dialog__label {
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-sm);
+  font-weight: var(--st-font-weight-medium);
+  text-align: start;
+}

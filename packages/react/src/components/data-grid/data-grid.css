@@ -33,7 +33,7 @@
 .st-data-grid__body > .st-data-grid__row {
   position: absolute;
   top: 0;
-  left: 0;
+  inset-inline-start: 0;
 }
 .st-data-grid__body > .st-data-grid__row:hover > .st-data-grid__cell {
   background-color: var(--st-color-interactive-hover);
@@ -46,7 +46,7 @@
   height: var(--_row-h);
   padding: 0 var(--st-space-3);
   border-bottom: var(--st-border-width) solid var(--st-color-border-subtle);
-  border-right: var(--st-border-width) solid var(--st-color-border-subtle);
+  border-inline-end: var(--st-border-width) solid var(--st-color-border-subtle);
   background: var(--st-color-bg-surface);
   scroll-margin-top: var(--_head-h);
   outline: none;
@@ -101,9 +101,9 @@
 /* Pinned first column */
 .st-data-grid[data-pinned] .st-data-grid__cell[data-pinned] {
   position: sticky;
-  left: 0;
+  inset-inline-start: 0;
   z-index: 1;
-  border-right-color: var(--st-color-border-strong);
+  border-inline-end-color: var(--st-color-border-strong);
 }
 .st-data-grid[data-pinned] .st-data-grid__header-cell[data-pinned] {
   z-index: 3;
@@ -112,7 +112,7 @@
 .st-data-grid__resize {
   position: absolute;
   top: 0;
-  right: -4px;
+  inset-inline-end: -4px;
   bottom: 0;
   z-index: 2;
   width: 8px;
@@ -125,7 +125,7 @@
   position: absolute;
   top: 25%;
   bottom: 25%;
-  left: 3px;
+  inset-inline-start: 3px;
   width: 2px;
   border-radius: 1px;
   background: transparent;

@@ -66,18 +66,19 @@
   font-weight: var(--st-font-weight-semibold);
 }
 .st-rich-text :where(ul, ol) {
-  padding-left: 1.4em;
+  padding-inline-start: 1.4em;
 }
 .st-rich-text :where(li) {
   margin: 0.35em 0;
-  padding-left: 0.2em;
+  padding-inline-start: 0.2em;
 }
 .st-rich-text :where(li)::marker {
   color: var(--st-color-fg-subtle);
 }
 .st-rich-text :where(blockquote) {
-  padding: 0.1em 0 0.1em 1.1em;
-  border-left: 2px solid var(--st-color-border-strong);
+  padding-block: 0.1em;
+  padding-inline: 1.1em 0;
+  border-inline-start: 2px solid var(--st-color-border-strong);
   color: var(--st-color-fg-muted);
   font-style: italic;
 }
@@ -111,7 +112,7 @@
 .st-rich-text :where(th, td) {
   padding: 0.6em 0.75em;
   border-bottom: var(--st-border-width) solid var(--st-color-border-default);
-  text-align: left;
+  text-align: start;
   vertical-align: top;
 }
 .st-rich-text :where(th) {

@@ -255,6 +255,10 @@ public enum StanceTokens {
         public static let fast: Double = 0.12
         public static let normal: Double = 0.2
         public static let slow: Double = 0.32
+        public static let slower: Double = 0.48
+        public static let stream: Double = 0.024
+        public static let shimmer: Double = 1.6
+        public static let pulse: Double = 1.2
     }
 
     /// Cubic bezier control points (x1, y1, x2, y2).
@@ -262,6 +266,7 @@ public enum StanceTokens {
         public static let standard: (Double, Double, Double, Double) = (0.2, 0, 0, 1)
         public static let emphasized: (Double, Double, Double, Double) = (0.16, 1, 0.3, 1)
         public static let exit: (Double, Double, Double, Double) = (0.4, 0, 1, 1)
+        public static let linear: (Double, Double, Double, Double) = (0, 0, 1, 1)
     }
 
     public static let fontFamilySans = "DM Sans"

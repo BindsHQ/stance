@@ -119,3 +119,31 @@ describe('Tabs', () => {
     await expectNoA11yViolations(container);
   });
 });
+
+describe('Tabs in RTL', () => {
+  it('swaps the horizontal arrow keys', async () => {
+    render(
+      <div dir="rtl">
+        <Example />
+      </div>,
+    );
+    const user = userEvent.setup();
+    screen.getByRole('tab', { name: 'Overview' }).focus();
+    await user.keyboard('{ArrowLeft}');
+    expect(screen.getByRole('tab', { name: /Assignees/ })).toHaveFocus();
+    await user.keyboard('{ArrowRight}');
+    expect(screen.getByRole('tab', { name: 'Overview' })).toHaveFocus();
+  });
+
+  it('keeps Up and Down for vertical tabs', async () => {
+    render(
+      <div dir="rtl">
+        <Example orientation="vertical" />
+      </div>,
+    );
+    const user = userEvent.setup();
+    screen.getByRole('tab', { name: 'Overview' }).focus();
+    await user.keyboard('{ArrowDown}');
+    expect(screen.getByRole('tab', { name: /Assignees/ })).toHaveFocus();
+  });
+});

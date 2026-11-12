@@ -11,13 +11,15 @@
 .st-toaster[data-position^='bottom'] {
   bottom: var(--st-space-4);
 }
+/* left and right positions follow the reading direction: left is the inline start. */
 .st-toaster[data-position$='left'] {
-  left: var(--st-space-4);
+  inset-inline-start: var(--st-space-4);
 }
 .st-toaster[data-position$='right'] {
-  right: var(--st-space-4);
+  inset-inline-end: var(--st-space-4);
 }
 .st-toaster[data-position$='center'] {
+  /* Physical centring with the translateX below, the same in both directions. */
   left: 50%;
   transform: translateX(-50%);
 }
@@ -39,7 +41,8 @@
   display: flex;
   align-items: flex-start;
   gap: var(--st-space-3);
-  padding: var(--st-space-3) var(--st-space-3) var(--st-space-3) var(--st-space-4);
+  padding-block: var(--st-space-3);
+  padding-inline: var(--st-space-4) var(--st-space-3);
   border: var(--st-border-width) solid var(--st-color-border-default);
   border-radius: var(--st-radius-lg);
   background: var(--st-color-bg-overlay);
@@ -135,8 +138,7 @@
 @media (max-width: 640px) {
   .st-toaster,
   .st-toaster[data-position$='center'] {
-    left: var(--st-space-3);
-    right: var(--st-space-3);
+    inset-inline: var(--st-space-3);
     width: auto;
     transform: none;
   }

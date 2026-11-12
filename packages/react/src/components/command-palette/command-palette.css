@@ -1,5 +1,6 @@
 .st-dialog.st-command-palette {
   top: 15vh;
+  /* Physical centring: pairs with the dialog's left: 50%. */
   transform: translateX(-50%);
   animation: st-pop-in var(--st-duration-normal) var(--st-easing-emphasized);
   max-height: 70dvh;
@@ -40,8 +41,7 @@
   .st-dialog.st-command-palette[data-placement='center'] {
     top: var(--st-space-3);
     bottom: auto;
-    left: var(--st-space-3);
-    right: var(--st-space-3);
+    inset-inline: var(--st-space-3);
     width: auto;
     transform: none;
     border-radius: var(--st-radius-xl);

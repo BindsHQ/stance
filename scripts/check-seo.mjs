@@ -47,7 +47,8 @@ for (const file of pages) {
     descs.set(desc, [...(descs.get(desc) ?? []), route]);
   }
   if (!canonical) p('missing canonical');
-  else if (!canonical.startsWith('https://www.stanceui.com')) p(`canonical not absolute: ${canonical}`);
+  else if (!canonical.startsWith('https://www.stanceui.com'))
+    p(`canonical not absolute: ${canonical}`);
   if (!ogImage) p('missing og:image');
   else if (!existsSync(join(out, new URL(ogImage).pathname)))
     p(`og:image file missing: ${ogImage}`);

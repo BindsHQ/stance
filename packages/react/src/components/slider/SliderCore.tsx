@@ -1,6 +1,7 @@
 'use client';
 import * as React from 'react';
 import { cx } from '../../internal/cx.js';
+import { isRtl } from '../../internal/direction.js';
 import { useFormField, useFormFieldControl } from '../form-field/FormField.js';
 
 export interface SliderMark {
@@ -109,9 +110,12 @@ export const SliderCore = React.forwardRef<HTMLDivElement, CoreProps>(function S
   const percent = (v: number) => ((v - min) / (max - min || 1)) * 100;
   const valueFromPointer = (clientX: number, clientY: number) => {
     const rect = trackRef.current!.getBoundingClientRect();
+    // Horizontal sliders grow from the inline start: the left in LTR, the right in RTL.
     const ratio = vertical
       ? 1 - (clientY - rect.top) / (rect.height || 1)
-      : (clientX - rect.left) / (rect.width || 1);
+      : isRtl(trackRef.current)
+        ? (rect.right - clientX) / (rect.width || 1)
+        : (clientX - rect.left) / (rect.width || 1);
     return min + clamp(ratio, 0, 1) * (max - min);
   };
 
@@ -150,10 +154,12 @@ export const SliderCore = React.forwardRef<HTMLDivElement, CoreProps>(function S
   const onKeyDown = (index: number) => (e: React.KeyboardEvent<HTMLSpanElement>) => {
     if (disabled) return;
     const v = valuesRef.current[index]!;
+    // In RTL the maximum is on the left, so the horizontal arrows swap.
+    const inline = !vertical && isRtl(e.currentTarget) ? -step : step;
     const map: Record<string, number> = {
-      ArrowRight: v + step,
+      ArrowRight: v + inline,
       ArrowUp: v + step,
-      ArrowLeft: v - step,
+      ArrowLeft: v - inline,
       ArrowDown: v - step,
       PageUp: v + big,
       PageDown: v - big,
@@ -197,7 +203,7 @@ export const SliderCore = React.forwardRef<HTMLDivElement, CoreProps>(function S
             style={
               vertical
                 ? { bottom: `${percent(lo)}%`, top: `${100 - percent(hi)}%` }
-                : { left: `${percent(lo)}%`, right: `${100 - percent(hi)}%` }
+                : { insetInlineStart: `${percent(lo)}%`, insetInlineEnd: `${100 - percent(hi)}%` }
             }
           />
         </div>
@@ -206,7 +212,11 @@ export const SliderCore = React.forwardRef<HTMLDivElement, CoreProps>(function S
             key={m.value}
             className="st-slider__mark"
             data-in-range={m.value >= lo && m.value <= hi ? '' : undefined}
-            style={vertical ? { bottom: `${percent(m.value)}%` } : { left: `${percent(m.value)}%` }}
+            style={
+              vertical
+                ? { bottom: `${percent(m.value)}%` }
+                : { insetInlineStart: `${percent(m.value)}%` }
+            }
             aria-hidden="true"
           >
             {m.label != null && <span className="st-slider__mark-label">{m.label}</span>}
@@ -238,7 +248,7 @@ export const SliderCore = React.forwardRef<HTMLDivElement, CoreProps>(function S
             aria-invalid={isInvalid || undefined}
             data-active={active === i ? '' : undefined}
             className="st-slider__thumb"
-            style={vertical ? { bottom: `${percent(v)}%` } : { left: `${percent(v)}%` }}
+            style={vertical ? { bottom: `${percent(v)}%` } : { insetInlineStart: `${percent(v)}%` }}
             onKeyDown={onKeyDown(i)}
             onFocus={() => setActive((a) => (a === null ? i : a))}
             onBlur={() => setActive(null)}

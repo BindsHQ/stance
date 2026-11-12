@@ -1,0 +1,43 @@
+.st-branch-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--st-space-0-5);
+  color: var(--st-color-fg-muted);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-xs);
+  line-height: 1;
+}
+.st-branch-switcher > .st-button.st-branch-switcher__button {
+  --_fg: var(--st-color-fg-muted);
+}
+.st-branch-switcher > .st-button.st-branch-switcher__button:hover,
+.st-branch-switcher > .st-button.st-branch-switcher__button:focus-visible {
+  --_fg: var(--st-color-fg-default);
+}
+.st-branch-switcher > .st-button.st-branch-switcher__button[aria-disabled='true'] {
+  --_fg: var(--st-color-disabled-fg);
+  --_bg-hover: transparent;
+  --_bg-active: transparent;
+  cursor: not-allowed;
+}
+.st-branch-switcher__position {
+  min-inline-size: 2.5rem;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  white-space: nowrap;
+}
+/* Previous and next point the other way in right to left text. */
+.st-branch-switcher > .st-button.st-branch-switcher__button:dir(rtl) svg {
+  transform: scaleX(-1);
+}
+@media (pointer: coarse) {
+  .st-branch-switcher > .st-button.st-branch-switcher__button {
+    --_h: 2.75rem;
+  }
+}
+@media (forced-colors: active) {
+  .st-branch-switcher > .st-button.st-branch-switcher__button[aria-disabled='true'] {
+    color: GrayText;
+    border-color: GrayText;
+  }
+}

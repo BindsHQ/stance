@@ -1,5 +1,5 @@
 .st-search-input {
-  padding-right: var(--st-space-1-5);
+  padding-inline-end: var(--st-space-1-5);
 }
 .st-search-input__clear {
   display: inline-flex;
@@ -23,7 +23,7 @@
   outline-offset: 0;
 }
 .st-search-input__shortcut {
-  margin-right: var(--st-space-1);
+  margin-inline-end: var(--st-space-1);
   padding: 0.125rem 0.375rem;
   border: var(--st-border-width) solid var(--st-color-border-default);
   border-bottom-width: 2px;

@@ -44,6 +44,10 @@
   border-radius: var(--st-radius-full);
   background: var(--st-color-bg-emphasis);
 }
+/* The fill grows from the inline start: mirror the whole track in RTL. */
+.st-progress__track:dir(rtl) {
+  transform: scaleX(-1);
+}
 .st-progress__indicator {
   width: 100%;
   height: 100%;

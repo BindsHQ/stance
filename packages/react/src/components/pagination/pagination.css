@@ -73,3 +73,9 @@
     outline: 2px solid Highlight;
   }
 }
+
+/* Previous and next chevrons point along the reading direction. */
+.st-pagination__item[data-kind='prev']:dir(rtl) > .st-icon,
+.st-pagination__item[data-kind='next']:dir(rtl) > .st-icon {
+  transform: scaleX(-1);
+}

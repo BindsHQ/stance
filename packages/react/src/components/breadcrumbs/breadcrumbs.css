@@ -85,3 +85,8 @@
     forced-color-adjust: auto;
   }
 }
+
+/* The default chevron separator points along the reading direction. */
+.st-breadcrumbs__separator:dir(rtl) > .st-icon[data-icon='chevron-right'] {
+  transform: scaleX(-1);
+}

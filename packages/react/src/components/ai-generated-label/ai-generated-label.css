@@ -1,0 +1,30 @@
+.st-ai-generated-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--st-space-1-5);
+  max-inline-size: 100%;
+  color: var(--st-color-fg-muted);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-xs);
+  font-weight: var(--st-font-weight-medium);
+  line-height: var(--st-line-height-snug);
+  vertical-align: middle;
+}
+.st-ai-generated-label[data-size='sm'] {
+  gap: var(--st-space-1);
+  font-size: var(--st-font-size-2xs);
+}
+.st-ai-generated-label__icon {
+  flex-shrink: 0;
+  color: var(--st-color-fg-default);
+}
+.st-ai-generated-label__text {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+@media (forced-colors: active) {
+  .st-ai-generated-label,
+  .st-ai-generated-label__icon {
+    color: CanvasText;
+  }
+}

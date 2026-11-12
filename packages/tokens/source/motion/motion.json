@@ -24,6 +24,30 @@
         "value": 320,
         "unit": "ms"
       }
+    },
+    "slower": {
+      "$value": {
+        "value": 480,
+        "unit": "ms"
+      }
+    },
+    "stream": {
+      "$value": {
+        "value": 24,
+        "unit": "ms"
+      }
+    },
+    "shimmer": {
+      "$value": {
+        "value": 1600,
+        "unit": "ms"
+      }
+    },
+    "pulse": {
+      "$value": {
+        "value": 1200,
+        "unit": "ms"
+      }
     }
   },
   "easing": {
@@ -36,6 +60,9 @@
     },
     "exit": {
       "$value": [0.4, 0, 1, 1]
+    },
+    "linear": {
+      "$value": [0, 0, 1, 1]
     }
   }
 }

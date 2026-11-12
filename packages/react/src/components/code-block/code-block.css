@@ -21,7 +21,8 @@
   justify-content: space-between;
   gap: var(--st-space-3);
   min-height: 2.5rem;
-  padding: var(--st-space-1) var(--st-space-2) var(--st-space-1) var(--st-space-4);
+  padding-block: var(--st-space-1);
+  padding-inline: var(--st-space-4) var(--st-space-2);
   border-bottom: var(--st-border-width) solid var(--st-color-border-default);
   font-family: var(--st-font-sans);
   font-size: var(--st-font-size-xs);
@@ -83,9 +84,9 @@
 .st-code-block__line-number {
   flex-shrink: 0;
   width: 2.5ch;
-  margin-right: var(--st-space-4);
+  margin-inline-end: var(--st-space-4);
   color: var(--st-color-fg-subtle);
-  text-align: right;
+  text-align: end;
   user-select: none;
 }
 .st-code-block [data-token='comment'] {

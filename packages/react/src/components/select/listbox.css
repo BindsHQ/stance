@@ -82,7 +82,7 @@
 }
 .st-listbox__check {
   flex-shrink: 0;
-  margin-left: auto;
+  margin-inline-start: auto;
 }
 .st-listbox__checkbox {
   display: inline-flex;

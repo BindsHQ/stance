@@ -1,0 +1,71 @@
+.st-citation-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 1.125rem;
+  block-size: 1.125rem;
+  margin-block: 0;
+  margin-inline: var(--st-space-0-5);
+  padding-block: 0;
+  padding-inline: var(--st-space-1);
+  border: var(--st-border-width) solid transparent;
+  border-radius: var(--st-radius-full);
+  background: var(--st-color-bg-muted);
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-2xs);
+  font-weight: var(--st-font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  text-decoration: none;
+  vertical-align: 0.2em;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color var(--st-duration-fast) var(--st-easing-standard),
+    color var(--st-duration-fast) var(--st-easing-standard);
+}
+/* The marker stays small in running text; the hit area grows to the minimum target size. */
+.st-citation-chip::after {
+  content: '';
+  position: absolute;
+  inset-block: min(0px, calc((100% - 1.5rem) / 2));
+  inset-inline: min(0px, calc((100% - 1.5rem) / 2));
+}
+.st-citation-chip:hover,
+.st-citation-chip[data-state='open'] {
+  background: var(--st-color-accent-bg);
+  color: var(--st-color-accent-fg);
+}
+.st-citation-chip:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}
+.st-citation-chip__preview {
+  inline-size: 18rem;
+  padding: var(--st-space-3);
+}
+[data-theme='high-contrast'] .st-citation-chip {
+  border-color: var(--st-color-border-strong);
+}
+@media (pointer: coarse) {
+  .st-citation-chip::after {
+    inset-block: min(0px, calc((100% - 2.75rem) / 2));
+    inset-inline: min(0px, calc((100% - 1.75rem) / 2));
+  }
+}
+@media (forced-colors: active) {
+  .st-citation-chip {
+    border-color: LinkText;
+    color: LinkText;
+  }
+  button.st-citation-chip {
+    border-color: ButtonText;
+    color: ButtonText;
+  }
+  .st-citation-chip:hover,
+  .st-citation-chip[data-state='open'] {
+    border-color: Highlight;
+  }
+}

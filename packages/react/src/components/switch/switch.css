@@ -42,7 +42,7 @@
 .st-switch__thumb {
   position: absolute;
   top: var(--_pad);
-  left: var(--_pad);
+  inset-inline-start: var(--_pad);
   width: calc(var(--_h) - 2 * var(--_pad) - 2 * var(--st-border-width-control));
   height: calc(var(--_h) - 2 * var(--_pad) - 2 * var(--st-border-width-control));
   border-radius: var(--st-radius-full);
@@ -57,6 +57,9 @@
 .st-switch__track[data-state='checked'] .st-switch__thumb {
   transform: translateX(calc(var(--_w) - var(--_h)));
   background: var(--st-color-accent-fg);
+}
+.st-switch__track[data-state='checked']:dir(rtl) .st-switch__thumb {
+  transform: translateX(calc(var(--_h) - var(--_w)));
 }
 .st-switch__track:focus-visible {
   outline: var(--st-focus-width) solid var(--st-color-focus-ring);

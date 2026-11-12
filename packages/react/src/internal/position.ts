@@ -17,6 +17,8 @@ export interface PositionOptions {
   collisionPadding: number;
   /** Flip to the opposite side when there is not enough room. */
   avoidCollisions: boolean;
+  /** Right to left: `start` and `end` alignment on top and bottom sides swap edges. */
+  rtl?: boolean;
 }
 
 export interface PositionResult {
@@ -48,9 +50,11 @@ function place(
   if (side === 'right') x = anchor.x + anchor.width + o.sideOffset;
   if (side === 'left') x = anchor.x - floating.width - o.sideOffset;
   if (vertical) {
-    if (align === 'start') x = anchor.x + o.alignOffset;
-    if (align === 'center') x = anchor.x + anchor.width / 2 - floating.width / 2;
-    if (align === 'end') x = anchor.x + anchor.width - floating.width - o.alignOffset;
+    // `start` is the inline start edge: the left in LTR, the right in RTL.
+    const edge = align === 'center' ? align : (align === 'start') !== !!o.rtl ? 'left' : 'right';
+    if (edge === 'left') x = anchor.x + o.alignOffset;
+    if (edge === 'center') x = anchor.x + anchor.width / 2 - floating.width / 2;
+    if (edge === 'right') x = anchor.x + anchor.width - floating.width - o.alignOffset;
   } else {
     if (align === 'start') y = anchor.y + o.alignOffset;
     if (align === 'center') y = anchor.y + anchor.height / 2 - floating.height / 2;

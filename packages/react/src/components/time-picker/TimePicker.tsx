@@ -1,6 +1,7 @@
 'use client';
 import * as React from 'react';
 import { cx } from '../../internal/cx.js';
+import { logicalKey } from '../../internal/direction.js';
 import { useControllableState } from '../../internal/use-controllable-state.js';
 import { Icon } from '../../icons/Icon.js';
 import { useFormField } from '../form-field/FormField.js';
@@ -187,12 +188,14 @@ export const TimePicker = React.forwardRef<HTMLDivElement, TimePickerProps>(func
 
   const onSegmentKeyDown = (seg: Segment, e: React.KeyboardEvent<HTMLDivElement>) => {
     if (disabled) return;
-    if (e.key === 'ArrowLeft') {
+    // Segments follow the inline direction, so horizontal arrows swap in RTL.
+    const key = logicalKey(e.key, e.currentTarget);
+    if (key === 'ArrowLeft') {
       e.preventDefault();
       focusSegment(neighbour(seg, -1));
       return;
     }
-    if (e.key === 'ArrowRight') {
+    if (key === 'ArrowRight') {
       e.preventDefault();
       focusSegment(neighbour(seg, 1));
       return;

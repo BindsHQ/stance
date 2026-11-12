@@ -17,13 +17,13 @@
 }
 .st-list-item__main[data-interactive] {
   margin: 0 calc(var(--st-space-2) * -1);
-  padding-left: var(--st-space-2);
-  padding-right: var(--st-space-2);
+  padding-inline-start: var(--st-space-2);
+  padding-inline-end: var(--st-space-2);
   border: 0;
   border-radius: var(--st-radius-md);
   background: transparent;
   font: inherit;
-  text-align: left;
+  text-align: start;
   cursor: pointer;
 }
 .st-list-item__main[data-interactive]:hover {
