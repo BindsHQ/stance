@@ -1,16 +1,17 @@
 'use client';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@bindshq/stance-react';
 import {
-  nativeEquivalents,
+  nativeCoverage,
   nativePath,
+  nativePlatforms,
   platformLabels,
+  platformShortNames,
   previewName,
-  type NativePlatform,
 } from '../lib/native';
 import { NativeImage, hasNativeImage } from './native-image';
 import { Code } from './code';
 
-/** Shows how a web component maps to its native iOS and Android counterparts. */
+/** Shows how a web component maps to its native iOS and Android counterparts, or the platform idiom. */
 export function PlatformAvailability({
   slug,
   name,
@@ -20,18 +21,42 @@ export function PlatformAvailability({
   name: string;
   importLine: string;
 }) {
-  const eq = nativeEquivalents(slug);
-  const platforms = (['ios', 'android'] as NativePlatform[]).filter((p) => eq[p].length > 0);
-  if (platforms.length === 0) return null;
+  const cover = nativeCoverage(slug);
+  const platforms = nativePlatforms.filter((p) => cover[p].components.length > 0);
+  const idioms = nativePlatforms.filter((p) => cover[p].idiom);
+  if (platforms.length === 0 && idioms.length === 0) return null;
+  const idiomList = idioms.length > 0 && (
+    <ul className="native-idioms" aria-label="Platform idioms">
+      {idioms.map((p) => (
+        <li key={p}>
+          <span className="native-idioms__platform">{platformShortNames[p]}</span>
+          {cover[p].idiom}
+        </li>
+      ))}
+    </ul>
+  );
+  if (platforms.length === 0)
+    return (
+      <section aria-labelledby="platforms">
+        <h2 id="platforms" className="docs-h2">
+          Platforms
+        </h2>
+        <p className="docs-muted">On iOS and Android, the system already does this well.</p>
+        {idiomList}
+      </section>
+    );
   return (
     <section aria-labelledby="platforms">
       <h2 id="platforms" className="docs-h2">
         Platforms
       </h2>
       <p className="docs-muted">
-        {name} has native counterparts. They share Stance tokens and intent, and use each platform’s
-        own controls and conventions. The live previews on this page are the web implementation.
+        {idioms.length > 0
+          ? `${name} has a native counterpart on ${platforms.map((p) => platformShortNames[p]).join(' and ')}. Elsewhere, the system already does this well.`
+          : `${name} has native counterparts. They share Stance tokens and intent, and use each platform’s own controls and conventions.`}{' '}
+        The live previews on this page are the web implementation.
       </p>
+      {idiomList}
       <Tabs defaultValue="web">
         <TabsList aria-label="Platform">
           <TabsTrigger value="web">Web · React</TabsTrigger>
@@ -46,7 +71,7 @@ export function PlatformAvailability({
         </TabsContent>
         {platforms.map((p) => (
           <TabsContent key={p} value={p}>
-            {eq[p].map((c) => (
+            {cover[p].components.map((c) => (
               <div key={c.name} className="native-item">
                 <p>
                   <a href={nativePath(p, c)}>

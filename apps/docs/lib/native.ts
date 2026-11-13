@@ -1,4 +1,8 @@
 import nativeData from '../generated/native.json';
+import idiomData from '../generated/native-idioms.json';
+import { coversWeb, sharesWeb, webSlugs, type WebEquivalent } from './native-links';
+
+export { webSlugs } from './native-links';
 
 export type NativePlatform = 'ios' | 'android';
 
@@ -13,7 +17,8 @@ export interface NativeComponent {
   status: 'stable' | 'beta';
   example: string;
   accessibility: string[];
-  webEquivalent: string | null;
+  /** Web components this covers: one slug, several, or null. Read it through `webSlugs`. */
+  webEquivalent: WebEquivalent;
   /** Paths of real rendered previews, relative to the platform folder, or null for non-visual entries. */
   preview?: {
     light: string;
@@ -48,9 +53,30 @@ export const platformLabels: Record<
 /** Native counterparts of a web component, by platform. */
 export function nativeEquivalents(slug: string): Record<NativePlatform, NativeComponent[]> {
   return {
-    ios: native.ios.filter((c) => c.webEquivalent === slug),
-    android: native.android.filter((c) => c.webEquivalent === slug),
+    ios: native.ios.filter((c) => coversWeb(c.webEquivalent, slug)),
+    android: native.android.filter((c) => coversWeb(c.webEquivalent, slug)),
   };
+}
+
+/** Platform guidance for web components that need no Stance component, from specs/native-parity.json. */
+export const nativeIdioms = idiomData as Record<NativePlatform, Record<string, string>>;
+
+/** Short platform names for one line notes. */
+export const platformShortNames: Record<NativePlatform, string> = {
+  ios: 'iOS',
+  android: 'Android',
+};
+
+/** How each platform covers a web component: native counterparts, or else an idiom sentence. */
+export function nativeCoverage(
+  slug: string,
+): Record<NativePlatform, { components: NativeComponent[]; idiom: string | null }> {
+  const eq = nativeEquivalents(slug);
+  const cover = (p: NativePlatform) => ({
+    components: eq[p],
+    idiom: eq[p].length ? null : (nativeIdioms[p][slug] ?? null),
+  });
+  return { ios: cover('ios'), android: cover('android') };
 }
 
 const kebab = (name: string) =>
@@ -79,8 +105,8 @@ export function counterparts(platform: NativePlatform, c: NativeComponent) {
   const base = c.name.replace(/[()]/g, '').toLowerCase();
   const matches = native[other].filter(
     (o) =>
-      (c.webEquivalent && o.webEquivalent === c.webEquivalent) ||
+      sharesWeb(c.webEquivalent, o.webEquivalent) ||
       o.name.replace(/[()]/g, '').toLowerCase() === base,
   );
-  return { web: c.webEquivalent, other, otherMatches: matches };
+  return { web: webSlugs(c.webEquivalent), other, otherMatches: matches };
 }

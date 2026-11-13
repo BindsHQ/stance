@@ -21,12 +21,12 @@ enum ComponentCategory: String, CaseIterable, Identifiable, Hashable {
 
     var summary: String {
         switch self {
-        case .actions: "Buttons, icon buttons, groups and menus"
-        case .forms: "Text fields, pickers, checkboxes, switches and sliders"
-        case .dataDisplay: "Cards, badges, avatars, progress, timelines and lists"
+        case .actions: "Buttons, split and toggle buttons, copy, chips and menus"
+        case .forms: "Text, number and code fields, pickers, comboboxes and sliders"
+        case .dataDisplay: "Tables, trees, charts, rich text, accordions and notifications"
         case .feedback: "Alerts, banners, toasts, loading and error states"
         case .overlays: "Sheets, alerts and confirmation dialogs"
-        case .navigation: "Steppers, page indicators and adaptive navigation"
+        case .navigation: "Tabs, pagination, steppers and adaptive navigation"
         case .advanced: "Filters, calendar, signature and attachments"
         case .ai: "Conversation, prompt, streaming and trust"
         }
@@ -153,6 +153,7 @@ struct ActionsDemo: View {
                 }
                 .stanceCard()
             }
+            ActionsParityDemo()
         }
     }
 }
@@ -206,6 +207,7 @@ struct FormsDemo: View {
                 .disabled(true)
                 .stanceCard()
             }
+            FormsParityDemo()
         }
     }
 }
@@ -265,6 +267,8 @@ struct DataDisplayDemo: View {
                 }
                 .stanceSurface(.subtle, cornerRadius: StanceRadius.xl)
             }
+            DataParityDemo()
+            DisplayParityDemo()
         }
     }
 }
@@ -359,6 +363,7 @@ struct NavigationDemo: View {
                 .frame(maxWidth: .infinity)
                 .stanceCard()
             }
+            TabsParityDemo()
             StanceInlineAlert("Adaptive navigation", message: "This app uses StanceAdaptiveNavigation: a tab bar on iPhone and a sidebar on iPad, both the system’s own.")
         }
     }
@@ -377,6 +382,7 @@ struct AdvancedDemo: View {
                 StanceFilterBar(filters: [.init(id: "live", title: "Live"), .init(id: "draft", title: "Draft"), .init(id: "failed", title: "Failed"), .init(id: "mine", title: "Owned by me")], selection: $filters)
                     .padding(.horizontal, -StanceSpacing.lg)
             }
+            FilterChipParityDemo()
             StanceSection("Calendar", caption: "The system date picker in Stance colours.") {
                 StanceCalendar("Deployment date", selection: $date)
             }

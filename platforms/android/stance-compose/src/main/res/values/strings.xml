@@ -51,4 +51,52 @@
     <string name="stance_list_separator">", "</string>
     <!-- A table cell read aloud: column header, value. -->
     <string name="stance_table_cell">%1$s: %2$s</string>
+    <!-- Native parity components. -->
+    <string name="stance_expanded">Expanded</string>
+    <string name="stance_collapsed">Collapsed</string>
+    <string name="stance_expand">Expand</string>
+    <string name="stance_collapse">Collapse</string>
+    <string name="stance_select_all">Select all</string>
+    <string name="stance_code_sample">Code sample</string>
+    <string name="stance_copy">Copy</string>
+    <string name="stance_copied">Copied</string>
+    <!-- Names the remove button of a chip: the chip label. -->
+    <string name="stance_remove_item">Remove %1$s</string>
+    <!-- How many values a multi select holds. -->
+    <plurals name="stance_selected_count">
+        <item quantity="one">%1$d selected</item>
+        <item quantity="other">%1$d selected</item>
+    </plurals>
+    <!-- Names the read view of an inline edit: what is being edited. -->
+    <string name="stance_edit_named">Edit %1$s</string>
+    <string name="stance_save">Save</string>
+    <string name="stance_unread">Unread</string>
+    <string name="stance_mark_as_read">Mark as read</string>
+    <string name="stance_increase">Increase</string>
+    <string name="stance_decrease">Decrease</string>
+    <string name="stance_previous_page">Previous page</string>
+    <string name="stance_next_page">Next page</string>
+    <!-- A page button in pagination: page number. -->
+    <string name="stance_page_number">Page %1$d</string>
+    <string name="stance_verification_code">Verification code</string>
+    <!-- Pin field progress: characters entered, length. -->
+    <string name="stance_pin_progress">%1$d of %2$d entered</string>
+    <string name="stance_move_up">Move up</string>
+    <string name="stance_move_down">Move down</string>
+    <!-- Names a drag handle: the item label. -->
+    <string name="stance_reorder">Reorder %1$s</string>
+    <!-- Announced after a move: item label, new position, item count. -->
+    <string name="stance_moved">%1$s, position %2$d of %3$d</string>
+    <string name="stance_theme">Theme</string>
+    <string name="stance_theme_system">System</string>
+    <string name="stance_theme_light">Light</string>
+    <string name="stance_theme_dark">Dark</string>
+    <string name="stance_theme_high_contrast">High contrast</string>
+    <string name="stance_chart_line">Line chart</string>
+    <string name="stance_chart_bar">Bar chart</string>
+    <string name="stance_chart_area">Area chart</string>
+    <!-- Chart summary: chart kind, title, lowest value, highest value. -->
+    <string name="stance_chart_summary">%1$s: %2$s. Lowest %3$s, highest %4$s.</string>
+    <!-- One chart point read aloud: category, the series values. -->
+    <string name="stance_chart_point">%1$s, %2$s</string>
 </resources>

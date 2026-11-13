@@ -733,7 +733,7 @@ val componentPreviews: Map<String, ComponentPreview> = mapOf(
             })
         }
     },
-) + aiComponentPreviews
+) + aiComponentPreviews + parityComponentPreviews
 
 /** Entries in components.json that draw nothing on their own. */
 val nonVisualComponents = setOf("rememberStancePhotoPicker", "rememberStanceDocumentPicker", "setStanceContent")

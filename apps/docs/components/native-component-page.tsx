@@ -126,17 +126,17 @@ export function NativeComponentPage({
         </section>
       )}
 
-      {(web || otherMatches.length > 0) && (
+      {(web.length > 0 || otherMatches.length > 0) && (
         <section aria-labelledby="elsewhere">
           <h2 id="elsewhere" className="docs-h2">
             On other platforms
           </h2>
           <ul className="related-list">
-            {web && (
-              <li>
-                <Link href={`/components/${web}`}>Web: {web.replace(/-/g, ' ')}</Link>
+            {web.map((w) => (
+              <li key={w}>
+                <Link href={`/components/${w}`}>Web: {w.replace(/-/g, ' ')}</Link>
               </li>
-            )}
+            ))}
             {otherMatches.map((o) => (
               <li key={o.name}>
                 <Link href={nativePath(other, o)}>

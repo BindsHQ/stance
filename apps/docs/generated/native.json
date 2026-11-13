@@ -168,7 +168,10 @@
       "accessibility": [
         "Decorative: hidden from assistive technology"
       ],
-      "webEquivalent": "divider",
+      "webEquivalent": [
+        "divider",
+        "separator"
+      ],
       "slug": "stance-divider",
       "preview": {
         "light": "previews/stance-divider.light.png",
@@ -275,7 +278,12 @@
         "Scales through the largest accessibility sizes",
         "Never below 12pt at the default size"
       ],
-      "webEquivalent": "text",
+      "webEquivalent": [
+        "text",
+        "code",
+        "caption",
+        "heading"
+      ],
       "slug": "stance-text",
       "preview": {
         "light": "previews/stance-text.light.png",
@@ -382,7 +390,11 @@
       "accessibility": [
         "System menu behaviour, VoiceOver and keyboard support"
       ],
-      "webEquivalent": "dropdown-menu",
+      "webEquivalent": [
+        "dropdown-menu",
+        "action-menu",
+        "context-menu"
+      ],
       "slug": "stance-menu",
       "preview": {
         "light": "previews/stance-menu.light.png",
@@ -404,7 +416,10 @@
         "Label becomes the control’s accessibility label",
         "Errors are announced when they appear"
       ],
-      "webEquivalent": "form-field",
+      "webEquivalent": [
+        "form-field",
+        "label"
+      ],
       "slug": "stance-form-field",
       "preview": {
         "light": "previews/stance-form-field.light.png",
@@ -510,7 +525,10 @@
       "accessibility": [
         "Selected value is exposed as the accessibility value"
       ],
-      "webEquivalent": "select",
+      "webEquivalent": [
+        "select",
+        "native-select"
+      ],
       "slug": "stance-picker",
       "preview": {
         "light": "previews/stance-picker.light.png",
@@ -638,7 +656,11 @@
       "accessibility": [
         "System bars keep their materials, including Liquid Glass on iOS 26"
       ],
-      "webEquivalent": "sidebar",
+      "webEquivalent": [
+        "sidebar",
+        "tab-bar",
+        "navigation-menu"
+      ],
       "slug": "stance-adaptive-navigation",
       "preview": {
         "light": "previews/stance-adaptive-navigation.light.png",
@@ -808,7 +830,10 @@
       "accessibility": [
         "Label and percentage are exposed to VoiceOver"
       ],
-      "webEquivalent": "progress",
+      "webEquivalent": [
+        "progress",
+        "spinner"
+      ],
       "slug": "stance-progress-view",
       "preview": {
         "light": "previews/stance-progress-view.light.png",
@@ -1103,7 +1128,11 @@
       "accessibility": [
         "System sheet gestures, grabber and focus handling"
       ],
-      "webEquivalent": "sheet",
+      "webEquivalent": [
+        "sheet",
+        "dialog",
+        "drawer"
+      ],
       "slug": "stance-sheet",
       "preview": {
         "light": "previews/stance-sheet.light.png",
@@ -1188,7 +1217,11 @@
         "Result count is announced",
         "Empty state explains what to try"
       ],
-      "webEquivalent": "searchable-list",
+      "webEquivalent": [
+        "searchable-list",
+        "command-menu",
+        "command-palette"
+      ],
       "slug": "stance-searchable-list",
       "preview": {
         "light": "previews/stance-searchable-list.light.png",
@@ -1231,7 +1264,7 @@
         "Direct-touch trait for VoiceOver",
         "Offer the typed alternative for people who cannot draw"
       ],
-      "webEquivalent": null,
+      "webEquivalent": "signature-pad",
       "slug": "stance-signature-canvas",
       "preview": {
         "light": "previews/stance-signature-canvas.light.png",
@@ -1335,6 +1368,613 @@
       "preview": null
     },
     {
+      "name": "StanceRangeSlider",
+      "category": "forms",
+      "summary": "Two thumbs on one track choose a lower and an upper value, each adjustable on its own with VoiceOver.",
+      "kind": "view",
+      "wrapsNative": null,
+      "status": "beta",
+      "example": "StanceRangeSlider(\"Contract value\", value: .constant(1000 ... 5000), in: 0 ... 10000, step: 500)",
+      "accessibility": [
+        "Each thumb is a separate adjustable element named by the label and its role",
+        "Thumbs mirror in right to left layouts like the system slider",
+        "The range is spoken as words, for example 1,000 to 5,000"
+      ],
+      "webEquivalent": "range-slider",
+      "slug": "stance-range-slider",
+      "preview": {
+        "light": "previews/stance-range-slider.light.png",
+        "dark": "previews/stance-range-slider.dark.png",
+        "high-contrast": "previews/stance-range-slider.high-contrast.png",
+        "width": 393,
+        "height": 176
+      }
+    },
+    {
+      "name": "StancePinField",
+      "category": "forms",
+      "summary": "Boxes for a short verification code over one real text field, so autofill from Messages and paste fill every box.",
+      "kind": "view",
+      "wrapsNative": "TextField (.oneTimeCode)",
+      "status": "beta",
+      "example": "StancePinField(\"Verification code\", code: $text, length: 6)",
+      "accessibility": [
+        "VoiceOver reads one text field, not separate boxes",
+        "Masked codes report how many characters are entered instead of the characters",
+        "The code reads left to right in every language"
+      ],
+      "webEquivalent": "pin-input",
+      "slug": "stance-pin-field",
+      "preview": {
+        "light": "previews/stance-pin-field.light.png",
+        "dark": "previews/stance-pin-field.dark.png",
+        "high-contrast": "previews/stance-pin-field.high-contrast.png",
+        "width": 393,
+        "height": 289
+      }
+    },
+    {
+      "name": "StanceNumberField",
+      "category": "forms",
+      "summary": "A number typed in local format or nudged with the system stepper, kept inside its bounds and rounded on commit.",
+      "kind": "view",
+      "wrapsNative": "TextField, Stepper",
+      "status": "beta",
+      "example": "StanceNumberField(\"Licence seats\", value: $value, min: 1, max: 500, suffix: \"seats\")",
+      "accessibility": [
+        "The system stepper adjusts with VoiceOver swipes",
+        "Prefix and suffix are read with the value",
+        "Numbers are written and read in the conventions of the locale"
+      ],
+      "webEquivalent": "number-input",
+      "slug": "stance-number-field",
+      "preview": {
+        "light": "previews/stance-number-field.light.png",
+        "dark": "previews/stance-number-field.dark.png",
+        "high-contrast": "previews/stance-number-field.high-contrast.png",
+        "width": 393,
+        "height": 251
+      }
+    },
+    {
+      "name": "StanceCombobox",
+      "category": "forms",
+      "summary": "Opens a searchable system list in a sheet or popover and picks one value, such as a template owner.",
+      "kind": "view",
+      "wrapsNative": "List, searchable, sheet, popover",
+      "status": "beta",
+      "example": "StanceCombobox(\"Template owner\", selection: $selection, options: [.init(\"priya\", label: \"Priya Nair\", detail: \"Admin\"), .init(\"lukas\", label: \"Lukas Brenner\", detail: \"Sales\")])",
+      "accessibility": [
+        "The field reads its label and the chosen value",
+        "The chosen row carries the selected trait",
+        "Result counts are announced while searching"
+      ],
+      "webEquivalent": "combobox",
+      "slug": "stance-combobox",
+      "preview": {
+        "light": "previews/stance-combobox.light.png",
+        "dark": "previews/stance-combobox.dark.png",
+        "high-contrast": "previews/stance-combobox.high-contrast.png",
+        "width": 393,
+        "height": 251
+      }
+    },
+    {
+      "name": "StanceMultiSelect",
+      "category": "forms",
+      "summary": "Picks several values from a searchable list and shows each choice below the field as a removable tag.",
+      "kind": "view",
+      "wrapsNative": "List, searchable, sheet, popover",
+      "status": "beta",
+      "example": "StanceMultiSelect(\"Departments\", selection: $filters, options: [.init(\"sales\", label: \"Sales\"), .init(\"legal\", label: \"Legal\")])",
+      "accessibility": [
+        "The field reads every chosen value as a list",
+        "Each tag has a remove button named after its value",
+        "Rows report their selected state"
+      ],
+      "webEquivalent": "multi-select",
+      "slug": "stance-multi-select",
+      "preview": {
+        "light": "previews/stance-multi-select.light.png",
+        "dark": "previews/stance-multi-select.dark.png",
+        "high-contrast": "previews/stance-multi-select.high-contrast.png",
+        "width": 393,
+        "height": 208
+      }
+    },
+    {
+      "name": "StanceCheckboxGroup",
+      "category": "forms",
+      "summary": "A short list of checkboxes under one heading, with helper or error text and an optional select all.",
+      "kind": "view",
+      "wrapsNative": null,
+      "status": "beta",
+      "example": "StanceCheckboxGroup(\"Notify by\", selection: $filters, options: [.init(\"email\", label: \"Email\"), .init(\"push\", label: \"Push\")], showsSelectAll: true)",
+      "accessibility": [
+        "The heading names the group as VoiceOver enters it",
+        "Select all reports checked, not checked or partly checked",
+        "Errors are announced when they appear"
+      ],
+      "webEquivalent": "checkbox-group",
+      "slug": "stance-checkbox-group",
+      "preview": {
+        "light": "previews/stance-checkbox-group.light.png",
+        "dark": "previews/stance-checkbox-group.dark.png",
+        "high-contrast": "previews/stance-checkbox-group.high-contrast.png",
+        "width": 393,
+        "height": 313
+      }
+    },
+    {
+      "name": "StanceDateRangePicker",
+      "category": "forms",
+      "summary": "A start and an end date from two system date pickers, with presets and the span summarised in words.",
+      "kind": "view",
+      "wrapsNative": "DatePicker, Menu",
+      "status": "beta",
+      "example": "StanceDateRangePicker(\"Campaign window\", range: .constant(date ... date.addingTimeInterval(604800)))",
+      "accessibility": [
+        "Each picker is named Start or End",
+        "The end date can never fall before the start date",
+        "The summary reads the range and its length as one line"
+      ],
+      "webEquivalent": "date-range-picker",
+      "slug": "stance-date-range-picker",
+      "preview": {
+        "light": "previews/stance-date-range-picker.light.png",
+        "dark": "previews/stance-date-range-picker.dark.png",
+        "high-contrast": "previews/stance-date-range-picker.high-contrast.png",
+        "width": 393,
+        "height": 274
+      }
+    },
+    {
+      "name": "StanceTimePicker",
+      "category": "forms",
+      "summary": "A time of day from the system date picker, with the hour cycle and digits following the locale.",
+      "kind": "view",
+      "wrapsNative": "DatePicker (.hourAndMinute)",
+      "status": "beta",
+      "example": "StanceTimePicker(\"Deploy at\", selection: $date)",
+      "accessibility": [
+        "The system picker reads the label and the time",
+        "Compact and wheel styles both keep a 44pt target"
+      ],
+      "webEquivalent": "time-picker",
+      "slug": "stance-time-picker",
+      "preview": {
+        "light": "previews/stance-time-picker.light.png",
+        "dark": "previews/stance-time-picker.dark.png",
+        "high-contrast": "previews/stance-time-picker.high-contrast.png",
+        "width": 393,
+        "height": 206
+      }
+    },
+    {
+      "name": "StanceInlineEdit",
+      "category": "forms",
+      "summary": "Text that becomes a text field when tapped. Return saves, cancel or Escape restores the earlier value.",
+      "kind": "view",
+      "wrapsNative": "TextField",
+      "status": "beta",
+      "example": "StanceInlineEdit(\"Template name\", text: $text)",
+      "accessibility": [
+        "The row reads its label and value with a hint that it can be edited",
+        "Save and cancel are labelled buttons with 44pt targets",
+        "Validation errors are announced"
+      ],
+      "webEquivalent": "inline-edit",
+      "slug": "stance-inline-edit",
+      "preview": {
+        "light": "previews/stance-inline-edit.light.png",
+        "dark": "previews/stance-inline-edit.dark.png",
+        "high-contrast": "previews/stance-inline-edit.high-contrast.png",
+        "width": 393,
+        "height": 221
+      }
+    },
+    {
+      "name": "StanceDataTable",
+      "category": "data-display",
+      "summary": "Sortable rows with selection: the system Table on iPad and labelled cards on iPhone, where columns have no room.",
+      "kind": "view",
+      "wrapsNative": "Table, List",
+      "status": "beta",
+      "example": "StanceDataTable(rows: [ComponentExamples.Named(name: \"Priya Nair\")], columns: [StanceTableColumn(\"Name\") { $0.name }], selection: .constant(Set<String>()))",
+      "accessibility": [
+        "Compact cards read every column name with its value",
+        "Selected rows carry the selected trait",
+        "Sort direction is spoken on the sort menu"
+      ],
+      "webEquivalent": [
+        "data-table",
+        "table",
+        "data-grid"
+      ],
+      "slug": "stance-data-table",
+      "preview": {
+        "light": "previews/stance-data-table.light.png",
+        "dark": "previews/stance-data-table.dark.png",
+        "high-contrast": "previews/stance-data-table.high-contrast.png",
+        "width": 393,
+        "height": 548
+      }
+    },
+    {
+      "name": "StancePagination",
+      "category": "navigation",
+      "summary": "Previous and next buttons with a page summary, and a steady row of page numbers when the width allows.",
+      "kind": "view",
+      "wrapsNative": null,
+      "status": "beta",
+      "example": "StancePagination(page: $index, pageCount: 12)",
+      "accessibility": [
+        "The new page is announced after each move",
+        "The current page carries the selected trait",
+        "Labels give way to icons at accessibility text sizes"
+      ],
+      "webEquivalent": "pagination",
+      "slug": "stance-pagination",
+      "preview": {
+        "light": "previews/stance-pagination.light.png",
+        "dark": "previews/stance-pagination.dark.png",
+        "high-contrast": "previews/stance-pagination.high-contrast.png",
+        "width": 393,
+        "height": 184
+      }
+    },
+    {
+      "name": "StanceTreeView",
+      "category": "data-display",
+      "summary": "Nested folders or teams in a List, with expansion you control, selection and level information for VoiceOver.",
+      "kind": "view",
+      "wrapsNative": "List",
+      "status": "beta",
+      "example": "StanceTreeView(nodes: [StanceTreeNode(id: \"templates\", title: \"Templates\", children: [StanceTreeNode(id: \"sales\", title: \"Sales signature\")])], expanded: .constant([\"templates\"]), selection: $selection)",
+      "accessibility": [
+        "Each row reads its level, position and expanded state",
+        "Expand and collapse are VoiceOver actions",
+        "Chevrons point the right way in right to left layouts"
+      ],
+      "webEquivalent": [
+        "tree-view",
+        "file-tree"
+      ],
+      "slug": "stance-tree-view",
+      "preview": {
+        "light": "previews/stance-tree-view.light.png",
+        "dark": "previews/stance-tree-view.dark.png",
+        "high-contrast": "previews/stance-tree-view.high-contrast.png",
+        "width": 393,
+        "height": 378
+      }
+    },
+    {
+      "name": "StanceSortableList",
+      "category": "data-display",
+      "summary": "A List people reorder by dragging the system handles or with Move up and Move down actions in VoiceOver.",
+      "kind": "view",
+      "wrapsNative": "List, onMove, EditButton",
+      "status": "beta",
+      "example": "StanceSortableList(\"Approval steps\", items: .constant([ComponentExamples.Named(name: \"Legal\"), ComponentExamples.Named(name: \"Finance\")]), itemLabel: \\.name) { Text($0.name) }",
+      "accessibility": [
+        "Move up and Move down actions need no drag",
+        "Each move is announced with the new position",
+        "Rows read their position in the list"
+      ],
+      "webEquivalent": "sortable-list",
+      "slug": "stance-sortable-list",
+      "preview": {
+        "light": "previews/stance-sortable-list.light.png",
+        "dark": "previews/stance-sortable-list.dark.png",
+        "high-contrast": "previews/stance-sortable-list.high-contrast.png",
+        "width": 393,
+        "height": 428
+      }
+    },
+    {
+      "name": "StanceChart",
+      "category": "data-display",
+      "summary": "Line, bar or area chart on Swift Charts in ink tones, with a spoken summary, Audio Graphs and a table view.",
+      "kind": "view",
+      "wrapsNative": "Swift Charts",
+      "status": "beta",
+      "example": "StanceChart(\"Deployments\", kind: .bar, series: [StanceChartSeries(\"Sent\", points: [.init(\"Jan\", 120), .init(\"Feb\", 340)])])",
+      "accessibility": [
+        "VoiceOver reads a summary with the highest and lowest values",
+        "Audio Graphs through an accessibility chart descriptor",
+        "Series differ by symbol and dash, not colour alone"
+      ],
+      "webEquivalent": "chart-container",
+      "slug": "stance-chart",
+      "preview": {
+        "light": "previews/stance-chart.light.png",
+        "dark": "previews/stance-chart.dark.png",
+        "high-contrast": "previews/stance-chart.high-contrast.png",
+        "width": 393,
+        "height": 375
+      }
+    },
+    {
+      "name": "StanceRichText",
+      "category": "data-display",
+      "summary": "Turns Markdown into headings, paragraphs, lists, quotes and code, set in the Stance type scale.",
+      "kind": "view",
+      "wrapsNative": "AttributedString",
+      "status": "beta",
+      "example": "StanceRichText(markdown: \"## Rollout\\nSignatures deploy **after** the next sync.\")",
+      "accessibility": [
+        "Headings carry the header trait for the rotor",
+        "Links use the link colour and an underline",
+        "Text scales with Dynamic Type"
+      ],
+      "webEquivalent": "rich-text",
+      "slug": "stance-rich-text",
+      "preview": {
+        "light": "previews/stance-rich-text.light.png",
+        "dark": "previews/stance-rich-text.dark.png",
+        "high-contrast": "previews/stance-rich-text.high-contrast.png",
+        "width": 393,
+        "height": 317
+      }
+    },
+    {
+      "name": "StanceCodeBlock",
+      "category": "data-display",
+      "summary": "Monospaced code that scrolls sideways, with optional line numbers and a copy button that confirms with a tick.",
+      "kind": "view",
+      "wrapsNative": "ScrollView, UIPasteboard",
+      "status": "beta",
+      "example": "StanceCodeBlock(\"StanceButton(\\\"Deploy\\\") {}\", title: \"Swift\", showsLineNumbers: true)",
+      "accessibility": [
+        "Line numbers are hidden from VoiceOver",
+        "Copying is announced and confirmed with a haptic",
+        "Code stays left to right in right to left layouts"
+      ],
+      "webEquivalent": [
+        "code-block",
+        "copyable-code"
+      ],
+      "slug": "stance-code-block",
+      "preview": {
+        "light": "previews/stance-code-block.light.png",
+        "dark": "previews/stance-code-block.dark.png",
+        "high-contrast": "previews/stance-code-block.high-contrast.png",
+        "width": 393,
+        "height": 236
+      }
+    },
+    {
+      "name": "StanceProgressCircle",
+      "category": "data-display",
+      "summary": "A ring that fills with progress and shows the percentage inside, built on the system ProgressView.",
+      "kind": "view",
+      "wrapsNative": "ProgressView",
+      "status": "beta",
+      "example": "StanceProgressCircle(\"Mailboxes updated\", value: 0.72)",
+      "accessibility": [
+        "Read as progress with its label and percentage",
+        "Every size keeps a 44pt frame",
+        "A success haptic plays when it completes"
+      ],
+      "webEquivalent": "progress-circle",
+      "slug": "stance-progress-circle",
+      "preview": {
+        "light": "previews/stance-progress-circle.light.png",
+        "dark": "previews/stance-progress-circle.dark.png",
+        "high-contrast": "previews/stance-progress-circle.high-contrast.png",
+        "width": 393,
+        "height": 176
+      }
+    },
+    {
+      "name": "StanceAccordion",
+      "category": "data-display",
+      "summary": "Stacks collapsible sections on DisclosureGroup, with one or many open at a time and an optional card for each.",
+      "kind": "view",
+      "wrapsNative": "DisclosureGroup",
+      "status": "beta",
+      "example": "StanceAccordion([StanceAccordionSection(id: \"billing\", title: \"Billing\")], expanded: $filters, mode: .single) { _ in Text(\"Invoices go out on the first of the month.\") }",
+      "accessibility": [
+        "Each title is a header and a button that reports expanded or collapsed",
+        "Disabled sections cannot be toggled",
+        "Opening and closing follow Reduce Motion"
+      ],
+      "webEquivalent": "accordion",
+      "slug": "stance-accordion",
+      "preview": {
+        "light": "previews/stance-accordion.light.png",
+        "dark": "previews/stance-accordion.dark.png",
+        "high-contrast": "previews/stance-accordion.high-contrast.png",
+        "width": 393,
+        "height": 245
+      }
+    },
+    {
+      "name": "StanceTabs",
+      "category": "navigation",
+      "summary": "Switches views within one screen, as the system segmented control or a scrolling underline strip with counts.",
+      "kind": "view",
+      "wrapsNative": "Picker (segmented)",
+      "status": "beta",
+      "example": "StanceTabs([StanceTab(id: \"admin\", title: \"Details\"), StanceTab(id: \"member\", title: \"Activity\", badge: 3)], selection: $role) { Text($0) }",
+      "accessibility": [
+        "Each tab reads its position, such as Tab 2 of 4",
+        "The selected tab carries the selected trait",
+        "The strip scrolls the selected tab into view"
+      ],
+      "webEquivalent": "tabs",
+      "slug": "stance-tabs",
+      "preview": {
+        "light": "previews/stance-tabs.light.png",
+        "dark": "previews/stance-tabs.dark.png",
+        "high-contrast": "previews/stance-tabs.high-contrast.png",
+        "width": 393,
+        "height": 291
+      }
+    },
+    {
+      "name": "StanceCopyButton",
+      "category": "actions",
+      "summary": "Puts text on the pasteboard, then briefly shows a tick with a spoken confirmation and a success haptic.",
+      "kind": "view",
+      "wrapsNative": "UIPasteboard",
+      "status": "beta",
+      "example": "StanceCopyButton(value: \"org_7Hk2\")",
+      "accessibility": [
+        "Copied is announced without moving focus",
+        "Icon only buttons keep Copy as their name",
+        "The confirmation reverts on its own after a moment"
+      ],
+      "webEquivalent": "copy-button",
+      "slug": "stance-copy-button",
+      "preview": {
+        "light": "previews/stance-copy-button.light.png",
+        "dark": "previews/stance-copy-button.dark.png",
+        "high-contrast": "previews/stance-copy-button.high-contrast.png",
+        "width": 393,
+        "height": 193
+      }
+    },
+    {
+      "name": "StanceSplitButton",
+      "category": "actions",
+      "summary": "Pairs a main action with a menu of related ones, using the system menu with a primary action plus a chevron.",
+      "kind": "view",
+      "wrapsNative": "Menu(primaryAction:)",
+      "status": "beta",
+      "example": "StanceSplitButton(\"Deploy\", action: {}) { Button(\"Schedule deployment\") {} }",
+      "accessibility": [
+        "VoiceOver hears the action and a separate More options button",
+        "A hint explains touch and hold",
+        "Both segments keep a 44pt target"
+      ],
+      "webEquivalent": "split-button",
+      "slug": "stance-split-button",
+      "preview": {
+        "light": "previews/stance-split-button.light.png",
+        "dark": "previews/stance-split-button.dark.png",
+        "high-contrast": "previews/stance-split-button.high-contrast.png",
+        "width": 393,
+        "height": 204
+      }
+    },
+    {
+      "name": "StanceToggleButton",
+      "category": "actions",
+      "summary": "A button that stays pressed while its option is on, drawn from the native Toggle with a filled selected look.",
+      "kind": "view",
+      "wrapsNative": "Toggle",
+      "status": "beta",
+      "example": "StanceToggleButton(\"Show archived\", icon: .inbox, isOn: $isOn)",
+      "accessibility": [
+        "The on state carries the selected trait",
+        "On is shown by fill, border and weight, not colour alone",
+        "A selection tick plays when it changes"
+      ],
+      "webEquivalent": "toggle-button",
+      "slug": "stance-toggle-button",
+      "preview": {
+        "light": "previews/stance-toggle-button.light.png",
+        "dark": "previews/stance-toggle-button.dark.png",
+        "high-contrast": "previews/stance-toggle-button.high-contrast.png",
+        "width": 393,
+        "height": 124
+      }
+    },
+    {
+      "name": "StanceToggleButtonGroup",
+      "category": "actions",
+      "summary": "Related toggle buttons for one setting, as a single or multiple choice, wrapping onto new lines at large sizes.",
+      "kind": "view",
+      "wrapsNative": "Toggle",
+      "status": "beta",
+      "example": "StanceToggleButtonGroup(\"Channels\", selection: $filters, options: [StanceToggleOption(\"email\", title: \"Email\"), StanceToggleOption(\"sms\", title: \"SMS\")])",
+      "accessibility": [
+        "The group is named by its label",
+        "Each option reports whether it is selected",
+        "Buttons reflow instead of truncating"
+      ],
+      "webEquivalent": "toggle-button",
+      "slug": "stance-toggle-button-group",
+      "preview": {
+        "light": "previews/stance-toggle-button-group.light.png",
+        "dark": "previews/stance-toggle-button-group.dark.png",
+        "high-contrast": "previews/stance-toggle-button-group.high-contrast.png",
+        "width": 393,
+        "height": 234
+      }
+    },
+    {
+      "name": "StanceChip",
+      "category": "data-display",
+      "summary": "A small rounded value people can tap or remove, such as a recipient or a condition already applied.",
+      "kind": "view",
+      "wrapsNative": null,
+      "status": "beta",
+      "example": "StanceChip(\"Priya Nair\", icon: .user, onRemove: {})",
+      "accessibility": [
+        "The remove button is named after the value",
+        "Remove keeps a 44pt touch area around a small icon",
+        "A chip without an action reads as plain text"
+      ],
+      "webEquivalent": "chip",
+      "slug": "stance-chip",
+      "preview": {
+        "light": "previews/stance-chip.light.png",
+        "dark": "previews/stance-chip.dark.png",
+        "high-contrast": "previews/stance-chip.high-contrast.png",
+        "width": 393,
+        "height": 209
+      }
+    },
+    {
+      "name": "StanceFilterChip",
+      "category": "advanced",
+      "summary": "An on or off chip for a row of filters, with a tick and an optional match count once applied.",
+      "kind": "view",
+      "wrapsNative": "Toggle",
+      "status": "beta",
+      "example": "StanceFilterChip(\"Live\", count: 12, isOn: $isOn)",
+      "accessibility": [
+        "The applied state carries the selected trait",
+        "The tick means status is never shown by colour alone",
+        "A selection tick plays when it changes"
+      ],
+      "webEquivalent": "filter-chip",
+      "slug": "stance-filter-chip",
+      "preview": {
+        "light": "previews/stance-filter-chip.light.png",
+        "dark": "previews/stance-filter-chip.dark.png",
+        "high-contrast": "previews/stance-filter-chip.high-contrast.png",
+        "width": 393,
+        "height": 92
+      }
+    },
+    {
+      "name": "StanceNotificationRow",
+      "category": "data-display",
+      "summary": "One notice with its time and unread dot, plus swipe and VoiceOver actions to mark it read or delete it.",
+      "kind": "view",
+      "wrapsNative": "swipeActions",
+      "status": "beta",
+      "example": "List { StanceNotificationRow(\"Deployment finished\", message: \"48 mailboxes updated\", time: \"2 min ago\", isUnread: true, onDelete: {}) }",
+      "accessibility": [
+        "Unread is spoken before the title",
+        "Swipe actions are also VoiceOver custom actions",
+        "Text reflows at accessibility sizes"
+      ],
+      "webEquivalent": "notification",
+      "slug": "stance-notification-row",
+      "preview": {
+        "light": "previews/stance-notification-row.light.png",
+        "dark": "previews/stance-notification-row.dark.png",
+        "high-contrast": "previews/stance-notification-row.high-contrast.png",
+        "width": 393,
+        "height": 247
+      }
+    },
+    {
       "name": "StanceThread",
       "category": "ai",
       "summary": "The scrolling container for a conversation. Follows the latest message while the reader is at the bottom and releases when they scroll up.",
@@ -1383,7 +2023,7 @@
     {
       "name": "StanceMessageGroup",
       "category": "ai",
-      "summary": "Consecutive messages from one author under a single avatar and name.",
+      "summary": "Runs of messages from one author gathered under a single avatar and name, so the thread reads calmly.",
       "kind": "view",
       "wrapsNative": null,
       "status": "beta",
@@ -1405,7 +2045,7 @@
     {
       "name": "StanceMessageActions",
       "category": "ai",
-      "summary": "The row of actions under a message: copy, retry, edit, good response and bad response.",
+      "summary": "Copy, retry, edit and rating buttons in a row beneath a message, each with a clear VoiceOver name.",
       "kind": "view",
       "wrapsNative": "SF Symbols, symbolEffect",
       "status": "beta",
@@ -1429,7 +2069,7 @@
     {
       "name": "StanceBranchSwitcher",
       "category": "ai",
-      "summary": "Steps between alternative versions of a message after an edit or retry.",
+      "summary": "Moves between the alternative versions of a message that an edit or a retry produced.",
       "kind": "view",
       "wrapsNative": null,
       "status": "beta",
@@ -1452,7 +2092,7 @@
     {
       "name": "StanceScrollToLatest",
       "category": "ai",
-      "summary": "A floating button that appears when the reader has scrolled away from the newest message.",
+      "summary": "A floating button that shows up once the reader scrolls away from the newest message and jumps back.",
       "kind": "view",
       "wrapsNative": null,
       "status": "beta",
@@ -1498,7 +2138,7 @@
     {
       "name": "StanceThreadEmptyState",
       "category": "ai",
-      "summary": "The opening screen of a new conversation with a greeting and starter prompts.",
+      "summary": "The first screen of a fresh conversation, with a greeting and a few starter prompts to tap.",
       "kind": "view",
       "wrapsNative": null,
       "status": "beta",
@@ -1612,7 +2252,7 @@
     {
       "name": "StanceModelPicker",
       "category": "ai",
-      "summary": "Chooses the model for the next message, with a short description and capability badges.",
+      "summary": "A system menu for choosing the model behind the next message, with a short line and capability badges.",
       "kind": "view",
       "wrapsNative": "Menu, Picker",
       "status": "beta",
@@ -1793,7 +2433,7 @@
     {
       "name": "StanceShimmerText",
       "category": "ai",
-      "summary": "Text with a slow light sweep for labels of work in progress, such as Searching the web.",
+      "summary": "A label with a slow sweep of light for work in progress, such as searching, and still under Reduce Motion.",
       "kind": "view",
       "wrapsNative": null,
       "status": "beta",
@@ -1861,7 +2501,7 @@
     {
       "name": "StanceInterruptedState",
       "category": "ai",
-      "summary": "Marks a response that was stopped or failed part way, with retry and continue.",
+      "summary": "Flags a response that stopped or failed part way through and offers retry and continue.",
       "kind": "view",
       "wrapsNative": null,
       "status": "beta",
@@ -1994,7 +2634,7 @@
     {
       "name": "StanceDisclaimerNote",
       "category": "ai",
-      "summary": "A quiet note under the composer or a response, such as a reminder to check important facts.",
+      "summary": "A quiet line under the composer or a reply, such as a reminder to check important facts.",
       "kind": "view",
       "wrapsNative": null,
       "status": "beta",
@@ -2016,7 +2656,7 @@
     {
       "name": "StanceFeedbackBar",
       "category": "ai",
-      "summary": "Thumbs up or down, followed by optional reasons and a comment, then a thank you.",
+      "summary": "Thumbs up or down, then optional reasons and a comment, ending with a short thank you.",
       "kind": "view",
       "wrapsNative": "TextField(axis: .vertical), SF Symbols",
       "status": "beta",
@@ -2062,7 +2702,7 @@
     {
       "name": "StanceSensitiveContentGate",
       "category": "ai",
-      "summary": "Hides content behind a notice until the reader chooses to see it.",
+      "summary": "Keeps content behind a notice until the reader decides to reveal it.",
       "kind": "view",
       "wrapsNative": null,
       "status": "beta",
@@ -2155,7 +2795,10 @@
       "accessibility": [
         "Decorative, so it is not announced."
       ],
-      "webEquivalent": "separator",
+      "webEquivalent": [
+        "separator",
+        "divider"
+      ],
       "preview": {
         "light": "previews/stance-divider.light.png",
         "dark": "previews/stance-divider.dark.png",
@@ -2317,7 +2960,10 @@
       "accessibility": [
         "Announced as a radio group with the selected segment."
       ],
-      "webEquivalent": "toggle-button",
+      "webEquivalent": [
+        "toggle-button",
+        "button-group"
+      ],
       "preview": {
         "light": "previews/stance-button-group.light.png",
         "dark": "previews/stance-button-group.dark.png",
@@ -2357,7 +3003,10 @@
       "accessibility": [
         "Dismisses on back, outside taps and Escape."
       ],
-      "webEquivalent": "dropdown-menu",
+      "webEquivalent": [
+        "dropdown-menu",
+        "action-menu"
+      ],
       "preview": {
         "light": "previews/stance-dropdown-menu.light.png",
         "dark": "previews/stance-dropdown-menu.dark.png",
@@ -2378,7 +3027,10 @@
         "Errors are a polite live region and include an icon.",
         "The required marker is read as required."
       ],
-      "webEquivalent": "form-field",
+      "webEquivalent": [
+        "form-field",
+        "label"
+      ],
       "preview": {
         "light": "previews/stance-form-field.light.png",
         "dark": "previews/stance-form-field.dark.png",
@@ -2399,7 +3051,10 @@
         "The label is the accessible name.",
         "An error marks the field invalid and is announced."
       ],
-      "webEquivalent": "input",
+      "webEquivalent": [
+        "input",
+        "textarea"
+      ],
       "preview": {
         "light": "previews/stance-text-field.light.png",
         "dark": "previews/stance-text-field.dark.png",
@@ -2563,7 +3218,10 @@
       "accessibility": [
         "The field is named by its label and announces the selected value."
       ],
-      "webEquivalent": "select",
+      "webEquivalent": [
+        "select",
+        "native-select"
+      ],
       "preview": {
         "light": "previews/stance-select.light.png",
         "dark": "previews/stance-select.dark.png",
@@ -2643,7 +3301,10 @@
       "accessibility": [
         "Announced with its selected state."
       ],
-      "webEquivalent": "chip",
+      "webEquivalent": [
+        "chip",
+        "filter-chip"
+      ],
       "preview": {
         "light": "previews/stance-filter-chip.light.png",
         "dark": "previews/stance-filter-chip.dark.png",
@@ -2744,7 +3405,10 @@
       "accessibility": [
         "Order and selection are kept across layouts."
       ],
-      "webEquivalent": null,
+      "webEquivalent": [
+        "navigation-menu",
+        "split-panel"
+      ],
       "preview": {
         "light": "previews/stance-adaptive-navigation.light.png",
         "dark": "previews/stance-adaptive-navigation.dark.png",
@@ -2846,7 +3510,10 @@
         "Touch target is at least 48dp.",
         "A clickable row is one button."
       ],
-      "webEquivalent": "list-item",
+      "webEquivalent": [
+        "list-item",
+        "list"
+      ],
       "preview": {
         "light": "previews/stance-list-item.light.png",
         "dark": "previews/stance-list-item.dark.png",
@@ -2966,7 +3633,10 @@
       "accessibility": [
         "Requires a description of what is loading."
       ],
-      "webEquivalent": "progress-circle",
+      "webEquivalent": [
+        "progress-circle",
+        "spinner"
+      ],
       "preview": {
         "light": "previews/stance-circular-progress-indicator.light.png",
         "dark": "previews/stance-circular-progress-indicator.dark.png",
@@ -3088,7 +3758,11 @@
         "Headers are headings.",
         "Rows are read as header and value pairs."
       ],
-      "webEquivalent": "table",
+      "webEquivalent": [
+        "table",
+        "data-table",
+        "data-grid"
+      ],
       "preview": {
         "light": "previews/stance-data-table.light.png",
         "dark": "previews/stance-data-table.dark.png",
@@ -3149,7 +3823,10 @@
       "accessibility": [
         "Uses the platform alert dialog semantics."
       ],
-      "webEquivalent": "alert-dialog",
+      "webEquivalent": [
+        "alert-dialog",
+        "confirmation-dialog"
+      ],
       "preview": {
         "light": "previews/stance-alert-dialog.light.png",
         "dark": "previews/stance-alert-dialog.dark.png",
@@ -3169,7 +3846,10 @@
       "accessibility": [
         "Supports drag, back and scrim taps to dismiss."
       ],
-      "webEquivalent": "sheet",
+      "webEquivalent": [
+        "sheet",
+        "drawer"
+      ],
       "preview": {
         "light": "previews/stance-bottom-sheet.light.png",
         "dark": "previews/stance-bottom-sheet.dark.png",
@@ -3330,7 +4010,11 @@
       "accessibility": [
         "The result count is announced as people type."
       ],
-      "webEquivalent": "searchable-list",
+      "webEquivalent": [
+        "searchable-list",
+        "command-menu",
+        "command-palette"
+      ],
       "preview": {
         "light": "previews/stance-searchable-list.light.png",
         "dark": "previews/stance-searchable-list.dark.png",
@@ -3371,7 +4055,7 @@
         "Announces whether it is signed.",
         "Offer a typed or uploaded alternative."
       ],
-      "webEquivalent": null,
+      "webEquivalent": "signature-pad",
       "preview": {
         "light": "previews/stance-signature-canvas.light.png",
         "dark": "previews/stance-signature-canvas.dark.png",
@@ -3871,7 +4555,7 @@
     {
       "name": "StanceShimmerText",
       "category": "ai",
-      "summary": "Text with a slow light sweep for labels of work in progress, such as Searching the web.",
+      "summary": "A label with a gentle moving highlight while work is under way, such as Searching the web.",
       "kind": "composable",
       "wrapsNative": "Text",
       "status": "beta",
@@ -4058,7 +4742,7 @@
     {
       "name": "StanceDisclaimerNote",
       "category": "ai",
-      "summary": "A quiet note under the composer or a response, such as a reminder to check important facts.",
+      "summary": "Small print beneath the composer or a reply, for example a reminder to verify key facts.",
       "kind": "composable",
       "wrapsNative": null,
       "status": "beta",
@@ -4139,6 +4823,460 @@
         "high-contrast": "previews/stance-sensitive-content-gate.high-contrast.png",
         "width": 408,
         "height": 263
+      }
+    },
+    {
+      "name": "StanceAccordion",
+      "category": "data-display",
+      "summary": "Stacked section headings that open to reveal their content, one at a time or several together.",
+      "kind": "composable",
+      "wrapsNative": "AnimatedVisibility",
+      "status": "beta",
+      "example": "StanceAccordion(\n    items = listOf(\n        StanceAccordionItem(\"rollout\", \"Rollout\") { Text(\"Signatures deploy to every mailbox tonight.\") },\n        StanceAccordionItem(\"history\", \"Version history\") { Text(\"Three published versions.\") },\n    ),\n    initiallyExpanded = setOf(\"rollout\"),\n)",
+      "accessibility": [
+        "Touch target is at least 48dp.",
+        "Each header is a heading that reports Expanded or Collapsed.",
+        "Opens at once when animations are off."
+      ],
+      "webEquivalent": "accordion",
+      "preview": {
+        "light": "previews/stance-accordion.light.png",
+        "dark": "previews/stance-accordion.dark.png",
+        "high-contrast": "previews/stance-accordion.high-contrast.png",
+        "width": 408,
+        "height": 379
+      }
+    },
+    {
+      "name": "StanceCollapsible",
+      "category": "data-display",
+      "summary": "A single heading that shows or hides the content beneath it, for optional detail.",
+      "kind": "composable",
+      "wrapsNative": "AnimatedVisibility",
+      "status": "beta",
+      "example": "var open by remember { mutableStateOf(false) }\nStanceCollapsible(\"Advanced settings\", open, { open = it }) {\n    Text(\"Keep signed copies for seven years.\")\n}",
+      "accessibility": [
+        "Touch target is at least 48dp.",
+        "The header has expand and collapse actions and reports its state."
+      ],
+      "webEquivalent": "collapsible",
+      "preview": {
+        "light": "previews/stance-collapsible.light.png",
+        "dark": "previews/stance-collapsible.dark.png",
+        "high-contrast": "previews/stance-collapsible.high-contrast.png",
+        "width": 408,
+        "height": 193
+      }
+    },
+    {
+      "name": "StanceCalendar",
+      "category": "forms",
+      "summary": "An inline month grid for picking a day, built on the Material date picker without a dialog.",
+      "kind": "composable",
+      "wrapsNative": "DatePicker",
+      "status": "beta",
+      "example": "var day by remember { mutableStateOf<Long?>(null) }\nStanceCalendar(selectedDateMillis = day, onDateSelected = { day = it })",
+      "accessibility": [
+        "Each day is a button named by its full date.",
+        "Days outside the allowed range are disabled."
+      ],
+      "webEquivalent": "calendar",
+      "preview": {
+        "light": "previews/stance-calendar.light.png",
+        "dark": "previews/stance-calendar.dark.png",
+        "high-contrast": "previews/stance-calendar.high-contrast.png",
+        "width": 408,
+        "height": 440
+      }
+    },
+    {
+      "name": "StanceChart",
+      "category": "data-display",
+      "summary": "Line, bar and area charts drawn on Canvas, with a spoken summary and a stop for each category.",
+      "kind": "composable",
+      "wrapsNative": "Canvas",
+      "status": "beta",
+      "example": "StanceChart(\n    title = \"Signatures sent\",\n    categories = listOf(\"Jan\", \"Feb\", \"Mar\", \"Apr\"),\n    series = listOf(\n        StanceChartSeries(\"Sent\", listOf(12f, 30f, 26f, 48f)),\n        StanceChartSeries(\"Opened\", listOf(8f, 21f, 20f, 39f)),\n    ),\n)",
+      "accessibility": [
+        "The chart is read as one summary, then one stop per category with every value.",
+        "Lines differ by dash pattern as well as colour."
+      ],
+      "webEquivalent": "chart-container",
+      "preview": {
+        "light": "previews/stance-chart.light.png",
+        "dark": "previews/stance-chart.dark.png",
+        "high-contrast": "previews/stance-chart.high-contrast.png",
+        "width": 408,
+        "height": 478
+      }
+    },
+    {
+      "name": "StanceCheckboxGroup",
+      "category": "forms",
+      "summary": "A labelled set of checkboxes for choosing several options, with an optional select all.",
+      "kind": "composable",
+      "wrapsNative": "TriStateCheckbox",
+      "status": "beta",
+      "example": "var channels by remember { mutableStateOf(setOf(\"email\")) }\nStanceCheckboxGroup(\n    label = \"Notify me by\",\n    options = listOf(StanceCheckboxOption(\"email\", \"Email\"), StanceCheckboxOption(\"sms\", \"Text message\")),\n    selected = channels,\n    onSelectedChange = { channels = it },\n    selectAll = true,\n)",
+      "accessibility": [
+        "Touch target is at least 48dp.",
+        "Select all is a tri state checkbox that reads mixed when some are chosen.",
+        "Errors are announced."
+      ],
+      "webEquivalent": "checkbox-group",
+      "preview": {
+        "light": "previews/stance-checkbox-group.light.png",
+        "dark": "previews/stance-checkbox-group.dark.png",
+        "high-contrast": "previews/stance-checkbox-group.high-contrast.png",
+        "width": 408,
+        "height": 283
+      }
+    },
+    {
+      "name": "StanceCodeBlock",
+      "category": "data-display",
+      "summary": "Monospaced source code in a bordered block that scrolls sideways, with line numbers and copy.",
+      "kind": "composable",
+      "wrapsNative": "SelectionContainer",
+      "status": "beta",
+      "example": "StanceCodeBlock(\n    code = \"dependencies {\\n    implementation(libs.stance.compose)\\n}\",\n    title = \"build.gradle.kts\",\n    showLineNumbers = true,\n)",
+      "accessibility": [
+        "Line numbers are hidden from screen readers.",
+        "Code stays left to right in right to left layouts."
+      ],
+      "webEquivalent": [
+        "code-block",
+        "copyable-code",
+        "code"
+      ],
+      "preview": {
+        "light": "previews/stance-code-block.light.png",
+        "dark": "previews/stance-code-block.dark.png",
+        "high-contrast": "previews/stance-code-block.high-contrast.png",
+        "width": 408,
+        "height": 187
+      }
+    },
+    {
+      "name": "StanceCopyButton",
+      "category": "actions",
+      "summary": "Copies text to the clipboard, then confirms with a check, a haptic tick and a spoken Copied.",
+      "kind": "composable",
+      "wrapsNative": "ClipboardManager",
+      "status": "beta",
+      "example": "StanceCopyButton(text = \"https://sign.binds.si/t/nda\", label = \"Copy link\", showLabel = true)",
+      "accessibility": [
+        "Touch target is at least 48dp.",
+        "The confirmation is a polite live region."
+      ],
+      "webEquivalent": "copy-button",
+      "preview": {
+        "light": "previews/stance-copy-button.light.png",
+        "dark": "previews/stance-copy-button.dark.png",
+        "high-contrast": "previews/stance-copy-button.high-contrast.png",
+        "width": 408,
+        "height": 160
+      }
+    },
+    {
+      "name": "StanceCombobox",
+      "category": "forms",
+      "summary": "A text field that narrows a list of options as you type, then fills in the chosen one.",
+      "kind": "composable",
+      "wrapsNative": "ExposedDropdownMenuBox",
+      "status": "beta",
+      "example": "var team by remember { mutableStateOf<String?>(null) }\nStanceCombobox(label = \"Team\", options = teams, selected = team, onSelect = { team = it }, placeholder = \"Type to search\")",
+      "accessibility": [
+        "The keyboard stays open while the list filters.",
+        "An empty result is announced."
+      ],
+      "webEquivalent": "combobox",
+      "preview": {
+        "light": "previews/stance-combobox.light.png",
+        "dark": "previews/stance-combobox.dark.png",
+        "high-contrast": "previews/stance-combobox.high-contrast.png",
+        "width": 408,
+        "height": 420
+      }
+    },
+    {
+      "name": "StanceMultiSelect",
+      "category": "forms",
+      "summary": "Picks several values from a searchable menu and shows each one as a removable chip.",
+      "kind": "composable",
+      "wrapsNative": "ExposedDropdownMenuBox",
+      "status": "beta",
+      "example": "var chosen by remember { mutableStateOf(setOf(\"sales\", \"legal\")) }\nStanceMultiSelect(label = \"Teams\", options = teams, selected = chosen, onSelectedChange = { chosen = it })",
+      "accessibility": [
+        "Options are checkboxes announced with their state.",
+        "Each chip has a named remove action."
+      ],
+      "webEquivalent": "multi-select",
+      "preview": {
+        "light": "previews/stance-multi-select.light.png",
+        "dark": "previews/stance-multi-select.dark.png",
+        "high-contrast": "previews/stance-multi-select.high-contrast.png",
+        "width": 408,
+        "height": 203
+      }
+    },
+    {
+      "name": "stanceContextMenu",
+      "category": "actions",
+      "summary": "A modifier that opens a menu of actions at the point where an element is long pressed.",
+      "kind": "helper",
+      "wrapsNative": "DropdownMenu",
+      "status": "beta",
+      "example": "val menu = rememberStanceContextMenuState()\nBox(Modifier.stanceContextMenu(menu, label = \"Template actions\")) {\n    StanceListItem(\"Sales team signature\", supporting = \"Long press for actions\")\n    StanceContextMenu(\n        menu,\n        listOf(\n            StanceMenuItem(\"Duplicate\", onClick = {}, icon = StanceIcons.Copy),\n            StanceMenuItem(\"Delete\", onClick = {}, icon = StanceIcons.Trash, destructive = true),\n        ),\n    )\n}",
+      "accessibility": [
+        "Screen readers get a named long click action.",
+        "A long press never also clicks the element underneath."
+      ],
+      "webEquivalent": "context-menu",
+      "preview": {
+        "light": "previews/stance-context-menu.light.png",
+        "dark": "previews/stance-context-menu.dark.png",
+        "high-contrast": "previews/stance-context-menu.high-contrast.png",
+        "width": 408,
+        "height": 300
+      }
+    },
+    {
+      "name": "StanceTreeView",
+      "category": "data-display",
+      "summary": "A lazy hierarchy of folders and items that expand and collapse, with optional selection.",
+      "kind": "composable",
+      "wrapsNative": "LazyColumn",
+      "status": "beta",
+      "example": "StanceTreeView(\n    nodes = listOf(\n        StanceTreeNode(\"contracts\", \"Contracts\", listOf(StanceTreeNode(\"nda\", \"Mutual NDA.pdf\"), StanceTreeNode(\"msa\", \"MSA.pdf\"))),\n        StanceTreeNode(\"readme\", \"Read me.txt\"),\n    ),\n    label = \"Files\",\n    initiallyExpanded = setOf(\"contracts\"),\n    modifier = Modifier.height(StanceSpacing.space32 + StanceSpacing.space16),\n)",
+      "accessibility": [
+        "Touch target is at least 48dp.",
+        "Rows report Expanded or Collapsed and their position.",
+        "Chevrons mirror in right to left layouts."
+      ],
+      "webEquivalent": [
+        "tree-view",
+        "file-tree"
+      ],
+      "preview": {
+        "light": "previews/stance-tree-view.light.png",
+        "dark": "previews/stance-tree-view.dark.png",
+        "high-contrast": "previews/stance-tree-view.high-contrast.png",
+        "width": 408,
+        "height": 336
+      }
+    },
+    {
+      "name": "StanceInlineEdit",
+      "category": "forms",
+      "summary": "Text that becomes an editable field when tapped, with save, cancel and validation.",
+      "kind": "composable",
+      "wrapsNative": "OutlinedTextField",
+      "status": "beta",
+      "example": "var name by remember { mutableStateOf(\"Sales team signature\") }\nStanceInlineEdit(value = name, onCommit = { name = it }, label = \"template name\")",
+      "accessibility": [
+        "Touch target is at least 48dp.",
+        "The read view is one button named, for example, Edit template name.",
+        "Back cancels the edit."
+      ],
+      "webEquivalent": "inline-edit",
+      "preview": {
+        "light": "previews/stance-inline-edit.light.png",
+        "dark": "previews/stance-inline-edit.dark.png",
+        "high-contrast": "previews/stance-inline-edit.high-contrast.png",
+        "width": 408,
+        "height": 168
+      }
+    },
+    {
+      "name": "StanceNotificationItem",
+      "category": "feedback",
+      "summary": "One notification row with title, body, time, an unread marker and swipe actions.",
+      "kind": "composable",
+      "wrapsNative": "SwipeToDismissBox",
+      "status": "beta",
+      "example": "var unread by remember { mutableStateOf(true) }\nStanceNotificationItem(\n    title = \"Amara signed the NDA\",\n    body = \"All parties have signed. The final copy is ready.\",\n    time = \"5 min ago\",\n    unread = unread,\n    onMarkRead = { unread = false },\n)",
+      "accessibility": [
+        "Unread is spoken, not shown by the dot alone.",
+        "Mark as read and swipe actions are also custom actions."
+      ],
+      "webEquivalent": "notification",
+      "preview": {
+        "light": "previews/stance-notification-item.light.png",
+        "dark": "previews/stance-notification-item.dark.png",
+        "high-contrast": "previews/stance-notification-item.high-contrast.png",
+        "width": 408,
+        "height": 225
+      }
+    },
+    {
+      "name": "StanceNumberField",
+      "category": "forms",
+      "summary": "A numeric input with step buttons, bounds and number formatting for the current locale.",
+      "kind": "composable",
+      "wrapsNative": "OutlinedTextField",
+      "status": "beta",
+      "example": "var seats by remember { mutableStateOf<Double?>(5.0) }\nStanceNumberField(value = seats, onValueChange = { seats = it }, label = \"Seats\", min = 1.0, max = 50.0)",
+      "accessibility": [
+        "Touch target is at least 48dp.",
+        "Step buttons are named and disabled at the bounds.",
+        "Arrow keys step on a hardware keyboard."
+      ],
+      "webEquivalent": "number-input",
+      "preview": {
+        "light": "previews/stance-number-field.light.png",
+        "dark": "previews/stance-number-field.dark.png",
+        "high-contrast": "previews/stance-number-field.high-contrast.png",
+        "width": 408,
+        "height": 241
+      }
+    },
+    {
+      "name": "StancePagination",
+      "category": "navigation",
+      "summary": "Previous and next controls with a page summary, plus numbered page buttons on wide windows.",
+      "kind": "composable",
+      "wrapsNative": "IconButton",
+      "status": "beta",
+      "example": "var page by remember { mutableIntStateOf(1) }\nStancePagination(page = page, pageCount = 12, onPageChange = { page = it })",
+      "accessibility": [
+        "Touch target is at least 48dp.",
+        "The page summary is a polite live region.",
+        "Arrows mirror in right to left layouts."
+      ],
+      "webEquivalent": "pagination",
+      "preview": {
+        "light": "previews/stance-pagination.light.png",
+        "dark": "previews/stance-pagination.dark.png",
+        "high-contrast": "previews/stance-pagination.high-contrast.png",
+        "width": 408,
+        "height": 321
+      }
+    },
+    {
+      "name": "StancePinField",
+      "category": "forms",
+      "summary": "Boxes for a one time code or PIN that accept typing, paste and SMS code autofill.",
+      "kind": "composable",
+      "wrapsNative": "BasicTextField",
+      "status": "beta",
+      "example": "var code by remember { mutableStateOf(\"\") }\nStancePinField(value = code, onValueChange = { code = it }, onComplete = { /* verify the code */ })",
+      "accessibility": [
+        "One field for screen readers, with progress such as 2 of 6 entered.",
+        "A masked field is announced as a password."
+      ],
+      "webEquivalent": "pin-input",
+      "preview": {
+        "light": "previews/stance-pin-field.light.png",
+        "dark": "previews/stance-pin-field.dark.png",
+        "high-contrast": "previews/stance-pin-field.high-contrast.png",
+        "width": 408,
+        "height": 182
+      }
+    },
+    {
+      "name": "StancePopover",
+      "category": "overlays",
+      "summary": "A small floating panel with a caret that points at the control that opened it.",
+      "kind": "composable",
+      "wrapsNative": "Popup",
+      "status": "beta",
+      "example": "var open by remember { mutableStateOf(false) }\nBox {\n    StanceIconButton(StanceIcons.Info, contentDescription = \"About sharing\", onClick = { open = true })\n    StancePopover(expanded = open, onDismissRequest = { open = false }, title = \"Sharing\") {\n        Text(\"Anyone in your organisation can use this template.\")\n    }\n}",
+      "accessibility": [
+        "Announced as a pane named by its title.",
+        "Dismisses on back and outside taps."
+      ],
+      "webEquivalent": "popover",
+      "preview": {
+        "light": "previews/stance-popover.light.png",
+        "dark": "previews/stance-popover.dark.png",
+        "high-contrast": "previews/stance-popover.high-contrast.png",
+        "width": 408,
+        "height": 300
+      }
+    },
+    {
+      "name": "StanceRichText",
+      "category": "data-display",
+      "summary": "Renders Markdown with Stance type styles, including headings, lists, quotes and links.",
+      "kind": "composable",
+      "wrapsNative": "Text",
+      "status": "beta",
+      "example": "StanceRichText(\"## Rollout\\nSignatures deploy **tonight**. Read the [guide](https://www.stanceui.com).\\n\\n- Sales\\n- Legal\")",
+      "accessibility": [
+        "Headings are marked as headings.",
+        "Links are real link annotations that TalkBack can open."
+      ],
+      "webEquivalent": "rich-text",
+      "preview": {
+        "light": "previews/stance-rich-text.light.png",
+        "dark": "previews/stance-rich-text.dark.png",
+        "high-contrast": "previews/stance-rich-text.high-contrast.png",
+        "width": 408,
+        "height": 237
+      }
+    },
+    {
+      "name": "StanceSortableList",
+      "category": "advanced",
+      "summary": "A list reordered by dragging a handle, with move up and move down as accessible actions.",
+      "kind": "composable",
+      "wrapsNative": "LazyColumn",
+      "status": "beta",
+      "example": "var steps by remember { mutableStateOf(listOf(\"Draft\", \"Review\", \"Sign\")) }\nStanceSortableList(\n    items = steps,\n    key = { it },\n    itemLabel = { it },\n    onMove = { from, to -> steps = steps.stanceMove(from, to) },\n    modifier = Modifier.height(StanceSpacing.space32 + StanceSpacing.space16),\n) { step -> Text(step) }",
+      "accessibility": [
+        "Move up and Move down are custom actions on every row.",
+        "The new position is announced after a move."
+      ],
+      "webEquivalent": "sortable-list",
+      "preview": {
+        "light": "previews/stance-sortable-list.light.png",
+        "dark": "previews/stance-sortable-list.dark.png",
+        "high-contrast": "previews/stance-sortable-list.high-contrast.png",
+        "width": 408,
+        "height": 280
+      }
+    },
+    {
+      "name": "StanceThemeSwitcher",
+      "category": "theming",
+      "summary": "A segmented control for choosing system, light, dark or high contrast appearance.",
+      "kind": "composable",
+      "wrapsNative": "SingleChoiceSegmentedButtonRow",
+      "status": "beta",
+      "example": "var appearance by rememberStanceAppearance()\nStanceThemeSwitcher(appearance = appearance, onAppearanceChange = { appearance = it })",
+      "accessibility": [
+        "Touch target is at least 48dp.",
+        "Announced as a group with the chosen appearance selected."
+      ],
+      "webEquivalent": "theme-switcher",
+      "preview": {
+        "light": "previews/stance-theme-switcher.light.png",
+        "dark": "previews/stance-theme-switcher.dark.png",
+        "high-contrast": "previews/stance-theme-switcher.high-contrast.png",
+        "width": 408,
+        "height": 162
+      }
+    },
+    {
+      "name": "StanceToolbar",
+      "category": "actions",
+      "summary": "A raised pill of related icon actions, such as text formatting, that floats over content.",
+      "kind": "composable",
+      "wrapsNative": "Surface",
+      "status": "beta",
+      "example": "StanceToolbar(label = \"Text formatting\") {\n    StanceIconButton(StanceIcons.Type, contentDescription = \"Text style\", onClick = {})\n    StanceIconButton(StanceIcons.Link, contentDescription = \"Insert link\", onClick = {})\n    StanceIconButton(StanceIcons.Image, contentDescription = \"Insert image\", onClick = {})\n}",
+      "accessibility": [
+        "Read as one group named by its label.",
+        "Scrolls when the actions do not fit."
+      ],
+      "webEquivalent": "toolbar",
+      "preview": {
+        "light": "previews/stance-toolbar.light.png",
+        "dark": "previews/stance-toolbar.dark.png",
+        "high-contrast": "previews/stance-toolbar.high-contrast.png",
+        "width": 408,
+        "height": 168
       }
     }
   ]

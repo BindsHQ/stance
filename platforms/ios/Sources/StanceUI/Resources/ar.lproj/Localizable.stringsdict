@@ -74,5 +74,101 @@
 			<string>%lld نتيجة</string>
 		</dict>
 	</dict>
+	<key>stance.select.count %lld</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>zero</key>
+			<string>لم يتم اختيار أي عنصر</string>
+			<key>one</key>
+			<string>عنصر واحد محدد</string>
+			<key>two</key>
+			<string>عنصران محددان</string>
+			<key>few</key>
+			<string>%lld عناصر محددة</string>
+			<key>many</key>
+			<string>%lld عنصرًا محددًا</string>
+			<key>other</key>
+			<string>%lld عنصر محدد</string>
+		</dict>
+	</dict>
+	<key>stance.dateRange.days %lld</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>zero</key>
+			<string>%lld يوم</string>
+			<key>one</key>
+			<string>يوم واحد</string>
+			<key>two</key>
+			<string>يومان</string>
+			<key>few</key>
+			<string>%lld أيام</string>
+			<key>many</key>
+			<string>%lld يومًا</string>
+			<key>other</key>
+			<string>%lld يوم</string>
+		</dict>
+	</dict>
+	<key>stance.chart.categories %lld</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>zero</key>
+			<string>%lld فئة</string>
+			<key>one</key>
+			<string>فئة واحدة</string>
+			<key>two</key>
+			<string>فئتان</string>
+			<key>few</key>
+			<string>%lld فئات</string>
+			<key>many</key>
+			<string>%lld فئة</string>
+			<key>other</key>
+			<string>%lld فئة</string>
+		</dict>
+	</dict>
+	<key>stance.chart.series %lld</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>zero</key>
+			<string>%lld سلسلة</string>
+			<key>one</key>
+			<string>سلسلة واحدة</string>
+			<key>two</key>
+			<string>سلسلتان</string>
+			<key>few</key>
+			<string>%lld سلاسل</string>
+			<key>many</key>
+			<string>%lld سلسلة</string>
+			<key>other</key>
+			<string>%lld سلسلة</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

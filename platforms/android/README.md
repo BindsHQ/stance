@@ -189,11 +189,30 @@ Column {
 
 The showcase has an Assistant screen with a full conversation and a canned, local reply.
 
+## Native parity
+
+These cover web components that had no Android counterpart. The plan is `specs/native-parity.json`.
+
+| Group | Components |
+| --- | --- |
+| Actions | `StanceCopyButton`, `Modifier.stanceContextMenu`, `StanceToolbar`, `StanceThemeSwitcher` |
+| Forms | `StanceCombobox`, `StanceMultiSelect`, `StanceCheckboxGroup`, `StanceNumberField`, `StancePinField`, `StanceInlineEdit`, `StanceCalendar` |
+| Data display | `StanceAccordion`, `StanceCollapsible`, `StanceTreeView`, `StanceChart`, `StanceCodeBlock`, `StanceRichText` |
+| Navigation, feedback and overlays | `StancePagination`, `StanceNotificationItem`, `StancePopover` |
+| Advanced | `StanceSortableList` |
+
+- Each wraps the Material 3 component where one exists: the exposed dropdown menu for the combobox and multi select, the date picker in display mode for the calendar, segmented buttons for the theme switcher. Charts, pin boxes and the sortable drag are drawn by Stance.
+- `StanceToolbar` follows the Material 3 floating toolbar, which this BOM ships only as an expressive preview, so it is drawn on `Surface`.
+- `StanceSortableList` has Move up and Move down actions on every row. `StanceChart` reads as one summary, then one stop per category.
+- `StancePinField` and `StanceCodeBlock` stay left to right in right to left layouts.
+
 ## Components
 
 `components.json` lists every public component with its category, summary, the Material API it builds on, accessibility notes and a compiled example. The documentation site reads this file.
 
-Planned, not yet included: a reorderable list with accessible move actions, a calendar month view, document preview.
+`webEquivalent` is the web slug, or an array of slugs when one Android component covers several web components (for example `StanceDataTable` covers `table`, `data-table` and `data-grid`), or null.
+
+Planned, not yet included: document preview.
 
 ## Development
 
@@ -220,7 +239,7 @@ cd examples/android/StanceShowcase
 
 This renders the images, optimises them losslessly and refreshes `components.json`, which records each preview and its size in dp. To redo one component while iterating, add `-Pstance.previews.only=StanceButton`.
 
-The compositions live in `examples/android/StanceShowcase/app/src/test/.../ComponentPreviews.kt` and `AiComponentPreviews.kt`. Inline components are 408dp wide (360dp of content with 24dp padding) and as tall as their content. Dialogs, menus, sheets and pickers are captured open. Full-screen components use a 411 by 891dp phone.
+The compositions live in `examples/android/StanceShowcase/app/src/test/.../ComponentPreviews.kt`, `AiComponentPreviews.kt` and `ParityComponentPreviews.kt`. Inline components are 408dp wide (360dp of content with 24dp padding) and as tall as their content. Dialogs, menus, sheets and pickers are captured open. Full-screen components use a 411 by 891dp phone.
 
 Entries with `"preview": null` draw nothing on their own: the photo and document picker launchers and `setStanceContent`.
 
@@ -233,7 +252,7 @@ Do not edit these by hand. Run the script after the source changes.
 | `stance-tokens/.../StanceTokens.kt` | `packages/tokens/source` | `npm run tokens` |
 | `stance-compose/.../icons/StanceIcons.kt` | `packages/react/src/icons/paths.ts` | `node platforms/android/scripts/generate-icons.mjs` |
 | `stance-compose/src/main/res/values*/stance_colors.xml` | resolved tokens | `node platforms/android/scripts/generate-resources.mjs` |
-| `components.json` | showcase `Examples.kt`, `AiExamples.kt` and `previews/` | `node platforms/android/scripts/generate-components-json.mjs` |
+| `components.json` | showcase `Examples.kt`, `AiExamples.kt`, `ParityExamples.kt` and `previews/` | `node platforms/android/scripts/generate-components-json.mjs` |
 | `previews/*.png` | the composables | `./gradlew :app:generateStancePreviews` in the showcase |
 
 `StanceColors` mirrors the generated colour roles one to one. A unit test fails when a role is added to the token source without being exposed there.

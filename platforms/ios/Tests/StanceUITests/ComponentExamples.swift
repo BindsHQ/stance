@@ -1229,8 +1229,502 @@ enum ComponentExamples {
         }
     }
 
-    /// StanceThread
+    /// StanceRangeSlider
     struct Example64: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceRangeSlider("Contract value", value: .constant(1000 ... 5000), in: 0 ... 10000, step: 500)
+        }
+    }
+
+    /// StancePinField
+    struct Example65: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StancePinField("Verification code", code: $text, length: 6)
+        }
+    }
+
+    /// StanceNumberField
+    struct Example66: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceNumberField("Licence seats", value: $value, min: 1, max: 500, suffix: "seats")
+        }
+    }
+
+    /// StanceCombobox
+    struct Example67: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceCombobox("Template owner", selection: $selection, options: [.init("priya", label: "Priya Nair", detail: "Admin"), .init("lukas", label: "Lukas Brenner", detail: "Sales")])
+        }
+    }
+
+    /// StanceMultiSelect
+    struct Example68: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceMultiSelect("Departments", selection: $filters, options: [.init("sales", label: "Sales"), .init("legal", label: "Legal")])
+        }
+    }
+
+    /// StanceCheckboxGroup
+    struct Example69: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceCheckboxGroup("Notify by", selection: $filters, options: [.init("email", label: "Email"), .init("push", label: "Push")], showsSelectAll: true)
+        }
+    }
+
+    /// StanceDateRangePicker
+    struct Example70: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceDateRangePicker("Campaign window", range: .constant(date ... date.addingTimeInterval(604800)))
+        }
+    }
+
+    /// StanceTimePicker
+    struct Example71: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceTimePicker("Deploy at", selection: $date)
+        }
+    }
+
+    /// StanceInlineEdit
+    struct Example72: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceInlineEdit("Template name", text: $text)
+        }
+    }
+
+    /// StanceDataTable
+    struct Example73: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceDataTable(rows: [ComponentExamples.Named(name: "Priya Nair")], columns: [StanceTableColumn("Name") { $0.name }], selection: .constant(Set<String>()))
+        }
+    }
+
+    /// StancePagination
+    struct Example74: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StancePagination(page: $index, pageCount: 12)
+        }
+    }
+
+    /// StanceTreeView
+    struct Example75: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceTreeView(nodes: [StanceTreeNode(id: "templates", title: "Templates", children: [StanceTreeNode(id: "sales", title: "Sales signature")])], expanded: .constant(["templates"]), selection: $selection)
+        }
+    }
+
+    /// StanceSortableList
+    struct Example76: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceSortableList("Approval steps", items: .constant([ComponentExamples.Named(name: "Legal"), ComponentExamples.Named(name: "Finance")]), itemLabel: \.name) { Text($0.name) }
+        }
+    }
+
+    /// StanceChart
+    struct Example77: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceChart("Deployments", kind: .bar, series: [StanceChartSeries("Sent", points: [.init("Jan", 120), .init("Feb", 340)])])
+        }
+    }
+
+    /// StanceRichText
+    struct Example78: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceRichText(markdown: "## Rollout\nSignatures deploy **after** the next sync.")
+        }
+    }
+
+    /// StanceCodeBlock
+    struct Example79: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceCodeBlock("StanceButton(\"Deploy\") {}", title: "Swift", showsLineNumbers: true)
+        }
+    }
+
+    /// StanceProgressCircle
+    struct Example80: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceProgressCircle("Mailboxes updated", value: 0.72)
+        }
+    }
+
+    /// StanceAccordion
+    struct Example81: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceAccordion([StanceAccordionSection(id: "billing", title: "Billing")], expanded: $filters, mode: .single) { _ in Text("Invoices go out on the first of the month.") }
+        }
+    }
+
+    /// StanceTabs
+    struct Example82: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceTabs([StanceTab(id: "admin", title: "Details"), StanceTab(id: "member", title: "Activity", badge: 3)], selection: $role) { Text($0) }
+        }
+    }
+
+    /// StanceCopyButton
+    struct Example83: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceCopyButton(value: "org_7Hk2")
+        }
+    }
+
+    /// StanceSplitButton
+    struct Example84: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceSplitButton("Deploy", action: {}) { Button("Schedule deployment") {} }
+        }
+    }
+
+    /// StanceToggleButton
+    struct Example85: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceToggleButton("Show archived", icon: .inbox, isOn: $isOn)
+        }
+    }
+
+    /// StanceToggleButtonGroup
+    struct Example86: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceToggleButtonGroup("Channels", selection: $filters, options: [StanceToggleOption("email", title: "Email"), StanceToggleOption("sms", title: "SMS")])
+        }
+    }
+
+    /// StanceChip
+    struct Example87: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceChip("Priya Nair", icon: .user, onRemove: {})
+        }
+    }
+
+    /// StanceFilterChip
+    struct Example88: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceFilterChip("Live", count: 12, isOn: $isOn)
+        }
+    }
+
+    /// StanceNotificationRow
+    struct Example89: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            List { StanceNotificationRow("Deployment finished", message: "48 mailboxes updated", time: "2 min ago", isUnread: true, onDelete: {}) }
+        }
+    }
+
+    /// StanceThread
+    struct Example90: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1249,7 +1743,7 @@ enum ComponentExamples {
     }
 
     /// StanceMessage
-    struct Example65: View {
+    struct Example91: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1268,7 +1762,7 @@ enum ComponentExamples {
     }
 
     /// StanceMessageGroup
-    struct Example66: View {
+    struct Example92: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1287,7 +1781,7 @@ enum ComponentExamples {
     }
 
     /// StanceMessageActions
-    struct Example67: View {
+    struct Example93: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1306,7 +1800,7 @@ enum ComponentExamples {
     }
 
     /// StanceBranchSwitcher
-    struct Example68: View {
+    struct Example94: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1325,7 +1819,7 @@ enum ComponentExamples {
     }
 
     /// StanceScrollToLatest
-    struct Example69: View {
+    struct Example95: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1344,7 +1838,7 @@ enum ComponentExamples {
     }
 
     /// StanceConversationList
-    struct Example70: View {
+    struct Example96: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1363,7 +1857,7 @@ enum ComponentExamples {
     }
 
     /// StanceThreadEmptyState
-    struct Example71: View {
+    struct Example97: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1382,7 +1876,7 @@ enum ComponentExamples {
     }
 
     /// StancePromptComposer
-    struct Example72: View {
+    struct Example98: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1401,7 +1895,7 @@ enum ComponentExamples {
     }
 
     /// StanceAttachmentTray
-    struct Example73: View {
+    struct Example99: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1420,7 +1914,7 @@ enum ComponentExamples {
     }
 
     /// StanceMentionPicker
-    struct Example74: View {
+    struct Example100: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1439,7 +1933,7 @@ enum ComponentExamples {
     }
 
     /// StanceSlashCommandMenu
-    struct Example75: View {
+    struct Example101: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1458,7 +1952,7 @@ enum ComponentExamples {
     }
 
     /// StanceModelPicker
-    struct Example76: View {
+    struct Example102: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1477,7 +1971,7 @@ enum ComponentExamples {
     }
 
     /// StanceContextChips
-    struct Example77: View {
+    struct Example103: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1496,7 +1990,7 @@ enum ComponentExamples {
     }
 
     /// StanceVoiceInputButton
-    struct Example78: View {
+    struct Example104: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1515,7 +2009,7 @@ enum ComponentExamples {
     }
 
     /// StanceStopButton
-    struct Example79: View {
+    struct Example105: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1534,7 +2028,7 @@ enum ComponentExamples {
     }
 
     /// StanceTokenBudgetMeter
-    struct Example80: View {
+    struct Example106: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1553,7 +2047,7 @@ enum ComponentExamples {
     }
 
     /// StanceStreamingText
-    struct Example81: View {
+    struct Example107: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1572,7 +2066,7 @@ enum ComponentExamples {
     }
 
     /// StanceThinkingIndicator
-    struct Example82: View {
+    struct Example108: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1591,7 +2085,7 @@ enum ComponentExamples {
     }
 
     /// StanceReasoningDisclosure
-    struct Example83: View {
+    struct Example109: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1610,7 +2104,7 @@ enum ComponentExamples {
     }
 
     /// StanceShimmerText
-    struct Example84: View {
+    struct Example110: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1629,7 +2123,7 @@ enum ComponentExamples {
     }
 
     /// StanceGenerationProgress
-    struct Example85: View {
+    struct Example111: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1648,7 +2142,7 @@ enum ComponentExamples {
     }
 
     /// StanceStreamingSkeleton
-    struct Example86: View {
+    struct Example112: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1667,7 +2161,7 @@ enum ComponentExamples {
     }
 
     /// StanceInterruptedState
-    struct Example87: View {
+    struct Example113: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1686,7 +2180,7 @@ enum ComponentExamples {
     }
 
     /// StanceCitationChip
-    struct Example88: View {
+    struct Example114: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1705,7 +2199,7 @@ enum ComponentExamples {
     }
 
     /// StanceSourceList
-    struct Example89: View {
+    struct Example115: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1724,7 +2218,7 @@ enum ComponentExamples {
     }
 
     /// StanceSourcePreview
-    struct Example90: View {
+    struct Example116: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1743,7 +2237,7 @@ enum ComponentExamples {
     }
 
     /// StanceConfidenceBadge
-    struct Example91: View {
+    struct Example117: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1762,7 +2256,7 @@ enum ComponentExamples {
     }
 
     /// StanceAIGeneratedLabel
-    struct Example92: View {
+    struct Example118: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1781,7 +2275,7 @@ enum ComponentExamples {
     }
 
     /// StanceDisclaimerNote
-    struct Example93: View {
+    struct Example119: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1800,7 +2294,7 @@ enum ComponentExamples {
     }
 
     /// StanceFeedbackBar
-    struct Example94: View {
+    struct Example120: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1819,7 +2313,7 @@ enum ComponentExamples {
     }
 
     /// StanceReportDialog
-    struct Example95: View {
+    struct Example121: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1838,7 +2332,7 @@ enum ComponentExamples {
     }
 
     /// StanceSensitiveContentGate
-    struct Example96: View {
+    struct Example122: View {
         @State var text = ""
         @State var isOn = true
         @State var value = 50.0
@@ -1857,6 +2351,6 @@ enum ComponentExamples {
     }
 }
 
-@Test("components.json lists 97 documented components") func inventoryCount() {
-    #expect(97 > 50)
+@Test("components.json lists 123 documented components") func inventoryCount() {
+    #expect(123 > 50)
 }

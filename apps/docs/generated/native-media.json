@@ -20,6 +20,21 @@
       "width": 720,
       "height": 1565
     },
+    "stance-accordion.dark": {
+      "src": "/native/ios/stance-accordion.dark.webp",
+      "width": 785,
+      "height": 489
+    },
+    "stance-accordion.high-contrast": {
+      "src": "/native/ios/stance-accordion.high-contrast.webp",
+      "width": 785,
+      "height": 489
+    },
+    "stance-accordion.light": {
+      "src": "/native/ios/stance-accordion.light.webp",
+      "width": 785,
+      "height": 489
+    },
     "stance-adaptive-navigation.dark": {
       "src": "/native/ios/stance-adaptive-navigation.dark.webp",
       "width": 804,
@@ -260,6 +275,36 @@
       "width": 785,
       "height": 457
     },
+    "stance-chart.dark": {
+      "src": "/native/ios/stance-chart.dark.webp",
+      "width": 785,
+      "height": 749
+    },
+    "stance-chart.high-contrast": {
+      "src": "/native/ios/stance-chart.high-contrast.webp",
+      "width": 785,
+      "height": 749
+    },
+    "stance-chart.light": {
+      "src": "/native/ios/stance-chart.light.webp",
+      "width": 785,
+      "height": 749
+    },
+    "stance-checkbox-group.dark": {
+      "src": "/native/ios/stance-checkbox-group.dark.webp",
+      "width": 785,
+      "height": 625
+    },
+    "stance-checkbox-group.high-contrast": {
+      "src": "/native/ios/stance-checkbox-group.high-contrast.webp",
+      "width": 785,
+      "height": 625
+    },
+    "stance-checkbox-group.light": {
+      "src": "/native/ios/stance-checkbox-group.light.webp",
+      "width": 785,
+      "height": 625
+    },
     "stance-checkbox.dark": {
       "src": "/native/ios/stance-checkbox.dark.webp",
       "width": 785,
@@ -275,6 +320,21 @@
       "width": 785,
       "height": 465
     },
+    "stance-chip.dark": {
+      "src": "/native/ios/stance-chip.dark.webp",
+      "width": 785,
+      "height": 418
+    },
+    "stance-chip.high-contrast": {
+      "src": "/native/ios/stance-chip.high-contrast.webp",
+      "width": 785,
+      "height": 418
+    },
+    "stance-chip.light": {
+      "src": "/native/ios/stance-chip.light.webp",
+      "width": 785,
+      "height": 418
+    },
     "stance-citation-chip.dark": {
       "src": "/native/ios/stance-citation-chip.dark.webp",
       "width": 785,
@@ -289,6 +349,36 @@
       "src": "/native/ios/stance-citation-chip.light.webp",
       "width": 785,
       "height": 200
+    },
+    "stance-code-block.dark": {
+      "src": "/native/ios/stance-code-block.dark.webp",
+      "width": 785,
+      "height": 472
+    },
+    "stance-code-block.high-contrast": {
+      "src": "/native/ios/stance-code-block.high-contrast.webp",
+      "width": 785,
+      "height": 472
+    },
+    "stance-code-block.light": {
+      "src": "/native/ios/stance-code-block.light.webp",
+      "width": 785,
+      "height": 472
+    },
+    "stance-combobox.dark": {
+      "src": "/native/ios/stance-combobox.dark.webp",
+      "width": 785,
+      "height": 501
+    },
+    "stance-combobox.high-contrast": {
+      "src": "/native/ios/stance-combobox.high-contrast.webp",
+      "width": 785,
+      "height": 501
+    },
+    "stance-combobox.light": {
+      "src": "/native/ios/stance-combobox.light.webp",
+      "width": 785,
+      "height": 501
     },
     "stance-confidence-badge.dark": {
       "src": "/native/ios/stance-confidence-badge.dark.webp",
@@ -365,6 +455,36 @@
       "width": 785,
       "height": 976
     },
+    "stance-copy-button.dark": {
+      "src": "/native/ios/stance-copy-button.dark.webp",
+      "width": 785,
+      "height": 386
+    },
+    "stance-copy-button.high-contrast": {
+      "src": "/native/ios/stance-copy-button.high-contrast.webp",
+      "width": 785,
+      "height": 386
+    },
+    "stance-copy-button.light": {
+      "src": "/native/ios/stance-copy-button.light.webp",
+      "width": 785,
+      "height": 386
+    },
+    "stance-data-table.dark": {
+      "src": "/native/ios/stance-data-table.dark.webp",
+      "width": 785,
+      "height": 1096
+    },
+    "stance-data-table.high-contrast": {
+      "src": "/native/ios/stance-data-table.high-contrast.webp",
+      "width": 785,
+      "height": 1096
+    },
+    "stance-data-table.light": {
+      "src": "/native/ios/stance-data-table.light.webp",
+      "width": 785,
+      "height": 1096
+    },
     "stance-date-picker.dark": {
       "src": "/native/ios/stance-date-picker.dark.webp",
       "width": 785,
@@ -379,6 +499,21 @@
       "src": "/native/ios/stance-date-picker.light.webp",
       "width": 785,
       "height": 395
+    },
+    "stance-date-range-picker.dark": {
+      "src": "/native/ios/stance-date-range-picker.dark.webp",
+      "width": 785,
+      "height": 547
+    },
+    "stance-date-range-picker.high-contrast": {
+      "src": "/native/ios/stance-date-range-picker.high-contrast.webp",
+      "width": 785,
+      "height": 547
+    },
+    "stance-date-range-picker.light": {
+      "src": "/native/ios/stance-date-range-picker.light.webp",
+      "width": 785,
+      "height": 547
     },
     "stance-description-list.dark": {
       "src": "/native/ios/stance-description-list.dark.webp",
@@ -515,6 +650,21 @@
       "width": 785,
       "height": 344
     },
+    "stance-filter-chip.dark": {
+      "src": "/native/ios/stance-filter-chip.dark.webp",
+      "width": 785,
+      "height": 184
+    },
+    "stance-filter-chip.high-contrast": {
+      "src": "/native/ios/stance-filter-chip.high-contrast.webp",
+      "width": 785,
+      "height": 184
+    },
+    "stance-filter-chip.light": {
+      "src": "/native/ios/stance-filter-chip.light.webp",
+      "width": 785,
+      "height": 184
+    },
     "stance-form-field.dark": {
       "src": "/native/ios/stance-form-field.dark.webp",
       "width": 785,
@@ -604,6 +754,21 @@
       "src": "/native/ios/stance-inline-alert.light.webp",
       "width": 785,
       "height": 795
+    },
+    "stance-inline-edit.dark": {
+      "src": "/native/ios/stance-inline-edit.dark.webp",
+      "width": 785,
+      "height": 441
+    },
+    "stance-inline-edit.high-contrast": {
+      "src": "/native/ios/stance-inline-edit.high-contrast.webp",
+      "width": 785,
+      "height": 441
+    },
+    "stance-inline-edit.light": {
+      "src": "/native/ios/stance-inline-edit.light.webp",
+      "width": 785,
+      "height": 441
     },
     "stance-interrupted-state.dark": {
       "src": "/native/ios/stance-interrupted-state.dark.webp",
@@ -755,6 +920,21 @@
       "width": 785,
       "height": 248
     },
+    "stance-multi-select.dark": {
+      "src": "/native/ios/stance-multi-select.dark.webp",
+      "width": 785,
+      "height": 415
+    },
+    "stance-multi-select.high-contrast": {
+      "src": "/native/ios/stance-multi-select.high-contrast.webp",
+      "width": 785,
+      "height": 415
+    },
+    "stance-multi-select.light": {
+      "src": "/native/ios/stance-multi-select.light.webp",
+      "width": 785,
+      "height": 415
+    },
     "stance-navigation-chrome.dark": {
       "src": "/native/ios/stance-navigation-chrome.dark.webp",
       "width": 804,
@@ -769,6 +949,36 @@
       "src": "/native/ios/stance-navigation-chrome.light.webp",
       "width": 804,
       "height": 1748
+    },
+    "stance-notification-row.dark": {
+      "src": "/native/ios/stance-notification-row.dark.webp",
+      "width": 785,
+      "height": 493
+    },
+    "stance-notification-row.high-contrast": {
+      "src": "/native/ios/stance-notification-row.high-contrast.webp",
+      "width": 785,
+      "height": 493
+    },
+    "stance-notification-row.light": {
+      "src": "/native/ios/stance-notification-row.light.webp",
+      "width": 785,
+      "height": 493
+    },
+    "stance-number-field.dark": {
+      "src": "/native/ios/stance-number-field.dark.webp",
+      "width": 785,
+      "height": 501
+    },
+    "stance-number-field.high-contrast": {
+      "src": "/native/ios/stance-number-field.high-contrast.webp",
+      "width": 785,
+      "height": 501
+    },
+    "stance-number-field.light": {
+      "src": "/native/ios/stance-number-field.light.webp",
+      "width": 785,
+      "height": 501
     },
     "stance-page-indicator.dark": {
       "src": "/native/ios/stance-page-indicator.dark.webp",
@@ -785,6 +995,21 @@
       "width": 785,
       "height": 272
     },
+    "stance-pagination.dark": {
+      "src": "/native/ios/stance-pagination.dark.webp",
+      "width": 785,
+      "height": 368
+    },
+    "stance-pagination.high-contrast": {
+      "src": "/native/ios/stance-pagination.high-contrast.webp",
+      "width": 785,
+      "height": 368
+    },
+    "stance-pagination.light": {
+      "src": "/native/ios/stance-pagination.light.webp",
+      "width": 785,
+      "height": 368
+    },
     "stance-picker.dark": {
       "src": "/native/ios/stance-picker.dark.webp",
       "width": 785,
@@ -799,6 +1024,36 @@
       "src": "/native/ios/stance-picker.light.webp",
       "width": 785,
       "height": 437
+    },
+    "stance-pin-field.dark": {
+      "src": "/native/ios/stance-pin-field.dark.webp",
+      "width": 785,
+      "height": 577
+    },
+    "stance-pin-field.high-contrast": {
+      "src": "/native/ios/stance-pin-field.high-contrast.webp",
+      "width": 785,
+      "height": 577
+    },
+    "stance-pin-field.light": {
+      "src": "/native/ios/stance-pin-field.light.webp",
+      "width": 785,
+      "height": 577
+    },
+    "stance-progress-circle.dark": {
+      "src": "/native/ios/stance-progress-circle.dark.webp",
+      "width": 785,
+      "height": 352
+    },
+    "stance-progress-circle.high-contrast": {
+      "src": "/native/ios/stance-progress-circle.high-contrast.webp",
+      "width": 785,
+      "height": 352
+    },
+    "stance-progress-circle.light": {
+      "src": "/native/ios/stance-progress-circle.light.webp",
+      "width": 785,
+      "height": 352
     },
     "stance-progress-view.dark": {
       "src": "/native/ios/stance-progress-view.dark.webp",
@@ -845,6 +1100,21 @@
       "width": 785,
       "height": 482
     },
+    "stance-range-slider.dark": {
+      "src": "/native/ios/stance-range-slider.dark.webp",
+      "width": 785,
+      "height": 351
+    },
+    "stance-range-slider.high-contrast": {
+      "src": "/native/ios/stance-range-slider.high-contrast.webp",
+      "width": 785,
+      "height": 351
+    },
+    "stance-range-slider.light": {
+      "src": "/native/ios/stance-range-slider.light.webp",
+      "width": 785,
+      "height": 351
+    },
     "stance-reasoning-disclosure.dark": {
       "src": "/native/ios/stance-reasoning-disclosure.dark.webp",
       "width": 785,
@@ -874,6 +1144,21 @@
       "src": "/native/ios/stance-report-dialog.light.webp",
       "width": 804,
       "height": 1748
+    },
+    "stance-rich-text.dark": {
+      "src": "/native/ios/stance-rich-text.dark.webp",
+      "width": 785,
+      "height": 634
+    },
+    "stance-rich-text.high-contrast": {
+      "src": "/native/ios/stance-rich-text.high-contrast.webp",
+      "width": 785,
+      "height": 634
+    },
+    "stance-rich-text.light": {
+      "src": "/native/ios/stance-rich-text.light.webp",
+      "width": 785,
+      "height": 634
     },
     "stance-scoped-theme.dark": {
       "src": "/native/ios/stance-scoped-theme.dark.webp",
@@ -1085,6 +1370,21 @@
       "width": 785,
       "height": 452
     },
+    "stance-sortable-list.dark": {
+      "src": "/native/ios/stance-sortable-list.dark.webp",
+      "width": 785,
+      "height": 856
+    },
+    "stance-sortable-list.high-contrast": {
+      "src": "/native/ios/stance-sortable-list.high-contrast.webp",
+      "width": 785,
+      "height": 856
+    },
+    "stance-sortable-list.light": {
+      "src": "/native/ios/stance-sortable-list.light.webp",
+      "width": 785,
+      "height": 856
+    },
     "stance-source-list.dark": {
       "src": "/native/ios/stance-source-list.dark.webp",
       "width": 785,
@@ -1114,6 +1414,21 @@
       "src": "/native/ios/stance-source-preview.light.webp",
       "width": 785,
       "height": 429
+    },
+    "stance-split-button.dark": {
+      "src": "/native/ios/stance-split-button.dark.webp",
+      "width": 785,
+      "height": 408
+    },
+    "stance-split-button.high-contrast": {
+      "src": "/native/ios/stance-split-button.high-contrast.webp",
+      "width": 785,
+      "height": 408
+    },
+    "stance-split-button.light": {
+      "src": "/native/ios/stance-split-button.light.webp",
+      "width": 785,
+      "height": 408
     },
     "stance-stat-card.dark": {
       "src": "/native/ios/stance-stat-card.dark.webp",
@@ -1204,6 +1519,21 @@
       "src": "/native/ios/stance-surface.light.webp",
       "width": 785,
       "height": 584
+    },
+    "stance-tabs.dark": {
+      "src": "/native/ios/stance-tabs.dark.webp",
+      "width": 785,
+      "height": 582
+    },
+    "stance-tabs.high-contrast": {
+      "src": "/native/ios/stance-tabs.high-contrast.webp",
+      "width": 785,
+      "height": 582
+    },
+    "stance-tabs.light": {
+      "src": "/native/ios/stance-tabs.light.webp",
+      "width": 785,
+      "height": 582
     },
     "stance-tag.dark": {
       "src": "/native/ios/stance-tag.dark.webp",
@@ -1325,6 +1655,21 @@
       "width": 785,
       "height": 896
     },
+    "stance-time-picker.dark": {
+      "src": "/native/ios/stance-time-picker.dark.webp",
+      "width": 785,
+      "height": 411
+    },
+    "stance-time-picker.high-contrast": {
+      "src": "/native/ios/stance-time-picker.high-contrast.webp",
+      "width": 785,
+      "height": 411
+    },
+    "stance-time-picker.light": {
+      "src": "/native/ios/stance-time-picker.light.webp",
+      "width": 785,
+      "height": 411
+    },
     "stance-timeline.dark": {
       "src": "/native/ios/stance-timeline.dark.webp",
       "width": 785,
@@ -1354,6 +1699,36 @@
       "src": "/native/ios/stance-toast-center.light.webp",
       "width": 785,
       "height": 476
+    },
+    "stance-toggle-button-group.dark": {
+      "src": "/native/ios/stance-toggle-button-group.dark.webp",
+      "width": 785,
+      "height": 468
+    },
+    "stance-toggle-button-group.high-contrast": {
+      "src": "/native/ios/stance-toggle-button-group.high-contrast.webp",
+      "width": 785,
+      "height": 468
+    },
+    "stance-toggle-button-group.light": {
+      "src": "/native/ios/stance-toggle-button-group.light.webp",
+      "width": 785,
+      "height": 468
+    },
+    "stance-toggle-button.dark": {
+      "src": "/native/ios/stance-toggle-button.dark.webp",
+      "width": 785,
+      "height": 248
+    },
+    "stance-toggle-button.high-contrast": {
+      "src": "/native/ios/stance-toggle-button.high-contrast.webp",
+      "width": 785,
+      "height": 248
+    },
+    "stance-toggle-button.light": {
+      "src": "/native/ios/stance-toggle-button.light.webp",
+      "width": 785,
+      "height": 248
     },
     "stance-toggle-style.dark": {
       "src": "/native/ios/stance-toggle-style.dark.webp",
@@ -1399,6 +1774,21 @@
       "src": "/native/ios/stance-touch-target.light.webp",
       "width": 785,
       "height": 248
+    },
+    "stance-tree-view.dark": {
+      "src": "/native/ios/stance-tree-view.dark.webp",
+      "width": 785,
+      "height": 756
+    },
+    "stance-tree-view.high-contrast": {
+      "src": "/native/ios/stance-tree-view.high-contrast.webp",
+      "width": 785,
+      "height": 756
+    },
+    "stance-tree-view.light": {
+      "src": "/native/ios/stance-tree-view.light.webp",
+      "width": 785,
+      "height": 756
     },
     "stance-voice-input-button.dark": {
       "src": "/native/ios/stance-voice-input-button.dark.webp",
@@ -1451,6 +1841,21 @@
       "src": "/native/android/showcase-sample.light.webp",
       "width": 720,
       "height": 1561
+    },
+    "stance-accordion.dark": {
+      "src": "/native/android/stance-accordion.dark.webp",
+      "width": 816,
+      "height": 758
+    },
+    "stance-accordion.high-contrast": {
+      "src": "/native/android/stance-accordion.high-contrast.webp",
+      "width": 816,
+      "height": 758
+    },
+    "stance-accordion.light": {
+      "src": "/native/android/stance-accordion.light.webp",
+      "width": 816,
+      "height": 758
     },
     "stance-adaptive-grid.dark": {
       "src": "/native/android/stance-adaptive-grid.dark.webp",
@@ -1662,6 +2067,21 @@
       "width": 816,
       "height": 664
     },
+    "stance-calendar.dark": {
+      "src": "/native/android/stance-calendar.dark.webp",
+      "width": 816,
+      "height": 880
+    },
+    "stance-calendar.high-contrast": {
+      "src": "/native/android/stance-calendar.high-contrast.webp",
+      "width": 816,
+      "height": 880
+    },
+    "stance-calendar.light": {
+      "src": "/native/android/stance-calendar.light.webp",
+      "width": 816,
+      "height": 880
+    },
     "stance-card.dark": {
       "src": "/native/android/stance-card.dark.webp",
       "width": 816,
@@ -1676,6 +2096,36 @@
       "src": "/native/android/stance-card.light.webp",
       "width": 816,
       "height": 549
+    },
+    "stance-chart.dark": {
+      "src": "/native/android/stance-chart.dark.webp",
+      "width": 816,
+      "height": 956
+    },
+    "stance-chart.high-contrast": {
+      "src": "/native/android/stance-chart.high-contrast.webp",
+      "width": 816,
+      "height": 956
+    },
+    "stance-chart.light": {
+      "src": "/native/android/stance-chart.light.webp",
+      "width": 816,
+      "height": 956
+    },
+    "stance-checkbox-group.dark": {
+      "src": "/native/android/stance-checkbox-group.dark.webp",
+      "width": 816,
+      "height": 565
+    },
+    "stance-checkbox-group.high-contrast": {
+      "src": "/native/android/stance-checkbox-group.high-contrast.webp",
+      "width": 816,
+      "height": 565
+    },
+    "stance-checkbox-group.light": {
+      "src": "/native/android/stance-checkbox-group.light.webp",
+      "width": 816,
+      "height": 565
     },
     "stance-checkbox.dark": {
       "src": "/native/android/stance-checkbox.dark.webp",
@@ -1722,6 +2172,51 @@
       "width": 816,
       "height": 960
     },
+    "stance-code-block.dark": {
+      "src": "/native/android/stance-code-block.dark.webp",
+      "width": 816,
+      "height": 374
+    },
+    "stance-code-block.high-contrast": {
+      "src": "/native/android/stance-code-block.high-contrast.webp",
+      "width": 816,
+      "height": 374
+    },
+    "stance-code-block.light": {
+      "src": "/native/android/stance-code-block.light.webp",
+      "width": 816,
+      "height": 374
+    },
+    "stance-collapsible.dark": {
+      "src": "/native/android/stance-collapsible.dark.webp",
+      "width": 816,
+      "height": 385
+    },
+    "stance-collapsible.high-contrast": {
+      "src": "/native/android/stance-collapsible.high-contrast.webp",
+      "width": 816,
+      "height": 385
+    },
+    "stance-collapsible.light": {
+      "src": "/native/android/stance-collapsible.light.webp",
+      "width": 816,
+      "height": 385
+    },
+    "stance-combobox.dark": {
+      "src": "/native/android/stance-combobox.dark.webp",
+      "width": 816,
+      "height": 840
+    },
+    "stance-combobox.high-contrast": {
+      "src": "/native/android/stance-combobox.high-contrast.webp",
+      "width": 816,
+      "height": 840
+    },
+    "stance-combobox.light": {
+      "src": "/native/android/stance-combobox.light.webp",
+      "width": 816,
+      "height": 840
+    },
     "stance-confidence-badge.dark": {
       "src": "/native/android/stance-confidence-badge.dark.webp",
       "width": 816,
@@ -1752,6 +2247,21 @@
       "width": 816,
       "height": 296
     },
+    "stance-context-menu.dark": {
+      "src": "/native/android/stance-context-menu.dark.webp",
+      "width": 816,
+      "height": 600
+    },
+    "stance-context-menu.high-contrast": {
+      "src": "/native/android/stance-context-menu.high-contrast.webp",
+      "width": 816,
+      "height": 600
+    },
+    "stance-context-menu.light": {
+      "src": "/native/android/stance-context-menu.light.webp",
+      "width": 816,
+      "height": 600
+    },
     "stance-conversation-list.dark": {
       "src": "/native/android/stance-conversation-list.dark.webp",
       "width": 816,
@@ -1766,6 +2276,21 @@
       "src": "/native/android/stance-conversation-list.light.webp",
       "width": 816,
       "height": 608
+    },
+    "stance-copy-button.dark": {
+      "src": "/native/android/stance-copy-button.dark.webp",
+      "width": 816,
+      "height": 320
+    },
+    "stance-copy-button.high-contrast": {
+      "src": "/native/android/stance-copy-button.high-contrast.webp",
+      "width": 816,
+      "height": 320
+    },
+    "stance-copy-button.light": {
+      "src": "/native/android/stance-copy-button.light.webp",
+      "width": 816,
+      "height": 320
     },
     "stance-data-table.dark": {
       "src": "/native/android/stance-data-table.dark.webp",
@@ -2067,6 +2592,21 @@
       "width": 816,
       "height": 753
     },
+    "stance-inline-edit.dark": {
+      "src": "/native/android/stance-inline-edit.dark.webp",
+      "width": 816,
+      "height": 336
+    },
+    "stance-inline-edit.high-contrast": {
+      "src": "/native/android/stance-inline-edit.high-contrast.webp",
+      "width": 816,
+      "height": 336
+    },
+    "stance-inline-edit.light": {
+      "src": "/native/android/stance-inline-edit.light.webp",
+      "width": 816,
+      "height": 336
+    },
     "stance-input-chip.dark": {
       "src": "/native/android/stance-input-chip.dark.webp",
       "width": 816,
@@ -2202,6 +2742,21 @@
       "width": 816,
       "height": 1120
     },
+    "stance-multi-select.dark": {
+      "src": "/native/android/stance-multi-select.dark.webp",
+      "width": 816,
+      "height": 405
+    },
+    "stance-multi-select.high-contrast": {
+      "src": "/native/android/stance-multi-select.high-contrast.webp",
+      "width": 816,
+      "height": 405
+    },
+    "stance-multi-select.light": {
+      "src": "/native/android/stance-multi-select.light.webp",
+      "width": 816,
+      "height": 405
+    },
     "stance-navigation-bar.dark": {
       "src": "/native/android/stance-navigation-bar.dark.webp",
       "width": 816,
@@ -2247,6 +2802,36 @@
       "width": 822,
       "height": 1782
     },
+    "stance-notification-item.dark": {
+      "src": "/native/android/stance-notification-item.dark.webp",
+      "width": 816,
+      "height": 450
+    },
+    "stance-notification-item.high-contrast": {
+      "src": "/native/android/stance-notification-item.high-contrast.webp",
+      "width": 816,
+      "height": 450
+    },
+    "stance-notification-item.light": {
+      "src": "/native/android/stance-notification-item.light.webp",
+      "width": 816,
+      "height": 450
+    },
+    "stance-number-field.dark": {
+      "src": "/native/android/stance-number-field.dark.webp",
+      "width": 816,
+      "height": 482
+    },
+    "stance-number-field.high-contrast": {
+      "src": "/native/android/stance-number-field.high-contrast.webp",
+      "width": 816,
+      "height": 482
+    },
+    "stance-number-field.light": {
+      "src": "/native/android/stance-number-field.light.webp",
+      "width": 816,
+      "height": 482
+    },
     "stance-pager-indicator.dark": {
       "src": "/native/android/stance-pager-indicator.dark.webp",
       "width": 816,
@@ -2262,6 +2847,21 @@
       "width": 816,
       "height": 279
     },
+    "stance-pagination.dark": {
+      "src": "/native/android/stance-pagination.dark.webp",
+      "width": 816,
+      "height": 642
+    },
+    "stance-pagination.high-contrast": {
+      "src": "/native/android/stance-pagination.high-contrast.webp",
+      "width": 816,
+      "height": 642
+    },
+    "stance-pagination.light": {
+      "src": "/native/android/stance-pagination.light.webp",
+      "width": 816,
+      "height": 642
+    },
     "stance-password-field.dark": {
       "src": "/native/android/stance-password-field.dark.webp",
       "width": 816,
@@ -2276,6 +2876,36 @@
       "src": "/native/android/stance-password-field.light.webp",
       "width": 816,
       "height": 486
+    },
+    "stance-pin-field.dark": {
+      "src": "/native/android/stance-pin-field.dark.webp",
+      "width": 816,
+      "height": 364
+    },
+    "stance-pin-field.high-contrast": {
+      "src": "/native/android/stance-pin-field.high-contrast.webp",
+      "width": 816,
+      "height": 364
+    },
+    "stance-pin-field.light": {
+      "src": "/native/android/stance-pin-field.light.webp",
+      "width": 816,
+      "height": 364
+    },
+    "stance-popover.dark": {
+      "src": "/native/android/stance-popover.dark.webp",
+      "width": 816,
+      "height": 600
+    },
+    "stance-popover.high-contrast": {
+      "src": "/native/android/stance-popover.high-contrast.webp",
+      "width": 816,
+      "height": 600
+    },
+    "stance-popover.light": {
+      "src": "/native/android/stance-popover.light.webp",
+      "width": 816,
+      "height": 600
     },
     "stance-progress-indicator.dark": {
       "src": "/native/android/stance-progress-indicator.dark.webp",
@@ -2381,6 +3011,21 @@
       "src": "/native/android/stance-report-dialog.light.webp",
       "width": 816,
       "height": 1280
+    },
+    "stance-rich-text.dark": {
+      "src": "/native/android/stance-rich-text.dark.webp",
+      "width": 816,
+      "height": 474
+    },
+    "stance-rich-text.high-contrast": {
+      "src": "/native/android/stance-rich-text.high-contrast.webp",
+      "width": 816,
+      "height": 474
+    },
+    "stance-rich-text.light": {
+      "src": "/native/android/stance-rich-text.light.webp",
+      "width": 816,
+      "height": 474
     },
     "stance-scaffold.dark": {
       "src": "/native/android/stance-scaffold.dark.webp",
@@ -2561,6 +3206,21 @@
       "src": "/native/android/stance-snackbar-host.light.webp",
       "width": 816,
       "height": 240
+    },
+    "stance-sortable-list.dark": {
+      "src": "/native/android/stance-sortable-list.dark.webp",
+      "width": 816,
+      "height": 560
+    },
+    "stance-sortable-list.high-contrast": {
+      "src": "/native/android/stance-sortable-list.high-contrast.webp",
+      "width": 816,
+      "height": 560
+    },
+    "stance-sortable-list.light": {
+      "src": "/native/android/stance-sortable-list.light.webp",
+      "width": 816,
+      "height": 560
     },
     "stance-source-list.dark": {
       "src": "/native/android/stance-source-list.dark.webp",
@@ -2772,6 +3432,21 @@
       "width": 816,
       "height": 715
     },
+    "stance-theme-switcher.dark": {
+      "src": "/native/android/stance-theme-switcher.dark.webp",
+      "width": 816,
+      "height": 324
+    },
+    "stance-theme-switcher.high-contrast": {
+      "src": "/native/android/stance-theme-switcher.high-contrast.webp",
+      "width": 816,
+      "height": 324
+    },
+    "stance-theme-switcher.light": {
+      "src": "/native/android/stance-theme-switcher.light.webp",
+      "width": 816,
+      "height": 324
+    },
     "stance-theme.dark": {
       "src": "/native/android/stance-theme.dark.webp",
       "width": 816,
@@ -2877,6 +3552,21 @@
       "width": 816,
       "height": 300
     },
+    "stance-toolbar.dark": {
+      "src": "/native/android/stance-toolbar.dark.webp",
+      "width": 816,
+      "height": 336
+    },
+    "stance-toolbar.high-contrast": {
+      "src": "/native/android/stance-toolbar.high-contrast.webp",
+      "width": 816,
+      "height": 336
+    },
+    "stance-toolbar.light": {
+      "src": "/native/android/stance-toolbar.light.webp",
+      "width": 816,
+      "height": 336
+    },
     "stance-tooltip.dark": {
       "src": "/native/android/stance-tooltip.dark.webp",
       "width": 816,
@@ -2906,6 +3596,21 @@
       "src": "/native/android/stance-top-app-bar.light.webp",
       "width": 816,
       "height": 704
+    },
+    "stance-tree-view.dark": {
+      "src": "/native/android/stance-tree-view.dark.webp",
+      "width": 816,
+      "height": 672
+    },
+    "stance-tree-view.high-contrast": {
+      "src": "/native/android/stance-tree-view.high-contrast.webp",
+      "width": 816,
+      "height": 672
+    },
+    "stance-tree-view.light": {
+      "src": "/native/android/stance-tree-view.light.webp",
+      "width": 816,
+      "height": 672
     },
     "stance-voice-input-button.dark": {
       "src": "/native/android/stance-voice-input-button.dark.webp",

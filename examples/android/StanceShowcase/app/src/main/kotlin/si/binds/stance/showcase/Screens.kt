@@ -167,7 +167,7 @@ fun FoundationsScreen(padding: PaddingValues) {
 
 private data class Entry(val name: String, val content: @Composable () -> Unit)
 
-private val catalogue: List<Pair<String, List<Entry>>> = listOf(
+private val baseCatalogue: List<Pair<String, List<Entry>>> = listOf(
     "Actions" to listOf(
         Entry("StanceButton") { StanceButtonExample() },
         Entry("StanceIconButton") { StanceIconButtonExample() },
@@ -241,6 +241,12 @@ private val catalogue: List<Pair<String, List<Entry>>> = listOf(
     ),
     "AI" to aiCatalogue.map { (name, content) -> Entry(name, content) },
 )
+
+/** The catalogue with the native parity components added to their categories. */
+private val catalogue: List<Pair<String, List<Entry>>> = baseCatalogue.map { (title, entries) ->
+    val added = parityCatalogue.firstOrNull { it.first == title }?.second.orEmpty().map { (name, content) -> Entry(name, content) }
+    title to entries + added
+}
 
 /** Every component with its variants, grouped by category. [section] limits it to one category. */
 @Composable

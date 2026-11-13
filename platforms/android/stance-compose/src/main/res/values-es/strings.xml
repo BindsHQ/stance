@@ -44,4 +44,44 @@
     </plurals>
     <string name="stance_list_separator">", "</string>
     <string name="stance_table_cell">%1$s: %2$s</string>
+    <!-- Native parity components. -->
+    <string name="stance_expanded">Expandido</string>
+    <string name="stance_collapsed">Contraído</string>
+    <string name="stance_expand">Expandir</string>
+    <string name="stance_collapse">Contraer</string>
+    <string name="stance_select_all">Seleccionar todo</string>
+    <string name="stance_code_sample">Ejemplo de código</string>
+    <string name="stance_copy">Copiar</string>
+    <string name="stance_copied">Copiado</string>
+    <string name="stance_remove_item">Quitar %1$s</string>
+    <plurals name="stance_selected_count">
+        <item quantity="one">%1$d seleccionado</item>
+        <item quantity="many">%1$d seleccionados</item>
+        <item quantity="other">%1$d seleccionados</item>
+    </plurals>
+    <string name="stance_edit_named">Editar %1$s</string>
+    <string name="stance_save">Guardar</string>
+    <string name="stance_unread">No leída</string>
+    <string name="stance_mark_as_read">Marcar como leída</string>
+    <string name="stance_increase">Aumentar</string>
+    <string name="stance_decrease">Disminuir</string>
+    <string name="stance_previous_page">Página anterior</string>
+    <string name="stance_next_page">Página siguiente</string>
+    <string name="stance_page_number">Página %1$d</string>
+    <string name="stance_verification_code">Código de verificación</string>
+    <string name="stance_pin_progress">%1$d de %2$d introducidos</string>
+    <string name="stance_move_up">Subir</string>
+    <string name="stance_move_down">Bajar</string>
+    <string name="stance_reorder">Reordenar %1$s</string>
+    <string name="stance_moved">%1$s, posición %2$d de %3$d</string>
+    <string name="stance_theme">Tema</string>
+    <string name="stance_theme_system">Sistema</string>
+    <string name="stance_theme_light">Claro</string>
+    <string name="stance_theme_dark">Oscuro</string>
+    <string name="stance_theme_high_contrast">Alto contraste</string>
+    <string name="stance_chart_line">Gráfico de líneas</string>
+    <string name="stance_chart_bar">Gráfico de barras</string>
+    <string name="stance_chart_area">Gráfico de áreas</string>
+    <string name="stance_chart_summary">%1$s: %2$s. Mínimo %3$s, máximo %4$s.</string>
+    <string name="stance_chart_point">%1$s, %2$s</string>
 </resources>

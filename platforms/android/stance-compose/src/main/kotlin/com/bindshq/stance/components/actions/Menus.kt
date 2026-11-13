@@ -20,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.bindshq.stance.foundation.StanceDivider
 import com.bindshq.stance.icons.StanceIcon
@@ -43,6 +44,8 @@ public data class StanceMenuItem(
 /**
  * A menu of actions anchored to the element that opened it. Uses the platform dropdown menu,
  * so it dismisses on back, outside taps and Escape, and is announced as a menu.
+ *
+ * @param offset Moves the menu from its anchor: x from the start edge, y from the bottom edge.
  */
 @Composable
 public fun StanceDropdownMenu(
@@ -50,12 +53,14 @@ public fun StanceDropdownMenu(
     onDismissRequest: () -> Unit,
     items: List<StanceMenuItem>,
     modifier: Modifier = Modifier,
+    offset: DpOffset = DpOffset.Zero,
 ) {
     val c = StanceTheme.colors
     DropdownMenu(
         expanded = expanded,
         onDismissRequest = onDismissRequest,
         modifier = modifier,
+        offset = offset,
         shape = StanceTheme.shapes.large,
         containerColor = c.bgOverlay,
         shadowElevation = StanceTheme.elevation.lg.shadow,

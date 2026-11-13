@@ -91,7 +91,7 @@ private fun PickerField(
 }
 
 @Composable
-private fun stanceDatePickerColors() = StanceTheme.colors.let { c ->
+internal fun stanceDatePickerColors() = StanceTheme.colors.let { c ->
     DatePickerDefaults.colors(
         containerColor = c.bgOverlay,
         titleContentColor = c.fgMuted,

@@ -2,6 +2,8 @@
 //  - generated/registry.ts   lazy loaders keyed by slug (client-side code splitting)
 //  - generated/meta.json      name/category/summary per component (nav, search, metadata)
 //  - generated/examples.json  exact source of every exported example function
+//  - generated/native.json    iOS and Android inventories from platforms/*/components.json
+//  - generated/native-idioms.json  platform idioms from specs/native-parity.json
 import { existsSync, readdirSync, readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { pathToFileURL } from 'node:url';
@@ -205,7 +207,30 @@ for (const m of meta) {
 }
 writeFileSync(join(out, 'docs-data.json'), JSON.stringify(docsData));
 
+// The site's own webEquivalent reader (lib/native-links.ts), compiled so both agree.
+const linksFile = join(evalDir, 'native-links.mjs');
+writeFileSync(
+  linksFile,
+  ts.transpileModule(readFileSync(join(root, 'lib', 'native-links.ts'), 'utf8'), {
+    compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 },
+  }).outputText,
+);
+const { webSlugs, coversWeb, sharesWeb } = await import(pathToFileURL(linksFile).href);
+
+// Fixture: `webEquivalent` is a slug, a list of slugs, or null. Arrays are exercised even
+// while every inventory still uses strings.
+const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+for (const [ok, label] of [
+  [same(webSlugs('button'), ['button']), 'string'],
+  [same(webSlugs(['table', 'data-grid']), ['table', 'data-grid']), 'array'],
+  [same(webSlugs(null), []) && same(webSlugs(undefined), []) && same(webSlugs([]), []), 'empty'],
+  [coversWeb(['table', 'data-grid'], 'data-grid') && !coversWeb('table', 'data-grid'), 'covers'],
+  [sharesWeb(['table', 'data-grid'], 'data-grid') && !sharesWeb('table', null), 'shares'],
+])
+  if (!ok) problems.push(`lib/native-links.ts: ${label} webEquivalent fixture failed`);
+
 // Native component inventories (written by each platform package).
+const webSlugSet = new Set(meta.map((m) => m.slug));
 const native = {};
 for (const platform of ['ios', 'android']) {
   const file = join(root, '..', '..', 'platforms', platform, 'components.json');
@@ -213,13 +238,35 @@ for (const platform of ['ios', 'android']) {
   for (const c of native[platform]) {
     if (!c.name || !c.category || !c.summary || !c.example)
       problems.push(`${platform}/components.json: ${c.name ?? '?'} is missing required fields`);
-    if (c.webEquivalent && !meta.some((m) => m.slug === c.webEquivalent))
+    const w = c.webEquivalent;
+    if (w != null && typeof w !== 'string' && !(Array.isArray(w) && w.length > 0))
       problems.push(
-        `${platform}/components.json: ${c.name} webEquivalent "${c.webEquivalent}" is not a web component`,
+        `${platform}/components.json: ${c.name} webEquivalent must be a slug, a list of slugs or null`,
       );
+    for (const slug of webSlugs(w))
+      if (!webSlugSet.has(slug))
+        problems.push(
+          `${platform}/components.json: ${c.name} webEquivalent "${slug}" is not a web component`,
+        );
   }
 }
 writeFileSync(join(out, 'native.json'), JSON.stringify(native, null, 2));
+
+// Platform idioms: web components whose native answer is the platform's own API.
+const parityFile = join(root, '..', '..', 'specs', 'native-parity.json');
+const parity = existsSync(parityFile) ? JSON.parse(readFileSync(parityFile, 'utf8')) : {};
+const idioms = {};
+for (const platform of ['ios', 'android']) {
+  idioms[platform] = {};
+  for (const [slug, text] of Object.entries(parity[platform]?.idiom ?? {})) {
+    if (!webSlugSet.has(slug))
+      problems.push(`specs/native-parity.json: ${platform} idiom "${slug}" is not a web component`);
+    else if (typeof text !== 'string' || !text.trim())
+      problems.push(`specs/native-parity.json: ${platform} idiom "${slug}" needs a sentence`);
+    else idioms[platform][slug] = text.trim();
+  }
+}
+writeFileSync(join(out, 'native-idioms.json'), JSON.stringify(idioms, null, 2));
 
 // Guide pages may only name native components that exist in an inventory.
 const nativeNames = new Set([...native.ios, ...native.android].map((c) => c.name));

@@ -48,11 +48,11 @@ export async function GET(
     ...(c.accessibility.length
       ? ['## Accessibility', '', ...c.accessibility.map((a) => `- ${a}`), '']
       : []),
-    ...(web || otherMatches.length
+    ...(web.length || otherMatches.length
       ? [
           '## On other platforms',
           '',
-          ...(web ? [`- Web: ${site.url}/components/${web}`] : []),
+          ...web.map((w) => `- Web: ${site.url}/components/${w}`),
           ...otherMatches.map(
             (o) => `- ${platformLabels[other].name}: ${site.url}${nativePath(other, o)}`,
           ),

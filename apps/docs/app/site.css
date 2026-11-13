@@ -2196,6 +2196,25 @@ a.platform-device:hover .device {
   font-size: var(--st-font-size-xs);
   font-weight: var(--st-font-weight-medium);
 }
+.native-idioms {
+  display: grid;
+  gap: var(--st-space-2);
+  margin: var(--st-space-4) 0;
+  padding: 0;
+  list-style: none;
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-sm);
+}
+.native-idioms li {
+  display: flex;
+  gap: var(--st-space-3);
+}
+.native-idioms__platform {
+  flex: none;
+  min-width: 4.5rem;
+  color: var(--st-color-fg-default);
+  font-weight: var(--st-font-weight-medium);
+}
 .native-item__a11y {
   color: var(--st-color-fg-muted);
   font-size: var(--st-font-size-sm);

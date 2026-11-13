@@ -112,9 +112,36 @@ StanceUI wraps system controls and styles them with tokens. It does not reimplem
 | Top-level navigation | `StanceAdaptiveNavigation`: tab bar on iPhone, sidebar on iPad |
 | Search | `.searchable`, or `StanceSearchableList` |
 | Swipe actions and pull to refresh | The system `.swipeActions` and `.refreshable` modifiers, unchanged |
+| Accordion | `StanceAccordion`, built on `DisclosureGroup` |
+| Tables | `StanceDataTable`: `Table` in regular width, a `List` of cards in compact width |
+| Trees and reordering | `StanceTreeView` and `StanceSortableList`, built on `List`, `onMove` and `EditButton` |
+| Charts | `StanceChart`, built on Swift Charts with Audio Graphs |
+| Numbers, times and date ranges | `StanceNumberField` (`TextField` and `Stepper`), `StanceTimePicker` and `StanceDateRangePicker` (`DatePicker`) |
+| One time codes | `StancePinField`: one `TextField` with `.oneTimeCode`, boxes drawn over it |
+| Choosing from long lists | `StanceCombobox` and `StanceMultiSelect`: a `.searchable` `List` in a sheet or popover |
+| Split and toggle buttons | `StanceSplitButton` (`Menu(primaryAction:)`), `StanceToggleButton` (`Toggle`) |
+| Segmented tabs and progress rings | `StanceTabs(style: .segmented)` (`Picker`), `StanceProgressCircle` (`ProgressView`) |
+| Markdown and copying | `StanceRichText` (`AttributedString`), `StanceCopyButton` and `StanceCodeBlock` (`UIPasteboard`) |
 
-Custom controls exist only where iOS has none: checkbox, radio group, badge, tag, avatar,
-banner, toast, empty state, skeleton, timeline, stepper, filter bar and signature canvas.
+Custom controls exist only where iOS has none: checkbox, checkbox group, radio group, badge,
+tag, chip, avatar, banner, toast, empty state, skeleton, timeline, stepper, pagination, filter
+bar, the second thumb of the range slider, the underline tab strip and the signature canvas.
+
+### Components by group
+
+| Group | Components |
+| --- | --- |
+| Actions | `StanceButton`, `StanceIconButton`, `StanceButtonGroup`, `StanceMenu`, `StanceSplitButton`, `StanceCopyButton`, `StanceToggleButton`, `StanceToggleButtonGroup` |
+| Forms | `StanceFormField`, `StanceTextField`, `StanceSecureField`, `StanceTextEditor`, `StanceSearchField`, `StanceNumberField`, `StancePinField`, `StancePicker`, `StanceCombobox`, `StanceMultiSelect`, `StanceCheckbox`, `StanceCheckboxGroup`, `StanceRadioGroup`, `StanceSlider`, `StanceRangeSlider`, `StanceDatePicker`, `StanceDateRangePicker`, `StanceTimePicker`, `StanceInlineEdit` |
+| Data display | `StanceBadge`, `StanceTag`, `StanceChip`, `StanceAvatar`, `StanceAvatarGroup`, `StanceProgressView`, `StanceProgressCircle`, `StanceSkeleton`, `StanceEmptyState`, `StanceTimeline`, `StanceStatCard`, `StanceDescriptionList`, `StanceListRow`, `StanceAccordion`, `StanceDataTable`, `StanceTreeView`, `StanceSortableList`, `StanceChart`, `StanceRichText`, `StanceCodeBlock`, `StanceNotificationRow` |
+| Navigation | `StanceAdaptiveNavigation`, `StanceTabs`, `StancePagination`, `StanceStepper`, `StancePageIndicator` |
+| Advanced | `StanceFilterBar`, `StanceFilterChip`, `StanceSearchableList`, `StanceCalendar`, `StanceSignatureCanvas`, `StanceAttachmentPicker`, `StanceDocumentPreview` |
+
+Some web components have no separate iOS type because a native one covers them. In
+`components.json`, `webEquivalent` is a web slug or a list of slugs: `StanceDataTable` covers
+`data-table`, `table` and `data-grid`, and `stanceSheet()` covers `sheet`, `dialog` and `drawer`.
+Others are plain platform idioms, listed in `specs/native-parity.json`: `NavigationStack` for
+breadcrumbs, `.popover` for popovers, `.help` for tooltips and the system `.toolbar`.
 
 Motion comes from the motion tokens through `StanceMotion` and is removed under Reduce Motion.
 Where a system control would give feedback, StanceUI does too: a selection tick on the

@@ -1,5 +1,6 @@
 import examples from '../generated/examples.json';
 import type { ComponentDoc } from './docs-types';
+import { nativeCoverage, nativePath, nativePlatforms, platformLabels } from './native';
 import { categoryLabels, site } from './site';
 
 const sources = examples as Record<string, Record<string, string>>;
@@ -76,6 +77,16 @@ export function componentMarkdown(doc: ComponentDoc): string {
       '',
     );
   }
+  const cover = nativeCoverage(doc.slug);
+  const native = nativePlatforms.flatMap((p) => {
+    const label = `${platformLabels[p].name} (${platformLabels[p].ui})`;
+    if (cover[p].components.length)
+      return cover[p].components.map(
+        (c) => `- ${label}: \`${c.name}\`. ${c.summary} ${site.url}${nativePath(p, c)}`,
+      );
+    return cover[p].idiom ? [`- ${label}: no Stance component. ${cover[p].idiom}`] : [];
+  });
+  if (native.length) out.push('## Native platforms', '', ...native, '');
   if (doc.related?.length)
     out.push('## Related', '', ...doc.related.map((r) => `- ${site.url}/components/${r}`), '');
   return out.join('\n');
