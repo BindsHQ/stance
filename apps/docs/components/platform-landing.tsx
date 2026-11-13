@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Icon } from '@bindshq/stance-react';
 import type { PlatformLanding } from '../content/platforms';
-import { native, platformLabels } from '../lib/native';
+import { native, platformLabels, previewName } from '../lib/native';
 import { categoryLabels, categoryOrder } from '../lib/site';
 import { Code } from './code';
 import { JsonLd } from './json-ld';
@@ -15,11 +15,15 @@ export function PlatformLandingPage({ data }: { data: PlatformLanding }) {
   const items = native[data.platform];
   const label = platformLabels[data.platform];
   const groups = categoryOrder
-    .map((c) => ({
-      id: c,
-      label: categoryLabels[c] ?? c,
-      count: items.filter((x) => x.category === c).length,
-    }))
+    .map((c) => {
+      const members = items.filter((x) => x.category === c);
+      return {
+        id: c,
+        label: categoryLabels[c] ?? c,
+        count: members.length,
+        preview: representative(data.platform, members),
+      };
+    })
     .filter((g) => g.count > 0);
   const wrapsNative = items.filter((c) => c.wrapsNative).length;
   const hasTablet = hasNativeImage(data.platform, data.tablet);
@@ -207,11 +211,19 @@ export function PlatformLandingPage({ data }: { data: PlatformLanding }) {
             See all
           </Link>
         </header>
-        <ul className="category-chips">
+        <ul className="category-blocks">
           {groups.map((g) => (
             <li key={g.id}>
-              <Link href={`/${data.platform}/components#cat-${g.id}`}>
-                {g.label} <span>{g.count}</span>
+              <Link href={`/${data.platform}/components#cat-${g.id}`} className="category-block">
+                <span className="category-block__media" aria-hidden="true">
+                  {g.preview && <NativeImage platform={data.platform} name={g.preview} alt="" />}
+                </span>
+                <span className="category-block__body">
+                  <span className="category-block__title">{g.label}</span>
+                  <span className="category-block__count">
+                    {g.count} {g.count === 1 ? 'component' : 'components'}
+                  </span>
+                </span>
               </Link>
             </li>
           ))}
@@ -256,4 +268,36 @@ export function PlatformLandingPage({ data }: { data: PlatformLanding }) {
       </section>
     </main>
   );
+}
+
+/** Components that best show each category at a glance. The first one with a preview wins. */
+const showcase: Record<string, string[]> = {
+  theming: ['StanceThemeSwitcher', 'StanceAppearance', 'StanceTheme'],
+  foundations: ['StanceCard', 'stanceCard()', 'StanceSurface'],
+  typography: ['stanceText(_:)'],
+  actions: ['StanceButton', 'StanceButtonGroup', 'StanceSplitButton'],
+  forms: ['StanceTextField', 'StanceFormField', 'StanceCombobox'],
+  navigation: ['StanceTabs', 'StanceNavigationBar', 'StancePagination'],
+  'data-display': ['StanceChart', 'StanceDataTable', 'StanceStatCard'],
+  feedback: ['StanceBanner', 'StanceInlineAlert', 'StanceToastCenter'],
+  overlays: ['stanceSheet()', 'StanceBottomSheet', 'StanceMenu', 'StanceDialog'],
+  advanced: ['StanceSignatureCanvas', 'StanceDocumentPreview'],
+  ai: ['StancePromptComposer', 'StanceThread', 'StanceDiffReview'],
+};
+
+function representative(
+  platform: PlatformLanding['platform'],
+  members: (typeof native)[PlatformLanding['platform']],
+): string | null {
+  const ranked = [
+    ...(showcase[members[0]?.category ?? ''] ?? [])
+      .map((name) => members.find((m) => m.name === name))
+      .filter((m) => m !== undefined),
+    ...members,
+  ];
+  for (const m of ranked) {
+    const name = previewName(m);
+    if (name && hasNativeImage(platform, name)) return name;
+  }
+  return null;
 }

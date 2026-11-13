@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { brand, ink } from '@bindshq/stance-tokens';
 import { faq } from '../content/faq';
+import { WebCategoryPreview } from '../components/category-preview';
 import { InstallSnippet } from '../components/install-snippet';
 import { JsonLd } from '../components/json-ld';
 import { LandingBento } from '../components/landing-bento';
@@ -164,11 +165,19 @@ export default function Home() {
             Browse all
           </Link>
         </header>
-        <ul className="category-chips">
+        <ul className="category-blocks">
           {categories.map((c) => (
             <li key={c.id}>
-              <Link href={`/components#cat-${c.id}`}>
-                {c.label} <span>{c.count}</span>
+              <Link href={`/components#cat-${c.id}`} className="category-block">
+                <span className="category-block__media">
+                  <WebCategoryPreview id={c.id} />
+                </span>
+                <span className="category-block__body">
+                  <span className="category-block__title">{c.label}</span>
+                  <span className="category-block__count">
+                    {c.count} {c.count === 1 ? 'component' : 'components'}
+                  </span>
+                </span>
               </Link>
             </li>
           ))}
