@@ -69,7 +69,14 @@
     <string name="stance_next_page">Página siguiente</string>
     <string name="stance_page_number">Página %1$d</string>
     <string name="stance_verification_code">Código de verificación</string>
-    <string name="stance_pin_progress">%1$d de %2$d introducidos</string>
+    <plurals name="stance_pin_progress">
+        <item quantity="one">%1$d de %2$d introducido</item>
+        <item quantity="many">%1$d de %2$d introducidos</item>
+        <item quantity="other">%1$d de %2$d introducidos</item>
+    </plurals>
+    <string name="stance_use_value">Usar «%1$s»</string>
+    <string name="stance_sorted_ascending">Orden ascendente</string>
+    <string name="stance_sorted_descending">Orden descendente</string>
     <string name="stance_move_up">Subir</string>
     <string name="stance_move_down">Bajar</string>
     <string name="stance_reorder">Reordenar %1$s</string>
@@ -84,4 +91,7 @@
     <string name="stance_chart_area">Gráfico de áreas</string>
     <string name="stance_chart_summary">%1$s: %2$s. Mínimo %3$s, máximo %4$s.</string>
     <string name="stance_chart_point">%1$s, %2$s</string>
+    <!-- The state of a read only task list item. -->
+    <string name="stance_checked">Marcado</string>
+    <string name="stance_not_checked">Sin marcar</string>
 </resources>

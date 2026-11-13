@@ -80,7 +80,15 @@
     <string name="stance_page_number">Page %1$d</string>
     <string name="stance_verification_code">Verification code</string>
     <!-- Pin field progress: characters entered, length. -->
-    <string name="stance_pin_progress">%1$d of %2$d entered</string>
+    <plurals name="stance_pin_progress">
+        <item quantity="one">%1$d of %2$d entered</item>
+        <item quantity="other">%1$d of %2$d entered</item>
+    </plurals>
+    <!-- Combobox item that uses the typed text as the value: the typed text. -->
+    <string name="stance_use_value">Use “%1$s”</string>
+    <!-- Table header states for a sorted column. -->
+    <string name="stance_sorted_ascending">Sorted ascending</string>
+    <string name="stance_sorted_descending">Sorted descending</string>
     <string name="stance_move_up">Move up</string>
     <string name="stance_move_down">Move down</string>
     <!-- Names a drag handle: the item label. -->
@@ -99,4 +107,7 @@
     <string name="stance_chart_summary">%1$s: %2$s. Lowest %3$s, highest %4$s.</string>
     <!-- One chart point read aloud: category, the series values. -->
     <string name="stance_chart_point">%1$s, %2$s</string>
+    <!-- The state of a read only task list item. -->
+    <string name="stance_checked">Checked</string>
+    <string name="stance_not_checked">Not checked</string>
 </resources>

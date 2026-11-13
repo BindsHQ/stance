@@ -1,0 +1,134 @@
+.st-markdown {
+  --_fs: var(--st-font-size-md);
+  min-inline-size: 0;
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-sans);
+  font-size: var(--_fs);
+  line-height: var(--st-line-height-relaxed);
+  overflow-wrap: break-word;
+}
+.st-markdown[data-size='sm'] {
+  --_fs: var(--st-font-size-sm);
+}
+.st-markdown :where(p, ul, ol, blockquote, hr),
+.st-markdown__code,
+.st-markdown__table {
+  margin-block: 0 0.9em;
+  margin-inline: 0;
+}
+.st-markdown__heading {
+  margin-block: 1.4em 0.5em;
+  margin-inline: 0;
+  font-size: 1em;
+  font-weight: var(--st-font-weight-semibold);
+  line-height: var(--st-line-height-snug);
+  letter-spacing: var(--st-letter-spacing-tight);
+  text-wrap: balance;
+}
+.st-markdown__heading[data-level='1'] {
+  font-size: 1.5em;
+}
+.st-markdown__heading[data-level='2'] {
+  font-size: 1.25em;
+}
+.st-markdown__heading[data-level='3'] {
+  font-size: 1.125em;
+}
+.st-markdown__heading[data-level='5'],
+.st-markdown__heading[data-level='6'] {
+  color: var(--st-color-fg-muted);
+  font-size: 0.875em;
+}
+.st-markdown > :first-child,
+.st-markdown :where(blockquote, li) > :first-child {
+  margin-block-start: 0;
+}
+.st-markdown > :last-child,
+.st-markdown :where(blockquote, li) > :last-child {
+  margin-block-end: 0;
+}
+.st-markdown__link {
+  color: var(--st-color-fg-link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  border-radius: var(--st-radius-xs);
+}
+.st-markdown__link:hover {
+  text-decoration-thickness: 2px;
+}
+.st-markdown__link:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}
+.st-markdown :where(strong) {
+  font-weight: var(--st-font-weight-semibold);
+}
+.st-markdown :where(del) {
+  color: var(--st-color-fg-muted);
+}
+.st-markdown__list {
+  padding-inline-start: 1.5em;
+}
+.st-markdown__list :where(li) {
+  margin-block: 0.25em;
+  padding-inline-start: 0.125em;
+}
+.st-markdown__list :where(li)::marker {
+  color: var(--st-color-fg-muted);
+  font-variant-numeric: tabular-nums;
+}
+.st-markdown__list :where(ul, ol) {
+  margin-block: 0.25em 0;
+}
+.st-markdown__task {
+  list-style: none;
+}
+.st-markdown__checkbox {
+  inline-size: 1em;
+  block-size: 1em;
+  margin-block: 0;
+  margin-inline: -1.375em 0.375em;
+  vertical-align: -0.125em;
+  accent-color: var(--st-color-accent-bg);
+}
+.st-markdown__quote {
+  padding-inline-start: var(--st-space-4);
+  border-inline-start: 3px solid var(--st-color-border-strong);
+  color: var(--st-color-fg-muted);
+}
+.st-markdown__rule {
+  block-size: 0;
+  border: 0;
+  border-block-start: var(--st-border-width) solid var(--st-color-border-default);
+  margin-block: 1.5em;
+}
+.st-markdown__image {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+  margin-block: 0 0.9em;
+  border-radius: var(--st-radius-md);
+}
+.st-markdown__code {
+  font-size: var(--st-font-size-sm);
+}
+[data-theme='high-contrast'] .st-markdown__quote,
+[data-theme='high-contrast'] .st-markdown :where(del),
+[data-theme='high-contrast'] .st-markdown__heading {
+  color: var(--st-color-fg-default);
+}
+@media (forced-colors: active) {
+  .st-markdown__link {
+    color: LinkText;
+  }
+  .st-markdown__link:focus-visible {
+    outline-color: Highlight;
+  }
+  .st-markdown__quote {
+    border-inline-start-color: CanvasText;
+  }
+  .st-markdown__rule {
+    border-block-start-color: CanvasText;
+  }
+}

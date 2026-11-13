@@ -1,0 +1,104 @@
+.st-copilot-panel {
+  display: flex;
+  /* Shrinks before it overflows a narrow host, down to a usable floor. */
+  flex: 0 1 auto;
+  flex-direction: column;
+  inline-size: var(--st-copilot-panel-width, 23.75rem);
+  min-inline-size: min(17.5rem, 100%);
+  max-inline-size: 100%;
+  min-block-size: 0;
+  block-size: 100%;
+  border-inline-start: var(--st-border-width) solid var(--st-color-border-default);
+  background: var(--st-color-bg-surface);
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-sm);
+  line-height: var(--st-line-height-normal);
+}
+.st-copilot-panel[data-side='start']:not([data-modal]) {
+  order: -1;
+  border-inline-start: 0;
+  border-inline-end: var(--st-border-width) solid var(--st-color-border-default);
+}
+/* As a dialog the sheet owns the size and the edge. */
+.st-dialog.st-copilot-panel[data-modal] {
+  border-inline-start-width: var(--st-border-width);
+}
+.st-copilot-panel__header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--st-space-2);
+  min-block-size: 3.5rem;
+  padding-block: var(--st-space-2);
+  padding-inline: var(--st-space-4) var(--st-space-2);
+  border-block-end: var(--st-border-width) solid var(--st-color-border-subtle);
+}
+.st-copilot-panel[data-modal] .st-copilot-panel__header {
+  min-block-size: 3rem;
+}
+.st-copilot-panel__icon {
+  flex-shrink: 0;
+}
+.st-copilot-panel__title {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  margin: 0;
+  font-size: var(--st-font-size-md);
+  font-weight: var(--st-font-weight-semibold);
+  line-height: var(--st-line-height-snug);
+  letter-spacing: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.st-copilot-panel__tools {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--st-space-1);
+}
+.st-copilot-panel__context {
+  flex-shrink: 0;
+  padding-block: var(--st-space-2);
+  padding-inline: var(--st-space-4);
+  border-block-end: var(--st-border-width) solid var(--st-color-border-subtle);
+  background: var(--st-color-bg-subtle);
+}
+.st-copilot-panel__thread {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-block-size: 0;
+  overflow-y: auto;
+}
+/* A Thread scrolls itself and brings its own gutters. */
+.st-copilot-panel__thread:has(> .st-thread) {
+  overflow: hidden;
+}
+.st-copilot-panel__thread > :not(.st-thread) {
+  padding: var(--st-space-4);
+}
+.st-copilot-panel__composer {
+  flex-shrink: 0;
+  padding: var(--st-space-3);
+  padding-block-end: max(var(--st-space-3), env(safe-area-inset-bottom));
+}
+@media (pointer: coarse) {
+  .st-copilot-panel__tools .st-icon-button {
+    min-inline-size: 2.75rem;
+    min-block-size: 2.75rem;
+  }
+}
+[data-theme='high-contrast'] .st-copilot-panel,
+[data-theme='high-contrast'] .st-copilot-panel__header,
+[data-theme='high-contrast'] .st-copilot-panel__context {
+  border-color: var(--st-color-border-strong);
+}
+@media (forced-colors: active) {
+  .st-copilot-panel,
+  .st-copilot-panel__header,
+  .st-copilot-panel__context {
+    border-color: CanvasText;
+  }
+}

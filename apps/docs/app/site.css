@@ -336,7 +336,7 @@ pre {
   font-size: var(--st-font-size-sm);
 }
 .docs-h2,
-.prose h2 {
+.prose h2:where(:not(.not-prose *)) {
   margin: var(--st-space-16) 0 var(--st-space-4);
   padding-top: var(--st-space-6);
   border-top: var(--st-border-width) solid var(--st-color-separator);
@@ -346,7 +346,7 @@ pre {
   line-height: var(--st-line-height-snug);
 }
 .docs-h3,
-.prose h3 {
+.prose h3:where(:not(.not-prose *)) {
   margin: var(--st-space-8) 0 var(--st-space-3);
   font-size: var(--st-font-size-lg);
   font-weight: var(--st-font-weight-semibold);
@@ -354,37 +354,41 @@ pre {
 .prose {
   line-height: var(--st-line-height-relaxed);
 }
+/* Live examples inside a guide opt out of the prose rules above. */
+.not-prose {
+  line-height: var(--st-line-height-normal);
+}
 .prose > :first-child {
   margin-top: 0;
 }
-.prose p,
-.prose li {
+.prose p:where(:not(.not-prose *)),
+.prose li:where(:not(.not-prose *)) {
   color: var(--st-color-fg-default);
 }
-.prose ul,
-.prose ol,
+.prose ul:where(:not(.not-prose *)),
+.prose ol:where(:not(.not-prose *)),
 .docs-list {
   padding-left: 1.25rem;
 }
-.prose li + li,
+.prose li + li:where(:not(.not-prose *)),
 .docs-list li + li {
   margin-top: var(--st-space-2);
 }
-.prose a,
+.prose a:where(:not(.not-prose *)),
 .text-link {
   font-weight: var(--st-font-weight-medium);
   text-decoration: underline;
   text-underline-offset: 0.2em;
   text-decoration-thickness: 1px;
 }
-.prose a:hover,
+.prose a:where(:not(.not-prose *)):hover,
 .text-link:hover {
   text-decoration-thickness: 2px;
 }
-.prose :not(pre) > code {
+.prose :not(pre) > code:where(:not(.not-prose *)) {
   overflow-wrap: anywhere;
 }
-.prose :not(pre) > code,
+.prose :not(pre) > code:where(:not(.not-prose *)),
 .docs-article td code,
 .docs-article th code,
 .feature-list code,
@@ -394,7 +398,7 @@ pre {
   background: var(--st-color-bg-muted);
   font-size: 0.875em;
 }
-[data-theme='high-contrast'] .prose :not(pre) > code {
+[data-theme='high-contrast'] .prose :not(pre) > code:where(:not(.not-prose *)) {
   outline: 1px solid var(--st-color-border-default);
 }
 

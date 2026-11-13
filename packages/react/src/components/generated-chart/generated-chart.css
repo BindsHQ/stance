@@ -1,0 +1,21 @@
+.st-generated-chart__area {
+  opacity: 0.14;
+}
+.st-generated-chart__source {
+  margin: 0;
+  line-height: var(--st-line-height-normal);
+}
+.st-generated-chart__source-label {
+  color: var(--st-color-fg-default);
+  font-weight: var(--st-font-weight-medium);
+}
+[data-theme='high-contrast'] .st-generated-chart__source {
+  color: var(--st-color-fg-default);
+}
+@media (forced-colors: active) {
+  .st-generated-chart__line,
+  .st-generated-chart__point,
+  .st-generated-chart__area {
+    forced-color-adjust: none;
+  }
+}

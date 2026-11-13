@@ -401,6 +401,7 @@ enum PreviewCatalog {
         },
         Entry("stance-document-preview", .screen) { DocumentScreen() },
     ] + FormsParityPreviewCatalog.entries + DataParityPreviewCatalog.entries + ActionsParityPreviewCatalog.entries + AIPreviewCatalog.entries
+        + AIAgentsPreviewCatalog.entries + AIOutputPreviewCatalog.entries + AIProductPreviewCatalog.entries
 }
 
 enum PreviewData {

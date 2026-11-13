@@ -84,6 +84,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntRect
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupPositionProvider
@@ -288,21 +289,7 @@ public fun StanceAttachmentTray(
                 horizontalArrangement = Arrangement.spacedBy(StanceSpacing.space2),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Box(
-                    modifier = Modifier.size(StanceSizes.controlSmall).clip(StanceTheme.shapes.small).background(c.bgEmphasis).clearAndSetSemantics { },
-                    contentAlignment = Alignment.Center,
-                ) {
-                    if (item.preview != null) {
-                        item.preview.invoke()
-                    } else {
-                        StanceIcon(
-                            if (item.kind == StanceAttachmentKind.Image) StanceIcons.Image else StanceIcons.FileText,
-                            contentDescription = null,
-                            size = StanceSizes.iconSmall,
-                            tint = c.fgMuted,
-                        )
-                    }
-                }
+                AttachmentThumbnail(item.kind, item.preview)
                 Column(
                     modifier = Modifier
                         .weight(1f, fill = false)
@@ -330,6 +317,27 @@ public fun StanceAttachmentTray(
                     Box(Modifier.width(StanceSpacing.space1))
                 }
             }
+        }
+    }
+}
+
+/** The square mark of a file: its image preview, or an icon for its kind. Shared with [StanceFilePreviewCard]. */
+@Composable
+internal fun AttachmentThumbnail(kind: StanceAttachmentKind, preview: (@Composable () -> Unit)?, size: Dp = StanceSizes.controlSmall) {
+    val c = StanceTheme.colors
+    Box(
+        modifier = Modifier.size(size).clip(StanceTheme.shapes.small).background(c.bgEmphasis).clearAndSetSemantics { },
+        contentAlignment = Alignment.Center,
+    ) {
+        if (preview != null) {
+            preview()
+        } else {
+            StanceIcon(
+                if (kind == StanceAttachmentKind.Image) StanceIcons.Image else StanceIcons.FileText,
+                contentDescription = null,
+                size = StanceSizes.iconSmall,
+                tint = c.fgMuted,
+            )
         }
     }
 }

@@ -78,7 +78,17 @@
     <string name="stance_next_page">الصفحة التالية</string>
     <string name="stance_page_number">الصفحة %1$d</string>
     <string name="stance_verification_code">رمز التحقق</string>
-    <string name="stance_pin_progress">تم إدخال %1$d من %2$d</string>
+    <plurals name="stance_pin_progress">
+        <item quantity="zero">لم يُدخل أي رمز من %2$d</item>
+        <item quantity="one">تم إدخال رمز واحد من %2$d</item>
+        <item quantity="two">تم إدخال رمزين من %2$d</item>
+        <item quantity="few">تم إدخال %1$d رموز من %2$d</item>
+        <item quantity="many">تم إدخال %1$d رمزًا من %2$d</item>
+        <item quantity="other">تم إدخال %1$d رمز من %2$d</item>
+    </plurals>
+    <string name="stance_use_value">استخدام «%1$s»</string>
+    <string name="stance_sorted_ascending">مرتب تصاعديًا</string>
+    <string name="stance_sorted_descending">مرتب تنازليًا</string>
     <string name="stance_move_up">نقل لأعلى</string>
     <string name="stance_move_down">نقل لأسفل</string>
     <string name="stance_reorder">إعادة ترتيب %1$s</string>
@@ -93,4 +103,7 @@
     <string name="stance_chart_area">مخطط مساحي</string>
     <string name="stance_chart_summary">%1$s: %2$s. الأدنى %3$s، الأعلى %4$s.</string>
     <string name="stance_chart_point">%1$s، %2$s</string>
+    <!-- The state of a read only task list item. -->
+    <string name="stance_checked">محدد</string>
+    <string name="stance_not_checked">غير محدد</string>
 </resources>

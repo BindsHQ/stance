@@ -38,6 +38,48 @@ public enum StanceOptionFilter {
         }
         return prefix + contains
     }
+
+    /// The custom value a query offers, or `nil` when there is nothing to offer.
+    ///
+    /// A blank query offers nothing. Neither does a query that is the label of an option, ignoring
+    /// case and accents: that option is chosen instead, as the web combobox does.
+    public nonisolated static func customText<Value: Hashable>(for query: String, in options: [StanceSelectOption<Value>]) -> String? {
+        let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return nil }
+        let compare: String.CompareOptions = [.caseInsensitive, .diacriticInsensitive]
+        return options.contains { $0.label.compare(trimmed, options: compare) == .orderedSame } ? nil : trimmed
+    }
+}
+
+/// Lets a ``StanceCombobox`` or ``StanceMultiSelect`` accept text that is not one of its options.
+///
+/// The value type stays yours: you say how typed text becomes a value and how such a value is
+/// shown. For `String` values use `.text`.
+///
+/// ```swift
+/// StanceCombobox("Tag", selection: $tag, options: tags, custom: .text)
+/// StanceCombobox("Owner", selection: $owner, options: people, custom: .init(make: { Owner.invited(email: $0) }, label: \.name))
+/// ```
+public struct StanceCustomValue<Value: Hashable> {
+    let make: (String) -> Value?
+    let label: (Value) -> String
+    let actionLabel: ((String) -> String)?
+
+    /// - Parameters:
+    ///   - make: Turns the typed text into a value, or returns `nil` to refuse it (for example an invalid email).
+    ///   - label: The text shown for a value that is not among the options.
+    ///   - actionLabel: The row that offers the typed text. Defaults to a localised "Use “text”" in a
+    ///     combobox and "Create “text”" in a multi select.
+    public init(make: @escaping (String) -> Value?, label: @escaping (Value) -> String, actionLabel: ((String) -> String)? = nil) {
+        self.make = make
+        self.label = label
+        self.actionLabel = actionLabel
+    }
+}
+
+extension StanceCustomValue where Value == String {
+    /// The typed text is the value.
+    public static var text: StanceCustomValue { StanceCustomValue(make: { $0 }, label: { $0 }) }
 }
 
 /// A field that opens a searchable list and picks one value, such as a template owner from
@@ -54,6 +96,7 @@ public struct StanceCombobox<Value: Hashable>: View {
     private let error: String?
     private let isRequired: Bool
     private let isClearable: Bool
+    private let custom: StanceCustomValue<Value>?
     @Binding private var selection: Value?
     @State private var isOpen = false
     @Environment(\.stanceTheme) private var theme
@@ -67,6 +110,8 @@ public struct StanceCombobox<Value: Hashable>: View {
     ///   - placeholder: Shown when nothing is chosen. Defaults to a localised "Select".
     ///   - searchPrompt: The search field prompt. Defaults to a localised "Search".
     ///   - isClearable: Adds a button that clears the choice.
+    ///   - custom: Accepts typed text that matches no option: the list offers "Use “text”" as its
+    ///     first row, and Return in the search field commits it.
     @_disfavoredOverload
     public init(
         _ label: String,
@@ -77,9 +122,11 @@ public struct StanceCombobox<Value: Hashable>: View {
         helper: String? = nil,
         error: String? = nil,
         isRequired: Bool = false,
-        isClearable: Bool = true
+        isClearable: Bool = true,
+        custom: StanceCustomValue<Value>? = nil
     ) {
         self.label = label
+        self.custom = custom
         _selection = selection
         self.options = options
         self.placeholder = placeholder
@@ -90,7 +137,22 @@ public struct StanceCombobox<Value: Hashable>: View {
         self.isClearable = isClearable
     }
 
-    private var selected: StanceSelectOption<Value>? { options.first { $0.value == selection } }
+    /// The chosen option, or a stand in for a custom value that is not among the options.
+    private var selected: StanceSelectOption<Value>? {
+        guard let selection else { return nil }
+        if let option = options.first(where: { $0.value == selection }) { return option }
+        return custom.map { StanceSelectOption(selection, label: $0.label(selection)) }
+    }
+
+    /// The row that offers the typed text, when custom values are accepted.
+    private var customRow: StanceCustomRow? {
+        guard let custom else { return nil }
+        return StanceCustomRow(title: { custom.actionLabel?($0) ?? stanceString("stance.select.useCustom \($0)", locale) }) { text in
+            guard let value = custom.make(text) else { return }
+            selection = value
+            isOpen = false
+        }
+    }
 
     public var body: some View {
         StanceFormField(label, helper: helper, error: error, isRequired: isRequired) {
@@ -138,7 +200,8 @@ public struct StanceCombobox<Value: Hashable>: View {
                         isOpen = false
                     },
                     onClear: nil,
-                    onDone: { isOpen = false }
+                    onDone: { isOpen = false },
+                    custom: customRow
                 )
             })
         }
@@ -159,6 +222,7 @@ public struct StanceMultiSelect<Value: Hashable>: View {
     private let error: String?
     private let isRequired: Bool
     private let maxTags: Int?
+    private let custom: StanceCustomValue<Value>?
     @Binding private var selection: Set<Value>
     @State private var isOpen = false
     @Environment(\.stanceTheme) private var theme
@@ -172,6 +236,8 @@ public struct StanceMultiSelect<Value: Hashable>: View {
     ///   - placeholder: Shown when nothing is chosen. Defaults to a localised "Select".
     ///   - searchPrompt: The search field prompt. Defaults to a localised "Search".
     ///   - maxTags: Shows at most this many tags and a count of the rest.
+    ///   - custom: Accepts typed text that matches no option as a new tag: the list offers
+    ///     "Create “text”" as its first row, and Return in the search field commits it.
     @_disfavoredOverload
     public init(
         _ label: String,
@@ -182,9 +248,11 @@ public struct StanceMultiSelect<Value: Hashable>: View {
         helper: String? = nil,
         error: String? = nil,
         isRequired: Bool = false,
-        maxTags: Int? = nil
+        maxTags: Int? = nil,
+        custom: StanceCustomValue<Value>? = nil
     ) {
         self.label = label
+        self.custom = custom
         _selection = selection
         self.options = options
         self.placeholder = placeholder
@@ -195,8 +263,32 @@ public struct StanceMultiSelect<Value: Hashable>: View {
         self.maxTags = maxTags
     }
 
+    /// The options plus the chosen custom values that are not among them, which sort by label.
+    private var allOptions: [StanceSelectOption<Value>] {
+        Self.options(options, selection: selection, custom: custom)
+    }
+
+    /// The given options followed by chosen values that are not among them, labelled by `custom`
+    /// and sorted by label. Without `custom`, unknown values are left out.
+    public nonisolated static func options(_ options: [StanceSelectOption<Value>], selection: Set<Value>, custom: StanceCustomValue<Value>?) -> [StanceSelectOption<Value>] {
+        guard let custom else { return options }
+        let known = Set(options.map(\.value))
+        let extras = selection.subtracting(known)
+            .map { StanceSelectOption($0, label: custom.label($0)) }
+            .sorted { $0.label.localizedStandardCompare($1.label) == .orderedAscending }
+        return options + extras
+    }
+
     /// The chosen options in list order.
-    private var chosen: [StanceSelectOption<Value>] { options.filter { selection.contains($0.value) } }
+    private var chosen: [StanceSelectOption<Value>] { allOptions.filter { selection.contains($0.value) } }
+
+    /// The row that offers the typed text as a new tag, when custom values are accepted.
+    private var customRow: StanceCustomRow? {
+        guard let custom else { return nil }
+        return StanceCustomRow(title: { custom.actionLabel?($0) ?? stanceString("stance.select.createCustom \($0)", locale) }) { text in
+            if let value = custom.make(text) { selection.insert(value) }
+        }
+    }
 
     public var body: some View {
         let chosen = chosen
@@ -220,14 +312,15 @@ public struct StanceMultiSelect<Value: Hashable>: View {
                 .modifier(StanceOptionPresenter(isPresented: $isOpen) {
                     StanceOptionList(
                         title: label,
-                        options: options,
+                        options: allOptions,
                         searchPrompt: searchPrompt,
                         isSelected: { selection.contains($0) },
                         onToggle: { value in
                             if selection.contains(value) { selection.remove(value) } else { selection.insert(value) }
                         },
                         onClear: { selection.removeAll() },
-                        onDone: { isOpen = false }
+                        onDone: { isOpen = false },
+                        custom: customRow
                     )
                 })
             }
@@ -277,6 +370,14 @@ struct StanceOptionPresenter<ListContent: View>: ViewModifier {
     }
 }
 
+/// The first row of an option list when typed text can become a value.
+struct StanceCustomRow {
+    /// The row title for the typed text, such as "Use “Partners”".
+    let title: (String) -> String
+    /// Commits the typed text.
+    let commit: (String) -> Void
+}
+
 /// The searchable list inside a combobox or multi select.
 struct StanceOptionList<Value: Hashable>: View {
     let title: String
@@ -286,14 +387,31 @@ struct StanceOptionList<Value: Hashable>: View {
     let onToggle: (Value) -> Void
     let onClear: (() -> Void)?
     let onDone: () -> Void
+    var custom: StanceCustomRow?
     @State private var query = ""
     @Environment(\.stanceTheme) private var theme
     @Environment(\.locale) private var locale
 
     var body: some View {
         let results = StanceOptionFilter.filter(options, query: query)
+        let customText = custom == nil ? nil : StanceOptionFilter.customText(for: query, in: options)
         NavigationStack {
             List {
+                if let custom, let customText {
+                    Button {
+                        commit(customText, with: custom)
+                    } label: {
+                        HStack(spacing: StanceSpacing.md) {
+                            StanceIcon(.plus, size: StanceSize.iconSm + StanceSpacing.xxs).foregroundStyle(theme.colors.fgMuted)
+                            Text(custom.title(customText)).stanceText(.body).foregroundStyle(theme.colors.fgDefault)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        .frame(minHeight: StanceSize.touchTarget)
+                        .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .stanceListRow()
+                }
                 ForEach(results) { option in
                     let selected = isSelected(option.value)
                     Button {
@@ -322,9 +440,13 @@ struct StanceOptionList<Value: Hashable>: View {
             }
             .stanceListStyle()
             .overlay {
-                if results.isEmpty { ContentUnavailableView.search(text: query) }
+                if results.isEmpty, customText == nil { ContentUnavailableView.search(text: query) }
             }
             .searchable(text: $query, prompt: searchPrompt ?? stanceString("stance.search", locale))
+            .onSubmit(of: .search) {
+                // Return commits the typed text, as Enter does on the web.
+                if let custom, let customText { commit(customText, with: custom) }
+            }
             .navigationTitle(title)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
@@ -346,6 +468,14 @@ struct StanceOptionList<Value: Hashable>: View {
     }
 }
 
+extension StanceOptionList {
+    private func commit(_ text: String, with custom: StanceCustomRow) {
+        custom.commit(text)
+        query = ""
+        StanceHaptics.selection()
+    }
+}
+
 // MARK: Localised labels
 
 extension StanceCombobox {
@@ -359,11 +489,12 @@ extension StanceCombobox {
         helper: String? = nil,
         error: String? = nil,
         isRequired: Bool = false,
-        isClearable: Bool = true
+        isClearable: Bool = true,
+        custom: StanceCustomValue<Value>? = nil
     ) {
         self.init(
             String(localized: labelKey), selection: selection, options: options, placeholder: placeholder, searchPrompt: searchPrompt,
-            helper: helper, error: error, isRequired: isRequired, isClearable: isClearable
+            helper: helper, error: error, isRequired: isRequired, isClearable: isClearable, custom: custom
         )
     }
 }
@@ -379,11 +510,12 @@ extension StanceMultiSelect {
         helper: String? = nil,
         error: String? = nil,
         isRequired: Bool = false,
-        maxTags: Int? = nil
+        maxTags: Int? = nil,
+        custom: StanceCustomValue<Value>? = nil
     ) {
         self.init(
             String(localized: labelKey), selection: selection, options: options, placeholder: placeholder, searchPrompt: searchPrompt,
-            helper: helper, error: error, isRequired: isRequired, maxTags: maxTags
+            helper: helper, error: error, isRequired: isRequired, maxTags: maxTags, custom: custom
         )
     }
 }

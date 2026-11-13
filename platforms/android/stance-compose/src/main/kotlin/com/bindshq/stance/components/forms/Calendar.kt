@@ -10,10 +10,12 @@ import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.snapshotFlow
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
@@ -23,6 +25,29 @@ import androidx.compose.ui.graphics.Color
  */
 internal fun stanceIsSelectableDay(utcMillis: Long, min: Long?, max: Long?, isDateEnabled: (Long) -> Boolean): Boolean =
     (min == null || utcMillis >= min) && (max == null || utcMillis <= max) && isDateEnabled(utcMillis)
+
+/**
+ * Pins what the Stance date components take as today: UTC milliseconds at the start of the day,
+ * or null, the default, for the device clock.
+ *
+ * Provide it where the output must not depend on the day it is produced, such as documentation
+ * previews and screenshot tests:
+ *
+ * ```
+ * CompositionLocalProvider(LocalStanceToday provides fixedDay) { StanceCalendar(...) }
+ * ```
+ *
+ * With a pinned day, [StanceCalendar], [StanceDatePicker] and [StanceDateRangePicker] open on its
+ * month when nothing is chosen and draw no today marker. Material reads the marker from the device
+ * clock and has no parameter for it, so hiding it is what keeps two runs on different days identical.
+ */
+public val LocalStanceToday: ProvidableCompositionLocal<Long?> = staticCompositionLocalOf { null }
+
+/** The month a date component shows first: the chosen day, else the pinned today, else Material's default. */
+internal fun stanceInitialMonth(selectedMillis: Long?, todayMillis: Long?): Long? = selectedMillis ?: todayMillis
+
+/** Whether Material's today marker is drawn. It follows the device clock, so a pinned today turns it off. */
+internal fun stanceShowsTodayMarker(todayMillis: Long?): Boolean = todayMillis == null
 
 /**
  * An inline month grid for choosing a day, on the Material 3 date picker in its picker display
@@ -37,6 +62,7 @@ internal fun stanceIsSelectableDay(utcMillis: Long, min: Long?, max: Long?, isDa
  * @param maxDateMillis Latest day that can be chosen, inclusive.
  * @param isDateEnabled Further rules, for example weekdays only. Receives UTC milliseconds.
  * @param initialDisplayedMonthMillis The month shown first. Defaults to the chosen day or today.
+ * @param todayMillis Pins today, as [LocalStanceToday] does. Null follows the device clock.
  */
 @Composable
 public fun StanceCalendar(
@@ -46,7 +72,8 @@ public fun StanceCalendar(
     minDateMillis: Long? = null,
     maxDateMillis: Long? = null,
     isDateEnabled: (Long) -> Boolean = { true },
-    initialDisplayedMonthMillis: Long? = selectedDateMillis,
+    todayMillis: Long? = LocalStanceToday.current,
+    initialDisplayedMonthMillis: Long? = stanceInitialMonth(selectedDateMillis, todayMillis),
     yearRange: IntRange = DatePickerDefaults.YearRange,
 ) {
     val rule by rememberUpdatedState(isDateEnabled)
@@ -80,6 +107,6 @@ public fun StanceCalendar(
         title = null,
         headline = null,
         showModeToggle = false,
-        colors = stanceDatePickerColors().copy(containerColor = Color.Transparent),
+        colors = stanceDatePickerColors(todayMillis).copy(containerColor = Color.Transparent),
     )
 }

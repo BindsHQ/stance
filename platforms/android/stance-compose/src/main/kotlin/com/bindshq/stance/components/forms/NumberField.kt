@@ -214,7 +214,7 @@ private const val ASCII_LIMIT = 128
 
 @Composable
 private fun defaultPinProgress(): (entered: Int, length: Int) -> String =
-    rememberFromResources { r -> { entered, length -> r.getString(R.string.stance_pin_progress, entered, length) } }
+    rememberFromResources { r -> { entered, length -> r.getQuantityString(R.plurals.stance_pin_progress, entered, entered, length) } }
 
 /**
  * Entry for a one time code or PIN, drawn as one box per character.

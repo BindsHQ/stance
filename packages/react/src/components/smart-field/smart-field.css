@@ -1,0 +1,59 @@
+.st-smart-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-1-5);
+  min-inline-size: 0;
+  font-family: var(--st-font-sans);
+}
+.st-smart-field__mark {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--st-space-1) var(--st-space-3);
+  min-block-size: 1.5rem;
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-xs);
+  line-height: var(--st-line-height-snug);
+}
+.st-smart-field[data-status='suggesting'] .st-smart-field__mark {
+  justify-content: flex-start;
+  gap: var(--st-space-1-5);
+}
+.st-smart-field__sparkle {
+  flex-shrink: 0;
+}
+.st-smart-field__note {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--st-space-1) var(--st-space-2);
+  min-inline-size: 0;
+}
+.st-smart-field__source {
+  overflow-wrap: anywhere;
+}
+.st-smart-field__actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--st-space-1);
+}
+/* A suggested value reads as not yet the person's own until they accept or edit it. */
+.st-smart-field[data-status='suggested'] .st-input__control,
+.st-smart-field[data-status='suggested'] .st-textarea {
+  font-style: italic;
+}
+@media (pointer: coarse) {
+  .st-smart-field__actions .st-button {
+    min-block-size: 2.75rem;
+  }
+}
+[data-theme='high-contrast'] .st-smart-field__mark {
+  color: var(--st-color-fg-default);
+}
+@media (forced-colors: active) {
+  .st-smart-field__mark {
+    color: CanvasText;
+  }
+}

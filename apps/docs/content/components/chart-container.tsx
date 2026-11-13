@@ -101,6 +101,30 @@ export const doc: ComponentDoc = {
     },
     {
       component: 'ChartContainer',
+      name: 'view',
+      type: "'chart' | 'table'",
+      description: 'Controlled view.',
+    },
+    {
+      component: 'ChartContainer',
+      name: 'onViewChange',
+      type: "(view: 'chart' | 'table') => void",
+      description: 'Called when the reader switches between the chart and the table.',
+    },
+    {
+      component: 'ChartContainer',
+      name: 'footer',
+      type: 'ReactNode',
+      description: 'Content under the chart or table, such as a source note.',
+    },
+    {
+      component: 'ChartContainer',
+      name: 'labels',
+      type: 'Partial<ChartContainerLabels>',
+      description: 'Translations: viewAsTable, viewAsChart, legend and noValue.',
+    },
+    {
+      component: 'ChartContainer',
       name: 'actions',
       type: 'ReactNode',
       description: 'Extra header controls, such as a period selector.',

@@ -28,7 +28,7 @@ enum ComponentCategory: String, CaseIterable, Identifiable, Hashable {
         case .overlays: "Sheets, alerts and confirmation dialogs"
         case .navigation: "Tabs, pagination, steppers and adaptive navigation"
         case .advanced: "Filters, calendar, signature and attachments"
-        case .ai: "Conversation, prompt, streaming and trust"
+        case .ai: "Conversation, prompt, trust, agents, generated output and product AI"
         }
     }
 

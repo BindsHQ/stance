@@ -2102,6 +2102,610 @@
     }
   },
   {
+    "name": "StanceToolCallCard",
+    "category": "ai",
+    "summary": "A collapsible card for one tool call on Android, showing its status, the input it ran with and the output or error.",
+    "kind": "composable",
+    "wrapsNative": "Surface",
+    "status": "beta",
+    "example": "StanceToolCallCard(\n    title = \"Search the rollout audit\",\n    status = StanceStepStatus.Complete,\n    name = \"audit.search\",\n    input = \"{ \\\"footer\\\": \\\"old\\\", \\\"team\\\": \\\"Sales\\\" }\",\n    output = \"[\\\"ana@binds.si\\\", \\\"marko@binds.si\\\"]\",\n    durationSeconds = 2,\n    initiallyExpanded = true,\n)",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "The header is a button named by the title and status, for example Search the web, complete.",
+      "A change of status is announced once."
+    ],
+    "webEquivalent": "tool-call-card",
+    "preview": {
+      "light": "previews/stance-tool-call-card.light.png",
+      "dark": "previews/stance-tool-call-card.dark.png",
+      "high-contrast": "previews/stance-tool-call-card.high-contrast.png",
+      "width": 408,
+      "height": 484
+    }
+  },
+  {
+    "name": "StanceStepTimeline",
+    "category": "ai",
+    "summary": "An agent run laid out as numbered steps on the Stance timeline rail, where any step can open to show its detail.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceStepTimeline(\n    steps = listOf(\n        StanceTimelineStep(\"read\", \"Read the brand policy\", StanceStepStatus.Complete, durationLabel = \"4 s\"),\n        StanceTimelineStep(\"find\", \"Find mailboxes on the old footer\", StanceStepStatus.Running, \"Checking 50 mailboxes\") {\n            Text(\"48 checked so far, 2 still on the old footer.\")\n        },\n        StanceTimelineStep(\"update\", \"Update the template\", StanceStepStatus.Pending),\n    ),\n    initiallyExpandedIds = setOf(\"find\"),\n)",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "Each step says its position, title and status.",
+      "Status is an icon and words, never colour alone."
+    ],
+    "webEquivalent": "step-timeline",
+    "preview": {
+      "light": "previews/stance-step-timeline.light.png",
+      "dark": "previews/stance-step-timeline.dark.png",
+      "high-contrast": "previews/stance-step-timeline.high-contrast.png",
+      "width": 408,
+      "height": 270
+    }
+  },
+  {
+    "name": "StancePlanChecklist",
+    "category": "ai",
+    "summary": "A proposed plan you can rename, drag into a new order, trim and then approve or reject before the agent starts.",
+    "kind": "composable",
+    "wrapsNative": "LazyColumn",
+    "status": "beta",
+    "example": "var plan by remember {\n    mutableStateOf(\n        listOf(\n            StancePlanItem(\"footer\", \"Update the legal footer\"),\n            StancePlanItem(\"assign\", \"Assign the template to Sales\"),\n            StancePlanItem(\"notify\", \"Tell Legal when it is live\"),\n        ),\n    )\n}\nStancePlanChecklist(\n    items = plan,\n    editable = true,\n    onItemsChange = { plan = it },\n    onApprove = { println(\"Plan approved\") },\n    onReject = { println(\"Plan rejected\") },\n)",
+    "accessibility": [
+      "Move up and Move down are custom actions on every step.",
+      "A progress summary heads the list.",
+      "Approve and reject give haptic feedback."
+    ],
+    "webEquivalent": "plan-checklist",
+    "preview": {
+      "light": "previews/stance-plan-checklist.light.png",
+      "dark": "previews/stance-plan-checklist.dark.png",
+      "high-contrast": "previews/stance-plan-checklist.high-contrast.png",
+      "width": 408,
+      "height": 316
+    }
+  },
+  {
+    "name": "StanceApprovalPrompt",
+    "category": "ai",
+    "summary": "An inline card that stops an agent until you allow or deny an action, with the effect and risk spelled out.",
+    "kind": "composable",
+    "wrapsNative": "Button",
+    "status": "beta",
+    "example": "var decision by remember { mutableStateOf(\"Waiting for a decision\") }\nColumn {\n    StanceApprovalPrompt(\n        title = \"Send the new footer to 48 mailboxes\",\n        description = \"Everyone in Sales gets the updated template on their next sync.\",\n        risk = StanceRiskLevel.Medium,\n        onAllow = { decision = \"Allowed once\" },\n        onAllowAlways = { decision = \"Always allowed\" },\n        onDeny = { reason -> decision = \"Denied: $reason\" },\n        denyOnBack = false,\n    )\n    Text(decision)\n}",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "Deny is first in focus order, and Escape and back deny.",
+      "A countdown can only deny.",
+      "A high risk allow is never the prominent button."
+    ],
+    "webEquivalent": "approval-prompt",
+    "preview": {
+      "light": "previews/stance-approval-prompt.light.png",
+      "dark": "previews/stance-approval-prompt.dark.png",
+      "high-contrast": "previews/stance-approval-prompt.high-contrast.png",
+      "width": 408,
+      "height": 486
+    }
+  },
+  {
+    "name": "StancePermissionSheet",
+    "category": "ai",
+    "summary": "A bottom sheet of switches for what an agent may read, change or send, with required access locked on.",
+    "kind": "composable",
+    "wrapsNative": "ModalBottomSheet",
+    "status": "beta",
+    "example": "var open by remember { mutableStateOf(false) }\nvar permissions by remember {\n    mutableStateOf(\n        listOf(\n            StancePermission(\"read\", \"Read templates\", granted = true, description = \"See every signature template\", required = true),\n            StancePermission(\"edit\", \"Edit templates\", granted = true),\n            StancePermission(\"send\", \"Send email\", granted = false, description = \"As you, to people in your organisation\", risk = StanceRiskLevel.High),\n        ),\n    )\n}\nStanceButton(\"Review access\", onClick = { open = true }, variant = StanceButtonVariant.Outline, leadingIcon = StanceIcons.Shield)\nif (open) {\n    StancePermissionSheet(\n        onDismissRequest = { open = false },\n        title = \"Rollout agent\",\n        description = \"Choose what this agent may do on your behalf.\",\n        permissions = permissions,\n        onPermissionsChange = { permissions = it },\n        onSave = { open = false },\n    )\n}",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "Each switch is announced with its name, description and state.",
+      "Required permissions are disabled and explained."
+    ],
+    "webEquivalent": "permission-sheet",
+    "preview": {
+      "light": "previews/stance-permission-sheet.light.png",
+      "dark": "previews/stance-permission-sheet.dark.png",
+      "high-contrast": "previews/stance-permission-sheet.high-contrast.png",
+      "width": 408,
+      "height": 560
+    }
+  },
+  {
+    "name": "StanceAgentStatusPill",
+    "category": "ai",
+    "summary": "A small ink scale pill that says whether an agent is idle, working, waiting for you, done, failed or paused.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "var status by remember { mutableStateOf(StanceAgentStatus.Working) }\nStanceAgentStatusPill(\n    status = status,\n    detail = \"Step 2 of 3\",\n    onClick = { status = if (status == StanceAgentStatus.Working) StanceAgentStatus.Waiting else StanceAgentStatus.Working },\n)",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "A live region: waiting for you is announced assertively, the rest politely.",
+      "Every status has its own icon and words."
+    ],
+    "webEquivalent": "agent-status-pill",
+    "preview": {
+      "light": "previews/stance-agent-status-pill.light.png",
+      "dark": "previews/stance-agent-status-pill.dark.png",
+      "high-contrast": "previews/stance-agent-status-pill.high-contrast.png",
+      "width": 408,
+      "height": 113
+    }
+  },
+  {
+    "name": "StanceTaskQueue",
+    "category": "ai",
+    "summary": "A card listing agent tasks with progress, where each row offers the pause, resume, cancel or retry that fits its state.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "var tasks by remember {\n    mutableStateOf(\n        listOf(\n            StanceAgentTask(\"export\", \"Export the audit\", StanceStepStatus.Running, progress = 0.6f, startedAt = \"10:41\"),\n            StanceAgentTask(\"notify\", \"Notify Legal\", StanceStepStatus.Error, detail = \"The address bounced\"),\n            StanceAgentTask(\"archive\", \"Archive old templates\", StanceStepStatus.Pending),\n        ),\n    )\n}\nfun pause(id: String, paused: Boolean) {\n    tasks = tasks.map { if (it.id == id) it.copy(paused = paused) else it }\n}\nStanceTaskQueue(\n    tasks = tasks,\n    onCancel = { task -> tasks = tasks - task },\n    onRetry = { println(\"Retry ${it.title}\") },\n    onPause = { pause(it.id, true) },\n    onResume = { pause(it.id, false) },\n)",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "A count summary heads the list.",
+      "Every action button names its task, for example Cancel Export report."
+    ],
+    "webEquivalent": "task-queue",
+    "preview": {
+      "light": "previews/stance-task-queue.light.png",
+      "dark": "previews/stance-task-queue.dark.png",
+      "high-contrast": "previews/stance-task-queue.high-contrast.png",
+      "width": 408,
+      "height": 245
+    }
+  },
+  {
+    "name": "StanceSubagentTree",
+    "category": "ai",
+    "summary": "A lazy tree of an agent and its delegates, each row carrying a status icon, status words and a one line summary.",
+    "kind": "composable",
+    "wrapsNative": "LazyColumn",
+    "status": "beta",
+    "example": "StanceSubagentTree(\n    agents = listOf(\n        StanceSubagent(\n            \"lead\", \"Rollout lead\", StanceStepStatus.Running, \"Coordinating the footer change\",\n            children = listOf(\n                StanceSubagent(\"audit\", \"Auditor\", StanceStepStatus.Complete, \"Found 2 mailboxes behind\"),\n                StanceSubagent(\"writer\", \"Template writer\", StanceStepStatus.Waiting, \"Needs your approval\"),\n            ),\n        ),\n    ),\n    initiallyExpandedIds = setOf(\"lead\"),\n)",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "Rows report Expanded or Collapsed and their position.",
+      "Status is part of every row's name."
+    ],
+    "webEquivalent": "subagent-tree",
+    "preview": {
+      "light": "previews/stance-subagent-tree.light.png",
+      "dark": "previews/stance-subagent-tree.dark.png",
+      "high-contrast": "previews/stance-subagent-tree.high-contrast.png",
+      "width": 408,
+      "height": 192
+    }
+  },
+  {
+    "name": "StanceRunLog",
+    "category": "ai",
+    "summary": "A monospaced run log on a lazy column that follows new lines until you scroll up, with level chips and copy.",
+    "kind": "composable",
+    "wrapsNative": "LazyColumn",
+    "status": "beta",
+    "example": "var levels by remember { mutableStateOf(StanceLogLevel.entries.toSet()) }\nStanceRunLog(\n    entries = listOf(\n        StanceLogEntry(\"1\", StanceLogLevel.Info, \"Run started\", \"10:41:02\"),\n        StanceLogEntry(\"2\", StanceLogLevel.Debug, \"Loaded 50 mailboxes\", \"10:41:03\"),\n        StanceLogEntry(\"3\", StanceLogLevel.Warn, \"2 mailboxes on the old footer\", \"10:41:06\"),\n        StanceLogEntry(\"4\", StanceLogLevel.Error, \"Sync refused for marko@binds.si\", \"10:41:09\"),\n    ),\n    levels = levels,\n    onLevelsChange = { levels = it },\n)",
+    "accessibility": [
+      "A region named by its label; lines are not announced as they arrive.",
+      "Only errors are announced, once each.",
+      "Log text stays left to right."
+    ],
+    "webEquivalent": "run-log",
+    "preview": {
+      "light": "previews/stance-run-log.light.png",
+      "dark": "previews/stance-run-log.dark.png",
+      "high-contrast": "previews/stance-run-log.high-contrast.png",
+      "width": 408,
+      "height": 343
+    }
+  },
+  {
+    "name": "StanceDiffReview",
+    "category": "ai",
+    "summary": "A code change shown hunk by hunk, unified on phones and split on wide windows, with accept and reject per hunk.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "var decisions by remember { mutableStateOf(emptyMap<String, StanceDiffDecision>()) }\nStanceDiffReview(files = sampleDiff, decisions = decisions, onDecisionsChange = { decisions = it })",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "Added and removed lines carry a plus or minus and the words Added and Removed.",
+      "Each hunk has Accept and Reject as custom actions.",
+      "Code stays left to right."
+    ],
+    "webEquivalent": "diff-review",
+    "preview": {
+      "light": "previews/stance-diff-review.light.png",
+      "dark": "previews/stance-diff-review.dark.png",
+      "high-contrast": "previews/stance-diff-review.high-contrast.png",
+      "width": 408,
+      "height": 346
+    }
+  },
+  {
+    "name": "StanceMarkdownRenderer",
+    "category": "ai",
+    "summary": "Turns model Markdown into native text, lists, tables and highlighted code, and stays tidy while it streams.",
+    "kind": "composable",
+    "wrapsNative": "Text",
+    "status": "beta",
+    "example": "StanceMarkdownRenderer(\n    markdown = \"### Rollout\\nTwo mailboxes are **behind** [1]. Read the [guide](https://www.stanceui.com).\\n\\n\" +\n        \"- [x] Update the footer\\n- [ ] Notify Legal\\n\\n\" +\n        \"| Team | Behind |\\n| --- | ---: |\\n| Sales | 2 |\\n\\n```bash\\nnpm run rollout -- --team sales\\n```\",\n    citations = mapOf(1 to sampleSources[2]),\n)",
+    "accessibility": [
+      "Headings are marked as headings and lists announce their size.",
+      "Links open only http, https and mailto addresses.",
+      "Images are off by default and show as their description."
+    ],
+    "webEquivalent": "markdown-renderer",
+    "preview": {
+      "light": "previews/stance-markdown-renderer.light.png",
+      "dark": "previews/stance-markdown-renderer.dark.png",
+      "high-contrast": "previews/stance-markdown-renderer.high-contrast.png",
+      "width": 408,
+      "height": 413
+    }
+  },
+  {
+    "name": "StanceCodeSuggestion",
+    "category": "ai",
+    "summary": "Generated code in a highlighted block with copy, apply and run buttons, plus the status and output of a run.",
+    "kind": "composable",
+    "wrapsNative": "SelectionContainer",
+    "status": "beta",
+    "example": "var applied by remember { mutableStateOf(false) }\nvar run by remember { mutableStateOf<StanceStepStatus?>(null) }\nStanceCodeSuggestion(\n    code = \"fun footer(team: String) = \\\"Binds d.o.o., \\$team\\\"\",\n    language = \"kotlin\",\n    filename = \"Footer.kt\",\n    onApply = { applied = true },\n    onRun = { run = StanceStepStatus.Complete },\n    applied = applied,\n    runStatus = run,\n    runOutput = if (run != null) \"Binds d.o.o., Sales\" else null,\n)",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "Apply turns into Applied and that is announced.",
+      "The run status is a polite live region."
+    ],
+    "webEquivalent": "code-suggestion",
+    "preview": {
+      "light": "previews/stance-code-suggestion.light.png",
+      "dark": "previews/stance-code-suggestion.dark.png",
+      "high-contrast": "previews/stance-code-suggestion.high-contrast.png",
+      "width": 408,
+      "height": 357
+    }
+  },
+  {
+    "name": "StanceArtifactPanel",
+    "category": "ai",
+    "summary": "A pane beside the chat on tablets and a full screen dialog on phones for a generated document, with versions and tabs.",
+    "kind": "composable",
+    "wrapsNative": "Dialog",
+    "status": "beta",
+    "example": "var open by remember { mutableStateOf(false) }\nvar view by remember { mutableStateOf(StanceArtifactView.Preview) }\nvar version by remember { mutableStateOf(\"v2\") }\nStanceButton(\"Open the rollout plan\", onClick = { open = true }, variant = StanceButtonVariant.Outline, leadingIcon = StanceIcons.FileText)\nif (open) {\n    StanceArtifactPanel(\n        title = \"Rollout plan\",\n        kind = \"Document\",\n        onClose = { open = false },\n        versions = listOf(StanceArtifactVersion(\"v1\", \"Version 1\"), StanceArtifactVersion(\"v2\", \"Version 2\")),\n        versionId = version,\n        onVersionChange = { version = it },\n        view = view,\n        onViewChange = { view = it },\n    ) { shown ->\n        StanceMarkdownRenderer(if (shown == StanceArtifactView.Preview) \"## Rollout plan\\nPublish tonight.\" else \"```html\\n<h2>Rollout plan</h2>\\n```\")\n    }\n}",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "A pane announced by its title.",
+      "Back closes it, with the predictive back preview.",
+      "Preview and Code are tabs."
+    ],
+    "webEquivalent": "artifact-panel",
+    "preview": {
+      "light": "previews/stance-artifact-panel.light.png",
+      "dark": "previews/stance-artifact-panel.dark.png",
+      "high-contrast": "previews/stance-artifact-panel.high-contrast.png",
+      "width": 840,
+      "height": 560
+    }
+  },
+  {
+    "name": "StanceGeneratedImage",
+    "category": "ai",
+    "summary": "Shows a generated picture from a Painter with progress while it renders, a row of variations and image actions.",
+    "kind": "composable",
+    "wrapsNative": "Image",
+    "status": "beta",
+    "example": "StanceGeneratedImage(\n    // Any Painter works: the one your image loader gives you, or a drawable.\n    painter = rememberSampleImage(),\n    contentDescription = \"A handwritten signature in dark ink\",\n    aspectRatio = 16f / 9f,\n    prompt = \"A handwritten signature\",\n    onDownload = { println(\"Download\") },\n    onRegenerate = { println(\"Regenerate\") },\n)",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "A content description is required.",
+      "A progress bar while generating.",
+      "Variations are a radio group."
+    ],
+    "webEquivalent": "generated-image",
+    "preview": {
+      "light": "previews/stance-generated-image.light.png",
+      "dark": "previews/stance-generated-image.dark.png",
+      "high-contrast": "previews/stance-generated-image.high-contrast.png",
+      "width": 408,
+      "height": 393
+    }
+  },
+  {
+    "name": "StanceGeneratedTable",
+    "category": "ai",
+    "summary": "An assistant made table with tappable headers that sort, a row limit you can lift and a copy as CSV button.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceGeneratedTable(\n    columns = listOf(StanceGeneratedColumn(\"team\", \"Team\"), StanceGeneratedColumn(\"behind\", \"Behind\", numeric = true)),\n    rows = listOf(listOf(\"Sales\", \"2\"), listOf(\"Legal\", \"0\"), listOf(\"Finance\", \"1\")),\n    caption = \"Mailboxes on the old footer\",\n    onExport = { println(\"Export\") },\n)",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "Sortable headers are buttons that say the sort order.",
+      "Rows are read as header and value pairs.",
+      "Rows that arrive while streaming are not announced."
+    ],
+    "webEquivalent": "generated-table",
+    "preview": {
+      "light": "previews/stance-generated-table.light.png",
+      "dark": "previews/stance-generated-table.dark.png",
+      "high-contrast": "previews/stance-generated-table.high-contrast.png",
+      "width": 408,
+      "height": 292
+    }
+  },
+  {
+    "name": "StanceGeneratedChart",
+    "category": "ai",
+    "summary": "A Stance chart with a one sentence takeaway, a source note and a segmented switch to the same data as a table.",
+    "kind": "composable",
+    "wrapsNative": "SingleChoiceSegmentedButtonRow",
+    "status": "beta",
+    "example": "StanceGeneratedChart(\n    title = \"Mailboxes updated\",\n    takeaway = \"Almost every mailbox had the new footer by Thursday.\",\n    categories = listOf(\"Mon\", \"Tue\", \"Wed\", \"Thu\"),\n    series = listOf(StanceChartSeries(\"Updated\", listOf(12f, 31f, 44f, 48f))),\n    type = StanceChartType.Bar,\n    source = \"Rollout audit\",\n)",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "The takeaway is the chart's text alternative.",
+      "The data table is always one tap away."
+    ],
+    "webEquivalent": "generated-chart",
+    "preview": {
+      "light": "previews/stance-generated-chart.light.png",
+      "dark": "previews/stance-generated-chart.dark.png",
+      "high-contrast": "previews/stance-generated-chart.high-contrast.png",
+      "width": 408,
+      "height": 457
+    }
+  },
+  {
+    "name": "StanceFilePreviewCard",
+    "category": "ai",
+    "summary": "A compact card for a file an assistant produced, with a thumbnail, type, size, and open and download actions.",
+    "kind": "composable",
+    "wrapsNative": "Surface",
+    "status": "beta",
+    "example": "StanceFilePreviewCard(\n    name = \"Rollout audit.pdf\",\n    typeLabel = \"PDF\",\n    sizeLabel = \"1.2 MB\",\n    meta = \"12 pages\",\n    onOpen = { println(\"Open\") },\n    onDownload = { println(\"Download\") },\n)",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "Read as the name with its details.",
+      "The download button names its file."
+    ],
+    "webEquivalent": "file-preview-card",
+    "preview": {
+      "light": "previews/stance-file-preview-card.light.png",
+      "dark": "previews/stance-file-preview-card.dark.png",
+      "high-contrast": "previews/stance-file-preview-card.high-contrast.png",
+      "width": 408,
+      "height": 189
+    }
+  },
+  {
+    "name": "StanceCanvasSplitView",
+    "category": "ai",
+    "summary": "Chat and a working document side by side with a draggable divider on tablets, or one at a time on phones.",
+    "kind": "composable",
+    "wrapsNative": "SingleChoiceSegmentedButtonRow",
+    "status": "beta",
+    "example": "StanceCanvasSplitView(\n    conversation = { StanceMessage(StanceMessageRole.Assistant) { Text(\"I drafted the rollout plan.\") } },\n    canvas = { StanceMarkdownRenderer(\"## Rollout plan\\n1. Publish the template\\n2. Assign it to Sales\") },\n    modifier = Modifier.height(StanceSizes.pickerMaxHeight / 2),\n)",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "The divider adjusts like a slider and with the arrow keys.",
+      "Each pane is announced by its label.",
+      "Panes swap sides in right to left layouts."
+    ],
+    "webEquivalent": "canvas-split-view",
+    "preview": {
+      "light": "previews/stance-canvas-split-view.light.png",
+      "dark": "previews/stance-canvas-split-view.dark.png",
+      "high-contrast": "previews/stance-canvas-split-view.high-contrast.png",
+      "width": 840,
+      "height": 560
+    }
+  },
+  {
+    "name": "StanceInlineSuggestion",
+    "category": "ai",
+    "summary": "A text field that shows a ghost completion after your words, taken with Tab or the accept button in the field.",
+    "kind": "composable",
+    "wrapsNative": "OutlinedTextField",
+    "status": "beta",
+    "example": "var text by remember { mutableStateOf(\"The new footer goes live\") }\nvar suggestion by remember { mutableStateOf<String?>(\" tonight for everyone in Sales.\") }\nStanceInlineSuggestion(\n    value = text,\n    onValueChange = { text = it },\n    label = \"Announcement\",\n    suggestion = suggestion,\n    onAccept = {\n        text += suggestion.orEmpty()\n        suggestion = null\n    },\n    onDismiss = { suggestion = null },\n)",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "The suggestion is never part of the value until accepted.",
+      "The accept button announces the suggestion once.",
+      "Escape dismisses it."
+    ],
+    "webEquivalent": "inline-suggestion",
+    "preview": {
+      "light": "previews/stance-inline-suggestion.light.png",
+      "dark": "previews/stance-inline-suggestion.dark.png",
+      "high-contrast": "previews/stance-inline-suggestion.high-contrast.png",
+      "width": 408,
+      "height": 166
+    }
+  },
+  {
+    "name": "StanceSmartField",
+    "category": "ai",
+    "summary": "A form field that offers an AI value with its source in words, then lets you use it, ask again or undo it.",
+    "kind": "composable",
+    "wrapsNative": "OutlinedTextField",
+    "status": "beta",
+    "example": "var company by remember { mutableStateOf(\"\") }\nvar status by remember { mutableStateOf(StanceSmartFieldStatus.Suggested) }\nStanceSmartField(\n    label = \"Company\",\n    value = company,\n    onValueChange = { company = it },\n    status = status,\n    suggestedValue = \"Binds d.o.o.\",\n    suggestionSource = \"Invoice 1042\",\n    onAccept = {\n        company = \"Binds d.o.o.\"\n        status = StanceSmartFieldStatus.Accepted\n    },\n    onUndo = {\n        company = \"\"\n        status = StanceSmartFieldStatus.Suggested\n    },\n)",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "The suggestion and its source are text, announced politely.",
+      "Editing the value removes the AI mark."
+    ],
+    "webEquivalent": "smart-field",
+    "preview": {
+      "light": "previews/stance-smart-field.light.png",
+      "dark": "previews/stance-smart-field.dark.png",
+      "high-contrast": "previews/stance-smart-field.high-contrast.png",
+      "width": 408,
+      "height": 337
+    }
+  },
+  {
+    "name": "StanceRewriteMenu",
+    "category": "ai",
+    "summary": "A dropdown of rewrite actions whose nested choices open in place, with a preview card to replace or discard.",
+    "kind": "composable",
+    "wrapsNative": "DropdownMenu",
+    "status": "beta",
+    "example": "var open by remember { mutableStateOf(false) }\nvar result by remember { mutableStateOf<String?>(null) }\nColumn {\n    Box {\n        StanceButton(\"Rewrite\", onClick = { open = true }, variant = StanceButtonVariant.Outline, leadingIcon = StanceIcons.Sparkle)\n        StanceRewriteMenu(\n            expanded = open,\n            onDismissRequest = { open = false },\n            actions = listOf(\n                StanceRewriteAction(\"shorten\", \"Shorten\"),\n                StanceRewriteAction(\"tone\", \"Change tone\", children = listOf(StanceRewriteAction(\"formal\", \"Formal\"), StanceRewriteAction(\"friendly\", \"Friendly\"))),\n            ),\n            onAction = { result = \"The footer goes live tonight.\" },\n        )\n    }\n    result?.let { StanceRewritePreview(text = it, onReplace = { result = null }, onDiscard = { result = null }) }\n}",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "Dismisses on back, outside taps and Escape.",
+      "A nested level starts with a Back item.",
+      "Nothing is replaced until Replace is pressed."
+    ],
+    "webEquivalent": "rewrite-menu",
+    "preview": {
+      "light": "previews/stance-rewrite-menu.light.png",
+      "dark": "previews/stance-rewrite-menu.dark.png",
+      "high-contrast": "previews/stance-rewrite-menu.high-contrast.png",
+      "width": 408,
+      "height": 420
+    }
+  },
+  {
+    "name": "StanceSummaryCard",
+    "category": "ai",
+    "summary": "A card of AI written key points with a generated label, the sources behind them and a link to the original.",
+    "kind": "composable",
+    "wrapsNative": "Surface",
+    "status": "beta",
+    "example": "StanceSummaryCard(\n    points = listOf(\"Two mailboxes in Sales still send the old footer.\", \"Both pick up the new template tonight.\"),\n    sources = sampleSources.take(2),\n    updatedAt = \"2 min ago\",\n    onRegenerate = { println(\"Regenerate\") },\n    onExpand = { println(\"Open the audit\") },\n)",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "The title is a heading and the points are a list.",
+      "A skeleton is read as one status while loading."
+    ],
+    "webEquivalent": "summary-card",
+    "preview": {
+      "light": "previews/stance-summary-card.light.png",
+      "dark": "previews/stance-summary-card.dark.png",
+      "high-contrast": "previews/stance-summary-card.high-contrast.png",
+      "width": 408,
+      "height": 326
+    }
+  },
+  {
+    "name": "StanceAskBar",
+    "category": "ai",
+    "summary": "A Material search bar tuned for questions, with tappable suggestions below and the answer shown in place.",
+    "kind": "composable",
+    "wrapsNative": "SearchBar",
+    "status": "beta",
+    "example": "var question by remember { mutableStateOf(\"\") }\nvar status by remember { mutableStateOf(StanceGenerationStatus.Idle) }\nStanceAskBar(\n    value = question,\n    onValueChange = { question = it },\n    onSubmit = { status = StanceGenerationStatus.Complete },\n    suggestions = listOf(StanceSuggestion(\"behind\", \"Who is behind?\"), StanceSuggestion(\"when\", \"When does it sync?\")),\n    status = status,\n    placeholder = \"Ask about this rollout\",\n) {\n    Text(\"Two mailboxes in Sales. Both sync tonight.\")\n}",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "The keyboard search key and the send button submit.",
+      "The answer is a polite live region when complete."
+    ],
+    "webEquivalent": "ask-bar",
+    "preview": {
+      "light": "previews/stance-ask-bar.light.png",
+      "dark": "previews/stance-ask-bar.dark.png",
+      "high-contrast": "previews/stance-ask-bar.high-contrast.png",
+      "width": 408,
+      "height": 217
+    }
+  },
+  {
+    "name": "StanceSuggestionChips",
+    "category": "ai",
+    "summary": "Material suggestion chips for follow up prompts that wrap or scroll sideways, with placeholders while loading.",
+    "kind": "composable",
+    "wrapsNative": "SuggestionChip",
+    "status": "beta",
+    "example": "StanceSuggestionChips(items = sampleFollowUps, onSelect = { println(\"Ask: ${it.label}\") })",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "A group named by its label.",
+      "Each chip is a button."
+    ],
+    "webEquivalent": "suggestion-chips",
+    "preview": {
+      "light": "previews/stance-suggestion-chips.light.png",
+      "dark": "previews/stance-suggestion-chips.dark.png",
+      "high-contrast": "previews/stance-suggestion-chips.high-contrast.png",
+      "width": 408,
+      "height": 188
+    }
+  },
+  {
+    "name": "StanceInsightCallout",
+    "category": "ai",
+    "summary": "Calls out something the system noticed in your data, with confidence in words, the evidence and one next step.",
+    "kind": "composable",
+    "wrapsNative": null,
+    "status": "beta",
+    "example": "StanceInsightCallout(\n    title = \"Signing slows down on Fridays\",\n    tone = StanceInsightTone.Attention,\n    confidence = StanceConfidenceLevel.High,\n    actionLabel = \"Move the reminder to Thursday\",\n    onAction = { println(\"Reminder moved\") },\n    onDismiss = { println(\"Dismissed\") },\n    evidence = { Text(\"Median time to sign: 14 hours, 31 hours on Fridays.\") },\n) {\n    Text(\"Contracts sent on a Friday take twice as long to come back.\")\n}",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "The title is a heading.",
+      "Tone changes the icon and border weight, never the hue.",
+      "The dismiss button is named."
+    ],
+    "webEquivalent": "insight-callout",
+    "preview": {
+      "light": "previews/stance-insight-callout.light.png",
+      "dark": "previews/stance-insight-callout.dark.png",
+      "high-contrast": "previews/stance-insight-callout.high-contrast.png",
+      "width": 408,
+      "height": 317
+    }
+  },
+  {
+    "name": "StanceSemanticSearchResults",
+    "category": "ai",
+    "summary": "A lazy list of meaning ranked results with the matching passage marked, a match score and the reason it matched.",
+    "kind": "composable",
+    "wrapsNative": "LazyColumn",
+    "status": "beta",
+    "example": "StanceSemanticSearchResults(\n    query = \"when does the footer update\",\n    results = listOf(\n        StanceSearchResult(\n            \"guide\", \"Deploying signatures\", \"Templates reach every mailbox within an hour of publishing.\",\n            highlights = listOf(\"within an hour\"), source = \"docs.binds.si\", score = 0.92f, reason = \"It describes rollout timing\",\n        ),\n        StanceSearchResult(\"faq\", \"Signature FAQ\", \"Mobile clients apply the template on next send.\", source = \"help.binds.si\", score = 0.71f),\n    ),\n    onResultSelect = { println(\"Open ${it.title}\") },\n    modifier = Modifier.height(StanceSizes.pickerMaxHeight / 2),\n)",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "The result count is announced once when loading ends.",
+      "Marked words are heavier, not only tinted."
+    ],
+    "webEquivalent": "semantic-search-results",
+    "preview": {
+      "light": "previews/stance-semantic-search-results.light.png",
+      "dark": "previews/stance-semantic-search-results.dark.png",
+      "high-contrast": "previews/stance-semantic-search-results.high-contrast.png",
+      "width": 408,
+      "height": 360
+    }
+  },
+  {
+    "name": "StanceCopilotPanel",
+    "category": "ai",
+    "summary": "An assistant docked beside your screen on tablets and in a bottom sheet on phones, with context, thread and composer.",
+    "kind": "composable",
+    "wrapsNative": "ModalBottomSheet",
+    "status": "beta",
+    "example": "var open by remember { mutableStateOf(false) }\nvar draft by remember { mutableStateOf(\"\") }\nval messages = remember { listOf(\"Two mailboxes are still on the old footer.\") }\nStanceButton(\"Ask the assistant\", onClick = { open = true }, variant = StanceButtonVariant.Outline, leadingIcon = StanceIcons.Sparkle)\nif (open) {\n    StanceCopilotPanel(\n        onDismissRequest = { open = false },\n        title = \"Rollout assistant\",\n        context = { StanceContextChips(listOf(StanceContextItem(\"page\", \"Rollout settings\", StanceIcons.Globe))) },\n        composer = { StancePromptComposer(value = draft, onValueChange = { draft = it }, onSubmit = { draft = \"\" }) },\n    ) {\n        StanceThread(modifier = Modifier.height(StanceSizes.pickerMaxHeight / 4), label = \"Rollout assistant\") {\n            items(messages, key = { it }) { text -> StanceMessage(StanceMessageRole.Assistant) { Text(text) } }\n        }\n    }\n}",
+    "accessibility": [
+      "Touch target is at least 48dp.",
+      "A pane announced by its title, or a sheet with a heading.",
+      "Focus goes to the composer when it opens.",
+      "Back closes it."
+    ],
+    "webEquivalent": "copilot-panel",
+    "preview": {
+      "light": "previews/stance-copilot-panel.light.png",
+      "dark": "previews/stance-copilot-panel.dark.png",
+      "high-contrast": "previews/stance-copilot-panel.high-contrast.png",
+      "width": 840,
+      "height": 560
+    }
+  },
+  {
     "name": "StanceAccordion",
     "category": "data-display",
     "summary": "Stacked section headings that open to reveal their content, one at a time or several together.",
@@ -2215,7 +2819,7 @@
     "kind": "composable",
     "wrapsNative": "SelectionContainer",
     "status": "beta",
-    "example": "StanceCodeBlock(\n    code = \"dependencies {\\n    implementation(libs.stance.compose)\\n}\",\n    title = \"build.gradle.kts\",\n    showLineNumbers = true,\n)",
+    "example": "StanceCodeBlock(\n    code = \"dependencies {\\n    implementation(libs.stance.compose) // Stance\\n}\",\n    title = \"build.gradle.kts\",\n    language = \"kotlin\",\n    showLineNumbers = true,\n)",
     "accessibility": [
       "Line numbers are hidden from screen readers.",
       "Code stays left to right in right to left layouts."
@@ -2230,7 +2834,7 @@
       "dark": "previews/stance-code-block.dark.png",
       "high-contrast": "previews/stance-code-block.high-contrast.png",
       "width": 408,
-      "height": 187
+      "height": 222
     }
   },
   {
@@ -2261,7 +2865,7 @@
     "kind": "composable",
     "wrapsNative": "ExposedDropdownMenuBox",
     "status": "beta",
-    "example": "var team by remember { mutableStateOf<String?>(null) }\nStanceCombobox(label = \"Team\", options = teams, selected = team, onSelect = { team = it }, placeholder = \"Type to search\")",
+    "example": "var team by remember { mutableStateOf<String?>(null) }\nvar custom by remember { mutableStateOf<String?>(null) }\nStanceCombobox(\n    label = \"Team\",\n    options = teams,\n    selected = team,\n    onSelect = { team = it },\n    placeholder = \"Type to search\",\n    allowCustomValue = true,\n    customValue = custom,\n    onCustomValue = { custom = it },\n)",
     "accessibility": [
       "The keyboard stays open while the list filters.",
       "An empty result is announced."

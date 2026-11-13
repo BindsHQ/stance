@@ -2,6 +2,7 @@ package com.bindshq.stance.components.actions
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
@@ -39,6 +40,10 @@ public data class StanceMenuItem(
     val enabled: Boolean = true,
     /** Draws a divider above this item to start a new group. */
     val startsGroup: Boolean = false,
+    /** Decorative icon at the end, such as a chevron on an item that opens another level. */
+    val trailingIcon: ImageVector? = null,
+    /** Keeps the menu open after a tap, for an item that swaps the menu's items for a nested level. */
+    val keepOpen: Boolean = false,
 )
 
 /**
@@ -46,6 +51,7 @@ public data class StanceMenuItem(
  * so it dismisses on back, outside taps and Escape, and is announced as a menu.
  *
  * @param offset Moves the menu from its anchor: x from the start edge, y from the bottom edge.
+ * @param footer Content under the items, such as a short text field.
  */
 @Composable
 public fun StanceDropdownMenu(
@@ -54,6 +60,7 @@ public fun StanceDropdownMenu(
     items: List<StanceMenuItem>,
     modifier: Modifier = Modifier,
     offset: DpOffset = DpOffset.Zero,
+    footer: (@Composable ColumnScope.() -> Unit)? = null,
 ) {
     val c = StanceTheme.colors
     DropdownMenu(
@@ -72,19 +79,23 @@ public fun StanceDropdownMenu(
             DropdownMenuItem(
                 text = { Text(item.label, style = StanceTheme.typography.bodySmall) },
                 onClick = {
-                    onDismissRequest()
+                    if (!item.keepOpen) onDismissRequest()
                     item.onClick()
                 },
                 enabled = item.enabled,
                 leadingIcon = item.icon?.let { icon -> { StanceIcon(icon, contentDescription = null, size = StanceSizes.iconSmall) } },
+                trailingIcon = item.trailingIcon?.let { icon -> { StanceIcon(icon, contentDescription = null, size = StanceSizes.iconSmall) } },
                 colors = MenuDefaults.itemColors(
                     textColor = content,
                     leadingIconColor = content,
+                    trailingIconColor = c.fgMuted,
                     disabledTextColor = c.disabledFg,
                     disabledLeadingIconColor = c.disabledFg,
+                    disabledTrailingIconColor = c.disabledFg,
                 ),
             )
         }
+        footer?.invoke(this)
     }
 }
 

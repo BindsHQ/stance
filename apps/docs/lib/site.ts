@@ -78,6 +78,7 @@ export const guideNav: NavSection[] = [
       { title: 'Search and filtering', href: '/patterns/search' },
       { title: 'Notifications and feedback', href: '/patterns/notifications' },
       { title: 'Documents and signatures', href: '/patterns/documents' },
+      { title: 'AI assistants and agents', href: '/patterns/ai-assistant' },
     ],
   },
   {

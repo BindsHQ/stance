@@ -120,7 +120,7 @@ Every built-in string lives in `res/values/strings.xml` with a `stance_` prefix 
 
 - To change one string in one place, pass the parameter: `StanceBanner(message, dismissDescription = "Hide notice")`.
 - To change it everywhere, or to add a language, define the same resource name in your app. App resources win over library resources.
-- Counts use plurals (`stance_results`, `stance_names_and_more`), so languages with more than two forms read correctly.
+- Counts use plurals (`stance_results`, `stance_names_and_more`, `stance_pin_progress`), so languages with more than two forms read correctly. Arabic has all six forms.
 
 ```xml
 <!-- app/src/main/res/values-fr/strings.xml -->
@@ -150,7 +150,7 @@ A signature cannot be drawn with a screen reader or switch. Always offer a typed
 
 ## AI components
 
-`com.bindshq.stance.components.ai` implements the cross-platform contract in `specs/ai-components.json`: 33 components in four groups.
+`com.bindshq.stance.components.ai` implements the cross-platform contracts in `specs/ai-components.json` and `specs/ai-components-wave-2.json`: 60 components. Wave one has 33 in four groups.
 
 | Group | Components |
 | --- | --- |
@@ -189,6 +189,40 @@ Column {
 
 The showcase has an Assistant screen with a full conversation and a canned, local reply.
 
+### Wave two: agents, output and product
+
+`specs/ai-components-wave-2.json` adds 27 components, in `Agents.kt`, `RunLog.kt`, `DiffReview.kt`, `Markdown.kt`, `Output.kt` and `Product.kt`.
+
+| Group | Components |
+| --- | --- |
+| Agents | `StanceToolCallCard`, `StanceStepTimeline`, `StancePlanChecklist`, `StanceApprovalPrompt`, `StancePermissionSheet`, `StanceAgentStatusPill`, `StanceTaskQueue`, `StanceSubagentTree`, `StanceRunLog`, `StanceDiffReview` |
+| Output | `StanceMarkdownRenderer`, `StanceCodeSuggestion`, `StanceArtifactPanel`, `StanceGeneratedImage`, `StanceGeneratedTable`, `StanceGeneratedChart`, `StanceFilePreviewCard`, `StanceCanvasSplitView` |
+| Product | `StanceInlineSuggestion`, `StanceSmartField`, `StanceRewriteMenu` with `StanceRewritePreview`, `StanceSummaryCard`, `StanceAskBar`, `StanceSuggestionChips`, `StanceInsightCallout`, `StanceSemanticSearchResults`, `StanceCopilotPanel` |
+
+They share two more types with wave one's `StanceGenerationStatus`: `StanceStepStatus` (pending, running, complete, error, skipped, waiting) and `StanceRiskLevel` (low, medium, high).
+
+```kotlin
+StanceApprovalPrompt(
+    title = "Send the new footer to 48 mailboxes",
+    description = "Everyone in Sales gets the updated template on their next sync.",
+    risk = StanceRiskLevel.Medium,
+    onAllow = viewModel::allow,
+    onDeny = viewModel::deny,
+)
+```
+
+- People stay in control. `StanceApprovalPrompt` denies on Escape and on back, a countdown can only deny, and a high risk allow is never the prominent button and never takes focus. `onDeny` receives a `StanceDenyReason` (deny, back or timeout), and Keep waiting stops the countdown.
+- `StancePlanChecklist` counts complete and skipped steps as progress. `StanceTaskQueue` tasks carry a `paused` flag that swaps pause for resume. `StanceGeneratedTable` copies CSV with an apostrophe before any cell a spreadsheet would run as a formula.
+- Each one builds on what is already there: the permission sheet on `StanceBottomSheet` and `StanceSwitch`, the subagent tree on `StanceTreeView`, the plan on `StanceSortableList`, the run log on a lazy column that follows the tail the way `StanceThread` does, generated tables and charts on `StanceDataTable` and `StanceChart`, the ask bar on the Material 3 search bar, the rewrite menu on `StanceDropdownMenu`.
+- `StanceDiffReview` is unified on compact and medium widths and split on expanded widths. Added and removed lines carry a plus or a minus and the words Added and Removed, on the success and danger roles.
+- `StanceMarkdownRenderer` extends the `StanceRichText` parser to task lists, tables and images, holds back half written Markdown while streaming, and opens only http, https and mailto links. Images are off by default and need a slot: Stance does no networking. `StanceGeneratedImage` takes a `Painter` for the same reason.
+- `StanceArtifactPanel` and `StanceCopilotPanel` are a pane on expanded widths and a dialog or bottom sheet below that. `StanceCanvasSplitView` has a draggable divider on expanded widths and a segmented switch below that.
+- `StanceInlineSuggestion` draws ghost text with a visual transformation, so the suggestion is never part of the value. Tab accepts on a hardware keyboard, and the accept button in the field does on touch.
+- Code, diffs and logs stay left to right in right to left layouts. Approve, deny, accept and reject give haptic feedback.
+- Live regions speak once per change of status: never per token and never per log line. In a run log only errors are announced.
+
+The Assistant screen ends with an agent run that uses them: a plan to approve, a tool call, an approval, a diff to review, a generated table and follow up chips.
+
 ## Native parity
 
 These cover web components that had no Android counterpart. The plan is `specs/native-parity.json`.
@@ -205,6 +239,10 @@ These cover web components that had no Android counterpart. The plan is `specs/n
 - `StanceToolbar` follows the Material 3 floating toolbar, which this BOM ships only as an expressive preview, so it is drawn on `Surface`.
 - `StanceSortableList` has Move up and Move down actions on every row. `StanceChart` reads as one summary, then one stop per category.
 - `StancePinField` and `StanceCodeBlock` stay left to right in right to left layouts.
+- `StanceCombobox` and `StanceMultiSelect` take typed text with `allowCustomValue`: while it matches no label, the first item reads Use and the text, and choosing it calls `onCustomValue`.
+- `StanceCodeBlock` highlights ts, tsx, js, jsx, html, css, bash, json, kotlin and swift with the web tokenizer's rules. Stance has no syntax hues, so tokens differ by ink step, weight and slant, in one `AnnotatedString` that selects like plain text. Long code is tokenised off the main thread.
+- `StanceSortableList` scrolls while a row is held past the top or bottom edge, faster the further past it is held, also with content padding and in a reversed list.
+- `LocalStanceToday` pins today for `StanceCalendar`, `StanceDatePicker` and `StanceDateRangePicker`. Material draws its today marker from the device clock, so a pinned day hides the marker and opens on that month. The documentation previews use it to stay identical from one day to the next.
 
 ## Components
 
@@ -239,7 +277,7 @@ cd examples/android/StanceShowcase
 
 This renders the images, optimises them losslessly and refreshes `components.json`, which records each preview and its size in dp. To redo one component while iterating, add `-Pstance.previews.only=StanceButton`.
 
-The compositions live in `examples/android/StanceShowcase/app/src/test/.../ComponentPreviews.kt`, `AiComponentPreviews.kt` and `ParityComponentPreviews.kt`. Inline components are 408dp wide (360dp of content with 24dp padding) and as tall as their content. Dialogs, menus, sheets and pickers are captured open. Full-screen components use a 411 by 891dp phone.
+The compositions live in `examples/android/StanceShowcase/app/src/test/.../ComponentPreviews.kt`, `AiComponentPreviews.kt`, `AiWaveTwoComponentPreviews.kt` and `ParityComponentPreviews.kt`. Every preview runs with a pinned today and no network, so generating them again on another day changes nothing. Inline components are 408dp wide (360dp of content with 24dp padding) and as tall as their content. Dialogs, menus, sheets and pickers are captured open. Full-screen components use a 411 by 891dp phone.
 
 Entries with `"preview": null` draw nothing on their own: the photo and document picker launchers and `setStanceContent`.
 
@@ -252,7 +290,7 @@ Do not edit these by hand. Run the script after the source changes.
 | `stance-tokens/.../StanceTokens.kt` | `packages/tokens/source` | `npm run tokens` |
 | `stance-compose/.../icons/StanceIcons.kt` | `packages/react/src/icons/paths.ts` | `node platforms/android/scripts/generate-icons.mjs` |
 | `stance-compose/src/main/res/values*/stance_colors.xml` | resolved tokens | `node platforms/android/scripts/generate-resources.mjs` |
-| `components.json` | showcase `Examples.kt`, `AiExamples.kt`, `ParityExamples.kt` and `previews/` | `node platforms/android/scripts/generate-components-json.mjs` |
+| `components.json` | showcase `Examples.kt`, `AiExamples.kt`, `AiWaveTwoExamples.kt`, `ParityExamples.kt` and `previews/` | `node platforms/android/scripts/generate-components-json.mjs` |
 | `previews/*.png` | the composables | `./gradlew :app:generateStancePreviews` in the showcase |
 
 `StanceColors` mirrors the generated colour roles one to one. A unit test fails when a role is added to the token source without being exposed there.

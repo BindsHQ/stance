@@ -94,7 +94,162 @@ public enum StanceRating: String, CaseIterable, Sendable {
     }
 }
 
+// MARK: Agent types (wave two)
+
+/// The state of one step, tool call or task in an agent run. Shared by the agent components.
+public enum StanceStepStatus: String, CaseIterable, Sendable {
+    /// Not started yet.
+    case pending
+    /// In progress now.
+    case running
+    /// Finished normally.
+    case complete
+    /// Failed.
+    case error
+    /// Left out on purpose.
+    case skipped
+    /// Paused until the person answers, for example an approval.
+    case waiting
+
+    /// Whether the step is in progress.
+    public var isActive: Bool { self == .running }
+
+    /// Whether the step has ended, in any way.
+    public var isFinished: Bool { self == .complete || self == .error || self == .skipped }
+
+    /// The step status that matches a generation status: a stopped response is a skipped step.
+    public init(_ generation: StanceGenerationStatus) {
+        switch generation {
+        case .idle: self = .pending
+        case .submitted, .streaming: self = .running
+        case .complete: self = .complete
+        case .stopped: self = .skipped
+        case .error: self = .error
+        }
+    }
+
+    /// The status in words, such as "Running" or "Waiting for you", localised for `locale`.
+    /// Status is always shown with this text, never by colour or icon alone.
+    public func label(locale: Locale = .current) -> String {
+        switch self {
+        case .pending: stanceString("stance.ai.step.pending", locale)
+        case .running: stanceString("stance.ai.step.running", locale)
+        case .complete: stanceString("stance.ai.step.complete", locale)
+        case .error: stanceString("stance.ai.step.error", locale)
+        case .skipped: stanceString("stance.ai.step.skipped", locale)
+        case .waiting: stanceString("stance.ai.step.waiting", locale)
+        }
+    }
+
+    /// The accessible name of something with a status, for example "Search the web, complete".
+    public func accessibilityName(for title: String, locale: Locale = .current) -> String {
+        stanceString("stance.ai.step.name \(title) \(label(locale: locale))", locale)
+    }
+
+    /// The announcement for a status change, or `nil` when there is nothing to say.
+    /// Each change is announced once. A step that goes back to pending is silent.
+    public static func announcement(for title: String, from old: StanceStepStatus, to new: StanceStepStatus, locale: Locale = .current) -> String? {
+        guard old != new, new != .pending else { return nil }
+        return new.accessibilityName(for: title, locale: locale)
+    }
+
+    /// Whether the change should interrupt: a failure, or the agent waiting for the person.
+    public var isUrgent: Bool { self == .error || self == .waiting }
+
+    /// The tone used for the status mark. Tone always comes with the label.
+    var tone: StanceTone {
+        switch self {
+        case .pending, .skipped, .running: .neutral
+        case .complete: .success
+        case .error: .danger
+        case .waiting: .warning
+        }
+    }
+
+    /// The Stance icon for the status. Running is drawn as a spinner by ``StanceStepStatusMark``.
+    var icon: StanceIconName {
+        switch self {
+        case .pending: .circle
+        case .running: .refresh
+        case .complete: .checkCircle
+        case .error: .alertCircle
+        case .skipped: .minus
+        case .waiting: .clock
+        }
+    }
+}
+
+/// How much is at stake in an action an agent asks to take.
+public enum StanceRiskLevel: String, CaseIterable, Comparable, Sendable {
+    /// Easy to undo and stays inside the product.
+    case low
+    /// Changes data or is visible to other people.
+    case medium
+    /// Hard to undo, spends money or leaves the product.
+    case high
+
+    public static func < (lhs: StanceRiskLevel, rhs: StanceRiskLevel) -> Bool {
+        allCases.firstIndex(of: lhs)! < allCases.firstIndex(of: rhs)!
+    }
+
+    /// The risk in words, such as "High risk", localised for `locale`.
+    public func label(locale: Locale = .current) -> String {
+        switch self {
+        case .low: stanceString("stance.ai.risk.low", locale)
+        case .medium: stanceString("stance.ai.risk.medium", locale)
+        case .high: stanceString("stance.ai.risk.high", locale)
+        }
+    }
+
+    /// The tone used beside the label.
+    var tone: StanceTone {
+        switch self {
+        case .low: .neutral
+        case .medium: .warning
+        case .high: .danger
+        }
+    }
+}
+
 // MARK: Internal building blocks
+
+/// The glyph for a ``StanceStepStatus``: a spinner while running, otherwise a Stance icon in the
+/// status tone. Decorative: the caller always shows or speaks the status label as well.
+struct StanceStepStatusMark: View {
+    let status: StanceStepStatus
+    var size: CGFloat = StanceSize.iconSm
+    @Environment(\.stanceTheme) private var theme
+    @ScaledMetric(relativeTo: .body) private var scale: CGFloat = 1
+
+    var body: some View {
+        Group {
+            if status == .running {
+                ProgressView().controlSize(.small).tint(theme.colors.fgMuted)
+            } else {
+                StanceIcon(status.icon, size: size)
+                    .foregroundStyle(status.tone == .neutral ? theme.colors.fgSubtle : status.tone.foreground(theme))
+            }
+        }
+        .frame(width: size * scale, height: size * scale)
+        .accessibilityHidden(true)
+    }
+}
+
+/// Announces a step status change to VoiceOver once, when `status` changes.
+struct StanceStepStatusAnnouncer: ViewModifier {
+    let title: String
+    let status: StanceStepStatus
+    @Environment(\.locale) private var locale
+
+    func body(content: Content) -> some View {
+        content.onChange(of: status) { old, new in
+            if let text = StanceStepStatus.announcement(for: title, from: old, to: new, locale: locale) {
+                StanceAnnouncer.announce(text, urgent: new.isUrgent)
+            }
+        }
+    }
+}
+
 
 /// An SF Symbol sized like a Stance icon. Used for system glyphs: send, stop, microphone, thumbs.
 struct StanceSymbol: View {

@@ -1,0 +1,143 @@
+.st-plan-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-3);
+  min-inline-size: 0;
+  padding: var(--st-space-4);
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-lg);
+  background: var(--st-color-bg-surface);
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-sm);
+  line-height: var(--st-line-height-snug);
+}
+.st-plan-checklist:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}
+.st-plan-checklist__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--st-space-1) var(--st-space-3);
+}
+.st-plan-checklist__title {
+  font-size: var(--st-font-size-md);
+  font-weight: var(--st-font-weight-semibold);
+}
+.st-plan-checklist__summary {
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-xs);
+  font-variant-numeric: tabular-nums;
+}
+.st-plan-checklist__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.st-plan-checklist[data-editable] .st-plan-checklist__list {
+  gap: var(--st-space-2);
+}
+.st-plan-checklist__item {
+  min-inline-size: 0;
+}
+.st-plan-checklist__row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--st-space-2);
+  min-inline-size: 0;
+  min-block-size: 1.5rem;
+  margin: 0;
+}
+.st-plan-checklist__row > .st-step-status {
+  margin-block-start: 0.125rem;
+}
+form.st-plan-checklist__row {
+  align-items: center;
+}
+form.st-plan-checklist__row > .st-step-status {
+  margin-block-start: 0;
+}
+.st-plan-checklist__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--st-space-0-5);
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+.st-plan-checklist__row[data-status='skipped'] .st-plan-checklist__item-title {
+  color: var(--st-color-fg-muted);
+  text-decoration: line-through;
+}
+.st-plan-checklist__row[data-status='running'] .st-plan-checklist__item-title,
+.st-plan-checklist__row[data-status='waiting'] .st-plan-checklist__item-title {
+  font-weight: var(--st-font-weight-medium);
+}
+.st-plan-checklist__description {
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-xs);
+}
+.st-plan-checklist__item-actions {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: var(--st-space-0-5);
+}
+.st-plan-checklist__input {
+  flex: 1;
+  min-inline-size: 0;
+  block-size: var(--st-size-control-sm);
+  padding-block: 0;
+  padding-inline: var(--st-space-2);
+  border: var(--st-border-width-control) solid var(--st-color-border-control);
+  border-radius: var(--st-radius-md);
+  background: var(--st-color-bg-surface);
+  color: inherit;
+  font: inherit;
+}
+.st-plan-checklist__input:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}
+.st-plan-checklist__empty {
+  margin: 0;
+  color: var(--st-color-fg-muted);
+}
+.st-plan-checklist__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--st-space-2);
+}
+@media (pointer: coarse) {
+  .st-plan-checklist__item-actions .st-icon-button {
+    min-inline-size: 2.75rem;
+    min-block-size: 2.75rem;
+  }
+  .st-plan-checklist__input {
+    block-size: 2.75rem;
+  }
+}
+[data-theme='high-contrast'] .st-plan-checklist {
+  border-color: var(--st-color-border-strong);
+}
+[data-theme='high-contrast'] .st-plan-checklist__summary,
+[data-theme='high-contrast'] .st-plan-checklist__description,
+[data-theme='high-contrast'] .st-plan-checklist__item-title {
+  color: var(--st-color-fg-default);
+}
+@media (forced-colors: active) {
+  .st-plan-checklist,
+  .st-plan-checklist__input {
+    border-color: CanvasText;
+  }
+  .st-plan-checklist:focus-visible,
+  .st-plan-checklist__input:focus-visible {
+    outline-color: Highlight;
+  }
+}

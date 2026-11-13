@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -60,6 +61,8 @@ public data class StanceTreeNode(
     /** Short text at the end of the row, such as a count. */
     val meta: String? = null,
     val enabled: Boolean = true,
+    /** A second, quieter line under the label. */
+    val description: String? = null,
 )
 
 /** A visible row of a tree: the node, its depth from 0 and whether it is open. */
@@ -225,12 +228,12 @@ private fun TreeRow(
             else -> StanceIcons.Folder
         }
         StanceIcon(icon, contentDescription = null, size = StanceSizes.iconSmall, tint = content)
-        Text(
-            node.label,
-            style = StanceTheme.typography.bodySmall,
-            color = content,
-            modifier = Modifier.weight(1f).padding(start = StanceSpacing.space1, top = StanceSpacing.space1, bottom = StanceSpacing.space1),
-        )
+        Column(modifier = Modifier.weight(1f).padding(start = StanceSpacing.space1, top = StanceSpacing.space1, bottom = StanceSpacing.space1)) {
+            Text(node.label, style = StanceTheme.typography.bodySmall, color = content)
+            if (node.description != null) {
+                Text(node.description, style = StanceTheme.typography.caption, color = if (selected) content else c.fgMuted)
+            }
+        }
         if (node.meta != null) Text(node.meta, style = StanceTheme.typography.caption, color = c.fgMuted)
     }
 }

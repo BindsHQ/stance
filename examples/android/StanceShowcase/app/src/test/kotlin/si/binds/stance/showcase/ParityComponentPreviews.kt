@@ -130,8 +130,9 @@ val parityComponentPreviews: Map<String, ComponentPreview> = mapOf(
     },
     "StanceCodeBlock" to ComponentPreview {
         StanceCodeBlock(
-            code = "dependencies {\n    implementation(libs.stance.compose)\n    testImplementation(libs.robolectric)\n}",
+            code = "dependencies {\n    implementation(libs.stance.compose) // Stance\n    testImplementation(libs.robolectric)\n    val minSdk = 24\n}",
             title = "build.gradle.kts",
+            language = "kotlin",
             showLineNumbers = true,
             highlightLines = setOf(2),
         )

@@ -25,7 +25,7 @@ enum DataParityPreviewCatalog {
             StanceRichText(markdown: DataSample.markdown).stanceCard()
         },
         Entry("stance-code-block") {
-            StanceCodeBlock(DataSample.code, title: "TemplateSettings.swift", showsLineNumbers: true)
+            StanceCodeBlock(DataSample.code, language: "swift", title: "TemplateSettings.swift", showsLineNumbers: true)
         },
         Entry("stance-progress-circle") {
             HStack(alignment: .center, spacing: StanceSpacing.md) {
@@ -185,6 +185,10 @@ struct DataParityDemo: View {
                 .clipShape(RoundedRectangle(cornerRadius: StanceRadius.xl, style: .continuous))
             StancePagination(page: $page, pageCount: 8)
         }
+        StanceSection("Grid table", caption: "The table iOS 17.0 to 17.3 get in regular width, with a pinned header.") {
+            StanceDataTable("Organisation users", rows: DataSample.users, columns: DataSample.columns, sort: $sort, selection: $selection, layout: .grid)
+                .frame(height: 320)
+        }
         StanceSection("Tree view", caption: "Expand folders and pick a template.") {
             StanceTreeView("Templates", nodes: DataSample.tree, expanded: $expanded, selection: $treeSelection)
                 .frame(height: 320)
@@ -207,7 +211,7 @@ struct DataParityDemo: View {
         }
         StanceSection("Rich text and code") {
             StanceRichText(markdown: DataSample.markdown).stanceCard()
-            StanceCodeBlock(DataSample.code, title: "TemplateSettings.swift", showsLineNumbers: true)
+            StanceCodeBlock(DataSample.code, language: "swift", title: "TemplateSettings.swift", showsLineNumbers: true)
         }
         StanceSection("Progress circle") {
             HStack(spacing: StanceSpacing.xl) {

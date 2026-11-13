@@ -1,0 +1,65 @@
+/* Builds on tree-view.css: the row gains a summary and a status in words. */
+.st-subagent-tree .st-tree__row {
+  gap: var(--st-space-2);
+  min-block-size: 2.25rem;
+}
+.st-subagent-tree[data-size='sm'] .st-tree__row {
+  min-block-size: 1.75rem;
+}
+.st-subagent-tree .st-tree__label {
+  flex: 0 1 auto;
+  font-weight: var(--st-font-weight-medium);
+}
+.st-subagent-tree .st-tree__meta {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  gap: var(--st-space-2);
+  min-inline-size: 0;
+  color: var(--st-color-fg-muted);
+}
+.st-subagent-tree__summary {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.st-subagent-tree__status {
+  flex-shrink: 0;
+  margin-inline-start: auto;
+  padding-block: var(--st-space-0-5);
+  padding-inline: var(--st-space-1-5);
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-full);
+  font-weight: var(--st-font-weight-medium);
+  white-space: nowrap;
+}
+.st-subagent-tree__status[data-status='error'] {
+  border-color: var(--st-color-danger-border);
+  color: var(--st-color-danger-fg);
+}
+.st-subagent-tree__status[data-status='waiting'] {
+  border-color: var(--st-color-border-strong);
+  color: var(--st-color-fg-default);
+}
+.st-subagent-tree .st-tree__item[data-selected] > .st-tree__row .st-subagent-tree__status,
+.st-subagent-tree .st-tree__item[data-selected] > .st-tree__row .st-step-status {
+  border-color: currentColor;
+  color: inherit;
+}
+@media (pointer: coarse) {
+  .st-subagent-tree .st-tree__row {
+    min-block-size: 2.75rem;
+  }
+}
+[data-theme='high-contrast'] .st-subagent-tree .st-tree__meta,
+[data-theme='high-contrast'] .st-subagent-tree__status {
+  color: var(--st-color-fg-default);
+}
+@media (forced-colors: active) {
+  .st-subagent-tree__status {
+    border-color: CanvasText;
+    color: CanvasText;
+  }
+}

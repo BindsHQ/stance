@@ -19,6 +19,7 @@ final class PreviewCaptureTests: XCTestCase {
         ("stance-searchable-list", false),
         ("stance-document-preview", false),
         ("stance-report-dialog", true),
+        ("stance-permission-sheet", true),
     ]
 
     private func outputDirectory() throws -> URL {

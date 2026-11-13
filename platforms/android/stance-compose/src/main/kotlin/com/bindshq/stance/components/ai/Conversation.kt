@@ -146,6 +146,31 @@ public class StanceThreadState internal constructor(public val listState: LazyLi
     }
 }
 
+/**
+ * Keeps the list on its newest content while it is pinned and [stick] allows, and releases the
+ * pin as soon as the reader scrolls away. Runs until cancelled. Shared by [StanceThread] and
+ * [StanceRunLog].
+ */
+internal suspend fun StanceThreadState.followNewest(stick: () -> Boolean) {
+    var previous: ThreadSnapshot? = null
+    snapshotFlow {
+        val info = listState.layoutInfo
+        val last = info.visibleItemsInfo.lastOrNull()
+        ThreadSnapshot(
+            itemCount = info.totalItemsCount,
+            lastItemSize = if (last != null && last.index == info.totalItemsCount - 1) last.size else -1,
+            viewportSize = info.viewportSize.height,
+            canScrollForward = listState.canScrollForward,
+        )
+    }.collect { current ->
+        pinned = stanceThreadPinned(pinned, previous, current, listState.isScrollInProgress)
+        previous = current
+        if (stick() && pinned && current.canScrollForward && current.itemCount > 0) {
+            listState.scrollToItem(current.itemCount - 1, Int.MAX_VALUE)
+        }
+    }
+}
+
 // How many viewport heights the animated scroll covers past the top of a very tall last item.
 private const val LONG_ITEM_PAGES = 4f
 
@@ -184,26 +209,7 @@ public fun StanceThread(
 ) {
     val listState = state.listState
     val stick by rememberUpdatedState(stickToBottom)
-    LaunchedEffect(state) {
-        var previous: ThreadSnapshot? = null
-        snapshotFlow {
-            val info = listState.layoutInfo
-            val last = info.visibleItemsInfo.lastOrNull()
-            ThreadSnapshot(
-                itemCount = info.totalItemsCount,
-                lastItemSize = if (last != null && last.index == info.totalItemsCount - 1) last.size else -1,
-                viewportSize = info.viewportSize.height,
-                canScrollForward = listState.canScrollForward,
-            )
-        }.collect { current ->
-            val wasPinned = state.pinned
-            state.pinned = stanceThreadPinned(wasPinned, previous, current, listState.isScrollInProgress)
-            previous = current
-            if (stick && state.pinned && current.canScrollForward && current.itemCount > 0) {
-                listState.scrollToItem(current.itemCount - 1, Int.MAX_VALUE)
-            }
-        }
-    }
+    LaunchedEffect(state) { state.followNewest { stick } }
     if (onReachTop != null) {
         val reachTop by rememberUpdatedState(onReachTop)
         LaunchedEffect(state) {

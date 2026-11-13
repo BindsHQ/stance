@@ -113,15 +113,15 @@ StanceUI wraps system controls and styles them with tokens. It does not reimplem
 | Search | `.searchable`, or `StanceSearchableList` |
 | Swipe actions and pull to refresh | The system `.swipeActions` and `.refreshable` modifiers, unchanged |
 | Accordion | `StanceAccordion`, built on `DisclosureGroup` |
-| Tables | `StanceDataTable`: `Table` in regular width, a `List` of cards in compact width |
+| Tables | `StanceDataTable`: `Table` in regular width (a pinned header grid on iOS 17.0 to 17.3), a `List` of cards in compact width |
 | Trees and reordering | `StanceTreeView` and `StanceSortableList`, built on `List`, `onMove` and `EditButton` |
 | Charts | `StanceChart`, built on Swift Charts with Audio Graphs |
-| Numbers, times and date ranges | `StanceNumberField` (`TextField` and `Stepper`), `StanceTimePicker` and `StanceDateRangePicker` (`DatePicker`) |
+| Numbers, times and date ranges | `StanceNumberField` (`TextField` and `Stepper`; bind a `Double?` to allow an empty field), `StanceTimePicker` and `StanceDateRangePicker` (`DatePicker`) |
 | One time codes | `StancePinField`: one `TextField` with `.oneTimeCode`, boxes drawn over it |
-| Choosing from long lists | `StanceCombobox` and `StanceMultiSelect`: a `.searchable` `List` in a sheet or popover |
+| Choosing from long lists | `StanceCombobox` and `StanceMultiSelect`: a `.searchable` `List` in a sheet or popover. Pass `custom: .text` to accept typed text as a new value or tag |
 | Split and toggle buttons | `StanceSplitButton` (`Menu(primaryAction:)`), `StanceToggleButton` (`Toggle`) |
 | Segmented tabs and progress rings | `StanceTabs(style: .segmented)` (`Picker`), `StanceProgressCircle` (`ProgressView`) |
-| Markdown and copying | `StanceRichText` (`AttributedString`), `StanceCopyButton` and `StanceCodeBlock` (`UIPasteboard`) |
+| Markdown, code and copying | `StanceRichText` and `StanceMarkdownRenderer` (`AttributedString`), `StanceCodeBlock` (one selectable `Text`, highlighted by `StanceCodeHighlighter`), `StanceCopyButton` (`UIPasteboard`) |
 
 Custom controls exist only where iOS has none: checkbox, checkbox group, radio group, badge,
 tag, chip, avatar, banner, toast, empty state, skeleton, timeline, stepper, pagination, filter
@@ -217,9 +217,10 @@ run the tests: they fail if a key is missing or empty.
 
 ## AI components
 
-Thirty three components for conversational and generative interfaces, in
-`Sources/StanceUI/Components/AI`. They implement the cross-platform contract in
-`specs/ai-components.json`, shared with the web and Android packages.
+Sixty components for conversational, agentic and generative interfaces, in
+`Sources/StanceUI/Components/AI`. They implement the cross-platform contracts in
+`specs/ai-components.json` and `specs/ai-components-wave-2.json`, shared with the web and
+Android packages.
 
 | Group | Components |
 | --- | --- |
@@ -227,6 +228,9 @@ Thirty three components for conversational and generative interfaces, in
 | Prompt | `StancePromptComposer`, `StanceAttachmentTray`, `StanceMentionPicker`, `StanceSlashCommandMenu`, `StanceModelPicker`, `StanceContextChips`, `StanceVoiceInputButton`, `StanceStopButton`, `StanceTokenBudgetMeter` |
 | Streaming | `StanceStreamingText`, `StanceThinkingIndicator`, `StanceReasoningDisclosure`, `StanceShimmerText`, `StanceGenerationProgress`, `StanceStreamingSkeleton`, `StanceInterruptedState` |
 | Trust | `StanceCitationChip`, `StanceSourceList`, `StanceSourcePreview`, `StanceConfidenceBadge`, `StanceAIGeneratedLabel`, `StanceDisclaimerNote`, `StanceFeedbackBar`, `StanceReportDialog`, `StanceSensitiveContentGate` |
+| Agents | `StanceToolCallCard`, `StanceStepTimeline`, `StancePlanChecklist`, `StanceApprovalPrompt`, `StancePermissionSheet`, `StanceAgentStatusPill`, `StanceTaskQueue`, `StanceSubagentTree`, `StanceRunLog`, `StanceDiffReview` |
+| Output | `StanceMarkdownRenderer`, `StanceCodeSuggestion`, `StanceArtifactPanel`, `StanceGeneratedImage`, `StanceGeneratedTable`, `StanceGeneratedChart`, `StanceFilePreviewCard`, `StanceCanvasSplitView` |
+| Product | `StanceInlineSuggestion`, `StanceSmartField`, `StanceRewriteMenu`, `StanceSummaryCard`, `StanceAskBar`, `StanceSuggestionChips`, `StanceInsightCallout`, `StanceSemanticSearchResults`, `StanceCopilotPanel` |
 
 - **Presentational.** No networking and no model SDK. Your app owns the conversation and
   passes text and a `StanceGenerationStatus` in: `idle`, `submitted`, `streaming`, `complete`,
@@ -238,6 +242,19 @@ Thirty three components for conversational and generative interfaces, in
   thread follows the newest message only while the reader is at the bottom.
 - **No new hues.** Surfaces use the ink scale. The assistant is identified by the sparkle icon,
   motion and clear labels.
+- **People stay in control.** Anything an agent wants to do goes through `StanceApprovalPrompt`
+  or `StancePermissionSheet`. Deny is the safe default, a countdown can only deny, and a high
+  risk action is never the default button. Changes are reviewed hunk by hunk in
+  `StanceDiffReview`, where added and removed lines carry a plus or minus and a spoken word,
+  never colour alone. Steps and tasks share `StanceStepStatus`, always shown in words.
+- **Safe output.** `StanceMarkdownRenderer` parses Markdown to native views, never HTML. Links
+  are limited to http, https and mailto, images are off unless the app supplies them, and
+  half written Markdown is tolerated while streaming. Code, diffs and logs stay left to right
+  in right to left screens.
+- **Native panels.** Approval details and permissions are sheets with detents, the artifact and
+  copilot panels are an inspector column in regular width and a sheet in compact width, the
+  plan is a `List` with `onMove`, the rewrite menu is a `Menu`, and the subagent tree, generated
+  table and generated chart build on `StanceTreeView`, `StanceDataTable` and `StanceChart`.
 - **Calm for everyone.** Shimmer, pulse and the text reveal use the `shimmer`, `pulse` and
   `stream` motion tokens and are still under Reduce Motion. VoiceOver hears a response start,
   finish, stop or fail once, never token by token.

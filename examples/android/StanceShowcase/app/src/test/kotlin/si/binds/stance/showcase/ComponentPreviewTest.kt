@@ -6,12 +6,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.unit.dp
+import com.bindshq.stance.components.forms.LocalStanceToday
 import com.bindshq.stance.foundation.StanceWindowWidth
 import com.bindshq.stance.theme.StanceAppearance
 import com.bindshq.stance.theme.StanceSpacing
@@ -59,6 +62,17 @@ class ComponentPreviewTest(private val name: String, private val themeName: Stri
         if (showcase != null) captureShowcase(showcase) else captureComponent(componentPreviews.getValue(name))
     }
 
+    /**
+     * The theme of every preview, with today pinned. Date components then draw nothing that
+     * depends on the day the previews are generated, so a later run gives the same images.
+     */
+    @Composable
+    private fun PreviewTheme(content: @Composable () -> Unit) {
+        StanceTheme(tokens = theme) {
+            CompositionLocalProvider(LocalStanceToday provides PREVIEW_TODAY, content = content)
+        }
+    }
+
     private fun captureComponent(preview: ComponentPreview) {
         RuntimeEnvironment.setQualifiers(
             when (preview.frame) {
@@ -69,7 +83,7 @@ class ComponentPreviewTest(private val name: String, private val themeName: Stri
             },
         )
         rule.setContent {
-            StanceTheme(tokens = theme) {
+            PreviewTheme {
                 if (preview.frame == PreviewFrame.Inline) {
                     Box(
                         Modifier
@@ -98,7 +112,7 @@ class ComponentPreviewTest(private val name: String, private val themeName: Stri
     private fun captureShowcase(capture: ShowcaseCapture) {
         RuntimeEnvironment.setQualifiers(capture.qualifiers)
         rule.setContent {
-            StanceTheme(tokens = theme) {
+            PreviewTheme {
                 ShowcaseApp(StanceAppearance.System, onAppearanceChange = {}, initialDestination = capture.destination, windowWidth = capture.width)
             }
         }
@@ -114,6 +128,9 @@ class ComponentPreviewTest(private val name: String, private val themeName: Stri
         private const val MAX_HEIGHT = 560
         private const val PHONE = "w411dp-h891dp-xhdpi"
         private const val TABLET = "w1280dp-h800dp-land-xhdpi"
+
+        /** 2 November 2026, UTC. Any fixed day works: it only has to be the same on every run. */
+        private const val PREVIEW_TODAY = 1_793_577_600_000L
 
         /** StanceButton to stance-button, rememberStancePhotoPicker to remember-stance-photo-picker. */
         fun slug(name: String): String = name.replace(Regex("([a-z0-9])([A-Z])"), "$1-$2").lowercase()

@@ -51,6 +51,9 @@
   font-size: var(--st-font-size-sm);
   line-height: var(--st-line-height-relaxed);
   tab-size: 2;
+  /* Code reads left to right in every language, so it does not mirror. */
+  direction: ltr;
+  text-align: left;
 }
 .st-code-block__pre:focus-visible {
   outline: var(--st-focus-width) solid var(--st-color-focus-ring);

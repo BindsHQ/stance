@@ -1,0 +1,140 @@
+.st-agent-status-pill {
+  --_dot: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--st-space-1-5);
+  max-inline-size: 100%;
+  min-block-size: 1.75rem;
+  margin: 0;
+  padding-block: 0;
+  padding-inline: var(--st-space-2-5);
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-full);
+  background: var(--st-color-bg-surface);
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-sm);
+  font-weight: var(--st-font-weight-medium);
+  line-height: var(--st-line-height-snug);
+  white-space: nowrap;
+}
+.st-agent-status-pill[data-size='sm'] {
+  --_dot: 0.375rem;
+  gap: var(--st-space-1);
+  min-block-size: 1.5rem;
+  padding-inline: var(--st-space-2);
+  font-size: var(--st-font-size-xs);
+}
+button.st-agent-status-pill {
+  cursor: pointer;
+}
+button.st-agent-status-pill:hover {
+  background: var(--st-color-interactive-hover);
+}
+button.st-agent-status-pill:active {
+  background: var(--st-color-interactive-active);
+}
+button.st-agent-status-pill:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}
+.st-agent-status-pill[data-status='idle'],
+.st-agent-status-pill[data-status='paused'] {
+  color: var(--st-color-fg-muted);
+}
+.st-agent-status-pill[data-status='waiting'] {
+  border-color: var(--st-color-border-strong);
+  background: var(--st-color-bg-emphasis);
+}
+.st-agent-status-pill[data-status='error'] {
+  border-color: var(--st-color-danger-border);
+}
+.st-agent-status-pill__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+}
+.st-agent-status-pill[data-status='done'] .st-agent-status-pill__icon {
+  color: var(--st-color-success-fg);
+}
+.st-agent-status-pill[data-status='error'] .st-agent-status-pill__icon {
+  color: var(--st-color-danger-fg);
+}
+/* Working: one dot that breathes. Paused: two bars. */
+.st-agent-status-pill__glyph {
+  display: block;
+  inline-size: var(--_dot);
+  block-size: var(--_dot);
+  border-radius: var(--st-radius-full);
+  background: currentColor;
+}
+.st-agent-status-pill[data-status='working'] .st-agent-status-pill__glyph {
+  animation: st-agent-status-pill-pulse var(--st-duration-pulse, 1200ms) var(--st-easing-standard)
+    infinite;
+}
+.st-agent-status-pill[data-status='paused'] .st-agent-status-pill__glyph {
+  inline-size: calc(var(--_dot) + 0.125rem);
+  block-size: calc(var(--_dot) + 0.125rem);
+  border-radius: 0;
+  border-inline: 0.1875rem solid currentColor;
+  background: transparent;
+}
+.st-agent-status-pill__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.st-agent-status-pill__detail {
+  overflow: hidden;
+  color: var(--st-color-fg-muted);
+  font-weight: var(--st-font-weight-regular);
+  text-overflow: ellipsis;
+}
+@keyframes st-agent-status-pill-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.8);
+  }
+}
+@media (pointer: coarse) {
+  button.st-agent-status-pill {
+    min-block-size: 2.75rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .st-agent-status-pill[data-status='working'] .st-agent-status-pill__glyph {
+    animation: none;
+  }
+}
+[data-theme='high-contrast'] .st-agent-status-pill {
+  border-color: var(--st-color-border-strong);
+}
+[data-theme='high-contrast'] .st-agent-status-pill,
+[data-theme='high-contrast'] .st-agent-status-pill__detail,
+[data-theme='high-contrast'] .st-agent-status-pill__icon {
+  color: var(--st-color-fg-default);
+}
+@media (forced-colors: active) {
+  .st-agent-status-pill {
+    border-color: CanvasText;
+  }
+  button.st-agent-status-pill {
+    border-color: ButtonText;
+  }
+  button.st-agent-status-pill:focus-visible {
+    outline-color: Highlight;
+  }
+  .st-agent-status-pill__glyph {
+    forced-color-adjust: none;
+    background: CanvasText;
+  }
+  .st-agent-status-pill[data-status='paused'] .st-agent-status-pill__glyph {
+    border-inline-color: CanvasText;
+    background: transparent;
+  }
+}

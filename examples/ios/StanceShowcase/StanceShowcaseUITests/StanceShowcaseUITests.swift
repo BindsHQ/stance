@@ -72,6 +72,33 @@ final class StanceShowcaseUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["And the smallest"].waitForExistence(timeout: 10))
     }
 
+    func testAssistantAgentRunAsksBeforeItActs() {
+        // The run opens at the approval prompt: nothing is written until the reader allows it.
+        let app = launch(["-screen", "assistant", "-assistant-agent", "approval"])
+        let allow = app.buttons["Allow"].firstMatch
+        XCTAssertTrue(allow.waitForExistence(timeout: 10))
+        XCTAssertTrue(app.buttons["Deny"].firstMatch.exists)
+        allow.tap()
+        // Allowing shows the proposed change as a diff, hunk by hunk.
+        let acceptAll = app.buttons["Accept all"].firstMatch
+        XCTAssertTrue(acceptAll.waitForExistence(timeout: 10))
+        acceptAll.tap()
+        let apply = app.buttons["Apply and finish"].firstMatch
+        XCTAssertTrue(apply.waitForExistence(timeout: 5))
+        if !apply.isHittable { app.swipeUp() }
+        apply.tap()
+        XCTAssertTrue(app.staticTexts["Largest budget movements"].waitForExistence(timeout: 10))
+    }
+
+    func testAssistantAgentRunStartsFromAPlan() {
+        let app = launch(["-screen", "assistant", "-assistant-agent", "plan"])
+        let approve = app.buttons["Approve plan"].firstMatch
+        XCTAssertTrue(approve.waitForExistence(timeout: 10))
+        approve.tap()
+        // The tools run, then the agent stops and asks.
+        XCTAssertTrue(app.buttons["Allow"].firstMatch.waitForExistence(timeout: 20))
+    }
+
     func testAccessibilityAuditAIComponentsInEveryTheme() throws {
         for theme in ["light", "dark", "high-contrast"] {
             let app = launch(["-screen", "components", "-category", "ai", "-stance-theme", theme])

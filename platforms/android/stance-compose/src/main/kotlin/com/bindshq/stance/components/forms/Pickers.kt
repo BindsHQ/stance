@@ -30,6 +30,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.error
@@ -90,8 +91,13 @@ private fun PickerField(
     }
 }
 
+/**
+ * The Stance colours of the Material date pickers. With a pinned [todayMillis] the today marker
+ * takes the colours of any other day, so nothing drawn depends on the device clock.
+ */
 @Composable
-internal fun stanceDatePickerColors() = StanceTheme.colors.let { c ->
+internal fun stanceDatePickerColors(todayMillis: Long? = LocalStanceToday.current) = StanceTheme.colors.let { c ->
+    val marked = stanceShowsTodayMarker(todayMillis)
     DatePickerDefaults.colors(
         containerColor = c.bgOverlay,
         titleContentColor = c.fgMuted,
@@ -101,7 +107,7 @@ internal fun stanceDatePickerColors() = StanceTheme.colors.let { c ->
         selectedDayContainerColor = c.accentBg,
         selectedDayContentColor = c.accentFg,
         todayContentColor = c.fgDefault,
-        todayDateBorderColor = c.borderControl,
+        todayDateBorderColor = if (marked) c.borderControl else Color.Transparent,
         dayInSelectionRangeContainerColor = c.interactiveSelected,
         dayInSelectionRangeContentColor = c.interactiveSelectedFg,
     )
@@ -114,6 +120,7 @@ private fun formatDate(millis: Long, locale: Locale): String =
  * A date field that opens the platform Material date picker in a dialog.
  *
  * @param selectedDateMillis The selected day as UTC milliseconds at the start of the day, or null.
+ * @param todayMillis Pins today, as [LocalStanceToday] does. Null follows the device clock.
  */
 @Composable
 public fun StanceDatePicker(
@@ -129,6 +136,7 @@ public fun StanceDatePicker(
     confirmLabel: String = stringResource(R.string.stance_ok),
     cancelLabel: String = stringResource(R.string.stance_cancel),
     locale: Locale = Locale.getDefault(),
+    todayMillis: Long? = LocalStanceToday.current,
 ) {
     var open by remember { mutableStateOf(false) }
     PickerField(
@@ -136,7 +144,11 @@ public fun StanceDatePicker(
         { open = true }, modifier, helper, error, required, enabled,
     )
     if (open) {
-        val state = rememberDatePickerState(initialSelectedDateMillis = selectedDateMillis)
+        val state = rememberDatePickerState(
+            initialSelectedDateMillis = selectedDateMillis,
+            initialDisplayedMonthMillis = stanceInitialMonth(selectedDateMillis, todayMillis),
+        )
+        val colors = stanceDatePickerColors(todayMillis)
         DatePickerDialog(
             onDismissRequest = { open = false },
             confirmButton = {
@@ -147,9 +159,9 @@ public fun StanceDatePicker(
             },
             dismissButton = { StanceButton(cancelLabel, onClick = { open = false }, variant = StanceButtonVariant.Ghost) },
             shape = StanceTheme.shapes.extraLarge,
-            colors = stanceDatePickerColors(),
+            colors = colors,
         ) {
-            DatePicker(state = state, colors = stanceDatePickerColors())
+            DatePicker(state = state, colors = colors)
         }
     }
 }
@@ -158,6 +170,7 @@ public fun StanceDatePicker(
  * A field for a start and end date that opens the Material date range picker.
  *
  * @param rangeText Joins the formatted start and end dates, for example "1 Mar to 8 Mar".
+ * @param todayMillis Pins today, as [LocalStanceToday] does. Null follows the device clock.
  */
 @Composable
 public fun StanceDateRangePicker(
@@ -175,6 +188,7 @@ public fun StanceDateRangePicker(
     cancelLabel: String = stringResource(R.string.stance_cancel),
     locale: Locale = Locale.getDefault(),
     rangeText: (start: String, end: String) -> String = defaultDateRangeText(),
+    todayMillis: Long? = LocalStanceToday.current,
 ) {
     var open by remember { mutableStateOf(false) }
     val text = if (startDateMillis != null && endDateMillis != null) {
@@ -187,7 +201,9 @@ public fun StanceDateRangePicker(
         val state = rememberDateRangePickerState(
             initialSelectedStartDateMillis = startDateMillis,
             initialSelectedEndDateMillis = endDateMillis,
+            initialDisplayedMonthMillis = stanceInitialMonth(startDateMillis, todayMillis),
         )
+        val colors = stanceDatePickerColors(todayMillis)
         DatePickerDialog(
             onDismissRequest = { open = false },
             confirmButton = {
@@ -198,12 +214,12 @@ public fun StanceDateRangePicker(
             },
             dismissButton = { StanceButton(cancelLabel, onClick = { open = false }, variant = StanceButtonVariant.Ghost) },
             shape = StanceTheme.shapes.extraLarge,
-            colors = stanceDatePickerColors(),
+            colors = colors,
         ) {
             DateRangePicker(
                 state = state,
                 modifier = Modifier.heightIn(max = StanceSizes.pickerMaxHeight),
-                colors = stanceDatePickerColors(),
+                colors = colors,
             )
         }
     }

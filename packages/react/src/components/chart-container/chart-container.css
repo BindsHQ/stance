@@ -94,6 +94,10 @@
   border-radius: 2px;
   flex-shrink: 0;
 }
+.st-chart__footer {
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-xs);
+}
 .st-sparkline {
   display: inline-block;
   vertical-align: middle;

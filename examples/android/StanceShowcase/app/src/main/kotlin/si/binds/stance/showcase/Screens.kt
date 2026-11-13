@@ -239,7 +239,7 @@ private val baseCatalogue: List<Pair<String, List<Entry>>> = listOf(
         },
         Entry("View interoperability") { StanceButtonViewExample() },
     ),
-    "AI" to aiCatalogue.map { (name, content) -> Entry(name, content) },
+    "AI" to (aiCatalogue + aiWaveTwoCatalogue).map { (name, content) -> Entry(name, content) },
 )
 
 /** The catalogue with the native parity components added to their categories. */

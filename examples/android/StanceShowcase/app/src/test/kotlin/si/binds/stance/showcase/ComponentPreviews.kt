@@ -163,8 +163,8 @@ private val destinations = listOf(
     StanceNavigationItem("Settings", StanceIcons.Settings),
 )
 
-private const val NOVEMBER_20_2026 = 1_795_219_200_000L
-private const val NOVEMBER_27_2026 = 1_795_824_000_000L
+private const val NOVEMBER_20_2026 = 1_795_132_800_000L
+private const val NOVEMBER_27_2026 = 1_795_737_600_000L
 
 @Composable
 private fun TemplateRows() {
@@ -733,7 +733,7 @@ val componentPreviews: Map<String, ComponentPreview> = mapOf(
             })
         }
     },
-) + aiComponentPreviews + parityComponentPreviews
+) + aiComponentPreviews + aiWaveTwoComponentPreviews + parityComponentPreviews
 
 /** Entries in components.json that draw nothing on their own. */
 val nonVisualComponents = setOf("rememberStancePhotoPicker", "rememberStanceDocumentPicker", "setStanceContent")

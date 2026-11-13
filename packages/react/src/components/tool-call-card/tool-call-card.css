@@ -1,0 +1,153 @@
+.st-tool-call-card {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-lg);
+  background: var(--st-color-bg-surface);
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-sm);
+  line-height: var(--st-line-height-snug);
+}
+.st-tool-call-card[data-status='error'] {
+  border-color: var(--st-color-danger-border);
+}
+.st-tool-call-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--st-space-1);
+  min-inline-size: 0;
+}
+.st-tool-call-card__trigger {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--st-space-2);
+  min-inline-size: 0;
+  min-block-size: 2.5rem;
+  margin: 0;
+  padding-block: var(--st-space-2);
+  padding-inline: var(--st-space-3);
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+}
+button.st-tool-call-card__trigger {
+  cursor: pointer;
+}
+button.st-tool-call-card__trigger:hover {
+  background: var(--st-color-interactive-hover);
+}
+.st-tool-call-card__trigger:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: calc(-1 * var(--st-focus-width));
+}
+.st-tool-call-card__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--st-color-fg-muted);
+}
+.st-tool-call-card__heading {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--st-space-0-5) var(--st-space-2);
+  min-inline-size: 0;
+}
+.st-tool-call-card__title {
+  font-weight: var(--st-font-weight-medium);
+  overflow-wrap: anywhere;
+}
+.st-tool-call-card__name {
+  color: var(--st-color-fg-muted);
+  font-family: var(--st-font-mono);
+  font-size: var(--st-font-size-xs);
+  overflow-wrap: anywhere;
+}
+.st-tool-call-card__meta {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: baseline;
+  gap: var(--st-space-2);
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-xs);
+}
+.st-tool-call-card[data-status='error'] .st-tool-call-card__status {
+  color: var(--st-color-danger-fg);
+  font-weight: var(--st-font-weight-medium);
+}
+.st-tool-call-card__duration {
+  font-variant-numeric: tabular-nums;
+}
+.st-tool-call-card__chevron {
+  flex-shrink: 0;
+  color: var(--st-color-fg-muted);
+  transition: transform var(--st-duration-fast) var(--st-easing-standard);
+}
+.st-tool-call-card__trigger[data-state='open'] .st-tool-call-card__chevron {
+  transform: rotate(180deg);
+}
+.st-tool-call-card__actions {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--st-space-1);
+  padding-inline-end: var(--st-space-2);
+}
+.st-tool-call-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-3);
+  min-inline-size: 0;
+  padding: var(--st-space-3);
+  border-block-start: var(--st-border-width) solid var(--st-color-border-subtle);
+}
+.st-tool-call-card__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-1-5);
+  min-inline-size: 0;
+}
+.st-tool-call-card__section-label {
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-xs);
+  font-weight: var(--st-font-weight-medium);
+}
+.st-tool-call-card__section-body {
+  overflow-wrap: anywhere;
+}
+.st-tool-call-card__section[data-error] .st-tool-call-card__section-label,
+.st-tool-call-card__section[data-error] .st-tool-call-card__section-body {
+  color: var(--st-color-danger-fg);
+}
+@media (pointer: coarse) {
+  .st-tool-call-card__trigger {
+    min-block-size: 2.75rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .st-tool-call-card__chevron {
+    transition: none;
+  }
+}
+[data-theme='high-contrast'] .st-tool-call-card {
+  border-color: var(--st-color-border-strong);
+}
+[data-theme='high-contrast'] .st-tool-call-card__meta,
+[data-theme='high-contrast'] .st-tool-call-card__name,
+[data-theme='high-contrast'] .st-tool-call-card__section-label {
+  color: var(--st-color-fg-default);
+}
+@media (forced-colors: active) {
+  .st-tool-call-card {
+    border-color: CanvasText;
+  }
+  .st-tool-call-card__trigger:focus-visible {
+    outline-color: Highlight;
+  }
+}

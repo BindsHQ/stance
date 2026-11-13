@@ -62,9 +62,11 @@ class AiLocalisationTest {
         assertTrue(names.size >= 80, "found ${names.size} AI strings")
         // Format patterns are the same in every language by design.
         val shared = setOf("stance_ai_labelled_value")
+        // Words and patterns that Spanish writes the same way as English.
+        val sameInSpanish = setOf("stance_ai_named_state", "stance_ai_tool_error", "stance_ai_log_error", "stance_ai_plan")
         for (language in listOf("ar", "es")) {
             val translated = localised(language).resources
-            for (name in names - shared) {
+            for (name in names - shared - (if (language == "es") sameInSpanish else emptySet())) {
                 val id = R.string::class.java.getField(name).getInt(null)
                 assertNotEquals(english.getString(id), translated.getString(id), "$name is not translated into $language")
             }

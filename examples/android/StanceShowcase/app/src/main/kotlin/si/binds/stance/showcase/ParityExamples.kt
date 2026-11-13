@@ -108,8 +108,9 @@ fun StanceCheckboxGroupExample() {
 @Composable
 fun StanceCodeBlockExample() {
     StanceCodeBlock(
-        code = "dependencies {\n    implementation(libs.stance.compose)\n}",
+        code = "dependencies {\n    implementation(libs.stance.compose) // Stance\n}",
         title = "build.gradle.kts",
+        language = "kotlin",
         showLineNumbers = true,
     )
 }
@@ -122,7 +123,17 @@ fun StanceCopyButtonExample() {
 @Composable
 fun StanceComboboxExample() {
     var team by remember { mutableStateOf<String?>(null) }
-    StanceCombobox(label = "Team", options = teams, selected = team, onSelect = { team = it }, placeholder = "Type to search")
+    var custom by remember { mutableStateOf<String?>(null) }
+    StanceCombobox(
+        label = "Team",
+        options = teams,
+        selected = team,
+        onSelect = { team = it },
+        placeholder = "Type to search",
+        allowCustomValue = true,
+        customValue = custom,
+        onCustomValue = { custom = it },
+    )
 }
 
 @Composable

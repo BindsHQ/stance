@@ -1,0 +1,115 @@
+.st-inline-suggestion {
+  position: relative;
+  display: block;
+  min-inline-size: 0;
+}
+/* The ghost is laid over the field's text box; its metrics are copied from the field. */
+.st-inline-suggestion__ghost {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  border: 0 solid transparent;
+  background: transparent;
+  color: var(--st-color-fg-subtle);
+  white-space: pre;
+  overflow: hidden;
+  pointer-events: none;
+}
+.st-inline-suggestion__ghost[data-multiline] {
+  display: block;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+.st-inline-suggestion__line {
+  flex: 1 0 auto;
+  min-inline-size: 0;
+}
+/* Keeps the ghost aligned with the caret without drawing the typed text twice. */
+.st-inline-suggestion__typed {
+  visibility: hidden;
+}
+.st-inline-suggestion__text {
+  color: var(--st-color-fg-subtle);
+}
+.st-inline-suggestion__hint {
+  display: inline-block;
+  margin-inline-start: var(--st-space-2);
+  padding-inline: var(--st-space-1);
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-xs);
+  background: var(--st-color-bg-surface);
+  color: var(--st-color-fg-muted);
+  font-family: var(--st-font-sans);
+  font-size: 0.75em;
+  font-style: normal;
+  font-weight: var(--st-font-weight-medium);
+  line-height: 1.4;
+  letter-spacing: normal;
+  text-transform: none;
+  vertical-align: 0.1em;
+  white-space: nowrap;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.st-inline-suggestion__pending {
+  display: inline-block;
+  inline-size: 0.5em;
+  block-size: 0.5em;
+  margin-inline-start: 0.25em;
+  border-radius: var(--st-radius-full);
+  background: currentColor;
+  vertical-align: 0.1em;
+  animation: st-inline-suggestion-pulse var(--st-duration-pulse) var(--st-easing-standard) infinite
+    alternate;
+}
+@keyframes st-inline-suggestion-pulse {
+  from {
+    opacity: 0.9;
+  }
+  to {
+    opacity: 0.3;
+  }
+}
+@media (pointer: coarse) {
+  /* A larger tap area without changing the line height. */
+  .st-inline-suggestion__hint {
+    position: relative;
+  }
+  .st-inline-suggestion__hint::after {
+    position: absolute;
+    inset-block: calc((100% - 2.75rem) / 2);
+    inset-inline: min(0px, calc((100% - 2.75rem) / 2));
+    content: '';
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .st-inline-suggestion__pending {
+    animation: none;
+    opacity: 0.6;
+  }
+}
+/* Where colour alone would not set the suggestion apart, it is also underlined. */
+[data-theme='high-contrast'] .st-inline-suggestion__text {
+  color: var(--st-color-fg-muted);
+  text-decoration: underline dotted;
+  text-underline-offset: 0.2em;
+}
+[data-theme='high-contrast'] .st-inline-suggestion__hint {
+  border-color: var(--st-color-border-strong);
+  color: var(--st-color-fg-default);
+}
+@media (forced-colors: active) {
+  .st-inline-suggestion__text,
+  .st-inline-suggestion__ghost {
+    color: GrayText;
+  }
+  .st-inline-suggestion__text {
+    text-decoration: underline dotted;
+  }
+  .st-inline-suggestion__hint {
+    border-color: ButtonText;
+    background: ButtonFace;
+    color: ButtonText;
+  }
+}

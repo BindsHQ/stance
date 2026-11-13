@@ -377,7 +377,7 @@ public fun StanceErrorState(
  * or when animations are off, where the platform dialog handles back on its own.
  */
 @Composable
-private fun Modifier.predictiveBackScale(onBack: () -> Unit): Modifier {
+internal fun Modifier.predictiveBackScale(onBack: () -> Unit): Modifier {
     if (StanceTheme.motion.reduceMotion || LocalOnBackPressedDispatcherOwner.current == null) return this
     var progress by remember { mutableFloatStateOf(0f) }
     val currentOnBack by rememberUpdatedState(onBack)

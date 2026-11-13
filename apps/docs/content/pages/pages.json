@@ -180,6 +180,12 @@
     "description": "Patterns for previewing documents, uploading files and capturing signatures accessibly on web, iOS and Android."
   },
   {
+    "section": "patterns",
+    "slug": "ai-assistant",
+    "title": "AI assistants and agents",
+    "description": "Patterns for assistants and agents: show the work, ask before acting, review changes before they land, and render answers safely on every platform."
+  },
+  {
     "section": "guidelines",
     "slug": "principles",
     "title": "Design principles",

@@ -1,0 +1,50 @@
+.st-canvas-split-view {
+  display: flex;
+  flex-direction: column;
+  inline-size: 100%;
+  block-size: 100%;
+  min-inline-size: 0;
+  min-block-size: 0;
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-sans);
+}
+.st-canvas-split-view__split,
+.st-canvas-split-view__tabs {
+  flex: 1 1 auto;
+  min-block-size: 0;
+}
+.st-canvas-split-view__tabs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-2);
+}
+.st-canvas-split-view__switch {
+  flex-shrink: 0;
+  align-self: stretch;
+}
+.st-canvas-split-view__pane {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  min-block-size: 0;
+  overflow: auto;
+}
+.st-canvas-split-view__tabs > .st-canvas-split-view__pane {
+  flex: 1 1 auto;
+}
+.st-canvas-split-view__pane[hidden] {
+  display: none;
+}
+.st-canvas-split-view__pane:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: calc(-1 * var(--st-focus-width));
+}
+.st-canvas-split-view__pane > * {
+  flex: 1 1 auto;
+  min-block-size: 0;
+}
+@media (forced-colors: active) {
+  .st-canvas-split-view__pane:focus-visible {
+    outline-color: Highlight;
+  }
+}

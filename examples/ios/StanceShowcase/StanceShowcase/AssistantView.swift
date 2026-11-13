@@ -70,10 +70,14 @@ struct SampleTurn: Identifiable {
     var reasoningSeconds: TimeInterval?
     var showsSources = false
     var rating: StanceRating?
+    /// Set for a turn that is an agent run rather than text: the phase it opens at.
+    var agentPhase: AgentRunPhase?
 }
 
 /// A realistic conversation screen composed from the Stance AI components.
-/// Responses are canned text streamed by a local timer.
+/// Responses are canned text streamed by a local timer. "Run a budget review" starts a sample
+/// agent run: a plan to approve, tool calls, an approval prompt, a diff to review, then a
+/// generated table and chart with follow up prompts.
 struct AssistantView: View {
     @State private var turns: [SampleTurn] = [
         SampleTurn(role: .user, text: AISample.question),
@@ -94,6 +98,9 @@ struct AssistantView: View {
     /// `-assistant-empty` starts with no messages, to show the empty state.
     private let startsEmpty = ProcessInfo.processInfo.arguments.contains("-assistant-empty")
 
+    /// Prompts offered under the latest answer. The first one starts the sample agent run.
+    private let followUps = [StanceSuggestionChip(id: "agent", label: "Run a budget review", icon: .sparkle)] + AIProductSample.followUps
+
     var body: some View {
         VStack(spacing: 0) {
             if turns.isEmpty {
@@ -107,6 +114,11 @@ struct AssistantView: View {
                     ForEach($turns) { $turn in message($turn) }
                     if status == .submitted {
                         StanceThinkingIndicator(elapsed: elapsed)
+                    }
+                    if !status.isActive, let last = turns.last, last.role == .assistant, last.agentPhase == nil {
+                        StanceSuggestionChips(followUps, label: "Follow up") { chip in
+                            if chip.id == "agent" { startAgentRun() } else { send(chip.label) }
+                        }
                     }
                 }
             }
@@ -130,7 +142,12 @@ struct AssistantView: View {
             try? await Task.sleep(for: .seconds(0.8))
             toasts.show("Report sent", tone: .success)
         }
-        .onAppear { if startsEmpty { turns = [] } }
+        .onAppear {
+            if startsEmpty { turns = [] }
+            if let phase = AgentRunPhase.launch, !turns.contains(where: { $0.agentPhase != nil }) {
+                turns = [SampleTurn(role: .user, text: "Run a budget review"), SampleTurn(role: .assistant, text: "", agentPhase: phase)]
+            }
+        }
         .onChange(of: draft) { _, new in
             showsMentions = StanceMentionPicker.activeQuery(in: new) != nil
             showsCommands = StanceSlashCommandMenu.query(in: new) != nil
@@ -141,6 +158,8 @@ struct AssistantView: View {
         let value = turn.wrappedValue
         if value.role == .user {
             StanceMessage(role: .user) { Text(value.text) }
+        } else if let phase = value.agentPhase {
+            AgentRunView(startingAt: phase) { send($0) }
         } else {
             StanceMessage(role: .assistant, status: value.status, author: "Assistant") {
                 VStack(alignment: .leading, spacing: StanceSpacing.sm) {
@@ -220,6 +239,14 @@ struct AssistantView: View {
         guard !trimmed.isEmpty else { return }
         turns.append(SampleTurn(role: .user, text: trimmed))
         respond(replacing: nil)
+    }
+
+    /// Adds the sample agent run to the conversation, starting with its plan.
+    private func startAgentRun() {
+        stop()
+        turns.append(SampleTurn(role: .user, text: "Run a budget review"))
+        turns.append(SampleTurn(role: .assistant, text: "", agentPhase: .plan))
+        status = .idle
     }
 
     /// Streams a canned answer in small chunks, the way a model would.
@@ -390,6 +417,9 @@ struct AIDemo: View {
                 StanceSensitiveContentGate { Text("Invoice 2026-114 lists the customer's home address.").stanceText(.body) }
                 StanceButton("Report a response", variant: .outline, leadingIcon: .alertTriangle) { showsReport = true }
             }
+            AIAgentsDemo()
+            AIOutputDemo()
+            AIProductDemo()
         }
         .stanceReportDialog(isPresented: $showsReport, categories: AISample.reportCategories) { _ in
             try? await Task.sleep(for: .seconds(0.8))

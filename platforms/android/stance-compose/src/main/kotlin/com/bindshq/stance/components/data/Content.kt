@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
@@ -246,16 +247,8 @@ public fun StanceTimeline(events: List<StanceTimelineEvent>, modifier: Modifier 
                 horizontalArrangement = Arrangement.spacedBy(StanceSpacing.space3),
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Box(
-                        Modifier
-                            .padding(top = StanceSpacing.space15)
-                            .size(StanceSpacing.space25)
-                            .clip(CircleShape)
-                            .background(if (event.tone == StanceTone.Neutral) c.accentBg else event.tone.colors().solid),
-                    )
-                    if (index < events.lastIndex) {
-                        Box(Modifier.width(StanceSpacing.hairline * 2).height(StanceSpacing.space12).background(c.borderDefault))
-                    }
+                    StanceTimelineDot(if (event.tone == StanceTone.Neutral) c.accentBg else event.tone.colors().solid)
+                    if (index < events.lastIndex) StanceTimelineConnector(Modifier.height(StanceSpacing.space12))
                 }
                 Column(modifier = Modifier.weight(1f).padding(bottom = StanceSpacing.space4)) {
                     Text(event.title, style = StanceTheme.typography.title, color = c.fgDefault)
@@ -267,6 +260,18 @@ public fun StanceTimeline(events: List<StanceTimelineEvent>, modifier: Modifier 
             }
         }
     }
+}
+
+/** The dot that marks one event on a timeline rail. Shared with the AI step timeline. */
+@Composable
+internal fun StanceTimelineDot(color: Color) {
+    Box(Modifier.padding(top = StanceSpacing.space15).size(StanceSpacing.space25).clip(CircleShape).background(color))
+}
+
+/** The line that joins one timeline marker to the next. Give it a height. */
+@Composable
+internal fun StanceTimelineConnector(modifier: Modifier = Modifier) {
+    Box(modifier.width(StanceSpacing.hairline * 2).background(StanceTheme.colors.borderDefault))
 }
 
 /**
@@ -347,6 +352,10 @@ public data class StanceTableColumn<T>(val header: String, val width: Dp = Stanc
  * For long lists on phones prefer `StanceListItem`.
  *
  * @param rowDescription How a row is read aloud. Defaults to its header and value pairs.
+ * @param sortColumn The index of the column the rows are sorted by, or null. The table shows the
+ * order with an arrow and says it; sorting the rows is up to the caller.
+ * @param sortDescending Whether [sortColumn] is sorted from high to low.
+ * @param onSortChange Makes every header a button and is called with the index of the tapped column.
  */
 @Composable
 public fun <T> StanceDataTable(
@@ -356,24 +365,49 @@ public fun <T> StanceDataTable(
     caption: String? = null,
     onRowClick: ((T) -> Unit)? = null,
     rowDescription: ((T) -> String)? = null,
+    sortColumn: Int? = null,
+    sortDescending: Boolean = false,
+    onSortChange: ((column: Int) -> Unit)? = null,
 ) {
     val c = StanceTheme.colors
     val cellFormat = stringResource(R.string.stance_table_cell)
     val separator = stringResource(R.string.stance_list_separator)
+    val sortedText = stringResource(if (sortDescending) R.string.stance_sorted_descending else R.string.stance_sorted_ascending)
     Column(modifier = modifier.semantics { if (caption != null) contentDescription = caption }) {
         Column(modifier = Modifier.horizontalScroll(rememberScrollState())) {
             Row(modifier = Modifier.background(c.bgSubtle)) {
-                columns.forEach { column ->
-                    Text(
-                        column.header,
-                        style = StanceTheme.typography.labelSmall,
-                        color = c.fgMuted,
-                        textAlign = if (column.numeric) TextAlign.End else TextAlign.Start,
-                        modifier = Modifier
-                            .width(column.width)
-                            .padding(horizontal = StanceSpacing.space4, vertical = StanceSpacing.space3)
-                            .semantics { heading() },
-                    )
+                columns.forEachIndexed { index, column ->
+                    val sorted = index == sortColumn
+                    if (onSortChange == null && !sorted) {
+                        Text(
+                            column.header,
+                            style = StanceTheme.typography.labelSmall,
+                            color = c.fgMuted,
+                            textAlign = if (column.numeric) TextAlign.End else TextAlign.Start,
+                            modifier = Modifier
+                                .width(column.width)
+                                .padding(horizontal = StanceSpacing.space4, vertical = StanceSpacing.space3)
+                                .semantics { heading() },
+                        )
+                    } else {
+                        Row(
+                            modifier = Modifier
+                                .width(column.width)
+                                .then(if (onSortChange != null) Modifier.heightIn(min = StanceSizes.touchTarget).clickable(role = Role.Button) { onSortChange(index) } else Modifier)
+                                .semantics(mergeDescendants = true) {
+                                    heading()
+                                    if (sorted) stateDescription = sortedText
+                                }
+                                .padding(horizontal = StanceSpacing.space4, vertical = StanceSpacing.space3),
+                            horizontalArrangement = Arrangement.spacedBy(StanceSpacing.space1, if (column.numeric) Alignment.End else Alignment.Start),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Text(column.header, style = StanceTheme.typography.labelSmall, color = if (sorted) c.fgDefault else c.fgMuted, modifier = Modifier.weight(1f, fill = false))
+                            if (sorted) {
+                                StanceIcon(if (sortDescending) StanceIcons.ArrowDown else StanceIcons.ArrowUp, contentDescription = null, size = StanceSizes.iconSmall, tint = c.fgDefault)
+                            }
+                        }
+                    }
                 }
             }
             StanceDivider()

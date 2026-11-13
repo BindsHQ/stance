@@ -153,7 +153,7 @@ class ParityLocalisationTest {
             "stance_code_sample", "stance_copy", "stance_copied", "stance_remove_item",
             "stance_edit_named", "stance_save", "stance_unread", "stance_mark_as_read", "stance_increase",
             "stance_decrease", "stance_previous_page", "stance_next_page", "stance_page_number",
-            "stance_verification_code", "stance_pin_progress", "stance_move_up", "stance_move_down",
+            "stance_verification_code", "stance_move_up", "stance_move_down",
             "stance_reorder", "stance_moved", "stance_theme", "stance_theme_system", "stance_theme_light",
             "stance_theme_dark", "stance_theme_high_contrast", "stance_chart_line", "stance_chart_bar",
             "stance_chart_area", "stance_chart_summary", "stance_chart_point",

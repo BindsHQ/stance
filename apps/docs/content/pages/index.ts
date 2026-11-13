@@ -30,6 +30,7 @@ import patterns_navigation from './patterns/navigation';
 import patterns_search from './patterns/search';
 import patterns_notifications from './patterns/notifications';
 import patterns_documents from './patterns/documents';
+import patterns_ai_assistant from './patterns/ai-assistant';
 import guidelines_principles from './guidelines/principles';
 import guidelines_composition from './guidelines/composition';
 import guidelines_responsive from './guidelines/responsive';
@@ -73,6 +74,7 @@ export const pages: GuidePage[] = [
   { section: "patterns", slug: "search", title: "Search and filtering", description: "Search and filter patterns: placement, live results, announcing counts, filter chips, sheets on phones and shareable filter state.", Component: patterns_search },
   { section: "patterns", slug: "notifications", title: "Notifications and feedback", description: "When to use a toast, snackbar, inline alert, banner, dialog or notification list, and the rules that keep feedback accessible.", Component: patterns_notifications },
   { section: "patterns", slug: "documents", title: "Documents and signatures", description: "Patterns for previewing documents, uploading files and capturing signatures accessibly on web, iOS and Android.", Component: patterns_documents },
+  { section: "patterns", slug: "ai-assistant", title: "AI assistants and agents", description: "Patterns for assistants and agents: show the work, ask before acting, review changes before they land, and render answers safely on every platform.", Component: patterns_ai_assistant },
   { section: "guidelines", slug: "principles", title: "Design principles", description: "The six principles behind Stance: brand-true colour, accessibility by default, precision, editorial restraint, owning the stack and shared foundations.", Component: guidelines_principles },
   { section: "guidelines", slug: "composition", title: "Composition", description: "How to compose Stance components: compound parts, the asChild prop for router links, controlled and uncontrolled state, and extending styles safely.", Component: guidelines_composition },
   { section: "guidelines", slug: "responsive", title: "Responsive design", description: "Responsive guidance for Stance: mobile-first layouts, how components adapt on small screens, touch target sizes, and reflow at 400% zoom.", Component: guidelines_responsive },

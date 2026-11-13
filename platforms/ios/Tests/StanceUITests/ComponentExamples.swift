@@ -1301,7 +1301,7 @@ enum ComponentExamples {
         @State var rating: StanceRating?
         @State var selection: String?
         var body: some View {
-            StanceCombobox("Template owner", selection: $selection, options: [.init("priya", label: "Priya Nair", detail: "Admin"), .init("lukas", label: "Lukas Brenner", detail: "Sales")])
+            StanceCombobox("Team", selection: $selection, options: [.init("sales", label: "Sales"), .init("legal", label: "Legal")], custom: .text)
         }
     }
 
@@ -1320,7 +1320,7 @@ enum ComponentExamples {
         @State var rating: StanceRating?
         @State var selection: String?
         var body: some View {
-            StanceMultiSelect("Departments", selection: $filters, options: [.init("sales", label: "Sales"), .init("legal", label: "Legal")])
+            StanceMultiSelect("Departments", selection: $filters, options: [.init("sales", label: "Sales"), .init("legal", label: "Legal")], custom: .text)
         }
     }
 
@@ -1529,7 +1529,7 @@ enum ComponentExamples {
         @State var rating: StanceRating?
         @State var selection: String?
         var body: some View {
-            StanceCodeBlock("StanceButton(\"Deploy\") {}", title: "Swift", showsLineNumbers: true)
+            StanceCodeBlock("StanceButton(\"Deploy\") {}", language: "swift", title: "Swift", showsLineNumbers: true)
         }
     }
 
@@ -2349,8 +2349,521 @@ enum ComponentExamples {
             StanceSensitiveContentGate { Text("Hidden until shown") }
         }
     }
+
+    /// StanceInlineSuggestion
+    struct Example123: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceInlineSuggestion("Reply", text: $text, suggestion: "Thanks for the update")
+        }
+    }
+
+    /// StanceSmartField
+    struct Example124: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceSmartField("City", status: .suggested, suggestedValue: "Ljubljana", suggestionSource: "Invoice 114", onAccept: {}) { TextField("", text: $text) }
+        }
+    }
+
+    /// StanceRewriteMenu
+    struct Example125: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceRewriteMenu(onAction: { _ in }) { Text("Shorter text") } onAcceptPreview: {} onDiscardPreview: {}
+        }
+    }
+
+    /// StanceSummaryCard
+    struct Example126: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceSummaryCard(points: ["Travel is up 8%", "Software falls 3%"], onExpand: {})
+        }
+    }
+
+    /// StanceAskBar
+    struct Example127: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceAskBar(text: $text, suggestions: [StanceSuggestionChip(id: "1", label: "Who approves travel?")]) { _ in }
+        }
+    }
+
+    /// StanceSuggestionChips
+    struct Example128: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceSuggestionChips([StanceSuggestionChip(id: "1", label: "Show as a table", icon: .list)]) { _ in }
+        }
+    }
+
+    /// StanceInsightCallout
+    struct Example129: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceInsightCallout("Travel is 8% over plan", tone: .attention, actionTitle: "Review", action: {}) { Text("Two workshops were not forecast.") }
+        }
+    }
+
+    /// StanceSemanticSearchResults
+    struct Example130: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceSemanticSearchResults(query: "travel", results: [StanceSearchResult(id: "1", title: "Travel policy", snippet: "Trips over 400 EUR need approval.", highlights: ["approval"], score: 0.92)])
+        }
+    }
+
+    /// StanceCopilotPanel
+    struct Example131: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            Button("Assistant") { isPresented = true }.stanceCopilotPanel(isPresented: $isPresented) { StanceCopilotPanel(onClose: { isPresented = false }) { Text("Thread") } }
+        }
+    }
+
+    /// StanceMarkdownRenderer
+    struct Example132: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceMarkdownRenderer("## Summary\n\nTravel is **up 8%** [1].\n\n- [x] Compare versions", citations: [1: StanceSource(id: "q3", title: "Q3 budget review")], baseHeadingLevel: 2)
+        }
+    }
+
+    /// StanceCodeSuggestion
+    struct Example133: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceCodeSuggestion("let total = 1284", language: "swift", filename: "Budget.swift", isApplied: isOn, runStatus: .complete, runOutput: "1284", onApply: { isOn = true }, onRun: {})
+        }
+    }
+
+    /// StanceArtifactPanel
+    struct Example134: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            Button("Open") { isPresented = true }.stanceArtifactPanel(isPresented: $isPresented) { StanceArtifactPanel("Travel summary", kind: "Document", onClose: { isPresented = false }) { Text("Trips over 400 EUR need approval.") } }
+        }
+    }
+
+    /// StanceGeneratedImage
+    struct Example135: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceGeneratedImage(Image(systemName: "photo"), alt: "Grey hills under a pale sun", prompt: "Hills in ink", onRegenerate: {})
+        }
+    }
+
+    /// StanceGeneratedTable
+    struct Example136: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceGeneratedTable("Budget changes", columns: [StanceGeneratedTableColumn(id: "line", header: "Line"), StanceGeneratedTableColumn(id: "change", header: "Change", isNumeric: true)], rows: [StanceGeneratedTableRow(id: "1", ["line": "Travel", "change": "+8%"])], maxRows: 5)
+        }
+    }
+
+    /// StanceGeneratedChart
+    struct Example137: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceGeneratedChart("Spend by line", takeaway: "Travel is the largest line.", series: [StanceChartSeries("FY27", points: [StanceChartPoint("Travel", 12400), StanceChartPoint("Software", 9800)])], source: "FY27 workbook")
+        }
+    }
+
+    /// StanceFilePreviewCard
+    struct Example138: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceFilePreviewCard("Budget FY27.xlsx", size: 482_000, meta: "3 sheets", onOpen: {}, onDownload: {})
+        }
+    }
+
+    /// StanceCanvasSplitView
+    struct Example139: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceCanvasSplitView(isCanvasOpen: $isOn) { Text("Conversation") } canvas: { Text("Document") }
+        }
+    }
+
+    /// StanceToolCallCard
+    struct Example140: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceToolCallCard("Search the web", name: "web.search", status: .complete, input: "{ \"query\": \"FY27 budget\" }", output: "3 results", language: "json", duration: 2)
+        }
+    }
+
+    /// StanceStepTimeline
+    struct Example141: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceStepTimeline([StanceAgentStep(id: "1", title: "Read the workbook", status: .complete, duration: 3), StanceAgentStep(id: "2", title: "Compare versions", status: .running)])
+        }
+    }
+
+    /// StancePlanChecklist
+    struct Example142: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StancePlanChecklist(items: .constant([StancePlanItem(id: "1", title: "Read the workbook"), StancePlanItem(id: "2", title: "Email finance")]), onApprove: {}, onReject: {})
+        }
+    }
+
+    /// StanceApprovalPrompt
+    struct Example143: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceApprovalPrompt("Email the summary to finance", description: "Sends one message to 6 people.", risk: .high, onAllow: {}, onDeny: {})
+        }
+    }
+
+    /// StancePermissionSheet
+    struct Example144: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            Button("Review access") { isPresented = true }.stancePermissionSheet(isPresented: $isPresented, permissions: .constant([StancePermission(id: "files", title: "Read attached files", isGranted: true, isRequired: true)]))
+        }
+    }
+
+    /// StanceAgentStatusPill
+    struct Example145: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceAgentStatusPill(.working, detail: "Step 2 of 5")
+        }
+    }
+
+    /// StanceTaskQueue
+    struct Example146: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceTaskQueue(tasks: [StanceAgentTask(id: "1", title: "Export report", status: .running, progress: 0.4), StanceAgentTask(id: "2", title: "Email finance")], onCancel: { _ in })
+        }
+    }
+
+    /// StanceSubagentTree
+    struct Example147: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceSubagentTree(nodes: [StanceSubagent(id: "lead", name: "Lead", status: .running, children: [StanceSubagent(id: "writer", name: "Writer", status: .waiting)])], expanded: .constant(["lead"]), selection: $selection)
+        }
+    }
+
+    /// StanceRunLog
+    struct Example148: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceRunLog(entries: [StanceLogEntry(id: "1", level: .info, text: "Run started"), StanceLogEntry(id: "2", level: .error, text: "Relay timed out")])
+        }
+    }
+
+    /// StanceDiffReview
+    struct Example149: View {
+        @State var text = ""
+        @State var isOn = true
+        @State var value = 50.0
+        @State var date = Date()
+        @State var role = "admin"
+        @State var filters: Set<String> = []
+        @State var signature = StanceSignature()
+        @State var isPresented = false
+        @State var confirmation: StanceConfirmation?
+        @State var index = 0
+        @State var rating: StanceRating?
+        @State var selection: String?
+        var body: some View {
+            StanceDiffReview(files: [StanceDiffFile(id: "a", path: "notes.md", hunks: [StanceDiffHunk(id: "a1", lines: [StanceDiffLine(.remove, "Travel is flat."), StanceDiffLine(.add, "Travel is up 8%.")])])], decisions: .constant([:]))
+        }
+    }
 }
 
-@Test("components.json lists 123 documented components") func inventoryCount() {
-    #expect(123 > 50)
+@Test("components.json lists 150 documented components") func inventoryCount() {
+    #expect(150 > 50)
 }

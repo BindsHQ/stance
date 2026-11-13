@@ -1,0 +1,213 @@
+.st-run-log {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  overflow: hidden;
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-lg);
+  background: var(--st-color-bg-subtle);
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-xs);
+}
+.st-run-log__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--st-space-1) var(--st-space-3);
+  padding-block: var(--st-space-1-5);
+  padding-inline: var(--st-space-2);
+  border-block-end: var(--st-border-width) solid var(--st-color-border-default);
+  background: var(--st-color-bg-surface);
+}
+.st-run-log__levels,
+.st-run-log__tools {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--st-space-1);
+}
+.st-run-log__count {
+  color: var(--st-color-fg-muted);
+  font-variant-numeric: tabular-nums;
+}
+.st-run-log__level-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--st-space-1-5);
+  min-block-size: 1.5rem;
+  margin: 0;
+  padding-block: 0;
+  padding-inline: var(--st-space-2);
+  border: var(--st-border-width) solid var(--st-color-border-control);
+  border-radius: var(--st-radius-full);
+  background: transparent;
+  color: var(--st-color-fg-muted);
+  font: inherit;
+  font-weight: var(--st-font-weight-medium);
+  cursor: pointer;
+}
+.st-run-log__level-toggle:hover {
+  background: var(--st-color-interactive-hover);
+  color: var(--st-color-fg-default);
+}
+.st-run-log__level-toggle[aria-pressed='true'] {
+  border-color: var(--st-color-border-strong);
+  background: var(--st-color-interactive-selected);
+  color: var(--st-color-interactive-selected-fg);
+}
+.st-run-log__level-toggle[aria-pressed='false'] {
+  text-decoration: line-through;
+}
+.st-run-log__level-count {
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--st-font-weight-regular);
+}
+.st-run-log__level-toggle:focus-visible,
+.st-run-log__latest:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: var(--st-focus-offset);
+}
+.st-run-log__body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-block-size: 0;
+}
+.st-run-log__viewport {
+  overflow: auto;
+  /* The log keeps its own position while it follows the tail. */
+  overflow-anchor: none;
+  overscroll-behavior: contain;
+  padding-block: var(--st-space-2);
+  font-family: var(--st-font-mono);
+  line-height: 1.25rem;
+  tab-size: 2;
+}
+.st-run-log__viewport:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: calc(-1 * var(--st-focus-width));
+}
+.st-run-log__lines {
+  position: relative;
+  min-inline-size: 100%;
+}
+.st-run-log__line {
+  position: absolute;
+  inset-inline-start: 0;
+  display: flex;
+  gap: var(--st-space-3);
+  min-inline-size: 100%;
+  min-block-size: 1.25rem;
+  padding-inline: var(--st-space-3);
+  border-inline-start: 2px solid transparent;
+  white-space: pre;
+}
+.st-run-log[data-wrap] .st-run-log__line {
+  inline-size: 100%;
+  white-space: pre-wrap;
+}
+.st-run-log[data-wrap] .st-run-log__text {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+.st-run-log__time {
+  flex-shrink: 0;
+  color: var(--st-color-fg-subtle);
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+}
+/* The tinted error row is darker than the canvas, so the time steps up a shade to keep 4.5:1. */
+.st-run-log__line[data-level='error'] .st-run-log__time {
+  color: var(--st-color-fg-muted);
+}
+.st-run-log__level {
+  flex-shrink: 0;
+  inline-size: 4.5rem;
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-2xs);
+  font-weight: var(--st-font-weight-semibold);
+  letter-spacing: var(--st-letter-spacing-wide);
+  text-transform: uppercase;
+}
+.st-run-log__line[data-level='debug'] .st-run-log__text {
+  color: var(--st-color-fg-muted);
+}
+.st-run-log__line[data-level='warn'] {
+  border-inline-start-color: var(--st-color-warning-solid);
+}
+.st-run-log__line[data-level='warn'] .st-run-log__level {
+  color: var(--st-color-warning-fg);
+}
+.st-run-log__line[data-level='error'] {
+  border-inline-start-color: var(--st-color-danger-solid);
+  background: var(--st-color-danger-bg);
+}
+.st-run-log__line[data-level='error'] .st-run-log__level {
+  color: var(--st-color-danger-fg);
+}
+.st-run-log__empty {
+  margin: 0;
+  padding: var(--st-space-4);
+  color: var(--st-color-fg-muted);
+  font-family: var(--st-font-sans);
+  text-align: center;
+}
+.st-run-log__latest {
+  position: absolute;
+  inset-block-end: var(--st-space-2);
+  inset-inline-end: var(--st-space-3);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--st-space-1);
+  min-block-size: 1.5rem;
+  margin: 0;
+  padding-block: 0;
+  padding-inline: var(--st-space-2);
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-full);
+  background: var(--st-color-bg-surface-raised);
+  box-shadow: var(--st-shadow-sm);
+  color: var(--st-color-fg-default);
+  font: inherit;
+  font-weight: var(--st-font-weight-medium);
+  cursor: pointer;
+}
+.st-run-log__latest:hover {
+  background: var(--st-color-bg-muted);
+}
+@media (pointer: coarse) {
+  .st-run-log__level-toggle,
+  .st-run-log__latest {
+    min-block-size: 2.75rem;
+    min-inline-size: 2.75rem;
+  }
+}
+[data-theme='high-contrast'] .st-run-log__time,
+[data-theme='high-contrast'] .st-run-log__level,
+[data-theme='high-contrast'] .st-run-log__count,
+[data-theme='high-contrast'] .st-run-log__line[data-level='debug'] .st-run-log__text {
+  color: var(--st-color-fg-default);
+}
+@media (forced-colors: active) {
+  .st-run-log,
+  .st-run-log__latest {
+    border-color: CanvasText;
+  }
+  .st-run-log__level-toggle[aria-pressed='true'] {
+    border-color: Highlight;
+    background: Highlight;
+    color: HighlightText;
+    forced-color-adjust: none;
+  }
+  .st-run-log__line[data-level='warn'],
+  .st-run-log__line[data-level='error'] {
+    border-inline-start-color: CanvasText;
+  }
+  .st-run-log__viewport:focus-visible,
+  .st-run-log__level-toggle:focus-visible,
+  .st-run-log__latest:focus-visible {
+    outline-color: Highlight;
+  }
+}

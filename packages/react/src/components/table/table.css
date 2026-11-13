@@ -51,6 +51,8 @@
   text-transform: uppercase;
   white-space: nowrap;
   vertical-align: middle;
+  /* Browsers centre th by default. Headers follow their column instead. */
+  text-align: start;
 }
 .st-table-wrapper[data-sticky-header] .st-table__head {
   position: sticky;

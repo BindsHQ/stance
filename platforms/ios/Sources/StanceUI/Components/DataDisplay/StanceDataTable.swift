@@ -87,14 +87,21 @@ public struct StanceDataTableLabels: Sendable {
 /// a card in a `List` with every column as a labelled value, and a sort menu replaces the
 /// headers. VoiceOver reads each card as one element with column names and values.
 ///
+/// The system `Table` can only take a dynamic list of columns from iOS 17.4. On iOS 17.0 to 17.3
+/// regular width gets a table all the same: a lazy stack with a pinned header row, sortable
+/// headers, selection and the same VoiceOver wording, so no iPad falls back to cards.
+///
 /// Pass rows in any order: the table sorts them by `sort`.
 public struct StanceDataTable<Row: Identifiable>: View {
     /// Which layout to use.
     public enum Layout: Sendable {
         /// A table in regular width and cards in compact width.
         case automatic
-        /// Always the system table (iOS 17.4 or later; earlier versions use cards).
+        /// Always a table: the system `Table` on iOS 17.4 or later, the grid table before that.
         case table
+        /// Always the grid table that iOS 17.0 to 17.3 use in regular width: a lazy stack with a
+        /// pinned header. Useful where the system table's own chrome is not wanted.
+        case grid
         /// Always cards.
         case list
     }
@@ -162,8 +169,14 @@ public struct StanceDataTable<Row: Identifiable>: View {
         Group {
             if rows.isEmpty {
                 StanceEmptyState(icon: .inbox, title: labels.empty ?? stanceString("stance.table.empty", locale), message: "")
-            } else if useTable, #available(iOS 17.4, macOS 14.4, *) {
-                StanceSystemTable(rows: displayed, columns: columns, sort: $sort, selection: selection, allowsSelection: externalSelection != nil)
+            } else if layout == .grid {
+                gridTable
+            } else if useTable {
+                if #available(iOS 17.4, macOS 14.4, *) {
+                    StanceSystemTable(rows: displayed, columns: columns, sort: $sort, selection: selection, allowsSelection: externalSelection != nil)
+                } else {
+                    gridTable
+                }
             } else {
                 cards
             }
@@ -174,9 +187,13 @@ public struct StanceDataTable<Row: Identifiable>: View {
     private var useTable: Bool {
         switch layout {
         case .automatic: sizeClass == .regular
-        case .table: true
+        case .table, .grid: true
         case .list: false
         }
+    }
+
+    private var gridTable: some View {
+        StanceGridTable(rows: displayed, columns: columns, sort: $sort, selection: selection, allowsSelection: externalSelection != nil)
     }
 
     // MARK: Compact layout
@@ -278,6 +295,217 @@ struct StanceTableComparator<Row>: SortComparator, @unchecked Sendable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(columnID)
         hasher.combine(order == .forward)
+    }
+}
+
+// MARK: Grid table (iOS 17.0 to 17.3)
+
+/// How every row of a table is selected, for the select all control.
+public enum StanceTableSelectionState: String, CaseIterable, Sendable {
+    case none, some, all
+}
+
+/// The layout and wording rules of the table ``StanceDataTable`` draws where the system `Table`
+/// cannot take dynamic columns (iOS 17.0 to 17.3). Exposed for apps and tests.
+public enum StanceGridTableModel {
+    /// Column widths that fill `available`.
+    ///
+    /// Every column gets at least `minimum`. Space left over is shared in proportion to
+    /// `weights`, so a column of long names is wider than a column of counts. When the minimums
+    /// alone are wider than `available`, the table is wider than its container and scrolls.
+    public nonisolated static func columnWidths(weights: [Double], available: CGFloat, minimum: CGFloat) -> [CGFloat] {
+        guard !weights.isEmpty else { return [] }
+        let spare = Swift.max(0, available - minimum * CGFloat(weights.count))
+        let total = weights.reduce(0) { $0 + Swift.max($1, 0) }
+        return weights.map { weight in
+            minimum + (total > 0 ? spare * CGFloat(Swift.max(weight, 0) / total) : spare / CGFloat(weights.count))
+        }
+    }
+
+    /// How much room each column wants: the length of its header or its longest value, capped so
+    /// one long cell cannot starve the others.
+    public nonisolated static func weights<Row>(rows: [Row], columns: [StanceTableColumn<Row>], cap: Int = 32) -> [Double] {
+        columns.map { column in
+            let longest = rows.reduce(column.title.count) { Swift.max($0, column.value($1).count) }
+            return Double(Swift.min(longest, cap))
+        }
+    }
+
+    /// What VoiceOver says for a header: "Ascending", "Descending" or "Not sorted".
+    public nonisolated static func sortDescription(column: String, sort: StanceTableSort?, locale: Locale = .current) -> String {
+        guard let sort, sort.column == column else { return StanceLocalization.string("stance.table.notSorted", locale: locale) }
+        return StanceLocalization.string(sort.ascending ? "stance.table.ascending" : "stance.table.descending", locale: locale)
+    }
+
+    /// What VoiceOver reads for a row: every column name with its value, in column order.
+    public nonisolated static func rowLabel<Row>(_ row: Row, columns: [StanceTableColumn<Row>], locale: Locale = .current) -> String {
+        columns.map { StanceLocalization.string("stance.table.cell \($0.title) \($0.value(row))", locale: locale) }.joined(separator: ", ")
+    }
+
+    /// Whether none, some or all of `rows` are selected.
+    public nonisolated static func selectionState<ID: Hashable>(selection: Set<ID>, rows: [ID]) -> StanceTableSelectionState {
+        let count = rows.filter(selection.contains).count
+        return count == 0 ? .none : count == rows.count ? .all : .some
+    }
+
+    /// The selection after the select all control is pressed: everything, or nothing when
+    /// everything was already selected. Selected rows that are not in `rows` are kept.
+    public nonisolated static func togglingAll<ID: Hashable>(selection: Set<ID>, rows: [ID]) -> Set<ID> {
+        selectionState(selection: selection, rows: rows) == .all ? selection.subtracting(rows) : selection.union(rows)
+    }
+
+    /// The selection after one row is pressed.
+    public nonisolated static func toggling<ID: Hashable>(_ id: ID, in selection: Set<ID>) -> Set<ID> {
+        var selection = selection
+        if selection.contains(id) { selection.remove(id) } else { selection.insert(id) }
+        return selection
+    }
+}
+
+/// A table for regular width where the system `Table` cannot be used: a lazy stack of rows under
+/// a pinned header. Headers sort, rows select, and VoiceOver hears headers as headers with their
+/// sort direction and each row as its column names and values with its position.
+private struct StanceGridTable<Row: Identifiable>: View {
+    let rows: [Row]
+    let columns: [StanceTableColumn<Row>]
+    @Binding var sort: StanceTableSort?
+    @Binding var selection: Set<Row.ID>
+    let allowsSelection: Bool
+    @Environment(\.stanceTheme) private var theme
+    @Environment(\.locale) private var locale
+    @ScaledMetric(relativeTo: .subheadline) private var minimumColumnWidth: CGFloat = StanceSize.controlLg * 2
+
+    var body: some View {
+        GeometryReader { geometry in
+            let lead = allowsSelection ? StanceSize.touchTarget : 0
+            let widths = StanceGridTableModel.columnWidths(
+                weights: StanceGridTableModel.weights(rows: rows, columns: columns),
+                available: geometry.size.width - lead,
+                minimum: minimumColumnWidth
+            )
+            let total = widths.reduce(lead, +)
+            ScrollView(.horizontal) {
+                ScrollView(.vertical) {
+                    LazyVStack(alignment: .leading, spacing: 0, pinnedViews: [.sectionHeaders]) {
+                        Section {
+                            ForEach(Array(rows.enumerated()), id: \.element.id) { index, row in
+                                rowView(row, index: index, widths: widths)
+                            }
+                        } header: {
+                            header(widths: widths)
+                        }
+                    }
+                    .frame(width: total, alignment: .leading)
+                }
+                .frame(width: total, height: geometry.size.height)
+            }
+            .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
+        }
+        .background(theme.colors.bgSurface)
+        .clipShape(RoundedRectangle(cornerRadius: StanceRadius.lg, style: .continuous))
+        .overlay { RoundedRectangle(cornerRadius: StanceRadius.lg, style: .continuous).strokeBorder(theme.colors.borderDefault, lineWidth: theme.borderWidth) }
+        .accessibilityElement(children: .contain)
+    }
+
+    private func cellAlignment(_ column: StanceTableColumn<Row>) -> Alignment {
+        column.alignment == .trailing ? .trailing : .leading
+    }
+
+    private func header(widths: [CGFloat]) -> some View {
+        let ids = rows.map(\.id)
+        let state = StanceGridTableModel.selectionState(selection: selection, rows: ids)
+        return HStack(spacing: 0) {
+            if allowsSelection {
+                Button {
+                    selection = StanceGridTableModel.togglingAll(selection: selection, rows: ids)
+                    StanceHaptics.selection()
+                } label: {
+                    StanceIcon(state == .all ? .checkCircle : state == .some ? .minus : .circle, size: StanceSize.iconMd)
+                        .foregroundStyle(state == .none ? theme.colors.borderControl : theme.colors.accentBg)
+                        .frame(width: StanceSize.touchTarget, height: StanceSize.touchTarget)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(stanceString("stance.table.selectAll", locale))
+                .accessibilityAddTraits(state == .all ? [.isButton, .isSelected] : .isButton)
+            }
+            ForEach(Array(columns.enumerated()), id: \.element.id) { index, column in
+                headerCell(column).frame(width: widths[index], alignment: cellAlignment(column))
+            }
+        }
+        .frame(minHeight: StanceSize.touchTarget)
+        .background(theme.colors.bgSubtle)
+        .overlay(alignment: .bottom) { Rectangle().fill(theme.colors.borderDefault).frame(height: theme.borderWidth) }
+    }
+
+    @ViewBuilder private func headerCell(_ column: StanceTableColumn<Row>) -> some View {
+        let active = sort?.column == column.id
+        let title = Text(column.title).stanceText(.label).multilineTextAlignment(column.alignment == .trailing ? .trailing : .leading)
+        if column.isSortable {
+            Button {
+                sort = StanceDataTable<Row>.toggled(sort, column: column.id)
+                StanceHaptics.selection()
+                StanceAnnouncer.announce(stanceString("stance.table.sorted \(column.title) \(StanceGridTableModel.sortDescription(column: column.id, sort: sort, locale: locale))", locale))
+            } label: {
+                HStack(spacing: StanceSpacing.xs) {
+                    title
+                    StanceIcon(active ? (sort?.ascending == true ? .arrowUp : .arrowDown) : .arrowsUpDown, size: StanceSize.iconSm)
+                        .foregroundStyle(active ? theme.colors.fgDefault : theme.colors.fgSubtle)
+                }
+                .foregroundStyle(active ? theme.colors.fgDefault : theme.colors.fgMuted)
+                .padding(.horizontal, StanceSpacing.md)
+                .frame(minHeight: StanceSize.touchTarget)
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(column.title)
+            .accessibilityValue(StanceGridTableModel.sortDescription(column: column.id, sort: sort, locale: locale))
+            .accessibilityAddTraits([.isHeader, .isButton])
+        } else {
+            title
+                .foregroundStyle(theme.colors.fgMuted)
+                .padding(.horizontal, StanceSpacing.md)
+                .accessibilityAddTraits(.isHeader)
+        }
+    }
+
+    private func rowView(_ row: Row, index: Int, widths: [CGFloat]) -> some View {
+        let selected = selection.contains(row.id)
+        return HStack(spacing: 0) {
+            if allowsSelection {
+                StanceIcon(selected ? .checkCircle : .circle, size: StanceSize.iconMd)
+                    .foregroundStyle(selected ? theme.colors.accentBg : theme.colors.borderControl)
+                    .frame(width: StanceSize.touchTarget, height: StanceSize.touchTarget)
+            }
+            ForEach(Array(columns.enumerated()), id: \.element.id) { column, definition in
+                Text(definition.value(row))
+                    .stanceText(.bodySmall)
+                    .monospacedDigit()
+                    .multilineTextAlignment(definition.alignment == .trailing ? .trailing : .leading)
+                    .foregroundStyle(selected ? theme.colors.interactiveSelectedFg : theme.colors.fgDefault)
+                    .padding(.horizontal, StanceSpacing.md)
+                    .padding(.vertical, StanceSpacing.sm)
+                    .frame(width: widths[column], alignment: cellAlignment(definition))
+            }
+        }
+        .frame(minHeight: StanceSize.touchTarget)
+        .background(selected ? theme.colors.interactiveSelected : theme.colors.bgSurface)
+        .overlay(alignment: .bottom) { Rectangle().fill(theme.colors.separator).frame(height: theme.borderWidth) }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            guard allowsSelection else { return }
+            selection = StanceGridTableModel.toggling(row.id, in: selection)
+            StanceHaptics.selection()
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(StanceGridTableModel.rowLabel(row, columns: columns, locale: locale))
+        .accessibilityValue(stanceString("stance.table.row \(index + 1) \(rows.count)", locale))
+        .accessibilityAddTraits(!allowsSelection ? [] : selected ? [.isButton, .isSelected] : .isButton)
+        .accessibilityAction {
+            guard allowsSelection else { return }
+            selection = StanceGridTableModel.toggling(row.id, in: selection)
+        }
     }
 }
 

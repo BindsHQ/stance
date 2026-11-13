@@ -30,6 +30,7 @@ enum FormsParityPreviewCatalog {
             VStack(alignment: .leading, spacing: StanceSpacing.lg) {
                 FormsState(48.0) { StanceNumberField("Licence seats", value: $0, min: 1, max: 500, suffix: "seats", helper: "Billed monthly per seat.") }
                 FormsState(7.5) { StanceNumberField("Reminder interval", value: $0, min: 0.5, max: 30, step: 0.5, precision: 1, suffix: "days") }
+                FormsState(Double?.none) { StanceNumberField("Spending limit", value: $0, min: 0, prefix: "€", placeholder: "No limit", helper: "Leave empty for no limit.") }
             }
             .stanceCard()
         },
@@ -37,12 +38,13 @@ enum FormsParityPreviewCatalog {
             VStack(alignment: .leading, spacing: StanceSpacing.lg) {
                 FormsState(Optional("priya")) { StanceCombobox("Template owner", selection: $0, options: FormsSample.people, helper: "Owners can edit and deploy.") }
                 FormsState(String?.none) { StanceCombobox("Approver", selection: $0, options: FormsSample.people, placeholder: "Choose a person", isRequired: true) }
+                FormsState(Optional("Partners")) { StanceCombobox("Team", selection: $0, options: FormsSample.departments, helper: "Pick a team or type a new one.", custom: .text) }
             }
             .stanceCard()
         },
         Entry("stance-multi-select") {
-            FormsState(Set(["sales", "legal", "finance"])) {
-                StanceMultiSelect("Departments", selection: $0, options: FormsSample.departments, helper: "The template applies to everyone in these teams.")
+            FormsState(Set(["sales", "legal", "Partners"])) {
+                StanceMultiSelect("Departments", selection: $0, options: FormsSample.departments, helper: "Choose teams, or type a new one to create it.", custom: .text)
             }
             .stanceCard()
         },
@@ -136,6 +138,8 @@ struct FormsParityDemo: View {
     @State private var range = 1500.0 ... 6000.0
     @State private var code = ""
     @State private var seats = 48.0
+    @State private var limit: Double?
+    @State private var team: String?
     @State private var owner: String? = "priya"
     @State private var departments: Set<String> = ["sales"]
     @State private var channels: Set<String> = ["email"]
@@ -151,6 +155,7 @@ struct FormsParityDemo: View {
                         $0.formatted(.currency(code: "EUR").precision(.fractionLength(0)))
                     }
                     StanceNumberField("Licence seats", value: $seats, min: 1, max: 500, suffix: "seats")
+                    StanceNumberField("Spending limit", value: $limit, min: 0, prefix: "€", placeholder: "No limit", helper: "Leave empty for no limit.")
                 }
             }
             StanceSection("Codes", caption: "Codes from Messages fill every box.") {
@@ -159,7 +164,8 @@ struct FormsParityDemo: View {
             StanceSection("Choosing from lists", caption: "Searchable system lists in a sheet or popover.") {
                 VStack(alignment: .leading, spacing: StanceSpacing.lg) {
                     StanceCombobox("Template owner", selection: $owner, options: FormsSample.people)
-                    StanceMultiSelect("Departments", selection: $departments, options: FormsSample.departments)
+                    StanceCombobox("Team", selection: $team, options: FormsSample.departments, helper: "Pick a team or type a new one.", custom: .text)
+                    StanceMultiSelect("Departments", selection: $departments, options: FormsSample.departments, helper: "Type a new name to create a tag.", custom: .text)
                     StanceCheckboxGroup("Notify by", selection: $channels, options: FormsSample.channels, showsSelectAll: true)
                 }
             }

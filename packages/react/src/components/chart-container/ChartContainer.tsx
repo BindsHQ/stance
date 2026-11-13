@@ -1,6 +1,7 @@
 'use client';
 import * as React from 'react';
 import { cx } from '../../internal/cx.js';
+import { useControllableState } from '../../internal/use-controllable-state.js';
 import { useIsomorphicLayoutEffect } from '../../internal/use-isomorphic-layout-effect.js';
 import {
   Table,
@@ -30,6 +31,17 @@ export interface ChartRenderProps {
   colors: string[];
 }
 
+export interface ChartContainerLabels {
+  /** The toggle while the chart shows. Default "View as table". */
+  viewAsTable: string;
+  /** The toggle while the table shows. Default "View as chart". */
+  viewAsChart: string;
+  /** Accessible name of the legend. Default "Legend". */
+  legend: string;
+  /** Shown in the table for a missing value. Default "None". */
+  noValue: string;
+}
+
 export interface ChartContainerProps extends Omit<
   React.HTMLAttributes<HTMLElement>,
   'title' | 'children'
@@ -56,6 +68,14 @@ export interface ChartContainerProps extends Omit<
   showLegend?: boolean;
   /** Start in table view. */
   defaultView?: 'chart' | 'table';
+  /** Controlled view. */
+  view?: 'chart' | 'table';
+  /** Called when the reader switches between the chart and the table. */
+  onViewChange?: (view: 'chart' | 'table') => void;
+  /** Content under the chart or table, such as a source note. */
+  footer?: React.ReactNode;
+  /** Translations for the built in strings. */
+  labels?: Partial<ChartContainerLabels>;
   /** Extra controls in the header (e.g. a period Select). */
   actions?: React.ReactNode;
   /** Heading level for the title. Default 3. */
@@ -83,6 +103,10 @@ export const ChartContainer = React.forwardRef<HTMLElement, ChartContainerProps>
       formatValue = (v) => new Intl.NumberFormat().format(v),
       showLegend,
       defaultView = 'chart',
+      view: viewProp,
+      onViewChange,
+      footer,
+      labels: labelsProp,
       actions,
       headingLevel = 3,
       className,
@@ -93,7 +117,18 @@ export const ChartContainer = React.forwardRef<HTMLElement, ChartContainerProps>
     const id = React.useId();
     const titleId = `${id}-title`;
     const descId = `${id}-desc`;
-    const [view, setView] = React.useState(defaultView);
+    const [view, setView] = useControllableState({
+      value: viewProp,
+      defaultValue: defaultView,
+      onChange: onViewChange,
+    });
+    const labels: ChartContainerLabels = {
+      viewAsTable: 'View as table',
+      viewAsChart: 'View as chart',
+      legend: 'Legend',
+      noValue: 'None',
+      ...labelsProp,
+    };
     const areaRef = React.useRef<HTMLDivElement>(null);
     const [width, setWidth] = React.useState(0);
     const colors = series.map((s, i) => chartColor(i, s));
@@ -141,9 +176,9 @@ export const ChartContainer = React.forwardRef<HTMLElement, ChartContainerProps>
                 type="button"
                 className="st-chart__toggle"
                 aria-pressed={view === 'table'}
-                onClick={() => setView((v) => (v === 'chart' ? 'table' : 'chart'))}
+                onClick={() => setView(view === 'chart' ? 'table' : 'chart')}
               >
-                {view === 'table' ? 'View as chart' : 'View as table'}
+                {view === 'table' ? labels.viewAsChart : labels.viewAsTable}
               </button>
             )}
           </div>
@@ -178,7 +213,7 @@ export const ChartContainer = React.forwardRef<HTMLElement, ChartContainerProps>
                     const v = row[s.key];
                     return (
                       <TableCell key={s.key} numeric>
-                        {typeof v === 'number' ? formatValue(v, s) : (v ?? 'None')}
+                        {typeof v === 'number' ? formatValue(v, s) : (v ?? labels.noValue)}
                       </TableCell>
                     );
                   })}
@@ -188,7 +223,7 @@ export const ChartContainer = React.forwardRef<HTMLElement, ChartContainerProps>
           </Table>
         )}
         {legend && view === 'chart' && (
-          <ul className="st-chart__legend" aria-label="Legend">
+          <ul className="st-chart__legend" aria-label={labels.legend}>
             {series.map((s, i) => (
               <li key={s.key}>
                 <span
@@ -201,6 +236,7 @@ export const ChartContainer = React.forwardRef<HTMLElement, ChartContainerProps>
             ))}
           </ul>
         )}
+        {footer != null && <div className="st-chart__footer">{footer}</div>}
       </figure>
     );
   },

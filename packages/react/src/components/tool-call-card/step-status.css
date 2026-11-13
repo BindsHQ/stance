@@ -1,0 +1,49 @@
+/* Shared by the agent components: the icon for a step status. */
+.st-step-status {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  color: var(--st-color-fg-muted);
+}
+.st-step-status[data-status='complete'] {
+  color: var(--st-color-success-fg);
+}
+.st-step-status[data-status='error'] {
+  color: var(--st-color-danger-fg);
+}
+.st-step-status[data-status='waiting'],
+.st-step-status[data-status='running'] {
+  color: var(--st-color-fg-default);
+}
+.st-step-status__ring {
+  display: block;
+  inline-size: 87.5%;
+  block-size: 87.5%;
+  border: 2px solid var(--st-color-border-strong);
+  border-block-start-color: currentColor;
+  border-radius: var(--st-radius-full);
+  animation: st-step-status-spin 0.8s linear infinite;
+}
+@keyframes st-step-status-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .st-step-status__ring {
+    animation: none;
+  }
+}
+[data-theme='high-contrast'] .st-step-status {
+  color: var(--st-color-fg-default);
+}
+@media (forced-colors: active) {
+  .st-step-status {
+    color: CanvasText;
+  }
+  .st-step-status__ring {
+    border-color: GrayText;
+    border-block-start-color: Highlight;
+  }
+}

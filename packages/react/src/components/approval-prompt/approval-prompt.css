@@ -1,0 +1,79 @@
+.st-approval-prompt {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-3);
+  min-inline-size: 0;
+  padding: var(--st-space-4);
+  border: var(--st-border-width) solid var(--st-color-border-strong);
+  border-radius: var(--st-radius-lg);
+  background: var(--st-color-bg-surface);
+  color: var(--st-color-fg-default);
+  font-family: var(--st-font-sans);
+  font-size: var(--st-font-size-sm);
+  line-height: var(--st-line-height-normal);
+}
+.st-approval-prompt[data-risk='medium'] {
+  border-color: var(--st-color-warning-border);
+}
+.st-approval-prompt[data-risk='high'] {
+  border-color: var(--st-color-danger-border);
+}
+.st-approval-prompt__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--st-space-2) var(--st-space-3);
+}
+.st-approval-prompt__title {
+  flex: 1;
+  min-inline-size: 12rem;
+  font-size: var(--st-font-size-md);
+  font-weight: var(--st-font-weight-semibold);
+  line-height: var(--st-line-height-snug);
+  overflow-wrap: anywhere;
+}
+.st-approval-prompt__risk {
+  flex-shrink: 0;
+  gap: var(--st-space-1);
+}
+.st-approval-prompt__description {
+  color: var(--st-color-fg-muted);
+  overflow-wrap: anywhere;
+}
+.st-approval-prompt__details {
+  min-inline-size: 0;
+}
+.st-approval-prompt__countdown {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--st-space-1-5) var(--st-space-2);
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-xs);
+  font-variant-numeric: tabular-nums;
+}
+.st-approval-prompt__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--st-space-2);
+}
+@media (pointer: coarse) {
+  .st-approval-prompt__actions .st-button,
+  .st-approval-prompt__countdown .st-button {
+    min-block-size: 2.75rem;
+  }
+}
+[data-theme='high-contrast'] .st-approval-prompt__description,
+[data-theme='high-contrast'] .st-approval-prompt__countdown {
+  color: var(--st-color-fg-default);
+}
+@media (forced-colors: active) {
+  .st-approval-prompt {
+    border-color: CanvasText;
+  }
+  .st-approval-prompt[data-risk='high'] {
+    border-width: 2px;
+  }
+}

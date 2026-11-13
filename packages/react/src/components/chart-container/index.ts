@@ -6,6 +6,7 @@ export {
   summariseBars,
   summariseTrend,
   type ChartContainerProps,
+  type ChartContainerLabels,
   type ChartSeries,
   type ChartDatum,
   type ChartRenderProps,

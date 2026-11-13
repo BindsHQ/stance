@@ -14,6 +14,13 @@
     "status": "stable"
   },
   {
+    "slug": "agent-status-pill",
+    "name": "AgentStatusPill",
+    "category": "ai",
+    "summary": "A small pill that says what an agent is doing right now, from idle and working to waiting for you, done or failed.",
+    "status": "beta"
+  },
+  {
     "slug": "ai-generated-label",
     "name": "AIGeneratedLabel",
     "category": "ai",
@@ -33,6 +40,27 @@
     "category": "feedback",
     "summary": "An inline message about the state of a page or section, in four tones.",
     "status": "stable"
+  },
+  {
+    "slug": "approval-prompt",
+    "name": "ApprovalPrompt",
+    "category": "ai",
+    "summary": "Asks a person to allow or deny an agent action, stating what will happen and how risky it is. Deny is always the safe default.",
+    "status": "beta"
+  },
+  {
+    "slug": "artifact-panel",
+    "name": "ArtifactPanel",
+    "category": "ai",
+    "summary": "A side panel that holds a generated document, page or app, with versions, preview and code tabs, and actions.",
+    "status": "beta"
+  },
+  {
+    "slug": "ask-bar",
+    "name": "AskBar",
+    "category": "ai",
+    "summary": "A one line bar for asking a question about a page or a product, with suggested questions under it and the answer shown in place.",
+    "status": "beta"
   },
   {
     "slug": "aspect-ratio",
@@ -119,6 +147,13 @@
     "status": "stable"
   },
   {
+    "slug": "canvas-split-view",
+    "name": "CanvasSplitView",
+    "category": "ai",
+    "summary": "A two pane layout with the conversation beside the working document: resizable when wide, tabbed when narrow.",
+    "status": "beta"
+  },
+  {
     "slug": "caption",
     "name": "Caption",
     "category": "typography",
@@ -173,6 +208,13 @@
     "category": "media",
     "summary": "A multi-line code sample with title, line numbers, highlighting and copy.",
     "status": "stable"
+  },
+  {
+    "slug": "code-suggestion",
+    "name": "CodeSuggestion",
+    "category": "ai",
+    "summary": "Generated code with its file name and language, plus copy, apply and run, and the outcome of the run.",
+    "status": "beta"
   },
   {
     "slug": "code",
@@ -252,6 +294,13 @@
     "status": "beta"
   },
   {
+    "slug": "copilot-panel",
+    "name": "CopilotPanel",
+    "category": "ai",
+    "summary": "An assistant panel that docks beside the page with a header, context, a thread and a composer, and becomes a sheet on small screens.",
+    "status": "beta"
+  },
+  {
     "slug": "copy-button",
     "name": "CopyButton",
     "category": "actions",
@@ -308,6 +357,13 @@
     "status": "stable"
   },
   {
+    "slug": "diff-review",
+    "name": "DiffReview",
+    "category": "ai",
+    "summary": "Review a proposed change line by line. Accept or reject each hunk, each file or everything at once.",
+    "status": "beta"
+  },
+  {
     "slug": "disclaimer-note",
     "name": "DisclaimerNote",
     "category": "ai",
@@ -357,6 +413,13 @@
     "status": "beta"
   },
   {
+    "slug": "file-preview-card",
+    "name": "FilePreviewCard",
+    "category": "ai",
+    "summary": "A compact card for a file in a conversation: its name, type, size and preview, with open and download.",
+    "status": "beta"
+  },
+  {
     "slug": "file-tree",
     "name": "FileTree",
     "category": "navigation",
@@ -397,6 +460,27 @@
     "category": "forms",
     "summary": "Wires a label, help text and error message to any Stance form control.",
     "status": "stable"
+  },
+  {
+    "slug": "generated-chart",
+    "name": "GeneratedChart",
+    "category": "ai",
+    "summary": "Frames a chart the assistant drew from your data with a one sentence takeaway, the numbers behind it and where they came from.",
+    "status": "beta"
+  },
+  {
+    "slug": "generated-image",
+    "name": "GeneratedImage",
+    "category": "ai",
+    "summary": "Shows a picture the assistant made, holding its space while it loads, with variations to choose from and a few clear actions.",
+    "status": "beta"
+  },
+  {
+    "slug": "generated-table",
+    "name": "GeneratedTable",
+    "category": "ai",
+    "summary": "Presents rows the assistant produced as a real table that people can sort, copy as CSV, export or open in a larger view.",
+    "status": "beta"
   },
   {
     "slug": "generation-progress",
@@ -462,6 +546,13 @@
     "status": "stable"
   },
   {
+    "slug": "inline-suggestion",
+    "name": "InlineSuggestion",
+    "category": "ai",
+    "summary": "Ghost text that completes what you are typing in a field. Tab accepts it, Escape dismisses it and typing carries on undisturbed.",
+    "status": "beta"
+  },
+  {
     "slug": "inline",
     "name": "Inline",
     "category": "foundations",
@@ -474,6 +565,13 @@
     "category": "forms",
     "summary": "A single-line text field with sizes, affixes and validation states.",
     "status": "stable"
+  },
+  {
+    "slug": "insight-callout",
+    "name": "InsightCallout",
+    "category": "ai",
+    "summary": "A callout for something the system noticed in your data, with the evidence behind it, a confidence level and one suggested action.",
+    "status": "beta"
   },
   {
     "slug": "interrupted-state",
@@ -523,6 +621,13 @@
     "category": "feedback",
     "summary": "Covers a region or the whole screen with a spinner while work is in progress.",
     "status": "stable"
+  },
+  {
+    "slug": "markdown-renderer",
+    "name": "MarkdownRenderer",
+    "category": "ai",
+    "summary": "Turns the Markdown a model writes into safe, readable content, and stays steady while the response is still streaming in.",
+    "status": "beta"
   },
   {
     "slug": "mention-picker",
@@ -616,11 +721,25 @@
     "status": "stable"
   },
   {
+    "slug": "permission-sheet",
+    "name": "PermissionSheet",
+    "category": "ai",
+    "summary": "A sheet where people choose what an agent or connector can access, one switch per permission, each with its scope.",
+    "status": "beta"
+  },
+  {
     "slug": "pin-input",
     "name": "PinInput",
     "category": "forms",
     "summary": "A one-time code or PIN field split into cells, with paste, SMS autofill and full keyboard support.",
     "status": "stable"
+  },
+  {
+    "slug": "plan-checklist",
+    "name": "PlanChecklist",
+    "category": "ai",
+    "summary": "A proposed plan as a list of steps that people can rename, reorder or remove before they approve or reject it.",
+    "status": "beta"
   },
   {
     "slug": "popover",
@@ -686,11 +805,25 @@
     "status": "stable"
   },
   {
+    "slug": "rewrite-menu",
+    "name": "RewriteMenu",
+    "category": "ai",
+    "summary": "A menu for changing selected text: improve, shorten, lengthen, change tone, translate or your own instruction, with a preview first.",
+    "status": "beta"
+  },
+  {
     "slug": "rich-text",
     "name": "RichText",
     "category": "typography",
     "summary": "Typographic rhythm for long-form content: legal pages, help articles, MDX.",
     "status": "stable"
+  },
+  {
+    "slug": "run-log",
+    "name": "RunLog",
+    "category": "ai",
+    "summary": "A live monospaced log for an agent run. It stays on the newest line until you scroll up, and filters by level.",
+    "status": "beta"
   },
   {
     "slug": "scroll-area",
@@ -726,6 +859,13 @@
     "category": "forms",
     "summary": "Choose one value from a list, with typeahead, groups, disabled options and form submission.",
     "status": "stable"
+  },
+  {
+    "slug": "semantic-search-results",
+    "name": "SemanticSearchResults",
+    "category": "ai",
+    "summary": "Results ranked by meaning: each shows the passage that matched with the match marked and a reason, under an optional AI answer.",
+    "status": "beta"
   },
   {
     "slug": "sensitive-content-gate",
@@ -798,6 +938,13 @@
     "status": "stable"
   },
   {
+    "slug": "smart-field",
+    "name": "SmartField",
+    "category": "ai",
+    "summary": "A form field that AI can fill in. It marks the value as suggested, says where it came from and lets people accept, undo or edit it.",
+    "status": "beta"
+  },
+  {
     "slug": "sortable-list",
     "name": "SortableList",
     "category": "advanced",
@@ -861,6 +1008,13 @@
     "status": "stable"
   },
   {
+    "slug": "step-timeline",
+    "name": "StepTimeline",
+    "category": "ai",
+    "summary": "Shows the steps of an agent run in order, marks the one in progress, and lets people open any step for detail.",
+    "status": "beta"
+  },
+  {
     "slug": "stepper",
     "name": "Stepper",
     "category": "navigation",
@@ -886,6 +1040,27 @@
     "name": "StreamingText",
     "category": "ai",
     "summary": "Reveals text at a steady pace as it arrives, with an optional caret, and never animates what is already on screen.",
+    "status": "beta"
+  },
+  {
+    "slug": "subagent-tree",
+    "name": "SubagentTree",
+    "category": "ai",
+    "summary": "A tree of agents and the helpers they hand work to, with a status and a one line note on every row.",
+    "status": "beta"
+  },
+  {
+    "slug": "suggestion-chips",
+    "name": "SuggestionChips",
+    "category": "ai",
+    "summary": "A row of short follow up prompts or next actions that people can choose with one press, after an answer or beside content.",
+    "status": "beta"
+  },
+  {
+    "slug": "summary-card",
+    "name": "SummaryCard",
+    "category": "ai",
+    "summary": "A card that holds an AI summary of a longer item: key points, a generated label, the sources and a way back to the original.",
     "status": "beta"
   },
   {
@@ -922,6 +1097,13 @@
     "category": "data-display",
     "summary": "A compact keyword label for categories and filters, with an optional accessible remove button.",
     "status": "stable"
+  },
+  {
+    "slug": "task-queue",
+    "name": "TaskQueue",
+    "category": "ai",
+    "summary": "Lists what an agent has waiting, in progress and finished, with pause, resume, cancel and retry on each task.",
+    "status": "beta"
   },
   {
     "slug": "text",
@@ -1005,6 +1187,13 @@
     "name": "TokenBudgetMeter",
     "category": "ai",
     "summary": "A compact meter of how much of the context or message limit is used, with a warning in words as the limit gets close.",
+    "status": "beta"
+  },
+  {
+    "slug": "tool-call-card",
+    "name": "ToolCallCard",
+    "category": "ai",
+    "summary": "A card for a single tool call: the tool, its status and duration, and the input and output behind a disclosure.",
     "status": "beta"
   },
   {

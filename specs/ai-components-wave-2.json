@@ -1,0 +1,469 @@
+{
+  "$comment": "Wave two of the cross-platform contract for Stance AI components. Read specs/ai-components.json first: its principles, shared generation status and motion tokens apply here unchanged.",
+  "version": 1,
+  "extends": "ai-components.json",
+  "principles": [
+    "People stay in control. Anything an agent wants to do that changes data, spends money or leaves the product goes through an explicit approval with a clear description of the effect.",
+    "Show the work. Steps, tools and sources are visible and can be expanded, never hidden behind a spinner.",
+    "Every AI change can be reviewed before it lands and undone after.",
+    "AI inside a product is quiet. Suggestions never move focus, never block typing and are dismissed with Escape.",
+    "Generated content is rendered safely: Markdown is parsed to elements, never injected as raw HTML; links are plain navigations; images need alt text."
+  ],
+  "sharedTypes": {
+    "StepStatus": ["pending", "running", "complete", "error", "skipped", "waiting"],
+    "RiskLevel": ["low", "medium", "high"]
+  },
+  "components": [
+    {
+      "name": "ToolCallCard",
+      "group": "agents",
+      "summary": "One tool call by the assistant: what it ran, with what input, and what came back.",
+      "props": [
+        "name",
+        "title",
+        "icon",
+        "status: StepStatus",
+        "input (node or code)",
+        "output (node or code)",
+        "error",
+        "duration (seconds)",
+        "open",
+        "defaultOpen",
+        "onOpenChange",
+        "actions",
+        "labels"
+      ],
+      "a11y": "A disclosure. Status is in the accessible name, for example Search the web, complete. Status changes are announced once."
+    },
+    {
+      "name": "StepTimeline",
+      "group": "agents",
+      "summary": "The ordered steps of an agent run, with the current step marked and each step expandable.",
+      "props": [
+        "steps: { id, title, description?, status: StepStatus, duration?, content? }[]",
+        "expandedIds",
+        "defaultExpandedIds",
+        "onExpandedChange",
+        "compact",
+        "labels"
+      ],
+      "a11y": "An ordered list. The running step uses aria-current=step. Step status is text, never colour alone."
+    },
+    {
+      "name": "PlanChecklist",
+      "group": "agents",
+      "summary": "The plan an agent proposes before it starts: steps that can be reviewed, edited, reordered or removed, then approved.",
+      "props": [
+        "items: { id, title, description?, status: StepStatus }[]",
+        "editable",
+        "onItemsChange",
+        "onApprove",
+        "onReject",
+        "progress (derived when omitted)",
+        "labels"
+      ],
+      "a11y": "A list with a progress summary. Reorder has move up and move down actions as well as drag."
+    },
+    {
+      "name": "ApprovalPrompt",
+      "group": "agents",
+      "summary": "Asks for permission before the agent acts. States the action, its effect and the risk, with allow, allow always and deny.",
+      "props": [
+        "title",
+        "description",
+        "risk: RiskLevel",
+        "details (node, for example the command or the diff)",
+        "onAllow",
+        "onAllowAlways (optional)",
+        "onDeny",
+        "busy",
+        "countdown (optional seconds for auto deny, never auto allow)",
+        "labels"
+      ],
+      "a11y": "An alertdialog style group that takes focus when it appears inline only if requested; deny is the safe default for Escape. High risk requires an explicit press, Enter never allows by default."
+    },
+    {
+      "name": "PermissionSheet",
+      "group": "agents",
+      "summary": "A sheet listing what an agent or connector may access, with a switch for each permission and a clear scope.",
+      "props": [
+        "open",
+        "onOpenChange",
+        "title",
+        "description",
+        "permissions: { id, title, description?, granted, required?, risk? }[]",
+        "onPermissionsChange",
+        "onSave",
+        "labels"
+      ],
+      "a11y": "A dialog with a labelled group of switches. Required permissions are disabled and explained."
+    },
+    {
+      "name": "AgentStatusPill",
+      "group": "agents",
+      "summary": "A compact pill showing what an agent is doing now: idle, working, waiting for you, done or failed.",
+      "props": [
+        "status: idle | working | waiting | done | error | paused",
+        "label",
+        "detail",
+        "onPress",
+        "size"
+      ],
+      "a11y": "A status, or a button when pressable. Waiting for you is announced assertively once; the rest politely."
+    },
+    {
+      "name": "TaskQueue",
+      "group": "agents",
+      "summary": "The tasks an agent has queued, running and finished, with pause, cancel and retry on each.",
+      "props": [
+        "tasks: { id, title, status: StepStatus, progress?, detail?, startedAt? }[]",
+        "onCancel",
+        "onRetry",
+        "onPause",
+        "onResume",
+        "onSelect",
+        "emptyState",
+        "labels"
+      ],
+      "a11y": "A list with a count summary. Each action names its task."
+    },
+    {
+      "name": "SubagentTree",
+      "group": "agents",
+      "summary": "A tree of an agent and the agents it has delegated to, each with status and a one line summary.",
+      "props": [
+        "nodes: { id, name, status, summary?, children? }[]",
+        "expandedIds",
+        "onExpandedChange",
+        "selectedId",
+        "onSelect",
+        "labels"
+      ],
+      "a11y": "A tree with the standard arrow key model. Status is part of each item's name."
+    },
+    {
+      "name": "RunLog",
+      "group": "agents",
+      "summary": "A live, monospaced log of an agent run that follows the newest line until the reader scrolls up, with level filters and copy.",
+      "props": [
+        "entries: { id, time?, level: info | warn | error | debug, text }[]",
+        "follow (default true)",
+        "levels (filter)",
+        "onLevelsChange",
+        "wrap",
+        "maxHeight",
+        "onCopy",
+        "labels"
+      ],
+      "a11y": "A log region. Only errors are announced. Virtualised when long."
+    },
+    {
+      "name": "DiffReview",
+      "group": "agents",
+      "summary": "Shows a proposed change as a diff, by file or by hunk, with accept and reject for each and for all.",
+      "props": [
+        "files: { id, path, status: added | modified | deleted | renamed, hunks: { id, header?, lines: { kind: add | remove | context, text, oldNumber?, newNumber? }[] }[] }[]",
+        "decisions (record of hunk id to accepted | rejected)",
+        "onDecisionsChange",
+        "view: unified | split",
+        "onAcceptAll",
+        "onRejectAll",
+        "collapsedIds",
+        "labels"
+      ],
+      "a11y": "Added and removed lines carry a text prefix and a visually hidden word, never colour alone. Each hunk is a group with its own accept and reject. Keyboard moves between hunks."
+    },
+    {
+      "name": "MarkdownRenderer",
+      "group": "output",
+      "summary": "Renders model Markdown safely with Stance typography: headings, lists, tables, code, quotes, links and task lists. Tolerates partial Markdown while streaming.",
+      "props": [
+        "children (markdown string)",
+        "streaming",
+        "components (overrides per element)",
+        "onLinkClick",
+        "citations (map of index to source, renders CitationChip for [n])",
+        "allowImages (default false)",
+        "size"
+      ],
+      "a11y": "Real headings, lists and tables. Heading levels start at a configurable base so the page outline stays valid."
+    },
+    {
+      "name": "CodeSuggestion",
+      "group": "output",
+      "summary": "A generated code block with its language and file name, and actions to copy, apply and run, plus the result of a run.",
+      "props": [
+        "code",
+        "language",
+        "filename",
+        "onCopy",
+        "onApply",
+        "onRun",
+        "runStatus: StepStatus",
+        "runOutput",
+        "applied",
+        "wrap",
+        "showLineNumbers",
+        "streaming",
+        "labels"
+      ],
+      "a11y": "Builds on CodeBlock. Run results are a polite status. Apply confirms with an announcement."
+    },
+    {
+      "name": "ArtifactPanel",
+      "group": "output",
+      "summary": "A side panel for a generated document, page or app, with a title, version switcher, preview and code tabs, and actions.",
+      "props": [
+        "title",
+        "kind",
+        "versions: { id, label }[]",
+        "versionId",
+        "onVersionChange",
+        "view: preview | code",
+        "onViewChange",
+        "actions",
+        "onClose",
+        "children",
+        "status",
+        "labels"
+      ],
+      "a11y": "A complementary region with a labelled tablist. Close returns focus to the message that opened it."
+    },
+    {
+      "name": "GeneratedImage",
+      "group": "output",
+      "summary": "A generated image with a progressive loading state, variations, and actions to download, regenerate and edit.",
+      "props": [
+        "src",
+        "alt (required)",
+        "status",
+        "progress",
+        "aspectRatio",
+        "variations: { id, src, alt }[]",
+        "selectedId",
+        "onSelect",
+        "onDownload",
+        "onRegenerate",
+        "onEdit",
+        "prompt",
+        "labels"
+      ],
+      "a11y": "Alt text is required. While generating it is a progressbar; variations are a radio style group."
+    },
+    {
+      "name": "GeneratedTable",
+      "group": "output",
+      "summary": "A table produced by the assistant, with a caption, sortable columns, copy as CSV and expand to full view.",
+      "props": [
+        "columns: { id, header, align?, numeric? }[]",
+        "rows",
+        "caption",
+        "streaming",
+        "maxRows",
+        "onCopy",
+        "onExport",
+        "onExpand",
+        "labels"
+      ],
+      "a11y": "A real table with a caption and sortable column headers. Rows added while streaming are not announced one by one."
+    },
+    {
+      "name": "GeneratedChart",
+      "group": "output",
+      "summary": "A chart the assistant built from data, with a title, a plain language takeaway, a switch to the data table and a source note.",
+      "props": [
+        "title",
+        "takeaway",
+        "kind: line | bar | area",
+        "series",
+        "categories",
+        "source",
+        "view: chart | table",
+        "onViewChange",
+        "labels"
+      ],
+      "a11y": "The takeaway is the text alternative. The data table view is always available."
+    },
+    {
+      "name": "FilePreviewCard",
+      "group": "output",
+      "summary": "A card for a file the assistant made or used: name, type, size and a preview, with open and download.",
+      "props": [
+        "name",
+        "kind",
+        "size",
+        "meta",
+        "thumbnail",
+        "status",
+        "progress",
+        "onOpen",
+        "onDownload",
+        "actions",
+        "labels"
+      ]
+    },
+    {
+      "name": "CanvasSplitView",
+      "group": "output",
+      "summary": "Conversation on one side and the working document on the other, resizable on wide screens and switchable on narrow ones.",
+      "props": [
+        "conversation (slot)",
+        "canvas (slot)",
+        "canvasOpen",
+        "onCanvasOpenChange",
+        "defaultRatio",
+        "minConversation",
+        "minCanvas",
+        "narrowView: conversation | canvas",
+        "onNarrowViewChange",
+        "labels"
+      ],
+      "a11y": "Two labelled regions. The divider is a separator with arrow key resizing. On narrow screens a tab switch replaces the divider."
+    },
+    {
+      "name": "InlineSuggestion",
+      "group": "product",
+      "summary": "Ghost text completion inside a text field. Tab accepts, Escape dismisses, typing continues without interruption.",
+      "props": [
+        "value",
+        "suggestion",
+        "onAccept",
+        "onAcceptWord",
+        "onDismiss",
+        "loading",
+        "children (the field) or field props",
+        "labels"
+      ],
+      "a11y": "The suggestion is announced politely with how to accept it. It is never part of the field value until accepted."
+    },
+    {
+      "name": "SmartField",
+      "group": "product",
+      "summary": "A form field that AI can fill in. Shows that the value was suggested, where it came from, and lets people undo it.",
+      "props": [
+        "label",
+        "value",
+        "onValueChange",
+        "suggestedValue",
+        "suggestionSource",
+        "status: idle | suggesting | suggested | accepted",
+        "onAccept",
+        "onUndo",
+        "onRegenerate",
+        "children (the control)",
+        "labels"
+      ],
+      "a11y": "The suggested state is described in text. Undo is announced. Editing the value clears the AI mark."
+    },
+    {
+      "name": "RewriteMenu",
+      "group": "product",
+      "summary": "A menu of ways to change selected text: improve, shorten, lengthen, change tone, translate, or a custom instruction.",
+      "props": [
+        "open",
+        "onOpenChange",
+        "anchor",
+        "actions: { id, label, icon?, children? }[]",
+        "onAction",
+        "allowCustom",
+        "onCustomSubmit",
+        "status",
+        "preview (node)",
+        "onAcceptPreview",
+        "onDiscardPreview",
+        "labels"
+      ],
+      "a11y": "A menu with submenus. The preview is a labelled region with replace and discard."
+    },
+    {
+      "name": "SummaryCard",
+      "group": "product",
+      "summary": "An AI summary of a longer item with key points, a generated label, sources, and a way to see the original.",
+      "props": [
+        "title",
+        "children or points: string[]",
+        "status",
+        "sources",
+        "updatedAt",
+        "onRegenerate",
+        "onExpand",
+        "collapsible",
+        "labels"
+      ]
+    },
+    {
+      "name": "AskBar",
+      "group": "product",
+      "summary": "A single line ask anything bar for a page or a product, with suggestions and an inline answer area.",
+      "props": [
+        "value",
+        "onValueChange",
+        "onSubmit",
+        "placeholder",
+        "suggestions: { id, label }[]",
+        "onSuggestionSelect",
+        "status",
+        "answer (node)",
+        "onClear",
+        "shortcut",
+        "labels"
+      ],
+      "a11y": "A search landmark with a combobox for suggestions. The answer is a polite live region when complete."
+    },
+    {
+      "name": "SuggestionChips",
+      "group": "product",
+      "summary": "Short follow up prompts or next actions offered after a response or beside content.",
+      "props": ["items: { id, label, icon? }[]", "onSelect", "loading", "wrap", "label"]
+    },
+    {
+      "name": "InsightCallout",
+      "group": "product",
+      "summary": "A highlighted finding the system noticed in your data, with the evidence and one suggested action.",
+      "props": [
+        "title",
+        "children",
+        "evidence (node)",
+        "confidence",
+        "action",
+        "onDismiss",
+        "tone: neutral | positive | attention",
+        "labels"
+      ]
+    },
+    {
+      "name": "SemanticSearchResults",
+      "group": "product",
+      "summary": "Search results ranked by meaning, each with the matching passage highlighted and why it matched, under an optional AI answer.",
+      "props": [
+        "query",
+        "answer (node)",
+        "results: { id, title, href?, snippet, highlights?, source?, score?, reason? }[]",
+        "status",
+        "onResultSelect",
+        "emptyState",
+        "labels"
+      ],
+      "a11y": "A list of results with a count announced when loading ends. Highlights use mark."
+    },
+    {
+      "name": "CopilotPanel",
+      "group": "product",
+      "summary": "A docked assistant panel for a product: a header with context, a thread, and a composer, that opens beside the page or as a sheet on small screens.",
+      "props": [
+        "open",
+        "onOpenChange",
+        "title",
+        "context (slot)",
+        "children (thread)",
+        "composer (slot)",
+        "side: start | end",
+        "width",
+        "modal on narrow screens",
+        "headerActions",
+        "labels"
+      ],
+      "a11y": "A complementary region on wide screens and a dialog on narrow ones. A shortcut opens it and focus goes to the composer; closing returns focus."
+    }
+  ]
+}

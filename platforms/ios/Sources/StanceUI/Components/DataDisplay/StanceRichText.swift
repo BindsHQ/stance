@@ -208,6 +208,12 @@ public struct StanceRichText: View {
 
     /// Applies theme colours to links and code spans.
     private func styled(_ text: AttributedString) -> AttributedString {
+        Self.styled(text, theme: theme)
+    }
+
+    /// The inline styling shared with ``StanceMarkdownRenderer``: links take the link colour and
+    /// an underline, code spans a monospaced face on a muted background.
+    static func styled(_ text: AttributedString, theme: StanceTheme) -> AttributedString {
         var text = text
         for run in text.runs {
             if run.link != nil {

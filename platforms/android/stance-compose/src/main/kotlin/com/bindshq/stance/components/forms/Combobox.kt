@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
@@ -54,6 +55,29 @@ internal fun <T> stanceFilterOptions(
 ): List<StanceSelectOption<T>> =
     if (filter == null || query.isBlank()) options else options.filter { filter(it, query) }
 
+/**
+ * The text a combobox offers as a custom value, or null when there is nothing to offer: the
+ * trimmed [query], unless it is blank or already is the label of an option, ignoring case.
+ */
+internal fun <T> stanceCustomValueCandidate(options: List<StanceSelectOption<T>>, query: String): String? {
+    val typed = query.trim()
+    return typed.takeIf { it.isNotEmpty() && options.none { option -> option.label.equals(it, ignoreCase = true) } }
+}
+
+@Composable
+private fun defaultUseValueLabel(): (String) -> String =
+    rememberFromResources { r -> { value -> r.getString(R.string.stance_use_value, value) } }
+
+/** The first row of a list that takes the typed text as the value. */
+@Composable
+private fun CustomValueItem(text: String, onClick: () -> Unit) {
+    DropdownMenuItem(
+        text = { Text(text, style = StanceTheme.typography.body, color = StanceTheme.colors.fgDefault) },
+        onClick = onClick,
+        leadingIcon = { StanceIcon(StanceIcons.Plus, contentDescription = null, size = StanceSizes.iconSmall) },
+    )
+}
+
 @Composable
 private fun OptionsMessage(text: String) {
     DropdownMenuItem(
@@ -75,6 +99,12 @@ private fun OptionsMessage(text: String) {
  * show every option, for example when [onQueryChange] runs a server search.
  * @param onQueryChange Called with the typed text, for search that happens elsewhere.
  * @param loading Shows the loading message instead of options.
+ * @param allowCustomValue Accepts text that is not the label of an option. While the typed text
+ * matches no label, the first item reads, for example, Use "Partners", and choosing it or pressing
+ * Done on the keyboard calls [onCustomValue] with the trimmed text and clears the chosen option.
+ * @param customValue The custom text in use, shown in the field while [selected] is null.
+ * @param onCustomValue Called with the text when a custom value is committed.
+ * @param customValueLabel The words of the item that offers the typed text.
  */
 @Composable
 public fun <T> StanceCombobox(
@@ -94,14 +124,25 @@ public fun <T> StanceCombobox(
     loadingText: String = stringResource(R.string.stance_loading),
     emptyText: String = stringResource(R.string.stance_no_results),
     clearDescription: String = stringResource(R.string.stance_clear_search),
+    allowCustomValue: Boolean = false,
+    customValue: String? = null,
+    onCustomValue: (String) -> Unit = {},
+    customValueLabel: (String) -> String = defaultUseValueLabel(),
 ) {
     val c = StanceTheme.colors
-    val selectedLabel = options.firstOrNull { it.value == selected }?.label.orEmpty()
+    val selectedLabel = options.firstOrNull { it.value == selected }?.label ?: customValue.orEmpty()
     var text by rememberSaveable(selectedLabel) { mutableStateOf(selectedLabel) }
     var expanded by remember { mutableStateOf(false) }
     // While the field still shows the chosen label, every option is offered, as on the web.
     val query = if (text == selectedLabel) "" else text
     val shown = remember(options, query, filter) { stanceFilterOptions(options, query, filter) }
+    val candidate = if (allowCustomValue) remember(options, query) { stanceCustomValueCandidate(options, query) } else null
+    val commitCustom = { value: String ->
+        text = value
+        expanded = false
+        if (selected != null) onSelect(null)
+        onCustomValue(value)
+    }
     StanceFormField(label = label, modifier = modifier, helper = helper, error = error, required = required, enabled = enabled) {
         ExposedDropdownMenuBox(expanded = expanded, onExpandedChange = { if (enabled) expanded = it }) {
             OutlinedTextField(
@@ -136,6 +177,12 @@ public fun <T> StanceCombobox(
                 isError = error != null,
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        // Done takes the typed text when it is offered, and otherwise does what the keyboard does.
+                        if (candidate != null) commitCustom(candidate) else defaultKeyboardAction(ImeAction.Done)
+                    },
+                ),
                 shape = StanceTheme.shapes.medium,
                 colors = stanceTextFieldColors(),
             )
@@ -149,9 +196,10 @@ public fun <T> StanceCombobox(
                 shape = StanceTheme.shapes.large,
                 containerColor = c.bgOverlay,
             ) {
+                if (candidate != null && !loading) CustomValueItem(customValueLabel(candidate)) { commitCustom(candidate) }
                 when {
                     loading -> OptionsMessage(loadingText)
-                    shown.isEmpty() -> OptionsMessage(emptyText)
+                    shown.isEmpty() -> if (candidate == null) OptionsMessage(emptyText)
                     else -> shown.forEach { option ->
                         DropdownMenuItem(
                             text = { Text(option.label, style = StanceTheme.typography.body, color = if (option.enabled) c.fgDefault else c.disabledFg) },
@@ -183,6 +231,10 @@ public fun <T> StanceCombobox(
  *
  * @param searchable Lets people type to filter the options. Otherwise the field shows the count.
  * @param removeDescription Names a chip's remove button, for example "Remove Legal".
+ * @param allowCustomValue Offers the typed text as a new value while it matches no label. Needs [searchable].
+ * @param onCustomValue Called with the trimmed text. Add an option for it to [options] and its
+ * value to [selected], and it shows as a chip.
+ * @param customValueLabel The words of the item that offers the typed text.
  */
 @Composable
 public fun <T> StanceMultiSelect(
@@ -201,12 +253,20 @@ public fun <T> StanceMultiSelect(
     emptyText: String = stringResource(R.string.stance_no_results),
     countText: String = pluralStringResource(R.plurals.stance_selected_count, selected.size, selected.size),
     removeDescription: (String) -> String = defaultRemoveDescription(),
+    allowCustomValue: Boolean = false,
+    onCustomValue: (String) -> Unit = {},
+    customValueLabel: (String) -> String = defaultUseValueLabel(),
 ) {
     val c = StanceTheme.colors
     var expanded by remember { mutableStateOf(false) }
     var query by rememberSaveable { mutableStateOf("") }
     LaunchedEffect(expanded) { if (!expanded) query = "" }
     val shown = remember(options, query) { stanceFilterOptions(options, query, filter) }
+    val candidate = if (allowCustomValue && searchable) remember(options, query) { stanceCustomValueCandidate(options, query) } else null
+    val commitCustom = { value: String ->
+        query = ""
+        onCustomValue(value)
+    }
     StanceFormField(label = label, modifier = modifier, helper = helper, error = error, required = required, enabled = enabled) {
         Column(verticalArrangement = Arrangement.spacedBy(StanceSpacing.space2)) {
             ExposedDropdownMenuBox(expanded = expanded, onExpandedChange = { if (enabled) expanded = it }) {
@@ -236,6 +296,10 @@ public fun <T> StanceMultiSelect(
                     trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
                     isError = error != null,
                     singleLine = true,
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                    keyboardActions = KeyboardActions(
+                        onDone = { if (candidate != null) commitCustom(candidate) else defaultKeyboardAction(ImeAction.Done) },
+                    ),
                     shape = StanceTheme.shapes.medium,
                     colors = stanceTextFieldColors(),
                 )
@@ -245,7 +309,8 @@ public fun <T> StanceMultiSelect(
                     shape = StanceTheme.shapes.large,
                     containerColor = c.bgOverlay,
                 ) {
-                    if (shown.isEmpty()) OptionsMessage(emptyText)
+                    if (candidate != null) CustomValueItem(customValueLabel(candidate)) { commitCustom(candidate) }
+                    if (shown.isEmpty() && candidate == null) OptionsMessage(emptyText)
                     shown.forEach { option ->
                         val checked = option.value in selected
                         DropdownMenuItem(
