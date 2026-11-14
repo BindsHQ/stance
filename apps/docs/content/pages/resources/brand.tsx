@@ -122,8 +122,8 @@ export default function Brand() {
       ))}
       <p className="docs-muted">
         SVGs are traced from the original artwork and verified against it (99.8% overlap). PNGs are
-        optimised losslessly. The Stance and Binds names, logos and brand colours are trademarks of
-        Binds and are not covered by the Apache License. See the trademark policy.
+        optimised losslessly. The Binds and Stance names and logos are trademarks of Binds and are
+        not covered by the Apache License. See the trademark policy.
       </p>
     </>
   );

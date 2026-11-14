@@ -11,8 +11,8 @@ export default function License() {
         and the NOTICE file with it.
       </p>
       <p>
-        The licence covers software only. The Stance and Binds names, logos and brand colours are
-        trademarks of Binds and are not licensed. Read the{' '}
+        The licence covers software only. The Binds and Stance names and logos are trademarks of
+        Binds and are not licensed. Read the{' '}
         <Link href="/resources/trademarks">trademark policy</Link>.
       </p>
       <h2 className="docs-h2" id="notice">

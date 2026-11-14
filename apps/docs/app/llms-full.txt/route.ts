@@ -14,7 +14,7 @@ export function GET() {
   const body = [
     `# Stance v${site.version}: complete component reference`,
     '',
-    `Source: ${site.url} · Licence: Apache-2.0 (code); Stance and Binds names, logos and brand colours are trademarks of Binds · Packages: @bindshq/stance-tokens, @bindshq/stance-react`,
+    `Source: ${site.url} · Licence: Apache-2.0 (code); Binds and Stance names and logos are trademarks of Binds · Packages: @bindshq/stance-tokens, @bindshq/stance-react`,
     '',
     '## Frequently asked questions',
     '',

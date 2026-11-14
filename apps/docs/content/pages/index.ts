@@ -87,5 +87,5 @@ export const pages: GuidePage[] = [
   { section: "resources", slug: "contributing", title: "Contributing", description: "How to contribute to Stance: development setup, adding a component with tests and docs, the checks every pull request passes, and changesets.", Component: resources_contributing },
   { section: "resources", slug: "brand", title: "Brand", description: "The official Stance logo, mark and app icons in SVG and PNG, with colour rules, clear space, minimum sizes and downloads for every variant.", Component: resources_brand },
   { section: "resources", slug: "license", title: "License", description: "Stance code is open source under the Apache License 2.0. Read the full licence text, the NOTICE file and how it relates to trademarks.", Component: resources_license },
-  { section: "resources", slug: "trademarks", title: "Trademarks", description: "How you may refer to Stance and Binds, why the names, logos and brand colours are not licensed, and how to make Stance yours with your own brand.", Component: resources_trademarks },
+  { section: "resources", slug: "trademarks", title: "Trademarks", description: "What you are free to do with Stance, how to refer to it, and how the Binds and Stance names and logos are protected.", Component: resources_trademarks },
 ];

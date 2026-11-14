@@ -6,7 +6,7 @@ export const faq: { q: string; a: string }[] = [
   },
   {
     q: 'Is Stance free to use?',
-    a: 'Yes. The code is released under the Apache License 2.0, so you can use, modify and distribute it in personal and commercial projects. The Stance and Binds names, logos and brand colours are trademarks and are not part of the licence.',
+    a: 'Yes. The code is released under the Apache License 2.0, so you can use, modify and distribute it in personal and commercial projects. The Binds and Stance names and logos are trademarks and are not part of the licence.',
   },
   {
     q: 'How do I install Stance?',

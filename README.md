@@ -111,7 +111,7 @@ Stance follows [semantic versioning](https://semver.org). Both packages are rele
 
 ## License and trademarks
 
-The Stance code is licensed under the [Apache License, Version 2.0](./LICENSE). Copyright 2026 Binds. See [NOTICE](./NOTICE) for attribution requirements and third party components.
+The software code, components and design tokens are licensed under the [Apache License, Version 2.0](./LICENSE). Copyright 2026 Binds. See [NOTICE](./NOTICE) for attribution.
 
 > [!IMPORTANT]
-> **Stance and Binds are trademarks.** The Apache License covers the software only. The names Stance, StanceUI and Binds, the Stance and Binds logos, the artwork in [`brand/`](./brand) and the Binds brand identity, including the Ivory `#FCF6EB` and Indigo `#140C2E` colour pair, are proprietary trademarks and trade dress of Binds. They are not licensed under Apache 2.0. Give products built with Stance their own name, logo and colours, and do not present them as made or endorsed by Binds. See [TRADEMARK.md](./TRADEMARK.md) for what is allowed and how to theme Stance with your own brand.
+> **Trademarks are reserved.** The names Binds, Stance and StanceUI, and the official Binds and Stance logos and brand assets in [`brand/`](./brand), are trademarks of Binds and are not licensed under Apache 2.0. Their use is governed by [TRADEMARK.md](./TRADEMARK.md). You are free to build with every component, token and default theme, and to say your project is "Built with Stance".

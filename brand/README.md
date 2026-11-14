@@ -57,4 +57,4 @@ oxipng -o max --strip safe brand/logo/png/*.png brand/favicon/*.png
 node scripts/build-brand.mjs --copy-only  # copy the web set into apps/docs/public
 ```
 
-The Stance and Binds names, logos and brand colours are trademarks of Binds. These files are not covered by the Apache License; their use is governed by [TRADEMARK.md](../TRADEMARK.md).
+The Binds and Stance names and logos are trademarks of Binds. These files are not covered by the Apache License; their use is governed by [TRADEMARK.md](../TRADEMARK.md).
