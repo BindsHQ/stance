@@ -39,8 +39,8 @@ export function SiteSearch() {
               key={item.href}
               value={`${section.title} ${item.title}`}
               onSelect={() => go(item.href)}
+              icon={<Icon name="file-text" size={16} />}
             >
-              <Icon name="file-text" />
               {item.title}
             </CommandItem>
           ))}
@@ -63,8 +63,8 @@ export function SiteSearch() {
                     .filter((w) => w.length > 3),
                 ]}
                 onSelect={() => go(`/components/${c.slug}`)}
+                icon={<Icon name="layout-grid" size={16} />}
               >
-                <Icon name="layout-grid" />
                 {c.name}
               </CommandItem>
             ))}
@@ -86,8 +86,8 @@ export function SiteSearch() {
                   .filter((w) => w.length > 3),
               ]}
               onSelect={() => go(nativePath(p, c))}
+              icon={<Icon name="layout-grid" size={16} />}
             >
-              <Icon name="layout-grid" />
               {c.name}
             </CommandItem>
           ))}

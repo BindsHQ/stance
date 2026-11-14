@@ -30,7 +30,9 @@ body {
   color: var(--st-color-accent-fg);
 }
 
-:focus-visible {
+/* Zero specificity: a default ring for plain elements that never overrides a component that
+   draws its own focus indicator. */
+:where(:focus-visible) {
   outline: var(--st-focus-width) solid var(--st-color-focus-ring);
   outline-offset: var(--st-focus-offset);
 }
