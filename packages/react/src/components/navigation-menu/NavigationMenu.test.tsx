@@ -58,6 +58,23 @@ describe('NavigationMenu', () => {
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
   });
 
+  it('keeps a panel opened by hover open when it is then clicked', () => {
+    vi.useFakeTimers();
+    try {
+      render(<Example />);
+      const trigger = screen.getByRole('button', { name: 'Products' });
+      fireEvent.pointerEnter(trigger, { pointerType: 'mouse' });
+      act(() => vi.advanceTimersByTime(200));
+      expect(trigger).toHaveAttribute('aria-expanded', 'true');
+      fireEvent.click(trigger);
+      expect(trigger).toHaveAttribute('aria-expanded', 'true');
+      fireEvent.click(trigger);
+      expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   it('moves between top-level items with arrow keys', async () => {
     render(<Example />);
     const user = userEvent.setup();

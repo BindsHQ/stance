@@ -22,6 +22,7 @@ interface NavContextValue {
   openOnHover: boolean;
   rootRef: React.RefObject<HTMLElement | null>;
   scheduleOpen: (value: string) => void;
+  openedByHover: React.MutableRefObject<string | null>;
   scheduleClose: () => void;
   cancelTimers: () => void;
 }
@@ -85,10 +86,16 @@ export const NavigationMenu = React.forwardRef<HTMLElement, NavigationMenuProps>
       window.clearTimeout(openTimer.current);
       window.clearTimeout(closeTimer.current);
     }, []);
+    // The item the pointer opened by hovering. A click that lands on it keeps it open instead of
+    // toggling it shut, so hovering and then clicking never closes the panel just opened.
+    const openedByHover = React.useRef<string | null>(null);
     const scheduleOpen = React.useCallback(
       (v: string) => {
         cancelTimers();
-        openTimer.current = window.setTimeout(() => setValue(v), 120);
+        openTimer.current = window.setTimeout(() => {
+          openedByHover.current = v;
+          setValue(v);
+        }, 120);
       },
       [cancelTimers, setValue],
     );
@@ -97,6 +104,10 @@ export const NavigationMenu = React.forwardRef<HTMLElement, NavigationMenuProps>
       closeTimer.current = window.setTimeout(() => setValue(null), 250);
     }, [cancelTimers, setValue]);
     React.useEffect(() => cancelTimers, [cancelTimers]);
+    // Forget the hover once that panel is no longer the open one.
+    React.useEffect(() => {
+      if (openedByHover.current !== value) openedByHover.current = null;
+    }, [value]);
 
     // Close on outside pointer down.
     React.useEffect(() => {
@@ -116,6 +127,7 @@ export const NavigationMenu = React.forwardRef<HTMLElement, NavigationMenuProps>
         openOnHover: hover,
         rootRef,
         scheduleOpen,
+        openedByHover,
         scheduleClose,
         cancelTimers,
       }),
@@ -272,7 +284,9 @@ export const NavigationMenuTrigger = React.forwardRef<
       className={cx('st-navigation-menu__trigger', className)}
       onClick={composeHandlers(onClick, () => {
         nav.cancelTimers();
-        nav.setValue(open ? null : item.value);
+        const keepOpen = open && nav.openedByHover.current === item.value;
+        nav.openedByHover.current = null;
+        if (!keepOpen) nav.setValue(open ? null : item.value);
       })}
       onKeyDown={composeHandlers(onKeyDown, (e: React.KeyboardEvent) => {
         const openKey =
