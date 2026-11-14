@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { brand, ink } from '@bindshq/stance-tokens';
+import { ink } from '@bindshq/stance-tokens';
 import { faq } from '../content/faq';
 import { WebCategoryPreview } from '../components/category-preview';
 import { InstallSnippet } from '../components/install-snippet';
@@ -12,6 +12,7 @@ import { PlatformShowcase } from '../components/platform-showcase';
 import { StanceMark } from '../components/logo';
 import { ThemeTriptych } from '../components/preview';
 import { TokenFlow } from '../components/token-flow';
+import { ThemeTiles } from '../components/theme-tiles';
 import { components } from '../lib/routes';
 import { faqLd, organizationLd, pageMetadata, softwareLd, websiteLd } from '../lib/seo';
 import { categoryLabels, categoryOrder, site } from '../lib/site';
@@ -100,22 +101,15 @@ export default function Home() {
           <h2 id="tokens-title" className="section-title">
             Calm by design.
           </h2>
-          <p className="section-lede">Two colours, ivory and indigo, and every shade between.</p>
+          <p className="section-lede">
+            Every colour has a role, and every role adapts to light, dark and high contrast.
+          </p>
           <Link href="/foundations/colors" className="text-link">
             Explore colour
           </Link>
         </header>
         <div className="tokens-visual">
-          <div className="tokens-visual__pair">
-            <div style={{ background: brand.ivory, color: brand.indigo }}>
-              <strong>Ivory</strong>
-              <code>{brand.ivory}</code>
-            </div>
-            <div style={{ background: brand.indigo, color: brand.ivory }}>
-              <strong>Indigo</strong>
-              <code>{brand.indigo}</code>
-            </div>
-          </div>
+          <ThemeTiles compact />
           <div
             className="tokens-visual__ramp"
             role="img"

@@ -2691,3 +2691,181 @@ a.platform-device:hover .device {
   color: inherit;
   text-decoration: underline;
 }
+
+/* ---------------- Theme tiles: one interface in all three themes ---------------- */
+.theme-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--st-space-3);
+  margin: var(--st-space-4) 0 var(--st-space-8);
+  padding: 0;
+  list-style: none;
+}
+.theme-tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--st-space-6) var(--st-space-4);
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-xl);
+  background: var(--st-color-bg-canvas);
+  color: var(--st-color-fg-default);
+}
+.theme-tile__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-2);
+  inline-size: 100%;
+  max-inline-size: 16rem;
+  padding: var(--st-space-4);
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-lg);
+  background: var(--st-color-bg-surface);
+  box-shadow: var(--st-shadow-sm);
+}
+.theme-tile__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--st-space-2);
+}
+.theme-tile__row:last-child {
+  justify-content: flex-start;
+  margin-block-start: var(--st-space-1);
+}
+.theme-tile__title {
+  font-weight: var(--st-font-weight-semibold);
+}
+.theme-tile__muted {
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-sm);
+}
+.theme-tile__caption {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-0-5);
+  margin: var(--st-space-2) 0 0;
+  font-size: var(--st-font-size-sm);
+}
+.theme-tile__caption span {
+  color: var(--st-color-fg-muted);
+}
+.theme-tiles[data-compact] {
+  margin: 0;
+}
+.theme-tiles[data-compact] .theme-tile {
+  padding: var(--st-space-4) var(--st-space-3);
+}
+.theme-tiles[data-compact] .theme-tile__muted,
+.theme-tiles[data-compact] .theme-tile__row:last-child .st-button:last-child {
+  display: none;
+}
+.theme-tiles[data-compact] .theme-tile__card {
+  padding: var(--st-space-3);
+}
+.tokens-visual .theme-tiles + .tokens-visual__ramp {
+  margin-block-start: var(--st-space-3);
+  border-radius: var(--st-radius-lg);
+  border-block-start: var(--st-border-width) solid var(--st-color-border-default);
+}
+@media (max-width: 40rem) {
+  .theme-tiles:not([data-compact]) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------------- Role cards ---------------- */
+.role-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(15rem, 100%), 1fr));
+  gap: var(--st-space-3);
+  margin: var(--st-space-4) 0 var(--st-space-8);
+  padding: 0;
+  list-style: none;
+}
+.role-cards li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-1-5);
+  padding: var(--st-space-3);
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-lg);
+  background: var(--st-color-bg-surface);
+}
+.role-cards__swatch {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  block-size: 3rem;
+  margin-block-end: var(--st-space-1);
+  border: var(--st-border-width) solid var(--st-color-border-subtle);
+  border-radius: var(--st-radius-md);
+  overflow: hidden;
+}
+.role-cards__name {
+  font-size: var(--st-font-size-sm);
+  font-weight: var(--st-font-weight-semibold);
+}
+.role-cards__use {
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-sm);
+  line-height: var(--st-line-height-normal);
+}
+
+.role-legend {
+  display: flex;
+  gap: var(--st-space-4);
+  margin: 0 0 var(--st-space-2);
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-xs);
+}
+.role-legend span::before {
+  content: '';
+  display: inline-block;
+  inline-size: 0.625rem;
+  block-size: 0.625rem;
+  margin-inline-end: var(--st-space-1-5);
+  border: var(--st-border-width) solid var(--st-color-border-strong);
+  border-radius: 2px;
+  vertical-align: -1px;
+}
+.role-legend span:nth-child(1)::before {
+  background: var(--st-color-ink-0);
+}
+.role-legend span:nth-child(2)::before {
+  background: var(--st-color-ink-1000);
+}
+.role-legend span:nth-child(3)::before {
+  background: linear-gradient(135deg, var(--st-color-ink-0) 50%, var(--st-color-ink-1000) 50%);
+}
+/* Card grids inside guide pages are layouts, not reading lists. */
+.prose ul.theme-tiles,
+.prose ul.role-cards {
+  padding-inline-start: 0;
+}
+.prose ul.theme-tiles > li,
+.prose ul.role-cards > li {
+  margin: 0;
+}
+
+/* On phones the three compact tiles share one row, so they keep only a title and one action. */
+.theme-tiles > li {
+  min-width: 0;
+}
+@media (max-width: 40rem) {
+  .theme-tiles[data-compact] .theme-tile {
+    padding: var(--st-space-3) var(--st-space-2);
+  }
+  .theme-tiles[data-compact] .theme-tile__card {
+    padding: var(--st-space-2);
+  }
+  .theme-tiles[data-compact] .theme-tile__row .st-badge {
+    display: none;
+  }
+  .theme-tiles[data-compact] .theme-tile__title {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: var(--st-font-size-sm);
+  }
+}
