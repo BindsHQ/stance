@@ -5,8 +5,14 @@ Its name and brand are not. This policy explains the difference and what you may
 with the Stance and Binds marks.
 
 This policy is part of the legal posture of the Stance repository, together with
-[LICENSE](./LICENSE) and [NOTICE](./NOTICE). If anything here conflicts with the License for
-the software itself, the License governs the software and this policy governs the marks.
+[LICENSE](./LICENSE) and [NOTICE](./NOTICE).
+
+**Scope.** This policy governs the use of the Marks (defined below) only. It does not limit,
+and adds no conditions to, the rights the License grants in the software. Nothing in it
+restricts a use that applicable law allows without permission, such as nominative or
+descriptive fair use, accurate comparative statements, commentary, criticism, news reporting
+or parody. Binds claims rights in the Marks, whether registered or unregistered, to the extent
+recognised by the law that applies to the use in question.
 
 ## 1. What the License covers, and what it does not
 
@@ -32,8 +38,8 @@ The design token **files** are software and you may use, modify and redistribute
 License. What you may not do is use them, or anything else in this repository, to present a
 product as Stance, as made by Binds, or as endorsed by Binds.
 
-All Marks are and remain the exclusive property of Binds. All rights not expressly granted in
-this policy are reserved.
+All Marks are and remain the property of Binds. All rights not expressly granted in this policy
+are reserved.
 
 ## 2. What you may do without asking
 
@@ -62,10 +68,12 @@ Unless Binds has given you prior, express, written permission, you may not:
    wordmarks, including the files in [`brand/`](./brand), except unmodified and only to link
    to the official project.
 3. **Name derived work after the project.** Use "Stance", "StanceUI", "Binds" or anything
-   confusingly similar in the name of a product, fork, distribution, package, library, theme,
-   plugin, application, company, domain name, social media handle or repository. A modified
-   version must be renamed so it cannot be mistaken for the official project, and must not
-   be described as "Stance" or "official".
+   confusingly similar as, or as part of, the name of a software product, design system,
+   component library, theme, plugin, fork, distribution, package, application, design tool or
+   related service, or of a domain name, social media handle or repository for one. A modified
+   version must be renamed so it cannot be mistaken for the official project, and must not be
+   described as "Stance" or "official". "Stance" is an ordinary English word; this applies to
+   its use as a name in that field, not to its everyday meaning.
 4. **Create confusingly similar marks.** Adopt or register any name, logo, domain, package
    scope or account that resembles a Mark closely enough to cause confusion, including
    variations in spelling, spacing, capitalisation, prefixes or suffixes, such as
@@ -75,34 +83,31 @@ Unless Binds has given you prior, express, written permission, you may not:
 6. **Imitate the brand identity.** Combine the brand colour pair, the logo or the names with
    a product's presentation so that it looks like, or could be taken for, a Binds or Stance
    product.
-7. **Register.** Register or apply to register any Mark, or anything confusingly similar, as
-   a trademark, trade name, domain name, company name or social media identity anywhere.
+7. **Register.** Register or apply to register any Mark, or anything confusingly similar, as a
+   trademark, trade name, domain name, company name or social media identity for software,
+   design or related goods and services.
 8. **Use the Marks in a misleading, disparaging or unlawful way.**
 
-## 4. Trade Dress, Signature Color Palettes, and Visual Identity
+## 4. Trade dress, signature colours and visual identity
 
-- **No Rights to Trade Dress:** The Apache 2.0 license applies strictly to the underlying
-  functional software source code. It does NOT grant any permission to replicate, copy, or use
-  the proprietary visual identity, overall trade dress, or signature brand color schemes of
-  Binds or Stance.
-- **Signature Brand Colors Protected:** The specific brand color pairings, semantic primary
-  tokens, and signature aesthetic combinations (including but not limited to the proprietary
-  primary brand hues Ivory `#FCF6EB` and Indigo `#140C2E`, accent colors, and distinctive color
-  themes) are exclusive proprietary trade dress of Binds.
-- **Re-theming Requirement for Third Parties:** Any external party creating a derived
-  application, fork, or public product using these components MUST supply their own distinct
-  color palette, brand tokens, and styling. You may NOT style your derivative product to
-  imitate, clone, or simulate the distinctive look-and-feel of Binds' proprietary applications
-  or websites. Stance is built to be themed with your own brand: see
-  [Theming](https://www.stanceui.com/docs/theming).
-- **Prohibition of Confusion:** You may not use any color scheme, typography arrangement, or
-  layout combination that creates a likelihood of confusion among users regarding whether the
-  software was authored, sponsored, approved, or endorsed by Binds.
-
-The design token files remain software under the License, and you may use the default palette
-while developing and evaluating Stance, in automated tests, and in articles, tutorials and
-screenshots that are about Stance itself. This section governs the use of the palette and the
-visual identity as brand identity, which the License does not grant.
+- **No rights to trade dress.** The Apache License grants rights in the software. It does not
+  grant any right in the visual identity or overall trade dress of Binds' products and websites,
+  or in the Binds signature colour scheme as a brand.
+- **Signature colours.** Binds uses Ivory `#FCF6EB` and Indigo `#140C2E` together, in
+  combination with its names, logos and product design, as its signature visual identity. Binds
+  claims that identity as trade dress to the extent the applicable law recognises it.
+- **No imitation or confusion.** You may not use that colour pair, alone or with typography,
+  layout or other elements, to imitate the look and feel of Binds' products or websites, or in
+  any way that is likely to cause people to believe your product or service is made,
+  sponsored, approved or endorsed by Binds.
+- **Use your own brand.** Stance is built to be themed. If you ship a product built with
+  Stance, Binds asks that you give it your own colours and identity, which also makes
+  confusion unlikely. See [Theming](https://www.stanceui.com/docs/theming).
+- **What stays free.** The design token files are software under the License. Individual
+  colours, common colour pairings, and the functional parts of Stance, such as component
+  layouts, spacing, typography scales, states and accessibility behaviour, are free to use
+  under the License. The default palette may be used in development, evaluation, testing, and
+  articles, tutorials and screenshots about Stance.
 
 ## 5. Forks and modified versions
 

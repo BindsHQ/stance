@@ -51,7 +51,7 @@ export function GET() {
     '## Optional',
     ...section('resources'),
     `- [Full documentation in one file](${site.url}/llms-full.txt): every component reference concatenated.`,
-    `- [Source code](${site.github}): Apache-2.0 licensed. The Stance and Binds names, logos and the Ivory and Indigo brand colours are trademarks of Binds and are not licensed; products built with Stance use their own brand colours.`,
+    `- [Source code](${site.github}): Apache-2.0 licensed. The Stance and Binds names, logos and the Ivory and Indigo brand colours are trademarks of Binds and are not licensed; products built with Stance should use their own name and colours and must not imply endorsement by Binds.`,
     '',
   ];
   return new Response(lines.join('\n'), {
