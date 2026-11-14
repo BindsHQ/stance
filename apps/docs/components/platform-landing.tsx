@@ -266,6 +266,12 @@ export function PlatformLandingPage({ data }: { data: PlatformLanding }) {
           </a>
         </div>
       </section>
+      <p className="platform-credit">
+        {data.platform === 'ios'
+          ? 'Apple, iPhone, iPad, iPadOS and SwiftUI are trademarks of Apple Inc., registered in the U.S. and other countries and regions. IOS is a trademark or registered trademark of Cisco in the U.S. and other countries and is used under license. Stance is not affiliated with or endorsed by Apple Inc.'
+          : 'Google, Android and Jetpack Compose are trademarks of Google LLC. Stance is not affiliated with or endorsed by Google LLC.'}{' '}
+        <Link href="/resources/trademarks">Trademarks</Link>
+      </p>
     </main>
   );
 }

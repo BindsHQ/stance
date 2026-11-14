@@ -92,7 +92,22 @@ withdrawn.
 Binds may ask that a use not permitted by this policy stop. Nothing in this policy waives any
 right Binds has under trademark, unfair competition or other law.
 
-## 7. Changes
+## 7. Third party trademarks
+
+Stance refers to other companies' products by name to describe what it works with. These
+references are nominative and do not imply sponsorship or endorsement.
+
+- Apple, iPhone, iPad, iPadOS, macOS, Xcode, SwiftUI, UIKit, SF Symbols and Liquid Glass are
+  trademarks of Apple Inc., registered in the U.S. and other countries and regions. IOS is a
+  trademark or registered trademark of Cisco in the U.S. and other countries and is used under
+  license. Stance is not affiliated with or endorsed by Apple Inc.
+- Google, Android, Jetpack Compose, Material Design and Material You are trademarks of Google
+  LLC. Stance is not affiliated with or endorsed by Google LLC.
+- React is a trademark of Meta Platforms, Inc.
+
+All other trademarks are the property of their respective owners.
+
+## 8. Changes
 
 Binds may update this policy. The current version is the one in the `main` branch of
 [github.com/BindsHQ/stance](https://github.com/BindsHQ/stance).

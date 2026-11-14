@@ -115,3 +115,5 @@ The software code, components and design tokens are licensed under the [Apache L
 
 > [!IMPORTANT]
 > **Trademarks are reserved.** The names Binds, Stance and StanceUI, and the official Binds and Stance logos and brand assets in [`brand/`](./brand), are trademarks of Binds and are not licensed under Apache 2.0. Their use is governed by [TRADEMARK.md](./TRADEMARK.md). You are free to build with every component, token and default theme, and to say your project is "Built with Stance".
+
+Apple, iOS, iPadOS and SwiftUI are trademarks of Apple Inc. Android and Jetpack Compose are trademarks of Google LLC. Stance is not affiliated with or endorsed by Apple or Google; see [TRADEMARK.md](./TRADEMARK.md#7-third-party-trademarks).

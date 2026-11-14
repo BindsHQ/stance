@@ -2677,3 +2677,17 @@ a.platform-device:hover .device {
     display: none;
   }
 }
+
+.platform-credit {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 0 var(--st-space-6) var(--st-space-10);
+  color: var(--st-color-fg-subtle);
+  font-size: var(--st-font-size-xs);
+  line-height: var(--st-line-height-normal);
+  text-align: center;
+}
+.platform-credit a {
+  color: inherit;
+  text-decoration: underline;
+}
