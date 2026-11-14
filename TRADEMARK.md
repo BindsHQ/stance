@@ -79,22 +79,30 @@ Unless Binds has given you prior, express, written permission, you may not:
    a trademark, trade name, domain name, company name or social media identity anywhere.
 8. **Use the Marks in a misleading, disparaging or unlawful way.**
 
-## 4. The Binds brand colours
+## 4. Trade Dress, Signature Color Palettes, and Visual Identity
 
-Ivory `#FCF6EB` and Indigo `#140C2E` are the identity of Binds. They are the default palette in
-Stance because Stance is the design system Binds products are built with.
-
-- **Your product uses your colours.** Any product, service, website or app built with Stance
-  that is made available to anyone outside your own development team must replace the Binds
-  colour pair with its own brand colours before release. Stance is built to be themed: see
+- **No Rights to Trade Dress:** The Apache 2.0 license applies strictly to the underlying
+  functional software source code. It does NOT grant any permission to replicate, copy, or use
+  the proprietary visual identity, overall trade dress, or signature brand color schemes of
+  Binds or Stance.
+- **Signature Brand Colors Protected:** The specific brand color pairings, semantic primary
+  tokens, and signature aesthetic combinations (including but not limited to the proprietary
+  primary brand hues Ivory `#FCF6EB` and Indigo `#140C2E`, accent colors, and distinctive color
+  themes) are exclusive proprietary trade dress of Binds.
+- **Re-theming Requirement for Third Parties:** Any external party creating a derived
+  application, fork, or public product using these components MUST supply their own distinct
+  color palette, brand tokens, and styling. You may NOT style your derivative product to
+  imitate, clone, or simulate the distinctive look-and-feel of Binds' proprietary applications
+  or websites. Stance is built to be themed with your own brand: see
   [Theming](https://www.stanceui.com/docs/theming).
-- **You may use the default palette** while developing and evaluating Stance, in tests, and in
-  articles, tutorials and screenshots that are about Stance itself.
-- **Do not imitate it.** Do not use the Ivory and Indigo pair, or colours chosen to be
-  indistinguishable from it, as the identity of another product, company or service.
+- **Prohibition of Confusion:** You may not use any color scheme, typography arrangement, or
+  layout combination that creates a likelihood of confusion among users regarding whether the
+  software was authored, sponsored, approved, or endorsed by Binds.
 
-The token values remain software under the License. This section governs their use as brand
-identity, which the License does not grant.
+The design token files remain software under the License, and you may use the default palette
+while developing and evaluating Stance, in automated tests, and in articles, tutorials and
+screenshots that are about Stance itself. This section governs the use of the palette and the
+visual identity as brand identity, which the License does not grant.
 
 ## 5. Forks and modified versions
 
