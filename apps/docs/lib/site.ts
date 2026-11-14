@@ -100,6 +100,7 @@ export const guideNav: NavSection[] = [
       { title: 'Contributing', href: '/resources/contributing' },
       { title: 'Brand', href: '/resources/brand' },
       { title: 'License', href: '/resources/license' },
+      { title: 'Trademarks', href: '/resources/trademarks' },
     ],
   },
 ];

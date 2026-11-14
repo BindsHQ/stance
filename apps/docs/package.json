@@ -3,7 +3,17 @@
   "version": "0.1.1",
   "private": true,
   "description": "stanceui.com, documentation and landing page for Stance.",
-  "license": "MIT",
+  "license": "Apache-2.0",
+  "author": "Binds",
+  "homepage": "https://www.stanceui.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BindsHQ/stance.git",
+    "directory": "apps/docs"
+  },
+  "bugs": {
+    "url": "https://github.com/BindsHQ/stance/issues"
+  },
   "type": "module",
   "scripts": {
     "generate": "node scripts/generate-registry.mjs && node scripts/generate-native-media.mjs",

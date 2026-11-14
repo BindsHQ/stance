@@ -43,7 +43,7 @@ export function PlatformLandingPage({ data }: { data: PlatformLanding }) {
             codeRepository: `${site.github}/tree/main/platforms/${data.platform}`,
             programmingLanguage: data.platform === 'ios' ? 'Swift' : 'Kotlin',
             runtimePlatform: data.platform === 'ios' ? 'iOS, iPadOS' : 'Android',
-            license: 'https://opensource.org/licenses/MIT',
+            license: 'https://www.apache.org/licenses/LICENSE-2.0',
             isPartOf: { '@id': `${site.url}/#software` },
             author: { '@id': organizationLd['@id'] },
             isAccessibleForFree: true,

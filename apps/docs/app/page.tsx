@@ -197,7 +197,7 @@ export default function Home() {
           </div>
           <div>
             <dt>Licence</dt>
-            <dd>MIT</dd>
+            <dd>Apache 2.0</dd>
           </div>
         </dl>
       </section>

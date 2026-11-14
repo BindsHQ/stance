@@ -19,7 +19,7 @@
 <p align="center">
   <a href="https://github.com/BindsHQ/stance/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/BindsHQ/stance/actions/workflows/ci.yml/badge.svg" /></a>
   <a href="https://www.npmjs.com/package/@bindshq/stance-react"><img alt="npm" src="https://img.shields.io/npm/v/@bindshq/stance-react?label=%40bindshq%2Fstance-react" /></a>
-  <a href="./LICENSE"><img alt="MIT License" src="https://img.shields.io/badge/license-MIT-140C2E" /></a>
+  <a href="./LICENSE"><img alt="License: Apache 2.0" src="https://img.shields.io/badge/license-Apache--2.0-140C2E" /></a>
 </p>
 
 ---
@@ -109,6 +109,9 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for conventions, and use `npx changeset
 
 Stance follows [semantic versioning](https://semver.org). Both packages are released together with the same version number. Products pin exact versions and upgrade deliberately.
 
-## License
+## License and trademarks
 
-[MIT](./LICENSE) © Binds. The Binds name and logo are trademarks of Binds and are not licensed under MIT.
+The Stance code is licensed under the [Apache License, Version 2.0](./LICENSE). Copyright 2026 Binds. See [NOTICE](./NOTICE) for attribution requirements and third party components.
+
+> [!IMPORTANT]
+> **Stance and Binds are trademarks.** The Apache License covers the software only. The names Stance, StanceUI and Binds, the Stance and Binds logos, the artwork in [`brand/`](./brand) and the Binds brand identity, including the Ivory `#FCF6EB` and Indigo `#140C2E` colour pair, are proprietary trademarks and trade dress of Binds. They are not licensed under Apache 2.0. Products built with Stance must use their own name, logo and brand colours. See [TRADEMARK.md](./TRADEMARK.md) for what is allowed and how to theme Stance with your own brand.

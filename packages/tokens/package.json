@@ -2,7 +2,7 @@
   "name": "@bindshq/stance-tokens",
   "version": "0.1.1",
   "description": "Design tokens for Stance, the Binds design system: colours, typography, spacing and three themes.",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "author": "Binds",
   "homepage": "https://www.stanceui.com",
   "repository": {
@@ -10,7 +10,9 @@
     "url": "git+https://github.com/BindsHQ/stance.git",
     "directory": "packages/tokens"
   },
-  "bugs": "https://github.com/BindsHQ/stance/issues",
+  "bugs": {
+    "url": "https://github.com/BindsHQ/stance/issues"
+  },
   "keywords": [
     "design-system",
     "design-tokens",
@@ -50,7 +52,8 @@
     "source",
     "generated",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "NOTICE"
   ],
   "scripts": {
     "build": "node scripts/build-tokens.mjs && rm -rf dist && tsc -p tsconfig.build.json && node scripts/emit.mjs",

@@ -367,4 +367,4 @@ content height. File names follow `previews/<slug>.<theme>.png`.
 
 ## Licence
 
-MIT. The Stance and Binds names and logos are trademarks of Binds.
+Apache License 2.0. See [LICENSE](../../LICENSE) and [NOTICE](../../NOTICE). The Stance and Binds names, logos and brand colours are trademarks of Binds and are not covered by the License; see [TRADEMARK.md](../../TRADEMARK.md).

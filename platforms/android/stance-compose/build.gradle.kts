@@ -79,7 +79,7 @@ publishing {
                 name.set("Stance for Compose")
                 description.set("Jetpack Compose components for Stance, the Binds design system.")
                 url.set("https://www.stanceui.com")
-                licenses { license { name.set("MIT"); url.set("https://opensource.org/licenses/MIT") } }
+                licenses { license { name.set("Apache-2.0"); url.set("https://www.apache.org/licenses/LICENSE-2.0") } }
             }
         }
     }

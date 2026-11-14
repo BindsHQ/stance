@@ -9,8 +9,8 @@ export function SiteFooter() {
         <div className="site-footer__brand">
           <StanceLogo height={24} title="Stance" />
           <p>
-            Stance. {site.tagline}. Open source under the MIT License. © {new Date().getFullYear()}{' '}
-            Binds.
+            Stance. {site.tagline}. Open source under the Apache License 2.0. ©{' '}
+            {new Date().getFullYear()} Binds.
           </p>
         </div>
         <nav aria-label="Footer" className="site-footer__nav">
@@ -31,7 +31,8 @@ export function SiteFooter() {
           <div>
             <h2>Binds</h2>
             <a href={site.binds}>binds.si</a>
-            <Link href="/resources/license">MIT License</Link>
+            <Link href="/resources/license">License</Link>
+            <Link href="/resources/trademarks">Trademarks</Link>
           </div>
         </nav>
       </div>

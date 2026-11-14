@@ -1,8 +1,17 @@
 {
   "name": "stance-monorepo",
   "private": true,
-  "description": "Stance \u2014 the official open-source design system by Binds.",
-  "license": "MIT",
+  "description": "Stance, the official open-source design system by Binds.",
+  "license": "Apache-2.0",
+  "author": "Binds",
+  "homepage": "https://www.stanceui.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BindsHQ/stance.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BindsHQ/stance/issues"
+  },
   "workspaces": [
     "packages/*",
     "apps/*"

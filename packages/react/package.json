@@ -2,7 +2,7 @@
   "name": "@bindshq/stance-react",
   "version": "0.1.1",
   "description": "Accessible, dependency-free React components for Stance, the Binds design system.",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "author": "Binds",
   "homepage": "https://www.stanceui.com",
   "repository": {
@@ -10,7 +10,9 @@
     "url": "git+https://github.com/BindsHQ/stance.git",
     "directory": "packages/react"
   },
-  "bugs": "https://github.com/BindsHQ/stance/issues",
+  "bugs": {
+    "url": "https://github.com/BindsHQ/stance/issues"
+  },
   "keywords": [
     "design-system",
     "react",
@@ -39,7 +41,8 @@
   "files": [
     "dist",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "NOTICE"
   ],
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.build.json && node scripts/build-css.mjs",

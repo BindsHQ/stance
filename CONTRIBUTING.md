@@ -45,6 +45,14 @@ npm run build && npm run typecheck && npm test && npm run lint && npm run check:
 - Every user-facing change needs a changeset. Maintainers version and publish with Changesets.
 - Breaking changes must be called out in the changeset with migration notes.
 
+## Licensing of contributions
+
+Stance is licensed under the [Apache License, Version 2.0](./LICENSE). By submitting a contribution you agree that it is licensed under the same terms, as Section 5 of the License describes, and that you have the right to submit it.
+
+- Do not add code, assets or fonts under a licence that is incompatible with Apache 2.0. Third party material that is allowed must be listed in [NOTICE](./NOTICE).
+- Do not change the [LICENSE](./LICENSE) or [NOTICE](./NOTICE) files, or the brand artwork in [`brand/`](./brand), without approval from a maintainer.
+- Contributions do not transfer any rights in the Stance or Binds trademarks. See [TRADEMARK.md](./TRADEMARK.md).
+
 ## Code of conduct
 
 This project follows our [Code of Conduct](./CODE_OF_CONDUCT.md).

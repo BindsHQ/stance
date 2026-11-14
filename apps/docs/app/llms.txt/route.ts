@@ -15,7 +15,7 @@ export function GET() {
   const lines = [
     '# Stance',
     '',
-    `> Stance is the official open-source (MIT) design system by Binds: design tokens built from the brand colours ivory #FCF6EB and indigo #140C2E, light/dark/high-contrast themes, and ${components.length} accessible, dependency-free React components for React 18 and 19. Packages: @bindshq/stance-tokens and @bindshq/stance-react (v${site.version}).`,
+    `> Stance is the official open-source (Apache-2.0) design system by Binds: design tokens built from the brand colours ivory #FCF6EB and indigo #140C2E, light/dark/high-contrast themes, and ${components.length} accessible, dependency-free React components for React 18 and 19. Packages: @bindshq/stance-tokens and @bindshq/stance-react (v${site.version}).`,
     '',
     'Install with `npm install @bindshq/stance-tokens @bindshq/stance-react`, import `@bindshq/stance-tokens/css` and `@bindshq/stance-react/styles.css` once, and wrap the app in `<ThemeProvider>`. Components target WCAG 2.2 AA and follow WAI-ARIA keyboard patterns.',
     '',
@@ -51,7 +51,7 @@ export function GET() {
     '## Optional',
     ...section('resources'),
     `- [Full documentation in one file](${site.url}/llms-full.txt): every component reference concatenated.`,
-    `- [Source code](${site.github}): MIT licensed.`,
+    `- [Source code](${site.github}): Apache-2.0 licensed. The Stance and Binds names, logos and the Ivory and Indigo brand colours are trademarks of Binds and are not licensed; products built with Stance use their own brand colours.`,
     '',
   ];
   return new Response(lines.join('\n'), {

@@ -1,32 +1,32 @@
+import legal from '../../../generated/legal.json';
+import Link from 'next/link';
+
 export default function License() {
   return (
     <>
-      <p>Stance is released under the MIT License.</p>
-      <pre className="license-text" tabIndex={0}>{`MIT License
-
-Copyright (c) 2026 Binds
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.`}</pre>
       <p>
-        The Binds name, logo and brand marks are not covered by the MIT License and may not be used
-        to imply endorsement.
+        The Stance code, including the React library, the SwiftUI and Jetpack Compose libraries and
+        the design token files, is licensed under the Apache License, Version 2.0. You can use,
+        modify and distribute it in personal and commercial work, as long as you keep the licence
+        and the NOTICE file with it.
       </p>
+      <p>
+        The licence covers software only. The Stance and Binds names, logos and brand colours are
+        trademarks of Binds and are not licensed. Read the{' '}
+        <Link href="/resources/trademarks">trademark policy</Link>.
+      </p>
+      <h2 className="docs-h2" id="notice">
+        NOTICE
+      </h2>
+      <pre className="license-text" tabIndex={0} aria-label="NOTICE file">
+        {legal.notice}
+      </pre>
+      <h2 className="docs-h2" id="license-text">
+        Apache License, Version 2.0
+      </h2>
+      <pre className="license-text" tabIndex={0} aria-label="Apache License, Version 2.0">
+        {legal.license}
+      </pre>
     </>
   );
 }

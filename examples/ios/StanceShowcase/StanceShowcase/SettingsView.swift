@@ -34,7 +34,7 @@ struct SettingsView: View {
                 )
             }
             StanceSection("About") {
-                StanceDescriptionList([("Package", "StanceUI"), ("Version", "0.1.0"), ("Licence", "MIT"), ("Icons", "\(StanceIconName.allCases.count)")])
+                StanceDescriptionList([("Package", "StanceUI"), ("Version", "0.1.0"), ("Licence", "Apache 2.0"), ("Icons", "\(StanceIconName.allCases.count)")])
                     .stanceCard(padding: StanceSpacing.lg)
             }
         }

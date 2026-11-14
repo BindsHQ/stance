@@ -80,7 +80,7 @@ export function softwareLd(componentCount: number) {
     codeRepository: site.github,
     programmingLanguage: ['TypeScript', 'CSS'],
     runtimePlatform: 'React 18, React 19',
-    license: 'https://opensource.org/licenses/MIT',
+    license: 'https://www.apache.org/licenses/LICENSE-2.0',
     version: site.version,
     keywords: [
       'design system',

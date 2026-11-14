@@ -42,6 +42,7 @@ import resources_changelog from './resources/changelog';
 import resources_contributing from './resources/contributing';
 import resources_brand from './resources/brand';
 import resources_license from './resources/license';
+import resources_trademarks from './resources/trademarks';
 
 export const pages: GuidePage[] = [
   { section: "docs", slug: "introduction", title: "Introduction", description: "What Stance is: the open-source Binds design system with design tokens, light, dark and high-contrast themes, and accessible React components.", Component: docs_introduction },
@@ -85,5 +86,6 @@ export const pages: GuidePage[] = [
   { section: "resources", slug: "changelog", title: "Changelog", description: "Every notable change to Stance by release, starting with 0.1.1: tokens, themes, components, accessibility primitives and the documentation site.", Component: resources_changelog },
   { section: "resources", slug: "contributing", title: "Contributing", description: "How to contribute to Stance: development setup, adding a component with tests and docs, the checks every pull request passes, and changesets.", Component: resources_contributing },
   { section: "resources", slug: "brand", title: "Brand", description: "The official Stance logo, mark and app icons in SVG and PNG, with colour rules, clear space, minimum sizes and downloads for every variant.", Component: resources_brand },
-  { section: "resources", slug: "license", title: "License", description: "Stance is open source under the MIT License. Read the full licence text and the note on Binds and Stance trademarks and logos.", Component: resources_license },
+  { section: "resources", slug: "license", title: "License", description: "Stance code is open source under the Apache License 2.0. Read the full licence text, the NOTICE file and how it relates to trademarks.", Component: resources_license },
+  { section: "resources", slug: "trademarks", title: "Trademarks", description: "How you may refer to Stance and Binds, why the names, logos and brand colours are not licensed, and how to make Stance yours with your own brand.", Component: resources_trademarks },
 ];

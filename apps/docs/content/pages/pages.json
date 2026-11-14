@@ -249,6 +249,12 @@
     "section": "resources",
     "slug": "license",
     "title": "License",
-    "description": "Stance is open source under the MIT License. Read the full licence text and the note on Binds and Stance trademarks and logos."
+    "description": "Stance code is open source under the Apache License 2.0. Read the full licence text, the NOTICE file and how it relates to trademarks."
+  },
+  {
+    "section": "resources",
+    "slug": "trademarks",
+    "title": "Trademarks",
+    "description": "How you may refer to Stance and Binds, why the names, logos and brand colours are not licensed, and how to make Stance yours with your own brand."
   }
 ]

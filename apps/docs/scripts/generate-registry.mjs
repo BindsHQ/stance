@@ -252,6 +252,24 @@ for (const platform of ['ios', 'android']) {
 }
 writeFileSync(join(out, 'native.json'), JSON.stringify(native, null, 2));
 
+// Legal texts: the site shows the repository's own LICENSE, NOTICE and TRADEMARK.md, never a copy.
+{
+  const repo = join(root, '..', '..');
+  const legal = Object.fromEntries(
+    [
+      ['license', 'LICENSE'],
+      ['notice', 'NOTICE'],
+      ['trademark', 'TRADEMARK.md'],
+    ].map(([key, file]) => [key, readFileSync(join(repo, file), 'utf8')]),
+  );
+  if (
+    !legal.license.includes('Apache License') ||
+    !legal.license.includes('Version 2.0, January 2004')
+  )
+    throw new Error('LICENSE is not the Apache License, Version 2.0');
+  writeFileSync(join(out, 'legal.json'), JSON.stringify(legal, null, 2));
+}
+
 // Platform idioms: web components whose native answer is the platform's own API.
 const parityFile = join(root, '..', '..', 'specs', 'native-parity.json');
 const parity = existsSync(parityFile) ? JSON.parse(readFileSync(parityFile, 'utf8')) : {};
