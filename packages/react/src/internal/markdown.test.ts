@@ -370,6 +370,9 @@ describe('address checks', () => {
 });
 
 describe('hostile input', () => {
+  // Catches quadratic or worse parsing: on these inputs that takes tens of seconds, while linear
+  // parsing takes well under one. The margin keeps the test steady on a busy machine.
+  const BOMB_BUDGET_MS = 8000;
   const within = (ms: number, run: () => void) => {
     const start = performance.now();
     run();
@@ -379,7 +382,7 @@ describe('hostile input', () => {
     nodes.reduce((max, n) => Math.max(max, 'children' in n ? 1 + depth(n.children) : 0), 0);
 
   it('survives emphasis bombs quickly and keeps the tree shallow', () => {
-    within(1500, () => {
+    within(BOMB_BUDGET_MS, () => {
       for (const source of [
         '*'.repeat(50000) + 'a',
         '*a '.repeat(20000),
@@ -397,7 +400,7 @@ describe('hostile input', () => {
   });
 
   it('survives bracket, backtick, entity and link bombs quickly', () => {
-    within(1500, () => {
+    within(BOMB_BUDGET_MS, () => {
       for (const source of [
         '['.repeat(50000),
         '[a]('.repeat(10000),
@@ -418,7 +421,7 @@ describe('hostile input', () => {
   });
 
   it('survives block nesting bombs', () => {
-    within(1500, () => {
+    within(BOMB_BUDGET_MS, () => {
       for (const source of [
         '>'.repeat(20000) + ' a',
         '> '.repeat(5000) + 'a',

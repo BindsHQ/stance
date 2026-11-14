@@ -45,6 +45,9 @@ export default function Colors() {
           </figcaption>
         </figure>
       </div>
+      <p>
+        You can also bring your own colours: see <a href="/docs/theming#your-brand">Your brand</a>.
+      </p>
       <p className="docs-muted">
         Ivory on indigo: {contrastRatio(brand.ivory, brand.indigo).toFixed(2)}:1 contrast.
       </p>

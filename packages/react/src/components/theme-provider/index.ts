@@ -10,3 +10,4 @@ export {
   type ThemeName,
   type ThemePreference,
 } from './ThemeProvider.js';
+export { bindsBrand, type Brand } from './brand.js';

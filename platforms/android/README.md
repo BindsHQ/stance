@@ -66,11 +66,39 @@ There are three themes: light, dark and high contrast. `StanceAppearance.System`
 
 `rememberStanceAppearance()` saves the choice in SharedPreferences under the key `stance-theme`, using the same values as the web: `light`, `dark`, `high-contrast` and `system`.
 
-Dynamic colour (Material You) is off on purpose. Binds has two brand colours, ivory `#FCF6EB` and indigo `#140C2E`, and every Stance theme is derived from them.
+Material You dynamic colour stays off, so the palette looks the same on every device. The default palette is built from ivory `#FCF6EB` and indigo `#140C2E`, and you can give Stance a brand of your own (see below).
 
 Type sizes are in `sp`, so text follows the system font size. The default typeface is the platform one. Pass a `FontFamily` to `StanceTheme` to use DM Sans, the Stance web typeface. Font files are not bundled.
 
 Motion uses the Stance duration and easing tokens. When the system has animations turned off, `StanceTheme.motion` returns `snap()` specs.
+
+## Your brand
+
+Stance works as it is. If you like, generate the whole palette from your own colours: a light colour, a dark colour and an optional accent. Light, dark and high contrast all follow it, and every component picks it up. The algorithm is the same on the web and iOS, so a brand looks the same everywhere. See [Your brand](https://www.stanceui.com/docs/theming#your-brand).
+
+```kotlin
+val acme = StanceBrand("Acme", light = "#F2F8FF", dark = "#0A1A50", accent = "#FF5A36")
+
+StanceTheme(appearance = appearance, brand = acme) {
+    App()
+}
+
+// Or brand one part of the screen.
+StanceBrandScope(acme) {
+    StanceButton("Upgrade", onClick = {})
+}
+```
+
+- `StanceBrand(name, light, dark, accent)` takes hex strings or `Color`s. For a separate dark theme accent, use `StanceBrand(name, light, dark, accentLight = ..., accentDark = ...)` or `accent = StanceBrandAccent(light, dark)`.
+- Stance adjusts the accent's lightness where needed so links, buttons, selection and focus pass their contrast checks. Status colours stay as they are.
+- `StanceBrand.Binds` is the default palette. Passing it is the same as passing no brand.
+- `brand.contrastReport()` lists any role pairs below their minimum. In debuggable apps a brand with failures is logged once with the tag `Stance`; release builds never log.
+- Each brand is resolved once and remembered. `StanceTheme.brand` returns the brand in scope.
+- `setStanceContent(brand = ...)` and `StanceButtonView.brand` apply a brand in View interop.
+
+The colour resources in `stance_colors.xml` and the `Theme.Stance` window background are compiled resources, so they keep the default palette. If you use them with a brand, override them in your app's resources with your brand's values.
+
+The engine is pure Kotlin in `stance-tokens` (`StanceBrandEngine`), if you want resolved colours outside Compose.
 
 ## Material 3 interop
 

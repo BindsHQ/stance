@@ -7,6 +7,7 @@ import {
   type ThemeScriptOptions,
 } from '@bindshq/stance-tokens';
 import { cx } from '../../internal/cx.js';
+import { brandStyles, type Brand } from './brand.js';
 import { useIsomorphicLayoutEffect } from '../../internal/use-isomorphic-layout-effect.js';
 
 export type { ThemeName, ThemePreference };
@@ -26,6 +27,12 @@ export interface ThemeProviderProps extends ThemeScriptOptions {
   children?: React.ReactNode;
   /** Force a theme regardless of preference (e.g. a marketing page that is always light). */
   forcedTheme?: ThemeName;
+  /**
+   * Optional brand colours for this subtree, in every theme. `"binds"` (or omitting it) keeps
+   * the default palette. For a whole app, the CSS from `createBrandTheme` or the `stance-brand`
+   * CLI does the same with no runtime cost.
+   */
+  brand?: Brand | 'binds';
 }
 
 const THEMES: readonly ThemePreference[] = ['light', 'dark', 'high-contrast', 'system'];
@@ -63,6 +70,7 @@ export function ThemeProvider({
   respectContrastPreference = true,
   legacyStorageKeys = [],
   forcedTheme,
+  brand,
 }: ThemeProviderProps) {
   const legacyKey = legacyStorageKeys.join('|');
   const [theme, setThemeState] = React.useState<ThemePreference>(defaultTheme);
@@ -119,7 +127,25 @@ export function ThemeProvider({
     () => ({ theme, resolvedTheme, setTheme, themes: THEMES }),
     [theme, resolvedTheme, setTheme],
   );
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+
+  const brandKey =
+    typeof brand === 'object'
+      ? `${brand.name}|${brand.light}|${brand.dark}|${JSON.stringify(brand.accent)}`
+      : brand;
+  // Keyed on the brand's values, not on the object's identity.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const styles = React.useMemo(() => brandStyles(brand), [brandKey]);
+
+  const content = <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+  if (!styles) return content;
+  // `display: contents` keeps the wrapper out of layout; custom properties still inherit
+  // through it. The style is rendered on the server too, so there is no flash on hydration.
+  return (
+    <div data-stance-brand={styles.scope} style={{ display: 'contents' }}>
+      <style dangerouslySetInnerHTML={{ __html: styles.css }} />
+      {content}
+    </div>
+  );
 }
 
 /** Access and change the current theme. Must be used inside <ThemeProvider>. */

@@ -30,6 +30,23 @@ Themes switch with `data-theme="light" | "dark" | "high-contrast"` on `<html>` o
 import { brand, ink, light, dark, highContrast, contrastRatio, themeScript } from '@bindshq/stance-tokens';
 ```
 
+## Your brand
+
+Make Stance yours: generate a full palette from your own brand colours. Optional; the default palette works as it is.
+
+```bash
+npx stance-brand --light '#F7F5F0' --dark '#101B2D' --name Acme > brand.css
+```
+
+Load `brand.css` after `@bindshq/stance-tokens/css`. Options: `--accent` (and `--accent-dark` for a separate dark theme accent; Stance fits accent lightness so contrast checks pass), `--out <file>`, and `--check` to exit with status 1 when a contrast check fails. In code:
+
+```ts
+import { createBrandTheme } from '@bindshq/stance-tokens';
+const { css, themes, report } = createBrandTheme({ name: 'Acme', light: '#F7F5F0', dark: '#101B2D' });
+```
+
+`report` lists every pair below its contrast minimum. Guide: https://www.stanceui.com/docs/theming#your-brand
+
 ## Tailwind
 
 ```ts
@@ -53,5 +70,7 @@ export default { presets: [stance] };
 | `./tailwind-v4.css` | Tailwind v4 `@theme` mapping |
 | `./tokens.json` | All tokens as JSON |
 | `./contrast-report.json` | WCAG contrast results for every theme |
+| `./brand-recipe.json` | How every colour role derives from a brand |
+| `./brand-fixture.json` | Resolved roles for reference brands, for cross platform tests |
 
 Documentation: https://www.stanceui.com/foundations/colors · License: Apache-2.0 © Binds. Stance and Binds are trademarks of Binds; see TRADEMARK.md

@@ -97,6 +97,32 @@ Let people choose:
 @AppStorage(StanceAppearance.storageKey) private var appearance = StanceAppearance.system.rawValue
 ```
 
+### Your brand
+
+Stance works as it is with the Binds palette. If you like, it can build the whole palette from
+your own colours: give a light colour, a dark colour and an optional accent, and every component
+picks it up in light, dark and high contrast (including Increase Contrast).
+
+```swift
+let acme = StanceBrand(name: "Acme", light: "#F2F8FF", dark: "#0A1A50", accent: "#FF5A36")!
+
+StanceThemeProvider(brand: acme) { RootView() }   // the whole app
+PartnerPanel().stanceBrand(acme)                   // or one part of a screen
+```
+
+- Initialise a brand from hex strings (failable), SwiftUI `Color` or `StanceRGBA`. Pass
+  `accentDark:` to give the dark theme its own accent.
+- Stance tunes the accent's lightness where needed so links, buttons and focus rings keep their
+  contrast. `acme.contrastReport()` lists any pair still under its minimum; debug builds log it
+  once per brand, release builds never log.
+- `StanceBrand.binds` is the default palette. Passing it is the same as passing no brand.
+- Each brand is resolved once and cached. Read the colours with `theme.colors` as usual, or
+  `acme.colors(for: .dark)`.
+- UIKit: set `StanceUIKit.brand = acme`, or pass `brand:` to `StanceUIKit.color`.
+
+The same brand gives the same colours on the web and Android. See
+[Your brand](https://www.stanceui.com/docs/theming#your-brand).
+
 ## Native first
 
 StanceUI wraps system controls and styles them with tokens. It does not reimplement them.
@@ -157,6 +183,9 @@ not draw its own glass and does not recolour system chrome beyond the tint.
 view.backgroundColor = StanceUIKit.color(\.bgCanvas)   // follows dark mode and Increase Contrast
 label.font = StanceUIKit.font(.heading)                // scaled for Dynamic Type
 label.adjustsFontForContentSizeCategory = true
+
+// Optional: use your brand in UIKit lookups and hosted screens
+StanceUIKit.brand = acme
 
 // Host StanceUI in a UIKit screen
 let controller = StanceUIKit.hostingController { TemplateSettings() }

@@ -5,12 +5,18 @@
 //        ├─► src/generated.ts                       TypeScript (web runtime + CSS emitter input)
 //        ├─► generated/swift/StanceTokens.swift     Swift (no UI framework imports)
 //        ├─► generated/kotlin/StanceTokens.kt       Kotlin (no Android/Compose imports)
-//        └─► generated/json/tokens.resolved.json    fully resolved values for any other consumer
+//        ├─► generated/json/tokens.resolved.json    fully resolved values for any other consumer
+//        ├─► generated/json/brand-recipe.json       how every colour role derives from a brand
+//        ├─► generated/json/brand-fixture.json      resolved roles for reference brands (native tests)
+//        ├─► generated/swift/StanceBrandRecipe.swift
+//        └─► generated/kotlin/StanceBrandRecipe.kt
 //
 // Run: node scripts/build-tokens.mjs            (writes outputs)
 //      node scripts/build-tokens.mjs --check    (fails if committed outputs are stale)
 import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
+import { contrastRatio, hexToRgb, inkScale, resolveBrand } from '../src/brand-engine.js';
+import { hcBoost, pairs } from './contrast-pairs.mjs';
 
 const pkg = join(import.meta.dirname, '..');
 const repo = join(pkg, '..', '..');
@@ -168,6 +174,179 @@ if (errors.length) {
   console.error(`Token source invalid:\n  ${errors.join('\n  ')}`);
   process.exit(1);
 }
+
+// ───────────────────────── brand recipe ─────────────────────────
+// The token source says how every colour role derives from a brand (specs/brand-theming.md):
+// aliases to the brand pair and the ink scale, plus `com.bindshq.stance.derive` extensions for
+// the values that are literal in the source but come from the brand pair. The build turns that
+// into one recipe, checks that the Binds pair reproduces every published value, and emits the
+// recipe for the web (src/generated.ts), iOS and Android.
+const DERIVE = 'com.bindshq.stance.derive';
+const BINDS = { name: 'Binds', light: '#FCF6EB', dark: '#140C2E' };
+/** Reference brands for the shared cross platform fixture. Chosen to exercise the algorithm. */
+const REFERENCE_BRANDS = [
+  BINDS,
+  { name: 'Harbour', light: '#F2F8FF', dark: '#0A1A50', accent: '#FF5A36' },
+  {
+    name: 'Sage',
+    light: '#F4F2EC',
+    dark: '#171D1A',
+    accent: { light: '#5E7361', dark: '#8FA892' },
+  },
+  { name: 'Graphite', light: '#FAFAF7', dark: '#1A1A1F', accent: '#7A7A7A' },
+];
+const brandErrors = [];
+const recipe = (() => {
+  const ink = Object.entries(primitives)
+    .filter(([p]) => p.startsWith('color.ink.'))
+    .map(([p, t]) => {
+      const rule = t.extensions?.[DERIVE];
+      if (
+        !rule ||
+        rule.from !== 'light' ||
+        rule.toward !== 'dark' ||
+        typeof rule.amount !== 'number'
+      )
+        brandErrors.push(`${p}: needs ${DERIVE} { from: light, toward: dark, amount }`);
+      return { step: p.slice('color.ink.'.length), t: rule?.amount ?? 0 };
+    });
+  const baseRecipe = (path, tok) => {
+    if (tok.alias === '{color.brand.ivory}') return { kind: 'light' };
+    if (tok.alias === '{color.brand.indigo}') return { kind: 'dark' };
+    const inkStep = tok.alias?.match(/^\{color\.ink\.(\d+)\}$/);
+    if (inkStep) return { kind: 'ink', step: inkStep[1] };
+    if (tok.alias && !tok.alias.startsWith('{color.status.'))
+      brandErrors.push(`${path}: alias ${tok.alias} has no brand meaning`);
+    return { kind: 'literal', hex: tok.value.hex, alpha: tok.value.alpha };
+  };
+  const roleRecipe = (theme, path, tok) => {
+    const rule = tok.extensions?.[DERIVE];
+    const fallback = baseRecipe(path, tok);
+    if (!rule) return fallback;
+    if (rule.accent === 'fill')
+      return { kind: 'accentFit', use: 'fill', against: [], min: rule.min, toward: null, fallback };
+    if (rule.accent === 'text' || rule.accent === 'ring')
+      return {
+        kind: 'accentFit',
+        use: rule.accent,
+        against: rule.against,
+        min: rule.min,
+        toward: theme.colorScheme === 'dark' ? 'white' : 'black',
+        fallback,
+      };
+    if (rule.accent === 'shade')
+      return {
+        kind: 'accentShade',
+        of: rule.of,
+        awayFrom: rule.awayFrom,
+        amount: rule.amount,
+        fallback,
+      };
+    if (rule.accent === 'foreground') return { kind: 'accentForeground', on: rule.on };
+    if (rule.accent) brandErrors.push(`${path}: unknown accent rule ${rule.accent}`);
+    if (!['light', 'dark'].includes(rule.from)) brandErrors.push(`${path}: derive needs from`);
+    return {
+      kind: 'derive',
+      from: rule.from,
+      toward: rule.toward ?? null,
+      amount: rule.amount ?? 0,
+      alpha: tok.value.alpha,
+    };
+  };
+  return {
+    version: 1,
+    ink,
+    themes: themes.map((t) => ({
+      name: t.name,
+      colorScheme: t.colorScheme,
+      accent: t.accent,
+      roles: Object.fromEntries(
+        Object.entries(t.tokens)
+          .filter(([p]) => p.startsWith('color.'))
+          .map(([p, tok]) => [p.slice('color.'.length), roleRecipe(t, p, tok)]),
+      ),
+    })),
+  };
+})();
+
+// Fitted accents must cover every contrast pair they take part in, so that any accent passes.
+for (const t of recipe.themes) {
+  if (!['light', 'dark'].includes(t.accent))
+    brandErrors.push(`${t.name}: theme needs accent: light | dark`);
+  for (const [fg, bg, base] of pairs) {
+    const required = t.name === 'high-contrast' ? hcBoost(base) : base;
+    const r = t.roles[fg];
+    if (
+      r?.kind === 'accentFit' &&
+      r.use !== 'fill' &&
+      !(r.against.includes(bg) && r.min >= required)
+    )
+      brandErrors.push(
+        `${t.name} ${fg}: accentFit must fit against ${bg} at ${required}:1 or more`,
+      );
+    if (
+      fg === 'accent-fg' &&
+      t.roles['accent-bg']?.kind === 'accentFit' &&
+      t.roles['accent-bg'].min < required
+    )
+      brandErrors.push(`${t.name} accent-bg: fill min must be at least ${required}`);
+  }
+}
+
+// The Binds pair through the recipe must reproduce what is published: the ink scale and every
+// role exactly, except `derive` rules, which the spec allows within 1/255 per channel.
+const bindsResolved = resolveBrand(recipe, BINDS);
+for (const [step, hex] of Object.entries(inkScale(recipe, BINDS.light, BINDS.dark))) {
+  const published = primitives[`color.ink.${step}`].value.hex;
+  if (hex !== published)
+    brandErrors.push(`color.ink.${step}: computed ${hex} but ${published} is published`);
+}
+for (const t of recipe.themes) {
+  for (const [role, r] of Object.entries(t.roles)) {
+    const published = themes.find((x) => x.name === t.name).tokens[`color.${role}`].value;
+    const got = bindsResolved.themes[t.name][role];
+    const delta = Math.max(
+      ...hexToRgb(got.hex).map((c, i) => Math.abs(c - hexToRgb(published.hex)[i])),
+    );
+    if (got.alpha !== published.alpha || delta > (r.kind === 'derive' ? 1 : 0))
+      brandErrors.push(
+        `${t.name} ${role}: the Binds pair gives ${got.hex}@${got.alpha} but ${published.hex}@${published.alpha} is published`,
+      );
+  }
+}
+if (brandErrors.length) {
+  console.error(
+    `Brand recipe does not reproduce the published tokens:\n  ${brandErrors.join('\n  ')}`,
+  );
+  process.exit(1);
+}
+
+const contrastTable = pairs.map(([fg, bg, min]) => ({
+  fg,
+  bg,
+  min,
+  highContrastMin: hcBoost(min),
+}));
+/** Failing contrast pairs for resolved themes, in the shape createBrandTheme reports. */
+const contrastFailures = (resolved) =>
+  recipe.themes.flatMap((t) =>
+    contrastTable.flatMap(({ fg, bg, min, highContrastMin }) => {
+      const required = t.name === 'high-contrast' ? highContrastMin : min;
+      const ratio = contrastRatio(resolved.themes[t.name][fg].hex, resolved.themes[t.name][bg].hex);
+      return ratio >= required
+        ? []
+        : [{ theme: t.name, fg, bg, ratio: Math.round(ratio * 100) / 100, required }];
+    }),
+  );
+const fixture = REFERENCE_BRANDS.map((b) => {
+  const resolved = resolveBrand(recipe, b);
+  return {
+    brand: b,
+    ink: resolved.ink,
+    themes: resolved.themes,
+    contrastFailures: contrastFailures(resolved),
+  };
+});
 
 // ───────────────────────── helpers ─────────────────────────
 const group = (prefix, from = primitives) =>
@@ -550,6 +729,206 @@ const emit = (file, content) =>
   );
 }
 
+// ───────────────────────── brand recipe outputs ─────────────────────────
+{
+  const RECIPE_DOC = [
+    'How every semantic colour role derives from a brand (specs/brand-theming.md).',
+    'A brand is a light colour, a dark colour and an optional accent, all 8 bit sRGB.',
+    'Colour maths: convert sRGB to OKLab (Ottosson 2020 matrices, standard sRGB transfer',
+    'function), interpolate linearly, convert back, clamp each channel to the range 0 to 1 and round',
+    'channel × 255 half up to an integer. Every mix starts from the 8 bit input colours.',
+  ];
+  const json = (o) => JSON.stringify(o, null, 2) + '\n';
+  const recipeJson = {
+    $description: HEADER,
+    $comment: RECIPE_DOC.join(' '),
+    version: recipe.version,
+    spec: 'https://github.com/BindsHQ/stance/blob/main/specs/brand-theming.md',
+    binds: BINDS,
+    kinds: {
+      light: "The brand's light colour.",
+      dark: "The brand's dark colour.",
+      ink: 'Step `step` of the ink scale: light mixed toward dark by the position of that step in `ink`.',
+      literal: 'A fixed colour that does not depend on the brand (status colours).',
+      derive:
+        '`from` (light or dark) mixed toward `toward` (white, black, light, dark, or null for no mix) by `amount`, with alpha `alpha`.',
+      accentFit:
+        'Without an accent: `fallback`. With one: start from the accent the theme names in `accent` (a single accent colour serves every theme). use text or ring: fit against the resolved roles in `against`, moving L toward `toward` (black gives L 0, white gives L 1). use fill: pick the foreground first (light or dark, whichever has the higher contrast on the starting accent, light wins a tie), fit against that one colour, toward black (L 0) when the relative luminance of the foreground is higher than that of the start, otherwise toward white (L 1). Fitting: see `fit`.',
+      accentShade:
+        'Without an accent: `fallback`. With one: the resolved role `of` mixed in OKLab by `amount` toward the brand colour (light or dark) that is not the resolved role `awayFrom` (toward dark when `awayFrom` equals light, otherwise toward light).',
+      accentForeground:
+        'Light or dark, whichever has the higher WCAG 2 contrast ratio on the resolved role `on`. Light wins a tie.',
+    },
+    fit: {
+      iterations: 32,
+      steps: [
+        'Keep the starting colour OKLab a and b; only L changes. Every candidate is converted to 8 bit hex (clamp, round half up) before its contrast is measured.',
+        'A candidate passes when its WCAG 2 contrast ratio against every target colour is at least `min`.',
+        'If the starting colour passes, use it unchanged.',
+        'Otherwise, if the colour at the target L (0 or 1) fails too, use that colour.',
+        'Otherwise bisect exactly 32 times with lo = start L (failing) and hi = target L (passing): mid = (lo + hi) / 2; if mid passes then hi = mid, else lo = mid. Use the colour at hi.',
+      ],
+    },
+    ink: recipe.ink,
+    themes: recipe.themes,
+    contrast: {
+      $comment:
+        'Pairs checked after resolving. `min` applies to light and dark, `highContrastMin` to high-contrast. A pair fails when its ratio is below the minimum.',
+      pairs: contrastTable,
+    },
+  };
+  emit(join(pkg, 'generated', 'json', 'brand-recipe.json'), json(recipeJson));
+  emit(
+    join(pkg, 'generated', 'json', 'brand-fixture.json'),
+    json({
+      $description: HEADER,
+      $comment:
+        'Resolved roles for reference brands through brand-recipe.json. Every platform must produce these values exactly. The Binds entry differs from the published Binds tokens by at most 1/255 per channel in `derive` roles, as the spec allows.',
+      brands: fixture,
+    }),
+  );
+
+  // TypeScript: the recipe and contrast table for createBrandTheme.
+  const tsFile = join(pkg, 'src', 'generated.ts');
+  outputs[tsFile] = outputs[tsFile].replace(
+    `// ${HEADER}\n`,
+    `// ${HEADER}\n\nimport type { BrandRecipe } from './brand-engine.js';\n`,
+  );
+  outputs[tsFile] +=
+    `\n/** ${RECIPE_DOC.join(' ')} */\nexport const brandRecipe: BrandRecipe = ${JSON.stringify(recipe, null, 2)};\n` +
+    `\n/** Contrast pairs every brand is checked against. */\nexport const brandContrastPairs: readonly { fg: keyof ThemeColors; bg: keyof ThemeColors; min: number; highContrastMin: number }[] = ${JSON.stringify(contrastTable, null, 2)};\n`;
+
+  const hex6 = (h) => `0x${h.slice(1).toUpperCase()}`;
+  const dbl = (n) => (Number.isInteger(n) ? `${n}.0` : String(n));
+
+  // Swift
+  const swiftRecipe = (r) => {
+    switch (r.kind) {
+      case 'light':
+      case 'dark':
+        return `.${r.kind}`;
+      case 'ink':
+        return `.ink(step: ${r.step})`;
+      case 'literal':
+        return `.literal(hex: ${hex6(r.hex)}, alpha: ${dbl(r.alpha)})`;
+      case 'derive':
+        return `.derive(from: .${r.from}, toward: ${r.toward ? `.${r.toward}` : 'nil'}, amount: ${dbl(r.amount)}, alpha: ${dbl(r.alpha)})`;
+      case 'accentFit':
+        return `.accentFit(use: .${r.use}, against: [${r.against.map((a) => `"${a}"`).join(', ')}], min: ${dbl(r.min)}, toward: ${r.toward ? `.${r.toward}` : 'nil'}, fallback: ${swiftRecipe(r.fallback)})`;
+      case 'accentShade':
+        return `.accentShade(of: "${r.of}", awayFrom: "${r.awayFrom}", amount: ${dbl(r.amount)}, fallback: ${swiftRecipe(r.fallback)})`;
+      case 'accentForeground':
+        return `.accentForeground(on: "${r.on}")`;
+    }
+    throw new Error(r.kind);
+  };
+  const swiftTheme = (t) =>
+    `    /// The ${t.name} theme.\n    public static let ${ident(t.name)} = StanceThemeRecipe(\n        name: "${t.name}",\n        isDark: ${t.colorScheme === 'dark'},\n        accent: .${t.accent},\n        roles: [\n${Object.entries(
+      t.roles,
+    )
+      .map(
+        ([role, r]) =>
+          `            StanceRoleEntry(role: "${role}", property: "${ident(role)}", recipe: ${swiftRecipe(r)}),`,
+      )
+      .join('\n')}\n        ]\n    )\n`;
+  const roleNames = Object.keys(recipe.themes[0].roles);
+  emit(
+    join(pkg, 'generated', 'swift', 'StanceBrandRecipe.swift'),
+    `// ${HEADER}\n// swiftlint:disable all\n\nimport Foundation\n\n` +
+      RECIPE_DOC.map((l) => `// ${l}\n`).join('') +
+      `// The same tables are in packages/tokens/generated/json/brand-recipe.json, and\n// brand-fixture.json holds the resolved roles every platform must reproduce.\n\n` +
+      `/// One of the two brand colours.\npublic enum StanceBrandSource: String, Equatable, Hashable, Sendable {\n    /// The brand's lightest colour: the light canvas and the foreground on dark surfaces.\n    case light\n    /// The brand's darkest colour: text, the default accent and the dark canvas.\n    case dark\n}\n\n` +
+      `/// The colour a \`derive\` rule mixes toward.\npublic enum StanceMixTarget: String, Equatable, Hashable, Sendable {\n    /// #FFFFFF\n    case white\n    /// #000000\n    case black\n    /// The brand's light colour.\n    case light\n    /// The brand's dark colour.\n    case dark\n}\n\n` +
+      `/// How an \`accentFit\` role uses the accent.\npublic enum StanceAccentUse: String, Equatable, Hashable, Sendable {\n    /// Text on canvases (links, selected labels).\n    case text\n    /// A filled control with \`accent-fg\` on it.\n    case fill\n    /// A focus ring.\n    case ring\n}\n\n` +
+      `/// How one semantic colour role is computed from a brand.\npublic indirect enum StanceRoleRecipe: Equatable, Hashable, Sendable {\n` +
+      `    /// The brand's light colour, opaque.\n    case light\n` +
+      `    /// The brand's dark colour, opaque.\n    case dark\n` +
+      `    /// A step of the ink scale (\`StanceBrandRecipe.ink\`), opaque.\n    case ink(step: Int)\n` +
+      `    /// A fixed colour that does not depend on the brand (status colours). \`hex\` is 0xRRGGBB.\n    case literal(hex: UInt32, alpha: Double)\n` +
+      `    /// \`from\` mixed in OKLab toward \`toward\` by \`amount\` (0 keeps \`from\`, 1 gives \`toward\`;\n    /// \`nil\` means no mix), then given \`alpha\`.\n    case derive(from: StanceBrandSource, toward: StanceMixTarget?, amount: Double, alpha: Double)\n` +
+      `    /// Without an accent, \`fallback\`. With one, the theme's starting accent\n    /// (\`StanceThemeRecipe.accent\`) with its OKLab lightness fitted as documented on\n    /// \`StanceBrandRecipe.fitIterations\` until it meets \`min\`:\n    /// - \`.text\`, \`.ring\`: against every resolved role in \`against\`, moving L toward \`toward\`\n    ///   (\`.black\` is L 0, \`.white\` is L 1).\n    /// - \`.fill\`: \`against\` is empty and \`toward\` is nil. Pick the foreground first: light or dark,\n    ///   whichever has the higher contrast on the starting accent (light wins a tie). Fit against\n    ///   that one colour, toward L 0 when the foreground's relative luminance is higher than the\n    ///   start's, otherwise toward L 1.\n    case accentFit(use: StanceAccentUse, against: [String], min: Double, toward: StanceMixTarget?, fallback: StanceRoleRecipe)\n` +
+      `    /// Without an accent, \`fallback\`. With one, the resolved role \`of\` mixed in OKLab by \`amount\`\n    /// toward the brand colour that is not the resolved role \`awayFrom\`: toward dark when\n    /// \`awayFrom\` resolved to the brand's light colour, otherwise toward light.\n    case accentShade(of: String, awayFrom: String, amount: Double, fallback: StanceRoleRecipe)\n` +
+      `    /// The brand's light or dark colour, whichever has the higher WCAG 2 contrast ratio on the\n    /// resolved role \`on\` of the same theme. Light wins a tie.\n    case accentForeground(on: String)\n}\n\n` +
+      `/// One role of a theme: its token name, the matching \`StanceColorTokens\` property and its recipe.\npublic struct StanceRoleEntry: Equatable, Hashable, Sendable {\n    /// Token name, for example \`bg-canvas\`.\n    public let role: String\n    /// \`StanceColorTokens\` property name, for example \`bgCanvas\`.\n    public let property: String\n    public let recipe: StanceRoleRecipe\n}\n\n` +
+      `/// Every colour role of one theme, in the order of \`StanceColorTokens\`.\npublic struct StanceThemeRecipe: Equatable, Hashable, Sendable {\n    public let name: String\n    public let isDark: Bool\n    /// Which accent value starts this theme: \`.light\` (or the single accent) or \`.dark\`.\n    public let accent: StanceBrandSource\n    public let roles: [StanceRoleEntry]\n}\n\n` +
+      `/// A step of the ink scale and its position \`t\` from light (0) to dark (1).\npublic struct StanceInkPosition: Equatable, Hashable, Sendable {\n    public let step: Int\n    public let t: Double\n}\n\n` +
+      `/// A pair of roles whose WCAG 2 contrast ratio is checked after resolving a brand.\npublic struct StanceContrastPair: Equatable, Hashable, Sendable {\n    public let fg: String\n    public let bg: String\n    /// Minimum ratio in the light and dark themes.\n    public let minimum: Double\n    /// Minimum ratio in the high-contrast theme.\n    public let highContrastMinimum: Double\n}\n\n` +
+      `/// The brand recipe tables generated from the token source.\npublic enum StanceBrandRecipe {\n` +
+      `    public static let version = ${recipe.version}\n\n` +
+      `    /// Accent fitting, exactly:\n${recipeJson.fit.steps.map((l) => `    /// - ${l}\n`).join('')}    public static let fitIterations = ${recipeJson.fit.iterations}\n\n` +
+      `    /// The Binds light colour, Ivory: the default palette.\n    public static let bindsLight: UInt32 = ${hex6(BINDS.light)}\n    /// The Binds dark colour, Indigo.\n    public static let bindsDark: UInt32 = ${hex6(BINDS.dark)}\n\n` +
+      `    /// Ink scale positions, from step 0 (light) to step 1000 (dark).\n    public static let ink: [StanceInkPosition] = [\n${recipe.ink.map(({ step, t }) => `        StanceInkPosition(step: ${step}, t: ${dbl(t)}),`).join('\n')}\n    ]\n\n` +
+      recipe.themes.map(swiftTheme).join('\n') +
+      `\n    public static let allThemes: [StanceThemeRecipe] = [${recipe.themes.map((t) => ident(t.name)).join(', ')}]\n\n` +
+      `    /// Contrast pairs checked after resolving a brand.\n    public static let contrastPairs: [StanceContrastPair] = [\n${contrastTable.map((p) => `        StanceContrastPair(fg: "${p.fg}", bg: "${p.bg}", minimum: ${dbl(p.min)}, highContrastMinimum: ${dbl(p.highContrastMin)}),`).join('\n')}\n    ]\n}\n\n` +
+      `extension StanceColorTokens {\n    /// Builds colour tokens from a lookup by token name (for example \`bg-canvas\`), so a runtime\n    /// can fill every role from a resolved brand theme.\n    public init(role: (String) -> StanceRGBA) {\n        self.init(\n${roleNames.map((r) => `            ${ident(r)}: role("${r}")`).join(',\n')}\n        )\n    }\n}\n`,
+  );
+
+  // Kotlin
+  const kd = (n) => dbl(n);
+  const ktRecipe = (r) => {
+    switch (r.kind) {
+      case 'light':
+        return 'StanceRoleRecipe.Light';
+      case 'dark':
+        return 'StanceRoleRecipe.Dark';
+      case 'ink':
+        return `StanceRoleRecipe.Ink(${r.step})`;
+      case 'literal':
+        return `StanceRoleRecipe.Literal(0x${r.hex.slice(1).toUpperCase()}, ${kd(r.alpha)})`;
+      case 'derive':
+        return `StanceRoleRecipe.Derive(StanceBrandSource.${r.from === 'light' ? 'Light' : 'Dark'}, ${r.toward ? `StanceMixTarget.${r.toward[0].toUpperCase()}${r.toward.slice(1)}` : 'null'}, ${kd(r.amount)}, ${kd(r.alpha)})`;
+      case 'accentFit':
+        return `StanceRoleRecipe.AccentFit(StanceAccentUse.${r.use[0].toUpperCase()}${r.use.slice(1)}, listOf(${r.against.map((a) => `"${a}"`).join(', ')}), ${kd(r.min)}, ${r.toward ? `StanceMixTarget.${r.toward[0].toUpperCase()}${r.toward.slice(1)}` : 'null'}, ${ktRecipe(r.fallback)})`;
+      case 'accentShade':
+        return `StanceRoleRecipe.AccentShade("${r.of}", "${r.awayFrom}", ${kd(r.amount)}, ${ktRecipe(r.fallback)})`;
+      case 'accentForeground':
+        return `StanceRoleRecipe.AccentForeground("${r.on}")`;
+    }
+    throw new Error(r.kind);
+  };
+  const ktTheme = (t) =>
+    `    /** The ${t.name} theme. */\n    val ${ident(t.name)}: StanceThemeRecipe = StanceThemeRecipe(\n        name = "${t.name}",\n        isDark = ${t.colorScheme === 'dark'},\n        accent = StanceBrandSource.${t.accent === 'dark' ? 'Dark' : 'Light'},\n        roles = listOf(\n${Object.entries(
+      t.roles,
+    )
+      .map(
+        ([role, r]) => `            StanceRoleEntry("${role}", "${ident(role)}", ${ktRecipe(r)}),`,
+      )
+      .join('\n')}\n        ),\n    )\n`;
+  emit(
+    join(pkg, 'generated', 'kotlin', 'StanceBrandRecipe.kt'),
+    `// ${HEADER}\n` +
+      RECIPE_DOC.map((l) => `// ${l}\n`).join('') +
+      `// The same tables are in packages/tokens/generated/json/brand-recipe.json, and\n// brand-fixture.json holds the resolved roles every platform must reproduce.\n` +
+      `@file:Suppress("unused", "MagicNumber", "MaxLineLength", "LongMethod")\n\npackage com.bindshq.stance.tokens\n\n` +
+      `/** One of the two brand colours. */\npublic enum class StanceBrandSource {\n    /** The brand's lightest colour: the light canvas and the foreground on dark surfaces. */\n    Light,\n\n    /** The brand's darkest colour: text, the default accent and the dark canvas. */\n    Dark,\n}\n\n` +
+      `/** The colour a [StanceRoleRecipe.Derive] rule mixes toward. */\npublic enum class StanceMixTarget {\n    /** #FFFFFF */\n    White,\n\n    /** #000000 */\n    Black,\n\n    /** The brand's light colour. */\n    Light,\n\n    /** The brand's dark colour. */\n    Dark,\n}\n\n` +
+      `/** How an [StanceRoleRecipe.AccentFit] role uses the accent. */\npublic enum class StanceAccentUse {\n    /** Text on canvases (links, selected labels). */\n    Text,\n\n    /** A filled control with accent-fg on it. */\n    Fill,\n\n    /** A focus ring. */\n    Ring,\n}\n\n` +
+      `/** How one semantic colour role is computed from a brand. */\npublic sealed interface StanceRoleRecipe {\n` +
+      `    /** The brand's light colour, opaque. */\n    public data object Light : StanceRoleRecipe\n\n` +
+      `    /** The brand's dark colour, opaque. */\n    public data object Dark : StanceRoleRecipe\n\n` +
+      `    /** A step of the ink scale ([StanceBrandRecipe.ink]), opaque. */\n    public data class Ink(public val step: Int) : StanceRoleRecipe\n\n` +
+      `    /** A fixed colour that does not depend on the brand (status colours). [rgb] is 0xRRGGBB. */\n    public data class Literal(public val rgb: Int, public val alpha: Double) : StanceRoleRecipe\n\n` +
+      `    /**\n     * [from] mixed in OKLab toward [toward] by [amount] (0 keeps [from], 1 gives [toward];\n     * null means no mix), then given [alpha].\n     */\n    public data class Derive(\n        public val from: StanceBrandSource,\n        public val toward: StanceMixTarget?,\n        public val amount: Double,\n        public val alpha: Double,\n    ) : StanceRoleRecipe\n\n` +
+      `    /**\n     * Without an accent, [fallback]. With one, the theme's starting accent ([StanceThemeRecipe.accent])\n     * with its OKLab lightness fitted as documented on [StanceBrandRecipe.FIT_ITERATIONS] until it meets [min]:\n     * - [StanceAccentUse.Text], [StanceAccentUse.Ring]: against every resolved role in [against],\n     *   moving L toward [toward] ([StanceMixTarget.Black] is L 0, [StanceMixTarget.White] is L 1).\n     * - [StanceAccentUse.Fill]: [against] is empty and [toward] is null. Pick the foreground first:\n     *   light or dark, whichever has the higher contrast on the starting accent (light wins a tie).\n     *   Fit against that one colour, toward L 0 when the foreground's relative luminance is higher\n     *   than the start's, otherwise toward L 1.\n     */\n    public data class AccentFit(\n        public val use: StanceAccentUse,\n        public val against: List<String>,\n        public val min: Double,\n        public val toward: StanceMixTarget?,\n        public val fallback: StanceRoleRecipe,\n    ) : StanceRoleRecipe\n\n` +
+      `    /**\n     * Without an accent, [fallback]. With one, the resolved role [of] mixed in OKLab by [amount]\n     * toward the brand colour that is not the resolved role [awayFrom]: toward dark when [awayFrom]\n     * resolved to the brand's light colour, otherwise toward light.\n     */\n    public data class AccentShade(\n        public val of: String,\n        public val awayFrom: String,\n        public val amount: Double,\n        public val fallback: StanceRoleRecipe,\n    ) : StanceRoleRecipe\n\n` +
+      `    /**\n     * The brand's light or dark colour, whichever has the higher WCAG 2 contrast ratio on the\n     * resolved role [on] of the same theme. Light wins a tie.\n     */\n    public data class AccentForeground(public val on: String) : StanceRoleRecipe\n}\n\n` +
+      `/** One role of a theme: its token name, the matching [StanceColorTokens] property and its recipe. */\ndata class StanceRoleEntry(\n    /** Token name, for example bg-canvas. */\n    val role: String,\n    /** [StanceColorTokens] property name, for example bgCanvas. */\n    val property: String,\n    val recipe: StanceRoleRecipe,\n)\n\n` +
+      `/** Every colour role of one theme, in the order of [StanceColorTokens]. */\ndata class StanceThemeRecipe(\n    val name: String,\n    val isDark: Boolean,\n    /** Which accent value starts this theme: Light (or the single accent) or Dark. */\n    val accent: StanceBrandSource,\n    val roles: List<StanceRoleEntry>,\n)\n\n` +
+      `/** A step of the ink scale and its position [t] from light (0) to dark (1). */\ndata class StanceInkPosition(\n    val step: Int,\n    val t: Double,\n)\n\n` +
+      `/** A pair of roles whose WCAG 2 contrast ratio is checked after resolving a brand. */\ndata class StanceContrastPair(\n    val fg: String,\n    val bg: String,\n    /** Minimum ratio in the light and dark themes. */\n    val minimum: Double,\n    /** Minimum ratio in the high-contrast theme. */\n    val highContrastMinimum: Double,\n)\n\n` +
+      `/** The brand recipe tables generated from the token source. */\nobject StanceBrandRecipe {\n` +
+      `    const val version: Int = ${recipe.version}\n\n` +
+      `    /**\n     * Accent fitting, exactly:\n${recipeJson.fit.steps.map((l) => `     * - ${l}\n`).join('')}     */\n    const val FIT_ITERATIONS: Int = ${recipeJson.fit.iterations}\n\n` +
+      `    /** The Binds light colour, Ivory, as 0xRRGGBB: the default palette. */\n    const val bindsLight: Int = ${hex6(BINDS.light)}\n\n    /** The Binds dark colour, Indigo, as 0xRRGGBB. */\n    const val bindsDark: Int = ${hex6(BINDS.dark)}\n\n` +
+      `    /** Ink scale positions, from step 0 (light) to step 1000 (dark). */\n    val ink: List<StanceInkPosition> = listOf(\n${recipe.ink.map(({ step, t }) => `        StanceInkPosition(${step}, ${kd(t)}),`).join('\n')}\n    )\n\n` +
+      recipe.themes.map(ktTheme).join('\n') +
+      `\n    val allThemes: List<StanceThemeRecipe> = listOf(${recipe.themes.map((t) => ident(t.name)).join(', ')})\n\n` +
+      `    /** Contrast pairs checked after resolving a brand. */\n    val contrastPairs: List<StanceContrastPair> = listOf(\n${contrastTable.map((p) => `        StanceContrastPair("${p.fg}", "${p.bg}", ${kd(p.min)}, ${kd(p.highContrastMin)}),`).join('\n')}\n    )\n}\n\n` +
+      `/** Builds colour tokens from a lookup by token name (for example bg-canvas), so a runtime can fill every role from a resolved brand theme. Colours are ARGB. */\npublic fun stanceColorTokens(role: (String) -> Long): StanceColorTokens = StanceColorTokens(\n${roleNames.map((r) => `    ${ident(r)} = role("${r}"),`).join('\n')}\n)\n`,
+  );
+}
+
 // ───────────────────────── resolved JSON ─────────────────────────
 emit(
   join(pkg, 'generated', 'json', 'tokens.resolved.json'),
@@ -600,6 +979,28 @@ const copies = [
     ),
   ],
 ];
+const nativeTokens = (...p) =>
+  join(
+    repo,
+    'platforms',
+    'android',
+    'stance-tokens',
+    'src',
+    'main',
+    'kotlin',
+    'com',
+    'bindshq',
+    'stance',
+    'tokens',
+    ...p,
+  );
+copies.push(
+  [
+    join(pkg, 'generated', 'swift', 'StanceBrandRecipe.swift'),
+    join(repo, 'platforms', 'ios', 'Sources', 'StanceTokens', 'StanceBrandRecipe.swift'),
+  ],
+  [join(pkg, 'generated', 'kotlin', 'StanceBrandRecipe.kt'), nativeTokens('StanceBrandRecipe.kt')],
+);
 for (const [from, to] of copies) emit(to, outputs[from]);
 
 // ───────────────────────── write / check ─────────────────────────

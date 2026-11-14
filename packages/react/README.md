@@ -12,6 +12,14 @@ import '@bindshq/stance-react/styles.css';
 import { ThemeProvider, ThemeScript, Button } from '@bindshq/stance-react';
 ```
 
+Make Stance yours: generate a full palette from your own brand colours, at build time with the `stance-brand` CLI from `@bindshq/stance-tokens`, or at runtime:
+
+```tsx
+<ThemeProvider brand={{ name: 'Acme', light: '#F7F5F0', dark: '#101B2D' }}>{children}</ThemeProvider>
+```
+
+Guide: https://www.stanceui.com/docs/theming#your-brand
+
 - React 18.2+ and 19
 - Zero runtime dependencies
 - Light, dark and high-contrast themes

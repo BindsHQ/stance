@@ -69,33 +69,49 @@ public enum StanceAppearance: String, CaseIterable, Identifiable, Sendable {
 ///     }
 /// }
 /// ```
+///
+/// Pass a ``StanceBrand`` to build the palette from your own colours, in light, dark and high
+/// contrast (including Increase Contrast):
+///
+/// ```swift
+/// StanceThemeProvider(brand: acme) { RootView() }
+/// ```
 public struct StanceThemeProvider<Content: View>: View {
     @AppStorage(StanceAppearance.storageKey) private var stored: String = StanceAppearance.system.rawValue
+    private let brand: StanceBrand?
     private let fontFamily: String?
     private let content: Content
 
-    public init(fontFamily: String? = nil, @ViewBuilder content: () -> Content) {
+    /// - Parameters:
+    ///   - brand: Optional brand. `nil` keeps the brand from the environment, which is the
+    ///     default palette unless an ancestor set one.
+    ///   - fontFamily: Optional custom font family.
+    public init(brand: StanceBrand? = nil, fontFamily: String? = nil, @ViewBuilder content: () -> Content) {
+        self.brand = brand
         self.fontFamily = fontFamily
         self.content = content()
     }
 
     public var body: some View {
         let appearance = StanceAppearance(rawValue: stored) ?? .system
-        content.modifier(StanceThemeModifier(appearance: appearance, fontFamily: fontFamily))
+        content.modifier(StanceThemeModifier(appearance: appearance, brand: brand, fontFamily: fontFamily))
     }
 }
 
 struct StanceThemeModifier: ViewModifier {
     let appearance: StanceAppearance
+    let brand: StanceBrand?
     let fontFamily: String?
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.colorSchemeContrast) private var contrast
+    @Environment(\.stanceBrand) private var inheritedBrand
 
     func body(content: Content) -> some View {
         let mode = appearance.resolve(colorScheme: colorScheme, increasedContrast: contrast == .increased)
-        let theme = StanceTheme(mode: mode, fontFamily: fontFamily)
+        let theme = StanceTheme(mode: mode, brand: brand ?? inheritedBrand, fontFamily: fontFamily)
         content
             .environment(\.stanceTheme, theme)
+            .environment(\.stanceBrand, theme.brand)
             .tint(theme.colors.accentBg)
             .foregroundStyle(theme.colors.fgDefault)
             .background(theme.colors.bgCanvas.ignoresSafeArea())
@@ -103,18 +119,58 @@ struct StanceThemeModifier: ViewModifier {
     }
 }
 
-extension View {
-    /// Applies a Stance appearance to this view and its descendants.
-    public func stanceTheme(_ appearance: StanceAppearance, fontFamily: String? = nil) -> some View {
-        modifier(StanceThemeModifier(appearance: appearance, fontFamily: fontFamily))
-    }
+/// Re-themes a subtree with a brand, keeping the active mode and font family.
+struct StanceBrandModifier: ViewModifier {
+    let brand: StanceBrand
+    @Environment(\.stanceTheme) private var current
 
-    /// Scopes a fixed theme to a subtree (for example an inverted section or a preview).
-    public func stanceScopedTheme(_ mode: StanceTheme.Mode) -> some View {
-        let theme = StanceTheme(mode: mode)
-        return environment(\.stanceTheme, theme)
+    func body(content: Content) -> some View {
+        let theme = StanceTheme(mode: current.mode, brand: brand, fontFamily: current.fontFamily)
+        content
+            .environment(\.stanceTheme, theme)
+            .environment(\.stanceBrand, brand)
+            .foregroundStyle(theme.colors.fgDefault)
+            .tint(theme.colors.accentBg)
+    }
+}
+
+/// Scopes a fixed mode to a subtree, keeping the brand from the environment.
+struct StanceScopedThemeModifier: ViewModifier {
+    let mode: StanceTheme.Mode
+    @Environment(\.stanceBrand) private var brand
+    @Environment(\.stanceTheme) private var current
+
+    func body(content: Content) -> some View {
+        let theme = StanceTheme(mode: mode, brand: brand, fontFamily: current.fontFamily)
+        content
+            .environment(\.stanceTheme, theme)
             .environment(\.colorScheme, theme.colorScheme)
             .foregroundStyle(theme.colors.fgDefault)
             .tint(theme.colors.accentBg)
+    }
+}
+
+extension View {
+    /// Applies a Stance appearance to this view and its descendants.
+    /// - Parameter brand: Optional brand; `nil` keeps the brand from the environment.
+    public func stanceTheme(_ appearance: StanceAppearance, brand: StanceBrand? = nil, fontFamily: String? = nil) -> some View {
+        modifier(StanceThemeModifier(appearance: appearance, brand: brand, fontFamily: fontFamily))
+    }
+
+    /// Applies a brand to this view and its descendants, in whichever mode is active.
+    ///
+    /// ```swift
+    /// PartnerPanel().stanceBrand(partner)
+    /// ```
+    ///
+    /// The rest of the app keeps its own brand. ``StanceBrand/binds`` restores the default palette.
+    public func stanceBrand(_ brand: StanceBrand) -> some View {
+        modifier(StanceBrandModifier(brand: brand))
+    }
+
+    /// Scopes a fixed theme to a subtree (for example an inverted section or a preview).
+    /// The brand from the environment carries over.
+    public func stanceScopedTheme(_ mode: StanceTheme.Mode) -> some View {
+        modifier(StanceScopedThemeModifier(mode: mode))
     }
 }

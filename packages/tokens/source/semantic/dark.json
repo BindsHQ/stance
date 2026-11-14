@@ -4,7 +4,8 @@
     "com.bindshq.stance": {
       "name": "dark",
       "label": "Dark",
-      "colorScheme": "dark"
+      "colorScheme": "dark",
+      "accent": "dark"
     }
   },
   "color": {
@@ -39,6 +40,13 @@
         "components": [0.0235, 0.0118, 0.0627],
         "alpha": 0.64,
         "hex": "#060310"
+      },
+      "$extensions": {
+        "com.bindshq.stance.derive": {
+          "from": "dark",
+          "toward": "black",
+          "amount": 0.405
+        }
       }
     },
     "fg-default": {
@@ -57,7 +65,14 @@
       "$value": "{color.brand.indigo}"
     },
     "fg-link": {
-      "$value": "{color.brand.ivory}"
+      "$value": "{color.brand.ivory}",
+      "$extensions": {
+        "com.bindshq.stance.derive": {
+          "accent": "text",
+          "against": ["bg-canvas", "bg-surface", "bg-subtle"],
+          "min": 4.5
+        }
+      }
     },
     "border-subtle": {
       "$value": "{color.ink.900}"
@@ -78,16 +93,44 @@
       "$value": "{color.ink.800}"
     },
     "accent-bg": {
-      "$value": "{color.brand.ivory}"
+      "$value": "{color.brand.ivory}",
+      "$extensions": {
+        "com.bindshq.stance.derive": {
+          "accent": "fill",
+          "min": 4.5
+        }
+      }
     },
     "accent-bg-hover": {
-      "$value": "{color.ink.50}"
+      "$value": "{color.ink.50}",
+      "$extensions": {
+        "com.bindshq.stance.derive": {
+          "accent": "shade",
+          "of": "accent-bg",
+          "awayFrom": "accent-fg",
+          "amount": 0.15
+        }
+      }
     },
     "accent-bg-active": {
-      "$value": "{color.ink.100}"
+      "$value": "{color.ink.100}",
+      "$extensions": {
+        "com.bindshq.stance.derive": {
+          "accent": "shade",
+          "of": "accent-bg",
+          "awayFrom": "accent-fg",
+          "amount": 0.3
+        }
+      }
     },
     "accent-fg": {
-      "$value": "{color.brand.indigo}"
+      "$value": "{color.brand.indigo}",
+      "$extensions": {
+        "com.bindshq.stance.derive": {
+          "accent": "foreground",
+          "on": "accent-bg"
+        }
+      }
     },
     "interactive-hover": {
       "$value": {
@@ -95,6 +138,11 @@
         "components": [0.9882, 0.9647, 0.9216],
         "alpha": 0.07,
         "hex": "#FCF6EB"
+      },
+      "$extensions": {
+        "com.bindshq.stance.derive": {
+          "from": "light"
+        }
       }
     },
     "interactive-active": {
@@ -103,16 +151,35 @@
         "components": [0.9882, 0.9647, 0.9216],
         "alpha": 0.12,
         "hex": "#FCF6EB"
+      },
+      "$extensions": {
+        "com.bindshq.stance.derive": {
+          "from": "light"
+        }
       }
     },
     "interactive-selected": {
       "$value": "{color.ink.800}"
     },
     "interactive-selected-fg": {
-      "$value": "{color.brand.ivory}"
+      "$value": "{color.brand.ivory}",
+      "$extensions": {
+        "com.bindshq.stance.derive": {
+          "accent": "text",
+          "against": ["bg-canvas", "bg-surface", "bg-subtle", "interactive-selected"],
+          "min": 4.5
+        }
+      }
     },
     "focus-ring": {
-      "$value": "{color.brand.ivory}"
+      "$value": "{color.brand.ivory}",
+      "$extensions": {
+        "com.bindshq.stance.derive": {
+          "accent": "ring",
+          "against": ["bg-canvas", "bg-surface", "focus-ring-offset"],
+          "min": 3
+        }
+      }
     },
     "focus-ring-offset": {
       "$value": "{color.brand.indigo}"

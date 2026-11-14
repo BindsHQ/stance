@@ -4,7 +4,8 @@
     "com.bindshq.stance": {
       "name": "light",
       "label": "Light",
-      "colorScheme": "light"
+      "colorScheme": "light",
+      "accent": "light"
     }
   },
   "color": {
@@ -27,6 +28,13 @@
         "components": [1, 0.9882, 0.9647],
         "alpha": 1,
         "hex": "#FFFCF6"
+      },
+      "$extensions": {
+        "com.bindshq.stance.derive": {
+          "from": "light",
+          "toward": "white",
+          "amount": 0.55
+        }
       }
     },
     "bg-surface-raised": {
@@ -35,6 +43,13 @@
         "components": [1, 0.9882, 0.9647],
         "alpha": 1,
         "hex": "#FFFCF6"
+      },
+      "$extensions": {
+        "com.bindshq.stance.derive": {
+          "from": "light",
+          "toward": "white",
+          "amount": 0.55
+        }
       }
     },
     "bg-overlay": {
@@ -43,6 +58,13 @@
         "components": [1, 0.9882, 0.9647],
         "alpha": 1,
         "hex": "#FFFCF6"
+      },
+      "$extensions": {
+        "com.bindshq.stance.derive": {
+          "from": "light",
+          "toward": "white",
+          "amount": 0.55
+        }
       }
     },
     "bg-inverse": {
@@ -54,6 +76,11 @@
         "components": [0.0784, 0.0471, 0.1804],
         "alpha": 0.48,
         "hex": "#140C2E"
+      },
+      "$extensions": {
+        "com.bindshq.stance.derive": {
+          "from": "dark"
+        }
       }
     },
     "fg-default": {
@@ -72,7 +99,14 @@
       "$value": "{color.brand.ivory}"
     },
     "fg-link": {
-      "$value": "{color.brand.indigo}"
+      "$value": "{color.brand.indigo}",
+      "$extensions": {
+        "com.bindshq.stance.derive": {
+          "accent": "text",
+          "against": ["bg-canvas", "bg-surface", "bg-subtle"],
+          "min": 4.5
+        }
+      }
     },
     "border-subtle": {
       "$value": "{color.ink.50}"
@@ -93,16 +127,44 @@
       "$value": "{color.ink.100}"
     },
     "accent-bg": {
-      "$value": "{color.brand.indigo}"
+      "$value": "{color.brand.indigo}",
+      "$extensions": {
+        "com.bindshq.stance.derive": {
+          "accent": "fill",
+          "min": 4.5
+        }
+      }
     },
     "accent-bg-hover": {
-      "$value": "{color.ink.800}"
+      "$value": "{color.ink.800}",
+      "$extensions": {
+        "com.bindshq.stance.derive": {
+          "accent": "shade",
+          "of": "accent-bg",
+          "awayFrom": "accent-fg",
+          "amount": 0.15
+        }
+      }
     },
     "accent-bg-active": {
-      "$value": "{color.ink.700}"
+      "$value": "{color.ink.700}",
+      "$extensions": {
+        "com.bindshq.stance.derive": {
+          "accent": "shade",
+          "of": "accent-bg",
+          "awayFrom": "accent-fg",
+          "amount": 0.3
+        }
+      }
     },
     "accent-fg": {
-      "$value": "{color.brand.ivory}"
+      "$value": "{color.brand.ivory}",
+      "$extensions": {
+        "com.bindshq.stance.derive": {
+          "accent": "foreground",
+          "on": "accent-bg"
+        }
+      }
     },
     "interactive-hover": {
       "$value": {
@@ -110,6 +172,11 @@
         "components": [0.0784, 0.0471, 0.1804],
         "alpha": 0.06,
         "hex": "#140C2E"
+      },
+      "$extensions": {
+        "com.bindshq.stance.derive": {
+          "from": "dark"
+        }
       }
     },
     "interactive-active": {
@@ -118,16 +185,35 @@
         "components": [0.0784, 0.0471, 0.1804],
         "alpha": 0.11,
         "hex": "#140C2E"
+      },
+      "$extensions": {
+        "com.bindshq.stance.derive": {
+          "from": "dark"
+        }
       }
     },
     "interactive-selected": {
       "$value": "{color.ink.50}"
     },
     "interactive-selected-fg": {
-      "$value": "{color.brand.indigo}"
+      "$value": "{color.brand.indigo}",
+      "$extensions": {
+        "com.bindshq.stance.derive": {
+          "accent": "text",
+          "against": ["bg-canvas", "bg-surface", "bg-subtle", "interactive-selected"],
+          "min": 4.5
+        }
+      }
     },
     "focus-ring": {
-      "$value": "{color.brand.indigo}"
+      "$value": "{color.brand.indigo}",
+      "$extensions": {
+        "com.bindshq.stance.derive": {
+          "accent": "ring",
+          "against": ["bg-canvas", "bg-surface", "focus-ring-offset"],
+          "min": 3
+        }
+      }
     },
     "focus-ring-offset": {
       "$value": "{color.brand.ivory}"

@@ -854,6 +854,157 @@ pre {
   }
 }
 
+/* ---------------- Brand playground ---------------- */
+.brand-playground {
+  display: grid;
+  grid-template-columns: 15rem minmax(0, 1fr);
+  margin: var(--st-space-4) 0;
+  border: var(--st-border-width) solid var(--st-color-border-default);
+  border-radius: var(--st-radius-xl);
+  overflow: hidden;
+}
+.brand-playground__controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-3);
+  padding: var(--st-space-4);
+  border-right: var(--st-border-width) solid var(--st-color-border-subtle);
+  background: var(--st-color-bg-subtle);
+}
+.brand-playground__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-1);
+}
+.brand-playground__field label {
+  font-size: var(--st-font-size-sm);
+  color: var(--st-color-fg-muted);
+}
+.brand-playground__inputs {
+  display: flex;
+  gap: var(--st-space-2);
+}
+.brand-playground__inputs input {
+  height: 2.25rem;
+  border: var(--st-border-width-control) solid var(--st-color-border-control);
+  border-radius: var(--st-radius-sm);
+  background: var(--st-color-bg-surface);
+  color: var(--st-color-fg-default);
+  font: inherit;
+  font-family: var(--st-font-mono);
+  font-size: var(--st-font-size-sm);
+}
+.brand-playground__inputs input[type='color'] {
+  flex: none;
+  width: 2.75rem;
+  padding: 2px;
+  cursor: pointer;
+}
+.brand-playground__inputs input[type='text'] {
+  min-width: 0;
+  flex: 1;
+  padding: 0 var(--st-space-2);
+}
+.brand-playground__inputs input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.brand-playground__inputs input:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: 1px;
+}
+.brand-playground__error {
+  margin: 0;
+  font-size: var(--st-font-size-xs);
+  color: var(--st-color-danger-fg);
+}
+.brand-playground__preview {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.brand-playground__pane {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--st-space-3);
+  min-width: 0;
+  padding: var(--st-space-5);
+}
+.brand-playground__label {
+  font-family: var(--st-font-mono);
+  font-size: var(--st-font-size-xs);
+  color: var(--st-color-fg-muted);
+}
+.brand-playground__title {
+  margin: 0;
+  font-weight: var(--st-font-weight-semibold);
+}
+.brand-playground__muted {
+  margin: 0;
+  font-size: var(--st-font-size-sm);
+  color: var(--st-color-fg-muted);
+}
+.brand-playground__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--st-space-2);
+}
+.brand-playground__report,
+.brand-playground__css {
+  grid-column: 1 / -1;
+  padding: var(--st-space-4) var(--st-space-5);
+  border-top: var(--st-border-width) solid var(--st-color-border-subtle);
+}
+.brand-playground__report h3,
+.brand-playground__css h3 {
+  margin: 0;
+  font-size: var(--st-font-size-md);
+}
+.brand-playground__report p {
+  margin: var(--st-space-2) 0 0;
+}
+.brand-playground__failures {
+  margin: var(--st-space-2) 0 0;
+  font-family: var(--st-font-mono);
+  font-size: var(--st-font-size-xs);
+  color: var(--st-color-fg-muted);
+}
+.brand-playground__css-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--st-space-3);
+}
+.brand-playground__css details {
+  margin-top: var(--st-space-3);
+}
+.brand-playground__css summary {
+  cursor: pointer;
+  color: var(--st-color-fg-muted);
+  font-size: var(--st-font-size-sm);
+}
+.brand-playground__css summary:focus-visible {
+  outline: var(--st-focus-width) solid var(--st-color-focus-ring);
+  outline-offset: 2px;
+}
+.brand-playground__css .site-code__pre {
+  max-height: 24rem;
+}
+@media (max-width: 1023px) {
+  .brand-playground {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .brand-playground__controls {
+    border-right: 0;
+    border-bottom: var(--st-border-width) solid var(--st-color-border-subtle);
+  }
+}
+@media (max-width: 767px) {
+  .brand-playground__preview {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* ---------------- Component index ---------------- */
 .component-index__search {
   display: flex;

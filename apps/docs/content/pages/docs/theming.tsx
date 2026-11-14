@@ -1,3 +1,4 @@
+import { BrandPlayground } from '../../../components/brand-playground';
 import { Code } from '../../../components/code';
 
 export default function Theming() {
@@ -20,6 +21,55 @@ export default function Theming() {
           the OS requests more contrast.
         </li>
       </ul>
+      <h2 id="your-brand">Your brand</h2>
+      <p>
+        Make Stance yours: generate a full palette from your own brand colours. This is optional;
+        the default palette works as it is.
+      </p>
+      <p>
+        Give Stance your lightest and your darkest colour, and an accent if you have one. Stance
+        builds the neutral scale and every role in all three themes from them, the same way on the
+        web, iOS and Android.
+      </p>
+      <h3 id="brand-css-file">A stylesheet at build time</h3>
+      <Code
+        language="bash"
+        code={`npx stance-brand --light '#F7F5F0' --dark '#101B2D' --name Acme > app/brand.css`}
+      />
+      <p>
+        Load it after the token stylesheet. Add <code>--accent</code> for a separate action colour,{' '}
+        <code>--out</code> to write a file, and <code>--check</code> to fail CI when a contrast
+        check fails. The same output is available in code:
+      </p>
+      <Code
+        code={`import '@bindshq/stance-tokens/css';
+import './brand.css';
+import '@bindshq/stance-react/styles.css';
+
+// Or generate it in your own build script:
+import { createBrandTheme } from '@bindshq/stance-tokens';
+
+const { css, report } = createBrandTheme({ name: 'Acme', light: '#F7F5F0', dark: '#101B2D' });`}
+      />
+      <h3 id="brand-runtime">A brand at runtime</h3>
+      <p>
+        Products that switch brands while running, such as one app serving many customers, pass the
+        brand to <code>ThemeProvider</code>. It applies to everything inside the provider, in every
+        theme.
+      </p>
+      <Code
+        code={`import { ThemeProvider, type Brand } from '@bindshq/stance-react';
+
+const acme: Brand = { name: 'Acme', light: '#F7F5F0', dark: '#101B2D', accent: '#0A7C66' };
+
+<ThemeProvider brand={acme}>{children}</ThemeProvider>`}
+      />
+      <h3 id="brand-playground">Try your colours</h3>
+      <p>
+        An accent keeps its hue. Where it would be hard to read, Stance adjusts its lightness for
+        that theme, so links, buttons and focus rings pass every contrast check.
+      </p>
+      <BrandPlayground />
       <h2 id="how-it-works">How it works</h2>
       <p>
         The theme is a <code>data-theme</code> attribute. On <code>&lt;html&gt;</code> it sets the
@@ -100,6 +150,15 @@ export default function Theming() {
               </th>
               <td>None</td>
               <td>Locks a page to one theme.</td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <code>brand</code>
+              </th>
+              <td>None</td>
+              <td>
+                Your brand colours for the subtree. See <a href="#your-brand">Your brand</a>.
+              </td>
             </tr>
           </tbody>
         </table>

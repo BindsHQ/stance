@@ -3,11 +3,11 @@
     {
       "name": "StanceThemeProvider",
       "category": "theming",
-      "summary": "Applies the Stance theme at the app root, persists the preference and avoids a wrong-theme flash at launch.",
+      "summary": "Applies the Stance theme at the app root, keeps the preference, avoids a wrong-theme flash, and can build the palette from your brand.",
       "kind": "view",
       "wrapsNative": "Environment, AppStorage",
       "status": "stable",
-      "example": "StanceThemeProvider { Text(\"Hello\") }",
+      "example": "StanceThemeProvider(brand: StanceBrand(name: \"Acme\", light: \"#F2F8FF\", dark: \"#0A1A50\", accent: \"#FF5A36\")) { Text(\"Hello\") }",
       "accessibility": [
         "System mode follows the colour scheme and Increase Contrast",
         "Preference is read before the first frame"

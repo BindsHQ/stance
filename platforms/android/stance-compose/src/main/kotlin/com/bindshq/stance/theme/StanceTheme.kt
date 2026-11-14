@@ -13,6 +13,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
@@ -27,6 +28,8 @@ private val LocalStanceShapes = staticCompositionLocalOf { StanceShapes() }
 private val LocalStanceElevation = staticCompositionLocalOf { StanceElevation.from(StanceTokens.light) }
 private val LocalStanceMotion = staticCompositionLocalOf { StanceMotion(reduceMotion = false) }
 private val LocalStanceThemeTokens = staticCompositionLocalOf { StanceTokens.light }
+private val LocalStanceBaseTokens = staticCompositionLocalOf { StanceTokens.light }
+private val LocalStanceBrand = staticCompositionLocalOf { StanceBrand.Binds }
 
 /**
  * Applies the Stance theme to [content].
@@ -34,36 +37,83 @@ private val LocalStanceThemeTokens = staticCompositionLocalOf { StanceTokens.lig
  * Provides Stance's semantic colours, typography, shapes, elevation and motion, and bridges them
  * into [MaterialTheme], so Material 3 components used inside are on-brand without extra work.
  *
- * Dynamic colour (Material You) is intentionally not used: Binds has exactly two brand colours,
- * ivory and indigo, and every Stance theme is derived from them.
+ * Material You dynamic colour is not used, so the palette stays consistent across devices. To
+ * use your own colours, pass a [brand]; light, dark and high contrast all follow it.
  *
  * @param appearance The person's preference. [StanceAppearance.System] follows dark theme and contrast settings.
  * @param fontFamily Typeface for the type scale. Defaults to the platform typeface.
+ * @param brand Optional brand palette. Null uses the brand already in scope, which is the default palette unless an outer [StanceTheme] or [StanceBrandScope] set one.
  */
 @Composable
 public fun StanceTheme(
     appearance: StanceAppearance = StanceAppearance.System,
     fontFamily: FontFamily = FontFamily.Default,
+    brand: StanceBrand? = null,
     content: @Composable () -> Unit,
 ) {
-    StanceTheme(tokens = rememberStanceThemeTokens(appearance), fontFamily = fontFamily, content = content)
+    StanceTheme(tokens = rememberStanceThemeTokens(appearance), fontFamily = fontFamily, brand = brand, content = content)
 }
 
-/** Applies an explicit set of theme tokens. Useful for previews, tests and scoped themes. */
+/**
+ * Applies an explicit set of theme tokens. Useful for previews, tests and scoped themes.
+ *
+ * With a [brand] other than the default palette, the colours of [tokens] are replaced by the
+ * brand's colours for the theme of the same name; everything else in [tokens] is kept.
+ */
 @Composable
 public fun StanceTheme(
     tokens: StanceThemeTokens,
     fontFamily: FontFamily = FontFamily.Default,
+    brand: StanceBrand? = null,
+    content: @Composable () -> Unit,
+) {
+    val typography = remember(fontFamily) { stanceTypography(fontFamily) }
+    ProvideStanceTheme(base = tokens, brand = brand ?: LocalStanceBrand.current, typography = typography, content = content)
+}
+
+/**
+ * Applies [brand] to [content] only, keeping the active theme (light, dark or high contrast) and
+ * typography. Every Stance component inside picks the brand up with no other change.
+ *
+ * ```kotlin
+ * StanceBrandScope(StanceBrand("Acme", light = "#F2F8FF", dark = "#0A1A50")) {
+ *     StanceButton("Upgrade", onClick = {})
+ * }
+ * ```
+ */
+@Composable
+public fun StanceBrandScope(brand: StanceBrand, content: @Composable () -> Unit) {
+    ProvideStanceTheme(
+        base = LocalStanceBaseTokens.current,
+        brand = brand,
+        typography = LocalStanceTypography.current,
+        content = content,
+    )
+}
+
+@Composable
+private fun ProvideStanceTheme(
+    base: StanceThemeTokens,
+    brand: StanceBrand,
+    typography: StanceTypography,
     content: @Composable () -> Unit,
 ) {
     val context = LocalContext.current
+    // StanceBrand caches its resolution; remembering the instance keeps it across recompositions
+    // even when an equal brand is created inline each time.
+    val rememberedBrand = remember(brand) { brand }
+    val tokens = remember(rememberedBrand, base) { rememberedBrand.themeTokens(base) }
+    if (!rememberedBrand.isDefault) {
+        LaunchedEffect(rememberedBrand) { logBrandContrastOnce(context, rememberedBrand) }
+    }
     val colors = remember(tokens) { StanceColors(tokens.colors) }
-    val typography = remember(fontFamily) { stanceTypography(fontFamily) }
     val shapes = remember { StanceShapes() }
     val elevation = remember(tokens) { StanceElevation.from(tokens) }
     val motion = remember(context) { StanceMotion(reduceMotion = isReduceMotionEnabled(context)) }
 
     CompositionLocalProvider(
+        LocalStanceBrand provides rememberedBrand,
+        LocalStanceBaseTokens provides base,
         LocalStanceThemeTokens provides tokens,
         LocalStanceColors provides colors,
         LocalStanceTypography provides typography,
@@ -109,6 +159,10 @@ public object StanceTheme {
     /** The raw tokens of the active theme, including its name and border and focus widths. */
     public val tokens: StanceThemeTokens
         @Composable @ReadOnlyComposable get() = LocalStanceThemeTokens.current
+
+    /** The brand in scope. [StanceBrand.Binds] when none was set. */
+    public val brand: StanceBrand
+        @Composable @ReadOnlyComposable get() = LocalStanceBrand.current
 
     /** True when the high-contrast theme is active. */
     public val isHighContrast: Boolean

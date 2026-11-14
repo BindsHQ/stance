@@ -19,6 +19,23 @@ struct SettingsView: View {
                 )
                 .stanceCard()
             }
+            StanceSection("Brand") {
+                // The enclosing NavigationStack comes from StanceAdaptiveNavigation.
+                NavigationLink {
+                    BrandView()
+                } label: {
+                    StanceListRow("Make Stance yours", subtitle: "Your colours, in every theme") {
+                        StanceIcon(.palette, size: 22)
+                            .frame(width: 44, height: 44)
+                            .background(theme.colors.bgMuted, in: RoundedRectangle(cornerRadius: StanceRadius.md, style: .continuous))
+                    } trailing: {
+                        StanceIcon(.chevronRight, size: 16).foregroundStyle(theme.colors.fgSubtle)
+                    }
+                    .stanceCard(padding: StanceSpacing.md)
+                }
+                .buttonStyle(.plain)
+                .accessibilityIdentifier("brand-theming")
+            }
             StanceSection("Accessibility", caption: "What StanceUI is responding to on this device right now.") {
                 StanceDescriptionList([
                     ("Active theme", theme.mode.rawValue),

@@ -24,7 +24,7 @@ enum ComponentExamples {
         @State var rating: StanceRating?
         @State var selection: String?
         var body: some View {
-            StanceThemeProvider { Text("Hello") }
+            StanceThemeProvider(brand: StanceBrand(name: "Acme", light: "#F2F8FF", dark: "#0A1A50", accent: "#FF5A36")) { Text("Hello") }
         }
     }
 

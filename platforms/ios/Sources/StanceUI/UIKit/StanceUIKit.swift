@@ -1,4 +1,5 @@
 #if canImport(UIKit)
+import os
 import StanceTokens
 import SwiftUI
 import UIKit
@@ -17,22 +18,40 @@ extension UIColor {
 /// label.font = StanceUIKit.font(.heading)                    // scales with Dynamic Type
 /// label.adjustsFontForContentSizeCategory = true
 /// ```
+///
+/// To use your own brand in UIKit, set ``brand`` once at launch, or pass one per lookup:
+///
+/// ```swift
+/// StanceUIKit.brand = acme
+/// ```
 public enum StanceUIKit {
+    private static let brandStorage = OSAllocatedUnfairLock(initialState: StanceBrand.binds)
+
+    /// The brand UIKit colour lookups and ``hostingController(rootView:)`` use when none is passed.
+    /// ``StanceBrand/binds`` (the default palette) unless you set one. Dynamic colours read it each
+    /// time they resolve, so a change applies on the next redraw.
+    public static var brand: StanceBrand {
+        get { brandStorage.withLock { $0 } }
+        set { brandStorage.withLock { $0 = newValue } }
+    }
+
     /// A dynamic colour that follows the system appearance: dark mode selects the dark theme and
     /// Increase Contrast selects the high-contrast theme, matching `StanceAppearance.system`.
-    public static func color(_ role: KeyPath<StanceColorTokens, StanceRGBA>) -> UIColor {
+    /// - Parameter brand: The brand to use; `nil` uses ``brand``.
+    public static func color(_ role: KeyPath<StanceColorTokens, StanceRGBA>, brand: StanceBrand? = nil) -> UIColor {
         UIColor { traits in
             let mode = StanceAppearance.system.resolve(
                 colorScheme: traits.userInterfaceStyle == .dark ? .dark : .light,
                 increasedContrast: traits.accessibilityContrast == .high
             )
-            return UIColor(StanceTheme(mode: mode).tokens.colors[keyPath: role])
+            return UIColor((brand ?? Self.brand).colors(for: mode)[keyPath: role])
         }
     }
 
     /// A fixed colour for an explicit theme.
-    public static func color(_ role: KeyPath<StanceColorTokens, StanceRGBA>, in mode: StanceTheme.Mode) -> UIColor {
-        UIColor(StanceTheme(mode: mode).tokens.colors[keyPath: role])
+    /// - Parameter brand: The brand to use; `nil` uses ``brand``.
+    public static func color(_ role: KeyPath<StanceColorTokens, StanceRGBA>, in mode: StanceTheme.Mode, brand: StanceBrand? = nil) -> UIColor {
+        UIColor((brand ?? Self.brand).colors(for: mode)[keyPath: role])
     }
 
     /// A font for a Stance text style, scaled for the current Dynamic Type size.
@@ -67,10 +86,12 @@ public enum StanceUIKit {
     }
 
     /// Hosts a StanceUI view in UIKit with the Stance theme applied.
+    /// - Parameter brand: The brand to use; `nil` uses ``brand``.
     @MainActor
-    public static func hostingController<Content: View>(@ViewBuilder rootView: () -> Content) -> UIViewController {
-        let controller = UIHostingController(rootView: StanceThemeProvider { rootView() })
-        controller.view.backgroundColor = color(\.bgCanvas)
+    public static func hostingController<Content: View>(brand: StanceBrand? = nil, @ViewBuilder rootView: () -> Content) -> UIViewController {
+        let brand = brand ?? Self.brand
+        let controller = UIHostingController(rootView: StanceThemeProvider(brand: brand) { rootView() })
+        controller.view.backgroundColor = color(\.bgCanvas, brand: brand)
         return controller
     }
 }

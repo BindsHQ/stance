@@ -79,15 +79,22 @@ fun ShowcaseApp(
     onAppearanceChange: (StanceAppearance) -> Unit,
     initialDestination: Destination = Destination.Foundations,
     windowWidth: StanceWindowWidth = rememberStanceWindowWidth(),
+    initialBrandOpen: Boolean = false,
 ) {
     var selected by rememberSaveable { mutableIntStateOf(initialDestination.ordinal) }
+    // The Brand screen opens from Foundations and returns there with up or back.
+    var brandOpen by rememberSaveable { mutableStateOf(initialBrandOpen) }
     val snackbars = remember { SnackbarHostState() }
-    BackHandler(enabled = selected != 0) { selected = 0 }
+    BackHandler(enabled = selected != 0 && !brandOpen) { selected = 0 }
+    BackHandler(enabled = brandOpen) { brandOpen = false }
 
     StanceAdaptiveNavigation(
         items = navigationItems,
         selectedIndex = selected,
-        onSelect = { selected = it },
+        onSelect = {
+            selected = it
+            brandOpen = false
+        },
         windowWidth = windowWidth,
         snackbarHostState = snackbars,
         header = {
@@ -98,12 +105,22 @@ fun ShowcaseApp(
             )
         },
         topBar = {
-            StanceTopAppBar(Destination.entries[selected].label) {
-                ThemeMenu(appearance, onAppearanceChange)
+            if (brandOpen) {
+                StanceTopAppBar("Brand", onNavigateUp = { brandOpen = false }) {
+                    ThemeMenu(appearance, onAppearanceChange)
+                }
+            } else {
+                StanceTopAppBar(Destination.entries[selected].label) {
+                    ThemeMenu(appearance, onAppearanceChange)
+                }
             }
         },
     ) { padding ->
-        DestinationContent(Destination.entries[selected], padding, appearance, onAppearanceChange, snackbars)
+        if (brandOpen) {
+            BrandScreen(padding)
+        } else {
+            DestinationContent(Destination.entries[selected], padding, appearance, onAppearanceChange, snackbars, onOpenBrand = { brandOpen = true })
+        }
     }
 }
 
@@ -114,9 +131,10 @@ private fun DestinationContent(
     appearance: StanceAppearance,
     onAppearanceChange: (StanceAppearance) -> Unit,
     snackbars: SnackbarHostState,
+    onOpenBrand: () -> Unit,
 ) {
     when (destination) {
-        Destination.Foundations -> FoundationsScreen(padding)
+        Destination.Foundations -> FoundationsScreen(padding, onOpenBrand)
         Destination.Components -> ComponentsScreen(padding)
         Destination.Sample -> SampleScreen(padding, snackbars)
         Destination.Accessibility -> AccessibilityScreen(padding, appearance, onAppearanceChange)

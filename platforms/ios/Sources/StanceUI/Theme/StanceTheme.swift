@@ -39,21 +39,32 @@ public struct StanceTheme: Equatable, Sendable {
     }
 
     public let mode: Mode
+    /// The generated tokens for `mode`: dimensions, shadows and the default palette's colours.
+    /// Components read colours from ``colors``, which carries the brand.
     public let tokens: StanceThemeTokens
+    /// The semantic colours for `mode`, from ``brand``.
     public let colors: StanceColors
+    /// The brand the colours come from. ``StanceBrand/binds`` (the default) uses the generated
+    /// tokens as they are.
+    public let brand: StanceBrand
     /// Optional custom font family (for example "DM Sans" when the app bundles it).
     /// `nil` uses the system font, which is the default on Apple platforms.
     public var fontFamily: String?
 
-    public init(mode: Mode, fontFamily: String? = nil) {
+    public init(mode: Mode, brand: StanceBrand = .binds, fontFamily: String? = nil) {
         self.mode = mode
-        switch mode {
-        case .light: tokens = StanceTokens.light
-        case .dark: tokens = StanceTokens.dark
-        case .highContrast: tokens = StanceTokens.highContrast
-        }
-        colors = StanceColors(tokens.colors)
+        self.brand = brand
+        tokens = Self.defaultTokens(for: mode)
+        colors = StanceColors(brand.colors(for: mode))
         self.fontFamily = fontFamily
+    }
+
+    static func defaultTokens(for mode: Mode) -> StanceThemeTokens {
+        switch mode {
+        case .light: StanceTokens.light
+        case .dark: StanceTokens.dark
+        case .highContrast: StanceTokens.highContrast
+        }
     }
 
     public static let light = StanceTheme(mode: .light)
@@ -123,4 +134,15 @@ extension EnvironmentValues {
         get { self[StanceThemeKey.self] }
         set { self[StanceThemeKey.self] = newValue }
     }
+
+    /// The active brand. Set by ``StanceThemeProvider/init(brand:fontFamily:content:)`` or
+    /// `.stanceBrand(_:)`; ``StanceBrand/binds`` by default.
+    public var stanceBrand: StanceBrand {
+        get { self[StanceBrandKey.self] }
+        set { self[StanceBrandKey.self] = newValue }
+    }
+}
+
+private struct StanceBrandKey: EnvironmentKey {
+    static let defaultValue = StanceBrand.binds
 }

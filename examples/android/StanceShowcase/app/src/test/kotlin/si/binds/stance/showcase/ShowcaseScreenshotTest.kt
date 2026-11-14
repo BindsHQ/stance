@@ -1,10 +1,16 @@
 package si.binds.stance.showcase
 
+import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.performSemanticsAction
+import androidx.compose.ui.semantics.SemanticsActions
 import com.bindshq.stance.foundation.StanceWindowWidth
 import com.bindshq.stance.theme.StanceAppearance
 import com.bindshq.stance.theme.StanceTheme
@@ -76,6 +82,40 @@ class ShowcaseScreenshotTest {
     @Test fun tabletSampleDark() = capture("tablet", tablet, StanceWindowWidth.Expanded, StanceTokens.dark, Destination.Sample)
 
     @Test fun tabletComponentsHighContrast() = capture("tablet", tablet, StanceWindowWidth.Expanded, StanceTokens.highContrast, Destination.Components)
+
+    @Test
+    fun phoneBrandDark() {
+        RuntimeEnvironment.setQualifiers(phone)
+        rule.setContent {
+            StanceTheme(tokens = StanceTokens.dark) {
+                ShowcaseApp(StanceAppearance.System, onAppearanceChange = {}, windowWidth = StanceWindowWidth.Compact, initialBrandOpen = true)
+            }
+        }
+        rule.waitForIdle()
+        rule.onRoot().captureRoboImage(File(output, "phone-brand-dark.png").path)
+    }
+
+    @Test
+    fun brandScreenOpensFromFoundationsAndNavigatesUp() {
+        RuntimeEnvironment.setQualifiers(phone)
+        rule.setContent {
+            StanceTheme(tokens = StanceTokens.light) {
+                ShowcaseApp(StanceAppearance.System, onAppearanceChange = {}, windowWidth = StanceWindowWidth.Compact)
+            }
+        }
+        // Five tabs; Brand is not one of them.
+        rule.onAllNodesWithText("Brand").assertCountEquals(1)
+        // The row sits at the end of Foundations; trigger its click action directly so the
+        // bottom bar drawn over the scrolled content cannot intercept the tap.
+        rule.onNodeWithText("Make Stance yours").performScrollTo().performSemanticsAction(SemanticsActions.OnClick)
+        rule.onNodeWithContentDescription("Navigate up").assertIsDisplayed()
+        rule.onNodeWithText("Make Stance yours").assertIsDisplayed()
+        rule.onNodeWithText("Graphite").performClick()
+        rule.onNodeWithText("Every contrast check passes in all three themes.").performScrollTo().assertIsDisplayed()
+        rule.onNodeWithContentDescription("Navigate up").performClick()
+        rule.onNodeWithText("Typography").assertExists()
+        rule.onAllNodesWithText("Graphite").assertCountEquals(0)
+    }
 
     @Test
     fun navigationSwitchesDestinations() {

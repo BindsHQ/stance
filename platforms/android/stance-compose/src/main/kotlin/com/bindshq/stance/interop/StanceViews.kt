@@ -12,6 +12,7 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.bindshq.stance.components.actions.StanceButton
 import com.bindshq.stance.components.actions.StanceButtonVariant
 import com.bindshq.stance.theme.StanceAppearance
+import com.bindshq.stance.theme.StanceBrand
 import com.bindshq.stance.theme.StanceTheme
 
 /**
@@ -22,13 +23,15 @@ import com.bindshq.stance.theme.StanceTheme
  * ```
  *
  * The composition is disposed with the view tree's lifecycle, which is correct inside fragments.
+ * Pass a [brand] to use your own palette in this region; null uses the default palette.
  */
 public fun ComposeView.setStanceContent(
     appearance: StanceAppearance = StanceAppearance.System,
+    brand: StanceBrand? = null,
     content: @Composable () -> Unit,
 ) {
     setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-    setContent { StanceTheme(appearance = appearance, content = content) }
+    setContent { StanceTheme(appearance = appearance, brand = brand, content = content) }
 }
 
 /**
@@ -63,6 +66,9 @@ public class StanceButtonView @JvmOverloads constructor(
     /** The appearance used for this view's theme. */
     public var appearance: StanceAppearance by mutableStateOf(StanceAppearance.System)
 
+    /** Optional brand palette for this view. Null uses the default palette. */
+    public var brand: StanceBrand? by mutableStateOf(null)
+
     private var enabledState by mutableStateOf(true)
     private var clickListener: OnClickListener? = null
 
@@ -81,7 +87,7 @@ public class StanceButtonView @JvmOverloads constructor(
 
     @Composable
     override fun Content() {
-        StanceTheme(appearance = appearance) {
+        StanceTheme(appearance = appearance, brand = brand) {
             StanceButton(
                 text = text,
                 onClick = { clickListener?.onClick(this) },

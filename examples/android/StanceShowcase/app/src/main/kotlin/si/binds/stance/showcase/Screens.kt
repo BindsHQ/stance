@@ -36,6 +36,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.dp
 import com.bindshq.stance.components.actions.StanceButton
 import com.bindshq.stance.components.actions.StanceButtonGroup
 import com.bindshq.stance.components.actions.StanceButtonVariant
@@ -65,12 +66,12 @@ import com.bindshq.stance.theme.StanceTheme
 import kotlinx.coroutines.launch
 
 @Composable
-private fun SectionTitle(text: String) {
+internal fun SectionTitle(text: String) {
     Text(text, style = StanceTheme.typography.headingSmall, modifier = Modifier.padding(top = StanceSpacing.space4).semantics { heading() })
 }
 
 @Composable
-private fun Page(padding: PaddingValues, content: @Composable () -> Unit) {
+internal fun Page(padding: PaddingValues, content: @Composable () -> Unit) {
     // Content keeps a readable measure on tablets and unfolded devices instead of stretching.
     Box(
         modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(padding),
@@ -104,7 +105,7 @@ private fun Swatch(name: String, color: Color) {
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun FoundationsScreen(padding: PaddingValues) {
+fun FoundationsScreen(padding: PaddingValues, onOpenBrand: () -> Unit = {}) {
     val c = StanceTheme.colors
     val type = StanceTheme.typography
     Page(padding) {
@@ -159,6 +160,17 @@ fun FoundationsScreen(padding: PaddingValues) {
         SectionTitle("Icons")
         FlowRow(horizontalArrangement = Arrangement.spacedBy(StanceSpacing.space3), verticalArrangement = Arrangement.spacedBy(StanceSpacing.space3)) {
             StanceIcons.all.take(40).forEach { (name, icon) -> StanceIcon(icon, contentDescription = name, size = StanceSizes.iconLarge) }
+        }
+
+        SectionTitle("Brand")
+        StanceCard(modifier = Modifier.fillMaxWidth(), contentPadding = PaddingValues(0.dp)) {
+            StanceListItem(
+                headline = "Make Stance yours",
+                supporting = "Try your own colours in every theme",
+                leading = { StanceIcon(StanceIcons.PenNib, contentDescription = null) },
+                trailing = { StanceIcon(StanceIcons.ChevronRight, contentDescription = null) },
+                onClick = onOpenBrand,
+            )
         }
     }
 }
